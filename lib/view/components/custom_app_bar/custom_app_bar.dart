@@ -37,10 +37,10 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
         children: [
           const SizedBox(width: 20),
           const Spacer(),
-          CustomImage(
-            imageSrc: AppIcons.connection,
-            imageColor: AppColors.primary,
-          ),
+          // CustomImage(
+          //   imageSrc: AppIcons.connection,
+          //   imageColor: AppColors.primary,
+          // ),
           const SizedBox(width: 6),
           CustomText(text: title, fontSize: 16, fontWeight: FontWeight.w700),
           const Spacer(flex: 2),

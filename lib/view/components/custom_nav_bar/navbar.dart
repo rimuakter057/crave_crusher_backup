@@ -155,19 +155,21 @@ class _NavBarState extends State<NavBar> {
 
   List<String> unselectedIcon = [
     AppIcons.home,
-    AppIcons.connection,
-    AppIcons.chat,
-    AppIcons.parson,
+    AppIcons.battle,
+    AppIcons.community,
+    AppIcons.reward,
+    AppIcons.profile,
   ];
 
   List<IconData> icons = [Icons.language, Icons.person];
   List<IconData> icons2 = [Icons.language_outlined, Icons.person_outline];
 
   List<String> selectedIcon = [
-    AppIcons.home,
-    AppIcons.connection,
-    AppIcons.chat,
-    AppIcons.parson,
+    AppIcons.selectHome,
+    AppIcons.selectedBattale,
+    AppIcons.selectCommunity,
+    AppIcons.selectReward,
+    AppIcons.selectProfile,
   ];
   final List<String> userNavText = [
     // AppStrings.home,
@@ -214,16 +216,6 @@ class _NavBarState extends State<NavBar> {
                           ? AppColors.primary
                           : AppColors.black,
                 ),
-                // CustomText(
-                //   textAlign: TextAlign.center,
-                //   text: userNavText[index],
-                //   color:
-                //       index == bottomNavIndex
-                //           ? AppColors.primary
-                //           : AppColors.black,
-                //   fontSize: 12.w,
-                //   fontWeight: FontWeight.w400,
-                // ),
               ],
             ),
           ),
