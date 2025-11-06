@@ -18,6 +18,8 @@ class AppColors {
   static const Color statusshiping = Color(0xff34C759);
   static const Color statusDelivered = Color(0xff2A56B4);
   static const Color fillColor = Color(0xffDDE3FA);
+  static const Color softGreen = Color(0xffF0FDF4);
+  static const Color green = Color(0xff22C55E);
 
   static const Color red = Color(0xffFF0000);
 

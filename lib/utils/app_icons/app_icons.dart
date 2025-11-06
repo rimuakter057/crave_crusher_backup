@@ -20,16 +20,18 @@ class AppIcons {
   static const String selectProfile = "$basePath/selectProfile.svg";
   static const String battlePrimaryColor = "$basePath/battlePrimaryColor.svg";
   static const String happyMonstar = "$basePath/happyMonstar.png";
-  static const String junkFood = "$basePath/junkFood.svg";
+  static const String junkFood = "$basePath/junkFood.png";
   static const String notification = "$basePath/notification.svg";
-  static const String savingsMoney = "$basePath/savingsMoney.svg";
-  static const String shopping = "$basePath/shopping.svg";
-  static const String socialMedia = "$basePath/socialMedia.svg";
+  static const String savingsMoney = "$basePath/savingsMoney.png";
+  static const String shopping = "$basePath/shopping.png";
+  static const String socialMedia = "$basePath/socialMedia.png";
   static const String tipsIcon = "$basePath/tipsIcon.svg";
-  static const String toxicRelationshipe = "$basePath/toxicRelationshipe.svg";
+  static const String toxicRelationshipe = "$basePath/toxicRelationshipe.png";
   static const String appLogoSmall = "$basePath/appLogoSmall.svg";
   static const String tipsCircular = "$basePath/tipsCircular.svg";
   static const String tipsPng = "$basePath/tipsPng.png";
+  static const String smallMonster = "$basePath/smallMonster.png";
+  static const String smoke = "$basePath/smoke.png";
   static const String tipsBackground = "$basePath/tipsBackground.png";
   static const String todayTipsBackgroundImage =
       "$basePath/todayTipsBackgroundImage.svg";
