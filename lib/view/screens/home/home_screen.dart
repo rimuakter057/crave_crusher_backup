@@ -1,9 +1,11 @@
 import 'package:crave_crusher/utils/app_colors/app_colors.dart';
+import 'package:crave_crusher/utils/app_icons/app_icons.dart';
 import 'package:crave_crusher/view/components/custom_button/custom_button.dart';
 import 'package:crave_crusher/view/components/custom_image/custom_image.dart';
 import 'package:crave_crusher/view/components/custom_nav_bar/navbar.dart';
 import 'package:crave_crusher/view/components/custom_text/custom_text.dart';
 import 'package:crave_crusher/view/screens/home/widget/home_appbar.dart';
+import 'package:crave_crusher/view/screens/home/widget/today_tips.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
@@ -20,6 +22,7 @@ class HomeScreen extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             // Tip and Monster Section
+            TodayTips(),
             const _TipAndMonsterSection(),
 
             SizedBox(height: 24.h),
@@ -79,46 +82,6 @@ class HomeScreen extends StatelessWidget {
       bottomNavigationBar: NavBar(currentIndex: 0),
     );
   }
-
-  AppBar _buildAppBar() {
-    return AppBar(
-      backgroundColor: AppColors.white,
-      elevation: 0,
-      title: Row(
-        children: [
-          const CustomImage(
-            imageSrc: 'assets/icons/logo_small.svg', // Placeholder logo
-            height: 24,
-            width: 24,
-          ),
-          SizedBox(width: 8.w),
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              CustomText(
-                text: "Hello Sheena",
-                fontWeight: FontWeight.w600,
-                fontSize: 18.w,
-                color: AppColors.black_02,
-              ),
-              CustomText(
-                text: "Welcome to Crave Crusher",
-                fontWeight: FontWeight.w400,
-                fontSize: 12.w,
-                color: AppColors.softWhite,
-              ),
-            ],
-          ),
-        ],
-      ),
-      actions: [
-        Padding(
-          padding: EdgeInsets.only(right: 16.w),
-          child: const Icon(Icons.notifications, color: AppColors.black),
-        ),
-      ],
-    );
-  }
 }
 
 // SOLID Principle (SRP): Ei widget-ti shudhu Tip o Monster UI render korar kaaj korche.
@@ -131,40 +94,6 @@ class _TipAndMonsterSection extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         // Tip for Today Title
-        Padding(
-          padding: EdgeInsets.only(bottom: 12.h),
-          child: const Row(
-            children: [
-              Icon(Icons.lightbulb_outline, color: AppColors.black),
-              SizedBox(width: 8),
-              CustomText(
-                text: "Tip for Today",
-                fontWeight: FontWeight.w600,
-                fontSize: 18,
-              ),
-            ],
-          ),
-        ),
-
-        // Tip Card
-        Container(
-          padding: EdgeInsets.all(16.w),
-          decoration: BoxDecoration(
-            color: AppColors.subPrimary.withOpacity(0.5), // Lighter shade
-            borderRadius: BorderRadius.circular(12),
-          ),
-          child: CustomText(
-            text: 'Tip for Today', // Apni AppStrings e add korte paren
-            textAlign: TextAlign.center,
-            fontSize: 14.w,
-            fontWeight: FontWeight.w600,
-            color: AppColors.appTitle, // Darker text color
-            maxLines: 5,
-            bottom: 0,
-            top: 0,
-          ),
-        ),
-
         SizedBox(height: 24.h),
 
         // Your Monster Today Title
@@ -189,10 +118,10 @@ class _TipAndMonsterSection extends StatelessWidget {
         // Monster Image
         Center(
           child: CustomImage(
-            imageSrc: 'assets/images/monster.png', // Placeholder Monster PNG
+            imageSrc: AppIcons.happyMonstar, // Placeholder Monster PNG
             height: 200.h,
             width: 200.w,
-            imageType: ImageType.png,
+            //imageType: ImageType.png,
           ),
         ),
 
@@ -256,7 +185,11 @@ class _ActiveBattleCard extends StatelessWidget {
               // Icon and Title
               Row(
                 children: [
-                  CustomImage(imageSrc: iconSrc, height: 24.h, width: 24.w),
+                  CustomImage(
+                    imageSrc: AppIcons.notification,
+                    height: 24.h,
+                    width: 24.w,
+                  ),
                   SizedBox(width: 10.w),
                   CustomText(
                     text: title,
