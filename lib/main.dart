@@ -1,3 +1,5 @@
+// ignore_for_file: deprecated_member_use
+
 import 'package:crave_crusher/core/dependency/dependency_injection.dart';
 import 'package:crave_crusher/core/routes/app_routes.dart';
 import 'package:crave_crusher/utils/app_colors/app_colors.dart';
@@ -33,7 +35,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ScreenUtilInit(
-      designSize: const Size(393, 852),
+      designSize: const Size(390, 870),
       minTextAdapt: true,
       splitScreenMode: true,
       builder: (context, child) {
@@ -130,6 +132,7 @@ class CustomTheme {
         toolbarHeight: 65,
         elevation: 0,
         centerTitle: true,
+
         backgroundColor: AppColors.primary.withOpacity(.99),
         iconTheme: const IconThemeData(color: Colors.black),
         titleTextStyle: const TextStyle(

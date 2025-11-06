@@ -56,17 +56,6 @@ class _CustomImageState extends State<CustomImage> {
       );
     }
 
-    /* if (widget.imageType == ImageType.svg) {
-      imageWidget = SvgPicture.asset(
-        widget.imageSrc,
-        // ignore: deprecated_member_use
-        color: widget.imageColor,
-        height: widget.height,
-        width: widget.width,
-        fit: widget.boxFit ?? BoxFit.cover,
-      );
-    }*/
-
     if (widget.imageSrc.endsWith('png')) {
       imageWidget = Image.asset(
         fit: widget.fit,

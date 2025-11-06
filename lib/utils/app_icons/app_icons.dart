@@ -18,4 +18,13 @@ class AppIcons {
   static const String selectHome = "$basePath/selectHome.svg";
   static const String selectReward = "$basePath/selectReward.svg";
   static const String selectProfile = "$basePath/selectProfile.svg";
+  static const String battlePrimaryColor = "$basePath/battlePrimaryColor.svg";
+  static const String happyMonstar = "$basePath/happyMonstar.svg";
+  static const String junkFood = "$basePath/junkFood.svg";
+  static const String notification = "$basePath/notification.svg";
+  static const String savingsMoney = "$basePath/savingsMoney.svg";
+  static const String shopping = "$basePath/shopping.svg";
+  static const String socialMedia = "$basePath/socialMedia.svg";
+  static const String tipsIcon = "$basePath/tipsIcon.svg";
+  static const String toxicRelationshipe = "$basePath/toxicRelationshipe.svg";
 }

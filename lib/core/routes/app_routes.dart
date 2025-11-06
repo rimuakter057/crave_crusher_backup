@@ -1,6 +1,6 @@
-import 'package:crave_crusher/view/screen/auth/screen/login_screen.dart';
-import 'package:crave_crusher/view/screen/home/home_screen.dart';
-import 'package:crave_crusher/view/screen/splash/splash_screen.dart';
+import 'package:crave_crusher/view/screens/auth/screen/login_screen.dart';
+import 'package:crave_crusher/view/screens/home/home_screen.dart';
+import 'package:crave_crusher/view/screens/splash/splash_screen.dart';
 import 'package:get/get.dart';
 
 ///=========================App Routes=========================
