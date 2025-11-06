@@ -50,7 +50,7 @@ class CustomText extends StatelessWidget {
         text,
         maxLines: maxLines,
         overflow: overflow,
-        style: GoogleFonts.openSans(
+        style: GoogleFonts.syne(
           fontSize: textType != null ? setFonteSize(textType!) : fontSize.w,
           fontWeight: textType != null ? setFontWeight(textType!) : fontWeight,
           color: color,

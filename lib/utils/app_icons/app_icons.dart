@@ -27,4 +27,5 @@ class AppIcons {
   static const String socialMedia = "$basePath/socialMedia.svg";
   static const String tipsIcon = "$basePath/tipsIcon.svg";
   static const String toxicRelationshipe = "$basePath/toxicRelationshipe.svg";
+  static const String appLogoSmall = "$basePath/appLogoSmall.svg";
 }

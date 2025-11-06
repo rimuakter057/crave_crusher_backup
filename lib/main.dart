@@ -54,93 +54,24 @@ class MyApp extends StatelessWidget {
   }
 }
 
-//========================= >>  OneSignal Initialization ======================== >>
-/// Initialize OneSignal with your app ID
-// Future<void> initOneSignal() async {
-//   OneSignal.Debug.setLogLevel(OSLogLevel.verbose);
-
-//   OneSignal.initialize("39e47de2-9435-4c22-b63c-b9ca67961e87");
-
-//   OneSignal.Notifications.requestPermission(true);
-
-//   OneSignal.Notifications.addClickListener((event) {
-//     debugPrint(
-//       "Notification clicked: ${event.notification.jsonRepresentation()}",
-//     );
-
-//     var data = event.notification.additionalData;
-
-//     String? conversationId = data?['conversationId'];
-//     String? connectionId = data?['connectionId'];
-
-//     if (conversationId != null) {
-//       debugPrint(
-//         "Navigating to Message Screen with conversationId: $conversationId",
-//       );
-//       Get.toNamed(AppRoutes.chatScreen);
-//     } else if (connectionId != null) {
-//       final ChatController chatController = Get.find<ChatController>();
-
-//       debugPrint(
-//         "Navigating to Connection Request Screen with connectionId: $connectionId",
-//       );
-
-//       chatController.chatType.value = ChatType.notification;
-
-//       Get.offAllNamed(AppRoutes.chatScreen);
-//     } else {
-//       debugPrint("No valid conversationId or connectionId found in payload.");
-//     }
-//   });
-
-//   debugPrint("OneSignal initialized successfully");
-// }
-
-// Future<void> initOneSignal() async {
-//   // Optional: for debugging in dev mode
-//   OneSignal.Debug.setLogLevel(OSLogLevel.verbose);
-
-//   // Initialize OneSignal with your app ID
-//   OneSignal.initialize("39e47de2-9435-4c22-b63c-b9ca67961e87");
-
-//   // Request permission (iOS only)
-//   OneSignal.Notifications.requestPermission(true);
-
-//   // (Optional) Handle notification click
-//   OneSignal.Notifications.addClickListener((event) {
-//     debugPrint(
-//       "Notification clicked: ${event.notification.jsonRepresentation()}",
-//     );
-//   });
-
-//   debugPrint("OneSignal initialized successfully");
-// }
-
-/// 📨 Firebase + iOS Notification permission request
-// Future<void> requestIOSPermissions() async {
-//   NotificationSettings settings = await FirebaseMessaging.instance
-//       .requestPermission(alert: true, badge: true, sound: true);
-//   debugPrint("Firebase permission status: ${settings.authorizationStatus}");
-// }
-
-/// 🎨 Theme configuration
 class CustomTheme {
   static ThemeData get lightTheme {
     return ThemeData(
       scaffoldBackgroundColor: AppColors.backgroundColor,
       appBarTheme: AppBarTheme(
+        surfaceTintColor: AppColors.backgroundColor,
         toolbarHeight: 65,
         elevation: 0,
         centerTitle: true,
 
-        backgroundColor: AppColors.primary.withOpacity(.99),
+        backgroundColor: AppColors.backgroundColor,
         iconTheme: const IconThemeData(color: Colors.black),
-        titleTextStyle: const TextStyle(
-          color: Colors.black,
-          fontSize: 20,
-          fontWeight: FontWeight.bold,
-        ),
 
+        // titleTextStyle: const TextStyle(
+        //   color: Colors.black,
+        //   fontSize: 20,
+        //   fontWeight: FontWeight.bold,
+        // ),
         systemOverlayStyle: SystemUiOverlayStyle(
           statusBarColor: AppColors.primary,
           statusBarIconBrightness: Brightness.dark, // Android
