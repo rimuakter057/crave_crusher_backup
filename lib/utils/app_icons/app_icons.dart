@@ -33,6 +33,7 @@ class AppIcons {
   static const String smallMonster = "$basePath/smallMonster.png";
   static const String smoke = "$basePath/smoke.png";
   static const String tipsBackground = "$basePath/tipsBackground.png";
+  static const String battlePng = "$basePath/battlePng.png";
   static const String todayTipsBackgroundImage =
       "$basePath/todayTipsBackgroundImage.svg";
 }

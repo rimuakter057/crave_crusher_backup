@@ -1,6 +1,7 @@
+// ignore_for_file: deprecated_member_use
+
 import 'package:crave_crusher/utils/app_colors/app_colors.dart';
 import 'package:crave_crusher/utils/app_icons/app_icons.dart';
-import 'package:crave_crusher/view/components/custom_button/custom_button.dart';
 import 'package:crave_crusher/view/components/custom_image/custom_image.dart';
 import 'package:crave_crusher/view/components/custom_nav_bar/navbar.dart';
 import 'package:crave_crusher/view/components/custom_text/custom_text.dart';
@@ -32,10 +33,26 @@ class HomeScreen extends StatelessWidget {
             // Active Battle Section Title
             Padding(
               padding: EdgeInsets.only(bottom: 12.h),
-              child: const Row(
+              child: Row(
                 children: [
-                  Icon(Icons.close, color: AppColors.black),
-                  SizedBox(width: 8),
+                  Container(
+                    height: 28.h,
+                    width: 28.w,
+                    alignment: Alignment.center,
+                    decoration: BoxDecoration(
+                      color: AppColors.subPrimary.withOpacity(.3),
+                      shape: BoxShape.circle,
+                      border: Border.all(color: AppColors.primary),
+                    ),
+                    child: CustomImage(
+                      //imageColor: AppColors.primary,
+                      imageSrc: AppIcons.battlePng,
+
+                      height: 16.h,
+                      width: 16.w,
+                    ),
+                  ),
+                  SizedBox(width: 8.w),
                   CustomText(
                     text: "Active Battle",
                     fontWeight: FontWeight.w600,
@@ -48,14 +65,24 @@ class HomeScreen extends StatelessWidget {
             // Active Battle Cards
             // SOLID Principle (OCP): Notun battle add korle shudhu list e add korlei hobe.
             ActiveBattleCard(
-              iconSrc: AppIcons.smoke, // Placeholder
+              detoxType: DetoxType.smoke,
+              // Placeholder
               title: "Smoking Detox",
               progress: 0.58, // 58%
               status: "Pending",
               dayCount: "Day 12 of 30",
-              statusColor: AppColors.statusPending,
+              statusColor: AppColors.primary,
             ),
             SizedBox(height: 16.h),
+            ActiveBattleCard(
+              detoxType: DetoxType.love,
+              // Placeholder
+              title: "Toxic Relationship Detox",
+              progress: 0.58, // 58%
+              status: "Pending",
+              dayCount: "Day 12 of 30",
+              statusColor: AppColors.primary,
+            ),
             // _ActiveBattleCard(
             //   iconSrc: 'assets/icons/money_battle.svg', // Placeholder
             //   title: "Shaving Money Battle",
