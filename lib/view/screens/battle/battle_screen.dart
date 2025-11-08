@@ -7,7 +7,6 @@ import 'package:crave_crusher/view/screens/battle/widget/active_battle_card.dart
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
-import 'package:get/utils.dart';
 
 class BattleScreen extends StatelessWidget {
   const BattleScreen({super.key});
@@ -16,7 +15,12 @@ class BattleScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       // appBar: ,
-      appBar: CustomAppBar(title: 'My Battle', onActionPressed: () {}),
+      appBar: CustomAppBar(
+        title: 'My Battle',
+        onActionPressed: () {
+          Get.toNamed(AppRoutes.createBattleScreen);
+        },
+      ),
 
       body: Padding(
         padding: EdgeInsets.symmetric(horizontal: 16.0.w),

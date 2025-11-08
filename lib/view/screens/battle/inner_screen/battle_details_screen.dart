@@ -1,3 +1,4 @@
+import 'package:crave_crusher/core/routes/app_routes.dart';
 import 'package:crave_crusher/utils/app_colors/app_colors.dart';
 import 'package:crave_crusher/utils/app_icons/app_icons.dart';
 import 'package:crave_crusher/view/components/custom_app_bar/custom_app_bar.dart';
@@ -5,6 +6,7 @@ import 'package:crave_crusher/view/screens/battle/widget/details_monster_section
 import 'package:crave_crusher/view/screens/battle/widget/progress_and_action_section.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:get/get.dart';
 
 // class BattleDetailsScreen extends StatelessWidget {
 //   const BattleDetailsScreen({super.key});
@@ -52,7 +54,9 @@ class BattleDetailsScreen extends StatelessWidget {
       appBar: CustomAppBar(
         title: 'Battle Details',
         actionIcon: AppIcons.edit,
-        onActionPressed: () {},
+        onActionPressed: () {
+          Get.toNamed(AppRoutes.createBattleScreen);
+        },
       ),
       body: SingleChildScrollView(
         padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 12.h),
@@ -75,6 +79,7 @@ class BattleDetailsScreen extends StatelessWidget {
               dayCount: dayCount,
               title: battleTitle,
               onBattleLogPressed: () {
+                Get.toNamed(AppRoutes.battleLogScreen);
                 // To Do: Implement Battle Log navigation
               },
               onBattleNowPressed: () {
