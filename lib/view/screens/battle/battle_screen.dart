@@ -1,10 +1,13 @@
+import 'package:crave_crusher/core/routes/app_routes.dart';
 import 'package:crave_crusher/utils/app_colors/app_colors.dart';
 import 'package:crave_crusher/view/components/custom_app_bar/custom_app_bar.dart';
 import 'package:crave_crusher/view/components/custom_nav_bar/navbar.dart';
 import 'package:crave_crusher/view/screens/battle/widget/battle_tab_selector.dart';
-import 'package:crave_crusher/view/screens/home/widget/active_battle_card.dart';
+import 'package:crave_crusher/view/screens/battle/widget/active_battle_card.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:get/get.dart';
+import 'package:get/utils.dart';
 
 class BattleScreen extends StatelessWidget {
   const BattleScreen({super.key});
@@ -36,9 +39,15 @@ class BattleScreen extends StatelessWidget {
                     status: "Pending",
                     dayCount: "Day 12 of 30",
                     statusColor: AppColors.primary,
+                    onBattlePressed: () {
+                      Get.toNamed(AppRoutes.battleDetailsScreen);
+                    },
                   ),
                   SizedBox(height: 16.h),
                   ActiveBattleCard(
+                    onBattlePressed: () {
+                      Get.toNamed(AppRoutes.battleDetailsScreen);
+                    },
                     detoxType: DetoxType.love,
                     // Placeholder
                     title: "Toxic Relationship Detox",
@@ -49,6 +58,9 @@ class BattleScreen extends StatelessWidget {
                   ),
                   SizedBox(height: 16.h),
                   ActiveBattleCard(
+                    onBattlePressed: () {
+                      Get.toNamed(AppRoutes.battleDetailsScreen);
+                    },
                     detoxType: DetoxType.junkFood,
                     // Placeholder
                     title: "Junk Food Detox",
@@ -59,6 +71,9 @@ class BattleScreen extends StatelessWidget {
                   ),
                   SizedBox(height: 16.h),
                   ActiveBattleCard(
+                    onBattlePressed: () {
+                      Get.toNamed(AppRoutes.battleDetailsScreen);
+                    },
                     detoxType: DetoxType.socialMedia,
                     // Placeholder
                     title: "Social Media Detox",
@@ -69,6 +84,9 @@ class BattleScreen extends StatelessWidget {
                   ),
                   SizedBox(height: 16.h),
                   ActiveBattleCard(
+                    onBattlePressed: () {
+                      Get.toNamed(AppRoutes.battleDetailsScreen);
+                    },
                     detoxType: DetoxType.smoke,
                     // Placeholder
                     title: "Smoking Detox",

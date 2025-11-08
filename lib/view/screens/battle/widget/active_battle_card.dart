@@ -15,6 +15,7 @@ class ActiveBattleCard extends StatelessWidget {
   final String dayCount;
   final Color statusColor;
   final DetoxType detoxType;
+  final VoidCallback? onBattlePressed;
 
   const ActiveBattleCard({
     super.key,
@@ -25,6 +26,7 @@ class ActiveBattleCard extends StatelessWidget {
     required this.dayCount,
     required this.statusColor,
     required this.detoxType,
+    this.onBattlePressed,
   });
 
   String getIcon() {
@@ -152,28 +154,31 @@ class ActiveBattleCard extends StatelessWidget {
           SizedBox(height: 12.h),
 
           // Open Battle Button
-          Container(
-            height: 36.h,
-            width: 125.w,
-            decoration: BoxDecoration(
-              color: AppColors.subPrimary,
-              borderRadius: BorderRadius.circular(8.r),
-            ),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                CustomImage(imageSrc: AppIcons.battlePrimaryColor),
+          GestureDetector(
+            onTap: onBattlePressed,
+            child: Container(
+              height: 36.h,
+              width: 125.w,
+              decoration: BoxDecoration(
+                color: AppColors.subPrimary,
+                borderRadius: BorderRadius.circular(8.r),
+              ),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  CustomImage(imageSrc: AppIcons.battlePrimaryColor),
 
-                CustomText(
-                  text: "Open Battle",
-                  fontSize: 12.w,
-                  fontWeight: FontWeight.w600,
-                  color: AppColors.primary,
-                  bottom: 0,
-                  top: 0,
-                ),
-              ],
+                  CustomText(
+                    text: "Open Battle",
+                    fontSize: 12.w,
+                    fontWeight: FontWeight.w600,
+                    color: AppColors.primary,
+                    bottom: 0,
+                    top: 0,
+                  ),
+                ],
+              ),
             ),
           ),
 

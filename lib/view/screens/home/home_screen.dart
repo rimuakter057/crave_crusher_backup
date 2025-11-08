@@ -5,7 +5,7 @@ import 'package:crave_crusher/utils/app_icons/app_icons.dart';
 import 'package:crave_crusher/view/components/custom_image/custom_image.dart';
 import 'package:crave_crusher/view/components/custom_nav_bar/navbar.dart';
 import 'package:crave_crusher/view/components/custom_text/custom_text.dart';
-import 'package:crave_crusher/view/screens/home/widget/active_battle_card.dart';
+import 'package:crave_crusher/view/screens/battle/widget/active_battle_card.dart';
 import 'package:crave_crusher/view/screens/home/widget/home_appbar.dart';
 import 'package:crave_crusher/view/screens/home/widget/monster_section.dart';
 import 'package:crave_crusher/view/screens/home/widget/today_tips.dart';
