@@ -58,64 +58,54 @@ class _NavBarState extends State<NavBar> {
 
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
-      height: 140.h,
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: [
-          Padding(
-            padding: EdgeInsets.all(16.0.w),
-            child: Container(
-              height: 92.h,
-              alignment: Alignment.center,
-              decoration: BoxDecoration(
-                color: AppColors.naveWhite.withOpacity(.6),
-                border: Border.all(width: 2, color: AppColors.naveBordar),
-                borderRadius: BorderRadius.circular(100.r),
-                // borderRadius: BorderRadius.only(topLeft: Radius.circular(15),topRight: Radius.circular(15))
-              ),
-              width: MediaQuery.of(context).size.width,
-              padding: EdgeInsets.symmetric(horizontal: 30.w, vertical: 0.h),
-              // alignment: Alignment.center,
-              child: Row(
-                crossAxisAlignment: CrossAxisAlignment.center,
-                mainAxisAlignment: MainAxisAlignment.spaceAround,
-                children: List.generate(
-                  unselectedIcon.length,
-                  (index) => GestureDetector(
-                    onTap: () => onTap(index),
-                    child: Container(
-                      height: 56.h,
-                      width: 56.w,
-                      alignment: Alignment.center,
-                      decoration: BoxDecoration(
-                        shape: BoxShape.circle,
-                        color:
-                            index == bottomNavIndex
-                                ? AppColors.subPrimary
-                                : AppColors.naveWhite,
-                      ),
-                      child: CustomImage(
-                        imageSrc:
-                            index == bottomNavIndex
-                                ? selectedIcon[index]
-                                : unselectedIcon[index],
-                        height: 20.h,
-                        width: 20.w,
-                        imageColor:
-                            index == bottomNavIndex
-                                ? AppColors.primary
-                                : AppColors.black,
-                      ),
-                    ),
-                  ),
+    return Padding(
+      padding: EdgeInsets.only(left: 16.0.w, right: 16.w, bottom: 20.h),
+      child: Container(
+        height: 92.h,
+        alignment: Alignment.center,
+        decoration: BoxDecoration(
+          color: Colors.transparent, // AppColors.naveWhite.withOpacity(.6),
+          border: Border.all(width: 2, color: AppColors.naveBordar),
+          borderRadius: BorderRadius.circular(100.r),
+          // borderRadius: BorderRadius.only(topLeft: Radius.circular(15),topRight: Radius.circular(15))
+        ),
+        width: MediaQuery.of(context).size.width,
+        padding: EdgeInsets.symmetric(horizontal: 10.w, vertical: 0.h),
+        // alignment: Alignment.center,
+        child: Row(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          mainAxisAlignment: MainAxisAlignment.spaceAround,
+          children: List.generate(
+            unselectedIcon.length,
+            (index) => GestureDetector(
+              onTap: () => onTap(index),
+              child: Container(
+                height: 56.h,
+                width: 56.w,
+                alignment: Alignment.center,
+                decoration: BoxDecoration(
+                  shape: BoxShape.circle,
+                  color:
+                      index == bottomNavIndex
+                          ? AppColors.subPrimary
+                          : AppColors.naveWhite,
+                ),
+                child: CustomImage(
+                  imageSrc:
+                      index == bottomNavIndex
+                          ? selectedIcon[index]
+                          : unselectedIcon[index],
+                  height: 20.h,
+                  width: 20.w,
+                  imageColor:
+                      index == bottomNavIndex
+                          ? AppColors.primary
+                          : AppColors.black,
                 ),
               ),
             ),
           ),
-          //  SizedBox(height: 20.h),
-        ],
+        ),
       ),
     );
   }
