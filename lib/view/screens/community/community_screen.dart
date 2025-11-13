@@ -41,7 +41,7 @@ class CommunityScreen extends StatelessWidget {
             ),
             child:Column(
               children: [
-                CommonProfileWidget(title: "@Sheena", subTitle: "27 Aug 2020 06:20 AM", image: AppImages.profileManImage),
+                CommonProfileWidget(title: "@Sheena s", subTitle: "27 Aug 2020 06:20 AM", image: AppImages.profileManImage),
               ],
             )
           ),
