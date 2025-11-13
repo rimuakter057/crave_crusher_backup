@@ -1,5 +1,5 @@
 class AppIcons {
-  static const String basePath = "assets/icons";
+  static const String basePath = "assets/icon";
 
   static const String eye = "$basePath/eye.svg";
   static const String eyeOff = "$basePath/eyeOff.svg";
@@ -9,27 +9,38 @@ class AppIcons {
   //==================================== Nave Bar Icon ===========================
 
   static const String home = "$basePath/home.svg";
-  static const String chat = "$basePath/chat.svg";
-  static const String connection = "$basePath/connection.svg";
-  static const String parson = "$basePath/parson.svg";
-  static const String logo = "$basePath/logo.svg";
+  static const String battle = "$basePath/battle.svg";
+  static const String community = "$basePath/community.svg";
+  static const String profile = "$basePath/profile.svg";
+  static const String reward = "$basePath/reward.svg";
+  static const String selectCommunity = "$basePath/selectCommunity.svg";
+  static const String selectedBattale = "$basePath/selectedBattale.svg";
+  static const String selectHome = "$basePath/selectHome.svg";
+  static const String selectReward = "$basePath/selectReward.svg";
+  static const String selectProfile = "$basePath/selectProfile.svg";
+  static const String add = "$basePath/add.svg";
+  static const String calender = "$basePath/calender.svg";
+  static const String cross = "$basePath/cross.svg";
+  static const String download = "$basePath/download.svg";
+  static const String edit = "$basePath/edit.svg";
+  static const String heart = "$basePath/heart.svg";
+  static const String image = "$basePath/image.svg";
+  static const String battlePrimaryColor = "$basePath/battlePrimaryColor.svg";
+  static const String happyMonstar = "$basePath/happyMonstar.png";
+  static const String junkFood = "$basePath/junkFood.png";
   static const String notification = "$basePath/notification.svg";
-  static const String backArrow = "$basePath/backArrow.svg";
-  static const String language = "$basePath/language.svg";
-  static const String settings = "$basePath/settings.svg";
-  static const String apple = "$basePath/apple.png";
-  static const String facbook = "$basePath/Facbook.png";
-  static const String icon21 = "$basePath/icon21.png";
-  static const String mapIcon = "$basePath/map.png";
-  static const String umberalla = "$basePath/umberalla.png";
-  static const String google = "$basePath/google.png";
-  static const String close = "$basePath/close.svg";
-  static const String logo2 = "$basePath/logo2.svg";
-  static const String onbordingOne = "$basePath/onbordingOne.svg";
-  static const String lock = "$basePath/lock.svg";
-  static const String parsonClose = "$basePath/parsonClose.svg";
-  static const String reports = "$basePath/reports.svg";
-  static const String lustImage = "$basePath/lustImage.svg";
-  static const String welcomeText = "$basePath/welcomeText.png";
-  static const String emptyUser = "$basePath/emptyUser.png";
+  static const String savingsMoney = "$basePath/savingsMoney.png";
+  static const String shopping = "$basePath/shopping.png";
+  static const String socialMedia = "$basePath/socialMedia.png";
+  static const String tipsIcon = "$basePath/tipsIcon.svg";
+  static const String toxicRelationshipe = "$basePath/toxicRelationshipe.png";
+  static const String appLogoSmall = "$basePath/appLogoSmall.svg";
+  static const String tipsCircular = "$basePath/tipsCircular.svg";
+  static const String tipsPng = "$basePath/tipsPng.png";
+  static const String smallMonster = "$basePath/smallMonster.png";
+  static const String smoke = "$basePath/smoke.png";
+  static const String tipsBackground = "$basePath/tipsBackground.png";
+  static const String battlePng = "$basePath/battlePng.png";
+  static const String todayTipsBackgroundImage =
+      "$basePath/todayTipsBackgroundImage.svg";
 }
