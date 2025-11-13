@@ -3,5 +3,7 @@ class AppImages {
 
   static const String appLogo = "$basePath/appLogo.svg";
 
-  ///====================== SplashScreen =========================
+
+  ///community
+  static const String profileManImage = "assets/images/profile_man_image.png";
 }

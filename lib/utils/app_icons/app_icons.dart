@@ -43,4 +43,5 @@ class AppIcons {
   static const String battlePng = "$basePath/battlePng.png";
   static const String todayTipsBackgroundImage =
       "$basePath/todayTipsBackgroundImage.svg";
+
 }
