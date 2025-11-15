@@ -3,34 +3,37 @@ import 'package:crave_crusher/utils/app_images/app_images.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-class BottomAvatar extends StatelessWidget {
-  final String imagePath; // image path (asset/network)
+class ProfileAvatarWidget extends StatelessWidget {
+  final String imagePath;
+  final Color? borderColor;
+  final double? heightA;
+  final double? widthA;
 
-
-   const BottomAvatar({
+  const ProfileAvatarWidget({
     super.key,
     required this.imagePath,
-
+    this.borderColor,
+    this.heightA,
+    this.widthA,
   });
 
   @override
   Widget build(BuildContext context) {
+    final double avatarHeight = heightA ?? 60.h;
+    final double avatarWidth  = widthA ?? 60.w;
+
+    // 👇 Fixed 80% rule (just like your UI)
+    final double imageHeight = avatarHeight * 0.8;
+    final double imageWidth  = avatarWidth * 0.8;
+
     return Container(
-      height: 60.h,
-      width: 60.w,
+      height: avatarHeight,
+      width: avatarWidth,
       alignment: Alignment.center,
       decoration: BoxDecoration(
         shape: BoxShape.circle,
-        // boxShadow: [
-        //   BoxShadow(
-        //     color: Colors.blue.withOpacity(0.5), // নীল glow
-        //     blurRadius: 100, // আলো ছড়ানোর পরিমাণ
-        //     spreadRadius: 1,
-        //     offset: const Offset(0, 10), // নিচের দিকে আলোর অবস্থান
-        //   ),
-        // ],
         border: Border.all(
-          color: AppColors.subPrimary,
+          color: borderColor ?? AppColors.subPrimary,
           width: 1,
         ),
         color: Colors.white,
@@ -38,14 +41,13 @@ class BottomAvatar extends StatelessWidget {
       child: Stack(
         alignment: Alignment.bottomCenter,
         children: [
-          // নিচের দিকে ইমেজ থাকবে
           Align(
             alignment: Alignment.bottomCenter,
             child: ClipOval(
               child: Image.asset(
-                AppImages.profileManImage,
-                width: 60.w*0.8,
-                height: 60.h*0.8,
+                imagePath,
+                width: imageWidth,   // 👈 dynamically fixed
+                height: imageHeight, // 👈 dynamically fixed
                 fit: BoxFit.cover,
               ),
             ),
@@ -55,3 +57,4 @@ class BottomAvatar extends StatelessWidget {
     );
   }
 }
+
