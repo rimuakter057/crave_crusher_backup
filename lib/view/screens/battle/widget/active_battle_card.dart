@@ -88,9 +88,11 @@ class ActiveBattleCard extends StatelessWidget {
                   ),
                   SizedBox(width: 10.w),
                   CustomText(
+                    overflow: TextOverflow.ellipsis,
+                    maxLines: 1,
                     text: title,
                     fontWeight: FontWeight.w600,
-                    fontSize: 16,
+                    fontSize: 14,
                     color: AppColors.appTitle,
                     bottom: 0,
                     top: 0,
