@@ -54,7 +54,7 @@ class CommonCommunityWidget extends StatelessWidget {
                     Navigator.push(
                       context,
                       MaterialPageRoute(
-                          builder: (context) => const UpdatePostScreen()),
+                          builder: (context) =>  UpdatePostScreen()),
                     );
 
                   },
