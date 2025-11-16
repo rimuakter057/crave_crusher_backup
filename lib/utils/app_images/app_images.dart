@@ -7,4 +7,5 @@ class AppImages {
   ///community
   static const String profileManImage = "assets/images/profile_man_image.png";
   static const String imageOne = "assets/images/image_1.png";
+  static const String profileBackground = "$basePath/profile_background.png";
 }

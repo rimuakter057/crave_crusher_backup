@@ -46,4 +46,7 @@ class AppIcons {
   static const String todayTipsBackgroundImage =
       "$basePath/todayTipsBackgroundImage.svg";
 
+  static const String focusFighter = "$basePath/focus_fighter.svg";
+  static const String alarm = "$basePath/alarm.svg";
+
 }

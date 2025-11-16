@@ -53,7 +53,8 @@ class CommunityProfileScreen extends StatelessWidget {
           padding:  EdgeInsets.symmetric(horizontal: 16.w),
           child: Column(children: [
             ///profile image
-            ProfileAvatarWidget(imagePath: AppImages.profileManImage,
+            ProfileAvatarWidget(
+              imagePath: AppImages.profileManImage,
             heightA: 100.h,
               widthA: 100.w,
               borderColor: Colors.blue.shade100,
@@ -61,7 +62,6 @@ class CommunityProfileScreen extends StatelessWidget {
             Gap(16.h),
             CustomText(text: "@habitbreaker"),
             Gap(24.h),
-
             /// profile details section
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,

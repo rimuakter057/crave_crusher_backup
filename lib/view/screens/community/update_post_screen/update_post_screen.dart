@@ -109,7 +109,7 @@ class UpdatePostScreen extends StatelessWidget {
 
               /// add button
               CustomContainer(
-                borderColor: AppColors.subPrimary,
+                borderColor: AppColors.primary,
                 width: double.infinity,
                 height: 120.h,
                 backgroundColor: AppColors.subPrimary.withOpacity(.5),
