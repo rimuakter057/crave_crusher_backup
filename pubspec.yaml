@@ -60,6 +60,7 @@ dependencies:
   flutter_html: ^3.0.0
   gap: ^3.0.1
   device_preview_plus: ^2.5.5
+  percent_indicator: ^4.2.5
  
  
   
