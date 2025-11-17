@@ -2,7 +2,8 @@
 
 import 'package:crave_crusher/utils/app_colors/app_colors.dart';
 import 'package:crave_crusher/view/components/custom_text/custom_text.dart';
-import 'package:crave_crusher/view/screens/profile/change_password/change_password_screen.dart';
+import 'package:crave_crusher/view/screens/change_password/change_password_screen.dart';
+
 import 'package:crave_crusher/view/screens/profile/widgets/custom_profile_menu.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';

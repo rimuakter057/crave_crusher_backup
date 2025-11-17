@@ -7,7 +7,7 @@ import 'package:crave_crusher/view/components/custom_container/custom_container.
 import 'package:crave_crusher/view/components/custom_text/custom_text.dart';
 import 'package:crave_crusher/view/components/custom_text_field/custom_text_field.dart';
 import 'package:crave_crusher/view/components/input_field_with_title/input_field_with_title.dart';
-import 'package:crave_crusher/view/screens/profile/profile_screen.dart';
+import 'package:crave_crusher/view/screens/profile/profile_screen/profile_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:gap/gap.dart';

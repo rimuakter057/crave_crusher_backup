@@ -6,7 +6,7 @@ import 'package:crave_crusher/view/components/common_profile/avater_widget.dart'
 import 'package:crave_crusher/view/components/custom_container/custom_container.dart';
 import 'package:crave_crusher/view/components/custom_text/custom_text.dart';
 import 'package:crave_crusher/view/components/input_password_field_widget/input_password_field_widget.dart';
-import 'package:crave_crusher/view/screens/profile/profile_screen.dart';
+import 'package:crave_crusher/view/screens/profile/profile_screen/profile_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:gap/gap.dart';

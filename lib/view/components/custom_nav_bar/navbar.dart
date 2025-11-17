@@ -8,7 +8,7 @@ import 'package:crave_crusher/view/screens/community/community_all_feed_screen/c
 
 import 'package:crave_crusher/view/screens/home/home_screen.dart';
 import 'package:crave_crusher/view/screens/profile/my_profile/my_profile_screen.dart';
-import 'package:crave_crusher/view/screens/profile/profile_screen.dart';
+import 'package:crave_crusher/view/screens/profile/profile_screen/profile_screen.dart';
 import 'package:crave_crusher/view/screens/rewards/rewards_screen.dart';
 
 import 'package:flutter/material.dart';
