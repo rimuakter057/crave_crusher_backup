@@ -2,6 +2,7 @@
 
 import 'package:crave_crusher/utils/app_colors/app_colors.dart';
 import 'package:crave_crusher/view/components/custom_text/custom_text.dart';
+import 'package:crave_crusher/view/screens/profile/change_password/change_password_screen.dart';
 import 'package:crave_crusher/view/screens/profile/widgets/custom_profile_menu.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -41,10 +42,10 @@ class AccountSettingScreen extends StatelessWidget {
 
 
         CustomProfileMenu(text: 'Change Password', icon: Icon(Icons.lock_outline), onTap: () {
-          // Navigator.push(
-          //   context,
-          //   MaterialPageRoute(builder: (context) => MyProfileScreen()),
-          // );
+          Navigator.push(
+            context,
+            MaterialPageRoute(builder: (context) => ChangePasswordScreens()),
+          );
         },),
 
         Gap(12.h),
