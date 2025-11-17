@@ -121,6 +121,88 @@ class TermsConditionScreen extends StatelessWidget {
               ),
 
 
+              // 5
+              TextSpan(
+                text: "5. Disclaimers and Limitations\n",
+                style: GoogleFonts.syne(fontSize: 13.sp, fontWeight: FontWeight.w600,),
+              ),
+              TextSpan(
+                text:
+                "Health Disclaimer: Crave Crusher is not a medical or therapeutic application. It does not diagnose, treat, or prevent any disease or addiction. Users should seek professional help if needed.\n\n"
+                    "Limitation of Liability: Crave Crusher and its team shall not be liable for any indirect, incidental, or consequential damages, data loss, or unauthorized access caused by third parties, or misuse of the App or reliance on its motivational content. Use of the App is at your own discretion and risk.\n\n",
+                style: GoogleFonts.syne(fontSize: 12.sp, fontWeight: FontWeight.w400,),
+
+              ),
+
+              // 6
+              TextSpan(
+                text: "6. Intellectual Property\n",
+                style: GoogleFonts.syne(fontSize: 13.sp, fontWeight: FontWeight.w600,),
+              ),
+              TextSpan(
+                text:
+                "All content, design elements, animations, and software within Crave Crusher are the property of Crave Crusher Inc. or its licensors. You may not reproduce, distribute, or modify any materials without written consent.\n\n",
+                style: GoogleFonts.syne(fontSize: 12.sp, fontWeight: FontWeight.w400,),
+
+              ),
+
+              // 7
+              TextSpan(
+                text: "7. Account Termination\n",
+                style: GoogleFonts.syne(fontSize: 13.sp, fontWeight: FontWeight.w600,),
+              ),
+              TextSpan(
+                text:
+                "We may suspend or terminate accounts that violate these Terms, post harmful or abusive content, or misuse the App's community or features. You may delete your account anytime in Settings. Some anonymized data may be retained for analytics and compliance purposes.\n\n",
+                style: GoogleFonts.syne(fontSize: 12.sp, fontWeight: FontWeight.w400,),
+
+              ),
+
+              // 8
+              TextSpan(
+                text: "8. Updates to Terms\n",
+                style: GoogleFonts.syne(fontSize: 13.sp, fontWeight: FontWeight.w600,),
+              ),
+              TextSpan(
+                text:
+                "We may update these Terms periodically. Significant updates will be communicated through in-app notifications, email alerts, or an updated \"Last Updated\" date above. Continuing to use Crave Crusher after updates means you accept the revised Terms.\n\n",
+                style: GoogleFonts.syne(fontSize: 12.sp, fontWeight: FontWeight.w400,),
+
+              ),
+
+              // 9
+              TextSpan(
+                text: "9. Governing Law\n",
+                style: GoogleFonts.syne(fontSize: 13.sp, fontWeight: FontWeight.w600,),
+              ),
+              TextSpan(
+                text:
+                "These Terms are governed by the laws of [Insert Your Country/State], without regard to conflict of law principles. Any disputes shall be handled in the appropriate courts within that jurisdiction.\n\n",
+                style: GoogleFonts.syne(fontSize: 12.sp, fontWeight: FontWeight.w400,),
+
+              ),
+
+              // 10
+              TextSpan(
+                text: "10. Contact Us\n",
+                style: GoogleFonts.syne(fontSize: 13.sp, fontWeight: FontWeight.w600,),
+              ),
+              TextSpan(
+                text:
+                "For questions, feedback, or support, contact us at support@CraveCrusher.com. Our team will respond to your message as soon as possible.\n\n",
+                style: GoogleFonts.syne(fontSize: 12.sp, fontWeight: FontWeight.w400,),
+
+              ),
+
+
+
+
+
+
+
+
+
+
             ],
           ),
         ),

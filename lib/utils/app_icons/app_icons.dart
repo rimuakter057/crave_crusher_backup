@@ -48,5 +48,7 @@ class AppIcons {
 
   static const String focusFighter = "$basePath/focus_fighter.svg";
   static const String alarm = "$basePath/alarm.svg";
+  static const String music = "$basePath/music.png";
+
 
 }

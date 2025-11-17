@@ -4,6 +4,8 @@ import 'package:crave_crusher/view/components/common_profile/avater_widget.dart'
 import 'package:crave_crusher/view/components/custom_nav_bar/navbar.dart';
 import 'package:crave_crusher/view/components/custom_text/custom_text.dart';
 import 'package:crave_crusher/view/screens/account_setting/account_setting_screen.dart';
+import 'package:crave_crusher/view/screens/auth/screen/login_screen.dart';
+import 'package:crave_crusher/view/screens/help_support/help_support_screen.dart';
 import 'package:crave_crusher/view/screens/notification/notification_screen.dart';
 import 'package:crave_crusher/view/screens/privacy_policy/privacy_policy_screen.dart';
 import 'package:crave_crusher/view/screens/profile/my_profile/my_profile_screen.dart';
@@ -18,7 +20,7 @@ class ProfileScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final stackHeight = 180.h; // height of the top stack
+    final stackHeight = 160.h; // height of the top stack
 
     return Scaffold(
       bottomNavigationBar: NavBar(currentIndex: 4),
@@ -147,9 +149,20 @@ class ProfileScreen extends StatelessWidget {
 
                   },),
                   Gap(8.h),
-                  CustomProfileMenu(text: 'Help/Support', icon: Icon(Icons.help_outline), onTap: () {  },),
+                  CustomProfileMenu(text: 'Help/Support', icon: Icon(Icons.help_outline), onTap: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => HelpSupportScreen()),
+                    );
+                  },),
                   Gap(12.h),
-                  CustomProfileMenu(text: 'Log Out', icon: Icon(Icons.logout_outlined), onTap: () {  },),
+                  CustomProfileMenu(text: 'Log Out', icon: Icon(Icons.logout_outlined), onTap: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => LoginScreen()),
+                    );
+
+                  },),
                 ],
               )
 

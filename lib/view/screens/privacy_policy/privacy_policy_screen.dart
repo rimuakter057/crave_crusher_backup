@@ -34,7 +34,7 @@ class PrivacyPolicyScreen extends StatelessWidget {
         ),
         centerTitle: true,
         title: CustomText(
-          text: "Terms & Condition",
+          text: "Privacy Policy",
           fontSize: 18.sp,
           fontWeight: FontWeight.w500,
         ),

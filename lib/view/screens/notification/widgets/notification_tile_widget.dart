@@ -31,13 +31,7 @@ class NotificationTileWidget extends StatelessWidget {
           color:AppColors.black,
         ),
 
-        // Text(
-        //   title,
-        //   style: TextStyle(
-        //     fontSize: 16,
-        //     fontWeight: FontWeight.w600,
-        //   ),
-        // ),
+
         subtitle: CustomText(
              maxLines: 8,
             textAlign: TextAlign.start,
@@ -49,13 +43,7 @@ class NotificationTileWidget extends StatelessWidget {
 
 
 
-        // Text(
-        //   subtitle,
-        //   style: TextStyle(
-        //     fontSize: 14,
-        //     color: Colors.black54,
-        //   ),
-        // ),
+
         trailing: trailing,
       ),
     );
