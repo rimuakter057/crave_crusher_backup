@@ -40,7 +40,7 @@ class ProfileScreen extends StatelessWidget {
                     height: stackHeight,
                     decoration: BoxDecoration(
                       image: DecorationImage(
-                        image: AssetImage(AppImages.onBoardingOne),
+                        image: AssetImage(AppImages.profileBackground),
                         fit: BoxFit.cover,
                       ),
                       borderRadius: BorderRadius.circular(20),

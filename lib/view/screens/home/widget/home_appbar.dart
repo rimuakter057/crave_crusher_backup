@@ -2,7 +2,7 @@ import 'package:crave_crusher/utils/app_colors/app_colors.dart';
 import 'package:crave_crusher/utils/app_icons/app_icons.dart';
 import 'package:crave_crusher/view/components/custom_image/custom_image.dart';
 import 'package:crave_crusher/view/components/custom_text/custom_text.dart';
-import 'package:crave_crusher/view/screens/on_boarding/on_boarding_screen.dart';
+import 'package:crave_crusher/view/screens/on_boarding/on_boarding_one/on_boarding_One_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
@@ -49,7 +49,7 @@ class HomeAppbar extends StatelessWidget implements PreferredSizeWidget {
           onTap: (){
             Navigator.push(
               context,
-              MaterialPageRoute(builder: (context) => OnBoardingScreen()),
+              MaterialPageRoute(builder: (context) => OnBoardingOneScreen()),
             );
           },
           child: Padding(
