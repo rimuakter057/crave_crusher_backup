@@ -5,8 +5,10 @@ import 'package:crave_crusher/view/components/custom_nav_bar/navbar.dart';
 import 'package:crave_crusher/view/components/custom_text/custom_text.dart';
 import 'package:crave_crusher/view/screens/account_setting/account_setting_screen.dart';
 import 'package:crave_crusher/view/screens/notification/notification_screen.dart';
+import 'package:crave_crusher/view/screens/privacy_policy/privacy_policy_screen.dart';
 import 'package:crave_crusher/view/screens/profile/my_profile/my_profile_screen.dart';
 import 'package:crave_crusher/view/screens/profile/widgets/custom_profile_menu.dart';
+import 'package:crave_crusher/view/screens/terms_condition/terms_condition_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:gap/gap.dart';
@@ -127,9 +129,23 @@ class ProfileScreen extends StatelessWidget {
 
 
 
-                  CustomProfileMenu(text: 'Terms & Condition', icon: Icon(Icons.description_outlined), onTap: () {  },),
+                  CustomProfileMenu(text: 'Terms & Condition', icon: Icon(Icons.description_outlined), onTap: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => TermsConditionScreen()),
+                    );
+
+
+                  },),
                   Gap(8.h),
-                  CustomProfileMenu(text: 'Privacy policy', icon: Icon(Icons.privacy_tip_outlined), onTap: () {  },),
+                  CustomProfileMenu(text: 'Privacy policy', icon: Icon(Icons.privacy_tip_outlined), onTap: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => PrivacyPolicyScreen()),
+                    );
+
+
+                  },),
                   Gap(8.h),
                   CustomProfileMenu(text: 'Help/Support', icon: Icon(Icons.help_outline), onTap: () {  },),
                   Gap(12.h),

@@ -46,8 +46,8 @@ class NotificationScreens extends StatelessWidget {
       ),
 
       body: ListView.separated(
-          itemCount: 6,
-        separatorBuilder: (context,index){return SizedBox(height: 8.h,);},
+          itemCount: 16,
+        separatorBuilder: (context,index){return SizedBox(height: 12.h,);},
         itemBuilder: (context,index){
 
             return NotificationTileWidget(

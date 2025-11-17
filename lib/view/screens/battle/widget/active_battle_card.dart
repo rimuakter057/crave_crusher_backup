@@ -92,7 +92,7 @@ class ActiveBattleCard extends StatelessWidget {
                     maxLines: 1,
                     text: title,
                     fontWeight: FontWeight.w600,
-                    fontSize: 14,
+                    fontSize: 12,
                     color: AppColors.appTitle,
                     bottom: 0,
                     top: 0,
