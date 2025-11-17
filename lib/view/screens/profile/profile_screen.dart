@@ -3,6 +3,7 @@ import 'package:crave_crusher/utils/app_images/app_images.dart';
 import 'package:crave_crusher/view/components/common_profile/avater_widget.dart';
 import 'package:crave_crusher/view/components/custom_nav_bar/navbar.dart';
 import 'package:crave_crusher/view/components/custom_text/custom_text.dart';
+import 'package:crave_crusher/view/screens/profile/account_setting/account_setting_screen.dart';
 import 'package:crave_crusher/view/screens/profile/my_profile/my_profile_screen.dart';
 import 'package:crave_crusher/view/screens/profile/widgets/custom_profile_menu.dart';
 import 'package:flutter/material.dart';
@@ -101,7 +102,14 @@ class ProfileScreen extends StatelessWidget {
                     );
                   },),
                   Gap(8.h),
-                  CustomProfileMenu(text: 'Account Setting', icon: Icon(Icons.settings), onTap: () {  },),
+                  CustomProfileMenu(text: 'Account Setting', icon: Icon(Icons.settings), onTap: () {
+
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => AccountSettingScreen()),
+                    );
+
+                  },),
                   Gap(8.h),
                   CustomProfileMenu(text: 'Notification', icon: Icon(Icons.notifications_none), onTap: () {  },),
                   Gap(12.h),
