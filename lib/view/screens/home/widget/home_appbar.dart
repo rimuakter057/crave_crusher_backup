@@ -2,6 +2,7 @@ import 'package:crave_crusher/utils/app_colors/app_colors.dart';
 import 'package:crave_crusher/utils/app_icons/app_icons.dart';
 import 'package:crave_crusher/view/components/custom_image/custom_image.dart';
 import 'package:crave_crusher/view/components/custom_text/custom_text.dart';
+import 'package:crave_crusher/view/screens/on_boarding/on_boarding_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
@@ -44,20 +45,28 @@ class HomeAppbar extends StatelessWidget implements PreferredSizeWidget {
         ],
       ),
       actions: [
-        Padding(
-          padding: EdgeInsets.only(right: 16.w),
-          child: Container(
-            height: 36.h,
-            width: 36.w,
-            alignment: Alignment.center,
-            decoration: BoxDecoration(
-              shape: BoxShape.circle,
-              border: Border.all(width: .5, color: AppColors.primary),
-            ),
-            child: CustomImage(
-              height: 24.h,
-              width: 24.w,
-              imageSrc: AppIcons.notification,
+        GestureDetector(
+          onTap: (){
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => OnBoardingScreen()),
+            );
+          },
+          child: Padding(
+            padding: EdgeInsets.only(right: 16.w),
+            child: Container(
+              height: 36.h,
+              width: 36.w,
+              alignment: Alignment.center,
+              decoration: BoxDecoration(
+                shape: BoxShape.circle,
+                border: Border.all(width: .5, color: AppColors.primary),
+              ),
+              child: CustomImage(
+                height: 24.h,
+                width: 24.w,
+                imageSrc: AppIcons.notification,
+              ),
             ),
           ),
         ),

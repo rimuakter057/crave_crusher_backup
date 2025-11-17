@@ -45,7 +45,7 @@ class AccountSettingScreen extends StatelessWidget {
         CustomProfileMenu(text: 'Change Password', icon: Icon(Icons.lock_outline), onTap: () {
           Navigator.push(
             context,
-            MaterialPageRoute(builder: (context) => ChangePasswordScreens()),
+            MaterialPageRoute(builder: (context) => ChangePasswordScreen()),
           );
         },),
 

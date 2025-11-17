@@ -2,6 +2,8 @@ import 'package:crave_crusher/view/components/custom_button/custom_button.dart';
 import 'package:crave_crusher/view/components/custom_text/custom_text.dart';
 import 'package:crave_crusher/view/components/input_field_with_title/input_field_with_title.dart';
 import 'package:crave_crusher/view/components/input_password_field_widget/input_password_field_widget.dart';
+import 'package:crave_crusher/view/screens/auth/screen/forgot_password/forgot_password_screen.dart';
+import 'package:crave_crusher/view/screens/auth/screen/reset_password/reset_password_screen.dart';
 import 'package:crave_crusher/view/screens/auth/screen/sign_up/sign_up_screen.dart';
 import 'package:crave_crusher/view/screens/auth/screen/widgets/action_promote_widget.dart';
 import 'package:crave_crusher/view/screens/auth/screen/widgets/or_divider_widget.dart';
@@ -32,7 +34,7 @@ class _LoginScreenState extends State<LoginScreen> {
   void _handleForgotPasswordTap() {
     // Add logic here to navigate to the forgot password screen
     print('Navigating to Forgot Password screen...');
-    // Navigator.push(context, MaterialPageRoute(builder: (context) => ForgotPasswordScreen()));
+    Navigator.push(context, MaterialPageRoute(builder: (context) => ForgotPasswordScreen()));
   }
 
 
@@ -79,6 +81,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   );
                 },),
                 Gap(24.h),
+                ///login button
                 CustomButton(
                     title: " Log In",
                     onTap: (){}),
