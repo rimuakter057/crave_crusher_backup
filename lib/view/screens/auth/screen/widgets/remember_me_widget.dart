@@ -29,7 +29,7 @@ class RememberMeAndForgotPassword extends StatelessWidget {
               value: isChecked,
               onChanged: onRememberMeChanged,
             ),
-            const  CustomText(text: "Forget Password?",fontWeight: FontWeight.w600,fontSize: 12,color: Color(0xFF555555)),
+            const  CustomText(text: "Remember Me",fontWeight: FontWeight.w600,fontSize: 12,color: Color(0xFF555555)),
           ],
         ),
 
