@@ -96,6 +96,7 @@ class CommonCommunityWidget extends StatelessWidget {
                       imageSrc: AppImages.imageOne,
                       height: 200.h,
                       width: 200.w,
+                      fit: BoxFit.cover,
                     ),
                   ),
                   Gap(8.w),
@@ -105,14 +106,16 @@ class CommonCommunityWidget extends StatelessWidget {
                     children: [
                     CustomImage(
                       imageSrc: AppImages.imageTwo,
-                      height: 190.h,
+                      height: 100.h,
                       width: 100.w,
+                      fit: BoxFit.cover,
                     ),
                     Gap(4.h),
                     CustomImage(
                       imageSrc: AppImages.imageThree,
-                      height: 120.h,
+                      height: 100.h,
                       width: 100.w,
+                      fit: BoxFit.cover,
                     ),
                   ],)
                 ],
