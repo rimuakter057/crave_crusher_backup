@@ -1,4 +1,4 @@
-import 'package:crave_crusher/view/screens/auth/screen/login_screen.dart';
+import 'package:crave_crusher/view/screens/auth/screen/login/login_screen.dart';
 import 'package:crave_crusher/view/screens/battle/inner_screen/battle_details_screen.dart';
 import 'package:crave_crusher/view/screens/battle/inner_screen/battle_log_screen.dart';
 import 'package:crave_crusher/view/screens/battle/inner_screen/create_battle_screen.dart';

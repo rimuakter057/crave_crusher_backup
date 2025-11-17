@@ -4,7 +4,7 @@ import 'package:crave_crusher/view/components/common_profile/avater_widget.dart'
 import 'package:crave_crusher/view/components/custom_nav_bar/navbar.dart';
 import 'package:crave_crusher/view/components/custom_text/custom_text.dart';
 import 'package:crave_crusher/view/screens/account_setting/account_setting_screen.dart';
-import 'package:crave_crusher/view/screens/auth/screen/login_screen.dart';
+import 'package:crave_crusher/view/screens/auth/screen/login/login_screen.dart';
 import 'package:crave_crusher/view/screens/help_support/help_support_screen.dart';
 import 'package:crave_crusher/view/screens/notification/notification_screen.dart';
 import 'package:crave_crusher/view/screens/privacy_policy/privacy_policy_screen.dart';

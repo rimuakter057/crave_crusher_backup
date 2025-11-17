@@ -129,7 +129,6 @@ class HelpSupportScreen extends StatelessWidget {
               _buildOthersField("How do I track money and time saved?"),
               Gap (8.h),
               _buildOthersField("What does “Craved” and “Caved” mean?"),
-
               ///need more help
               CustomText(text: "Need More Help?"),
               Gap (8.h),
