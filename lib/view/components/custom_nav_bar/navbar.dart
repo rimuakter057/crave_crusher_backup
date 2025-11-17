@@ -3,13 +3,12 @@
 import 'package:crave_crusher/utils/app_colors/app_colors.dart';
 import 'package:crave_crusher/utils/app_icons/app_icons.dart';
 import 'package:crave_crusher/view/components/custom_image/custom_image.dart';
-import 'package:crave_crusher/view/screens/battle/battle_screen.dart';
-import 'package:crave_crusher/view/screens/community/community_all_feed_screen/community_all_feed_screen.dart';
+import 'package:crave_crusher/view/features/battle/battle_screen.dart';
+import 'package:crave_crusher/view/features/community/screens/community_all_feed_screen/community_all_feed_screen.dart';
 
-import 'package:crave_crusher/view/screens/home/home_screen.dart';
-import 'package:crave_crusher/view/screens/profile/my_profile/my_profile_screen.dart';
-import 'package:crave_crusher/view/screens/profile/profile_screen/profile_screen.dart';
-import 'package:crave_crusher/view/screens/rewards/rewards_screen.dart';
+import 'package:crave_crusher/view/features/home/home_screen.dart';
+import 'package:crave_crusher/view/features/profile/profile_screen/profile_screen.dart';
+import 'package:crave_crusher/view/features/rewards/rewards_screen.dart';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';

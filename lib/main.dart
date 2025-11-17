@@ -46,7 +46,7 @@ class MyApp extends StatelessWidget {
           initialRoute: AppRoutes.splashScreen,
           getPages: AppRoutes.routes,
 
-          // ✅ Device Preview integration
+
           useInheritedMediaQuery: true,
           locale: DevicePreview.locale(context),
           builder: DevicePreview.appBuilder,
