@@ -11,52 +11,60 @@ import 'package:crave_crusher/view/features/community/screens/update_post_screen
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:gap/gap.dart';
-class CommonCommunityWidget extends StatelessWidget {
-  const CommonCommunityWidget({
-    super.key,
-  });
 
+class CommonCommunityWidget extends StatefulWidget {
+  final bool myPost; // Just this controls the edit button
+
+  const CommonCommunityWidget({super.key, this.myPost = false});
+
+  @override
+  State<CommonCommunityWidget> createState() => _CommonCommunityWidgetState();
+}
+
+class _CommonCommunityWidgetState extends State<CommonCommunityWidget> {
   @override
   Widget build(BuildContext context) {
     return Container(
-        padding: EdgeInsets.only(left:16.w,right: 16.w,top: 10.h,bottom: 24.h),
-        width: double.infinity,
-        alignment: Alignment.center,
-        decoration: BoxDecoration(
-            color: AppColors.white,
-            border: Border.all(color: AppColors.subPrimary),
-            borderRadius: BorderRadius.all(Radius.circular(8))
-        ),
-        child:Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-
-          children: [
-            ///profile section
-            Row(
-              children: [
-                Expanded(
-                  child: CommonProfileWidget(
-                      onTap: (){
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => CommunityProfileScreen(),   // তোমার যাওয়ার screen
-                          ),
-                        );
-                      },
-                      title: "@Sheena s", subTitle: "27 Aug 2020 06:20 AM", image: AppImages.profileManImage),
-                ),
-
-
-                GestureDetector(
-                  onTap: (){
-
+      padding: EdgeInsets.only(left:16.w,right: 16.w,top: 10.h,bottom: 24.h),
+      width: double.infinity,
+      alignment: Alignment.center,
+      decoration: BoxDecoration(
+        color: AppColors.white,
+        border: Border.all(color: AppColors.subPrimary),
+        borderRadius: BorderRadius.all(Radius.circular(8)),
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          /// Profile Section
+          Row(
+            children: [
+              Expanded(
+                child: CommonProfileWidget(
+                  onTap: () {
                     Navigator.push(
                       context,
                       MaterialPageRoute(
-                          builder: (context) =>  UpdatePostScreen()),
+                        builder: (_) => CommunityProfileScreen(),
+                      ),
                     );
+                  },
+                  title: "@Sheena s",
+                  subTitle: "27 Aug 2020 06:20 AM",
+                  image: AppImages.profileManImage,
+                ),
+              ),
 
+              /// Edit Button (only if myPost is true)
+              if (widget.myPost)
+                GestureDetector(
+                  onTap: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (_) => UpdatePostScreen(),
+                      ),
+                    );
                   },
                   child: Container(
                     width: 35.w,
@@ -67,43 +75,39 @@ class CommonCommunityWidget extends StatelessWidget {
                       shape: BoxShape.circle,
                       border: Border.all(color: AppColors.subPrimary),
                     ),
-                    child:    CustomImage(imageSrc: AppIcons.edit),
+                    child: CustomImage(imageSrc: AppIcons.edit),
                   ),
                 ),
+            ],
+          ),
 
+          Gap(16.h),
 
-
-              ],
-            ),
-
-            Gap(16.h),
-            ///image section
-            GestureDetector(
-              onTap: (){
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => CommunityImageShowScreen(),   // তোমার যাওয়ার screen
+          /// Image Section
+          GestureDetector(
+            onTap: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (_) => CommunityImageShowScreen(),
+                ),
+              );
+            },
+            child: Row(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                ClipRRect(
+                  borderRadius: BorderRadius.circular(6),
+                  child: CustomImage(
+                    imageSrc: AppImages.imageOne,
+                    height: 200.h,
+                    width: 200.w,
+                    fit: BoxFit.cover,
                   ),
-                );
-              },
-              child: Row(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  ClipRRect(
-                    borderRadius: BorderRadius.circular(6),
-                    child: CustomImage(
-                      imageSrc: AppImages.imageOne,
-                      height: 200.h,
-                      width: 200.w,
-                      fit: BoxFit.cover,
-                    ),
-                  ),
-                  Gap(8.w),
-                  Column(
-                    // crossAxisAlignment: CrossAxisAlignment.start,
-                    // mainAxisAlignment: MainAxisAlignment.start,
-                    children: [
+                ),
+                Gap(8.w),
+                Column(
+                  children: [
                     CustomImage(
                       imageSrc: AppImages.imageTwo,
                       height: 100.h,
@@ -117,62 +121,66 @@ class CommonCommunityWidget extends StatelessWidget {
                       width: 100.w,
                       fit: BoxFit.cover,
                     ),
-                  ],)
+                  ],
+                )
+              ],
+            ),
+          ),
+
+          Gap(24.h),
+
+          /// Text Section
+          CustomText(
+            fontWeight: FontWeight.w500,
+            textAlign: TextAlign.start,
+            maxLines: 3,
+            text:
+            "“Day 10 of my Smoking Battle! 🚭\nIt’s honestly been one of the toughest things I’ve done, but waking up without that morning cough feels incredible. I used to light up without thinking — now, I pause, breathe, and remind myself why I started this fight. My monster still whispers sometimes, but it’s losing its voice. 💪🔥",
+          ),
+          CustomText(
+            text: "See More...",
+            color: AppColors.primary,
+          ),
+
+          Gap(24.h),
+
+          /// Bottom Like & Comment Section
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Row(
+                children: [
+                  Icon(Icons.favorite_border, color: AppColors.red, size: 20.w),
+                  Gap(4.w),
+                  CustomText(text: "120"),
                 ],
               ),
-            ),
-            Gap(24.h),
-            /// text section
-            CustomText(
-              fontWeight: FontWeight.w500,
-                textAlign: TextAlign.start,
-                maxLines: 3,
-                text: "“Day 10 of my Smoking Battle! 🚭\nIt’s honestly been one of the toughest things I’ve done, but waking up without that morning cough feels incredible. I used to light up without thinking — now, I pause, breathe, and remind myself why I started this fight. My monster still whispers sometimes, but it’s losing its voice. 💪🔥"),
-            CustomText(text: "See More...",color: AppColors.primary,),
-
-            Gap(24.h),
-
-            ///bottom comment and react section
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-
-              children: [
-                Row(
+              Container(
+                height: 20.h,
+                width: 1.5.w,
+                color: Color(0xFFCBD5E1),
+              ),
+              GestureDetector(
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (_) => CommentScreen(),
+                    ),
+                  );
+                },
+                child: Row(
                   children: [
-                    Icon(Icons.favorite_border,color: AppColors.red,size: 20.w,),
+                    Icon(Icons.message_outlined, color: AppColors.primary, size: 20.w),
                     Gap(4.w),
                     CustomText(text: "120"),
                   ],
                 ),
-                Container(
-                  height: 20.h,
-                  width: 1.5.w,
-                  color: Color(0xFFCBD5E1),
-                ),
-
-                GestureDetector(
-                  onTap: (){
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => CommentScreen(),   // তোমার যাওয়ার screen
-                      ),
-                    );
-                  },
-                  child: Row(
-                    children: [
-                      Icon(Icons.message_outlined,color: AppColors.primary,size: 20.w,),
-                      Gap(4.w),
-                      CustomText(text: "120"),
-                    ],
-                  ),
-                ),
-
-              ],),
-
-
-          ],
-        )
+              ),
+            ],
+          ),
+        ],
+      ),
     );
   }
 }

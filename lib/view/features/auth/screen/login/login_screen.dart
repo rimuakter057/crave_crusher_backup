@@ -3,8 +3,8 @@ import 'package:crave_crusher/view/components/custom_button/custom_button.dart';
 import 'package:crave_crusher/view/components/custom_text/custom_text.dart';
 import 'package:crave_crusher/view/components/input_field_with_title/input_field_with_title.dart';
 import 'package:crave_crusher/view/components/input_password_field_widget/input_password_field_widget.dart';
-import 'package:crave_crusher/view/features/auth/screen/forgot_password/forgot_password_screen.dart';
 import 'package:crave_crusher/view/features/auth/screen/sign_up/sign_up_screen.dart';
+import 'package:crave_crusher/view/features/auth/screen/verify_account/verify_account_screen.dart';
 import 'package:crave_crusher/view/features/auth/screen/widgets/action_promote_widget.dart';
 import 'package:crave_crusher/view/features/auth/screen/widgets/or_divider_widget.dart';
 import 'package:crave_crusher/view/features/auth/screen/widgets/remember_me_widget.dart';
@@ -36,7 +36,7 @@ class _LoginScreenState extends State<LoginScreen> {
   void _handleForgotPasswordTap() {
     // Add logic here to navigate to the forgot password screen
     print('Navigating to Forgot Password screen...');
-    Navigator.push(context, MaterialPageRoute(builder: (context) => ForgotPasswordScreen()));
+    Navigator.push(context, MaterialPageRoute(builder: (context) => VerifyAccountScreen()));
   }
 
 

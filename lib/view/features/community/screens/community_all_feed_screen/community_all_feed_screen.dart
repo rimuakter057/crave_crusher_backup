@@ -45,10 +45,43 @@ class CommunityAllFeedScreen extends StatelessWidget {
               Gap(24.h),
 
               if(controller.communityTabIndex.value==0)...[
-                CommonCommunityWidget()
+
+                ListView.builder(
+                   physics: BouncingScrollPhysics(),
+                    scrollDirection: Axis.vertical,
+                    itemCount: 6,
+                    shrinkWrap: true,
+                    itemBuilder: (context,index){
+                  return         Column(
+                    children: [
+                      CommonCommunityWidget(),
+                      SizedBox(height: 8.h,),
+
+                    ],
+                  );
+                }),
+
+
               ],
               if(controller.communityTabIndex.value==1)...[
-                CommonCommunityWidget(),
+
+                ListView.builder(
+                    physics: BouncingScrollPhysics(),
+                    scrollDirection: Axis.vertical,
+                    itemCount: 6,
+                    shrinkWrap: true,
+                    itemBuilder: (context,index){
+                      return         Column(
+                        children: [
+                          CommonCommunityWidget(
+                            myPost: true,
+                          ),
+                          SizedBox(height: 8.h,),
+                        ],
+                      );
+                    }),
+
+
 
               ],
 
