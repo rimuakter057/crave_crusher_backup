@@ -100,25 +100,25 @@ class _CommonCommunityWidgetState extends State<CommonCommunityWidget> {
                   borderRadius: BorderRadius.circular(6),
                   child: CustomImage(
                     imageSrc: AppImages.imageOne,
-                    height: 200.h,
-                    width: 200.w,
+                    height: 180.h,
+                    width: 180.w,
                     fit: BoxFit.cover,
                   ),
                 ),
-                Gap(8.w),
+                Gap(4.w),
                 Column(
                   children: [
                     CustomImage(
                       imageSrc: AppImages.imageTwo,
-                      height: 100.h,
-                      width: 100.w,
+                      height: 90.h,
+                      width: 90.w,
                       fit: BoxFit.cover,
                     ),
                     Gap(4.h),
                     CustomImage(
                       imageSrc: AppImages.imageThree,
-                      height: 100.h,
-                      width: 100.w,
+                      height: 90.h,
+                      width: 90.w,
                       fit: BoxFit.cover,
                     ),
                   ],
