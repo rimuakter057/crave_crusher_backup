@@ -8,23 +8,19 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class ActiveBattleCard extends StatelessWidget {
-  //final String iconSrc;
   final String title;
   final double progress;
   final String status;
   final String dayCount;
-  final Color statusColor;
   final DetoxType detoxType;
   final VoidCallback? onBattlePressed;
 
   const ActiveBattleCard({
     super.key,
-    // required this.iconSrc,
     required this.title,
     required this.progress,
     required this.status,
     required this.dayCount,
-    required this.statusColor,
     required this.detoxType,
     this.onBattlePressed,
   });
@@ -46,13 +42,35 @@ class ActiveBattleCard extends StatelessWidget {
     }
   }
 
+  Color getStatusColor(String status) {
+    switch (status.toLowerCase()) {
+      case 'canceled':
+        return Colors.red;
+      case 'completed':
+        return Colors.blue;
+      case 'pending':
+        return AppColors.primary;
+      default:
+        return Colors.grey;
+    }
+  }
+
+  String getStatusText(String status) {
+    switch (status.toLowerCase()) {
+      case 'canceled':
+        return "Canceled";
+      case 'completed':
+        return "Completed";
+      case 'pending':
+        return "Pending";
+      default:
+        return "Unknown";
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
-
     final width = MediaQuery.sizeOf(context).width;
-
-
-    debugPrint('=========================== width ====================  $width');
 
     return Container(
       width: double.infinity,
@@ -95,7 +113,7 @@ class ActiveBattleCard extends StatelessWidget {
                   ),
                   SizedBox(width: 10.w),
                   SizedBox(
-                    width: width < 390? 160.w: 200.w,
+                    width: width < 390 ? 160.w : 200.w,
                     child: CustomText(
                       textAlign: TextAlign.left,
                       overflow: TextOverflow.ellipsis,
@@ -106,25 +124,25 @@ class ActiveBattleCard extends StatelessWidget {
                       color: AppColors.appTitle,
                       bottom: 0,
                       top: 0,
-
                     ),
                   ),
                 ],
               ),
+
               // Status Badge
               Container(
-                width:width < 390? 72.w: 90.w,
-                padding: EdgeInsets.symmetric(horizontal: 8.w, vertical: 4.h),
+                width: width < 390 ? 72.w : 90.w,
+                padding: EdgeInsets.symmetric(horizontal: 4.w, vertical: 2.h),
                 decoration: BoxDecoration(
-                  color: statusColor.withOpacity(0.2),
+                  color: getStatusColor(status).withOpacity(0.2),
                   borderRadius: BorderRadius.circular(5),
-                  border: Border.all(color: statusColor),
+                  border: Border.all(color: getStatusColor(status)),
                 ),
                 child: CustomText(
-                  text: "* $status",
+                  text: "* ${getStatusText(status)}",
                   fontSize: 12.w,
                   fontWeight: FontWeight.w500,
-                  color: statusColor,
+                  color: getStatusColor(status),
                   bottom: 0,
                   top: 0,
                 ),
@@ -134,7 +152,7 @@ class ActiveBattleCard extends StatelessWidget {
 
           SizedBox(height: 10.h),
 
-          // Progress Text (58% to complete)
+          // Progress Text
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
@@ -183,7 +201,6 @@ class ActiveBattleCard extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
                   CustomImage(imageSrc: AppIcons.battlePrimaryColor),
-
                   CustomText(
                     text: "Open Battle",
                     fontSize: 12.w,
@@ -196,19 +213,7 @@ class ActiveBattleCard extends StatelessWidget {
               ),
             ),
           ),
-
-          // CustomButton(
-          //   onTap: () {}, // Logic will be implemented here
-          //   title: "Open Battle",
-          //   height: 35.h,
-          //   width: 150.w, // Fixed width for button
-          //   fillColor: AppColors.subPrimary,
-          //   textColor: AppColors.primary,
-          //   borderRadius: 8,
-          //   fontSize: 14.w,
-          //   fontWeight: FontWeight.w600,
-          // ),
-          SizedBox(height: 16.h,)
+          SizedBox(height: 16.h),
         ],
       ),
     );
@@ -217,8 +222,7 @@ class ActiveBattleCard extends StatelessWidget {
 
 enum DetoxType { smoke, love, savingMoney, junkFood, shopping, socialMedia }
 
-// DottedProgressBar widget apnar Figma design-er moto custom progress bar toiri kore.
-// Eta LinearProgressIndicator-er upor choto choto shada dot add kore.
+// DottedProgressBar widget
 class DottedProgressBar extends StatelessWidget {
   final double progress; // 0.0 theke 1.0
   final double height;
@@ -232,21 +236,16 @@ class DottedProgressBar extends StatelessWidget {
     required this.progress,
     this.height = 8.0,
     this.borderRadius = 4.0,
-    this.baseColor = AppColors.subPrimary, // DDE3FA
-    this.progressColor = AppColors.primary, // 6C63FF
-    this.dotCount = 6, // Total 6 ta dot design-e dekha jacche
+    this.baseColor = AppColors.subPrimary,
+    this.progressColor = AppColors.primary,
+    this.dotCount = 6,
   });
 
   @override
   Widget build(BuildContext context) {
-    // LayoutBuilder byabohar kora hoche jate progress bar-er total available width jana jay.
     return LayoutBuilder(
       builder: (context, constraints) {
         final double totalWidth = constraints.maxWidth;
-        // Dot er modhye shoman space dewar jonno dot spacing calculation
-        // Total width ke (dotCount - 1) diye bhag kora hoy jate shurute o sheshe dot thake na
-        // ebong dot gulo shoman vabe bishojjito hoy.
-        final double dotSpacing = totalWidth / (dotCount - 1);
 
         return Container(
           height: height.h,
@@ -257,21 +256,17 @@ class DottedProgressBar extends StatelessWidget {
           ),
           child: Stack(
             children: [
-              // --- 1. Progress Indicator (Blue Solid Bar) ---
-              // AnimatedContainer byabohar kora hoy smooth transition-er jonno
+              // Progress Bar
               AnimatedContainer(
                 duration: const Duration(milliseconds: 300),
                 height: height.h,
                 width: totalWidth * progress,
                 decoration: BoxDecoration(
                   color: progressColor,
-                  // Progress bar er modhye ar border radius dewar dorkar nei,
-                  // karon eta Container-er opore clip hobe
                 ),
               ),
 
-              // --- 2. Dots Overlay (Shada Diamond/Rectangle Dots) ---
-              // Progress bar-er puro width জুড়ে dot gulo toiri kora
+              // Dots Overlay
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: List.generate(dotCount, (index) {
@@ -279,13 +274,11 @@ class DottedProgressBar extends StatelessWidget {
                     height: height.h,
                     alignment: Alignment.center,
                     child: Container(
-                      width: 2.0.w, // Dot-er thickness (design er moto)
-                      height: (height * 0.7).h, // Dot-er height
+                      width: 2.0.w,
+                      height: (height * 0.7).h,
                       decoration: BoxDecoration(
-                        color: AppColors.white, // Dot color shada
-                        borderRadius: BorderRadius.circular(
-                          1.0.r,
-                        ), // Choto rectangle/diamond shape
+                        color: AppColors.white,
+                        borderRadius: BorderRadius.circular(1.0.r),
                       ),
                     ),
                   );

@@ -48,7 +48,6 @@ class BattleScreen extends StatelessWidget {
                             progress: 0.58, // 58%
                             status: "Pending",
                             dayCount: "Day 12 of 30",
-                            statusColor: AppColors.primary,
                             onBattlePressed: () {
                               Get.toNamed(AppRoutes.battleDetailsScreen);
                             },
@@ -70,7 +69,7 @@ class BattleScreen extends StatelessWidget {
                           progress: 0.58, // 58%
                           status: "Completed",
                           dayCount: "Day 12 of 30",
-                          statusColor: AppColors.primary,
+
                           onBattlePressed: () {
                             Get.toNamed(AppRoutes.battleDetailsScreen);
                           },
@@ -79,6 +78,29 @@ class BattleScreen extends StatelessWidget {
 
 
                 ),],
+                if(controller.battleTabIndex.value == 2)...[ Expanded(
+                  child: ListView.builder(
+                      itemCount: 5,
+                      shrinkWrap: true,
+                      physics: AlwaysScrollableScrollPhysics(),
+                      itemBuilder: (context, index){
+                        return   ActiveBattleCard(
+                          detoxType: DetoxType.smoke,
+                          // Placeholder
+                          title: "Smoking Detox",
+                          progress: 0.58, // 58%
+                          status: "Canceled",
+                          dayCount: "Day 12 of 30",
+
+                          onBattlePressed: () {
+                            Get.toNamed(AppRoutes.battleDetailsScreen);
+                          },
+                        );
+                      }),
+
+
+                ),],
+
               ],
             );
           }

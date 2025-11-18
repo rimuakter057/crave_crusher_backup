@@ -71,7 +71,7 @@ class HomeScreen extends StatelessWidget {
               progress: 0.58, // 58%
               status: "Pending",
               dayCount: "Day 12 of 30",
-              statusColor: AppColors.primary,
+            //  statusColor: AppColors.primary,
             ),
             SizedBox(height: 16.h),
             ActiveBattleCard(
@@ -81,7 +81,7 @@ class HomeScreen extends StatelessWidget {
               progress: 0.58, // 58%
               status: "Pending",
               dayCount: "Day 12 of 30",
-              statusColor: AppColors.primary,
+            //  statusColor: AppColors.primary,
             ),
             // _ActiveBattleCard(
             //   iconSrc: 'assets/icons/money_battle.svg', // Placeholder

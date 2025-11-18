@@ -9,6 +9,7 @@ class AppIcons {
   //==================================== Nave Bar Icon ===========================
 
   static const String home = "$basePath/home.svg";
+  static const String emptyHome = "$basePath/empty_home.png";
   static const String send = "$basePath/send.svg";
   static const String addImage = "$basePath/add_image.svg";
   static const String battle = "$basePath/battle.svg";

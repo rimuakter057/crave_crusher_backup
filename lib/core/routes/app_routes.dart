@@ -2,6 +2,7 @@ import 'package:crave_crusher/view/features/auth/screen/login/login_screen.dart'
 import 'package:crave_crusher/view/features/battle/inner_screen/battle_details_screen.dart';
 import 'package:crave_crusher/view/features/battle/inner_screen/battle_log_screen.dart';
 import 'package:crave_crusher/view/features/battle/inner_screen/create_battle_screen.dart';
+import 'package:crave_crusher/view/features/home/empty_home_screen.dart';
 import 'package:crave_crusher/view/features/home/home_screen.dart';
 import 'package:crave_crusher/view/features/on_boarding/on_boarding_one/on_boarding_One_screen.dart';
 import 'package:crave_crusher/view/features/splash/splash_screen.dart';
@@ -17,6 +18,7 @@ class AppRoutes {
   static const String battleLogScreen = "/BattleLogScreen";
   static const String createBattleScreen = "/CreateBattleScreen";
   static const String onBoardingOneScreen = "/OnBoardingOne";
+  static const String emptyHome = "/empty-home";
 
   static List<GetPage> routes = [
     ///===========================Authentication==========================
@@ -27,5 +29,6 @@ class AppRoutes {
     GetPage(name: battleDetailsScreen, page: () => BattleDetailsScreen()),
     GetPage(name: battleLogScreen, page: () => BattleLogScreen()),
     GetPage(name: createBattleScreen, page: () => CreateBattleScreen()),
+    GetPage(name: emptyHome, page: () => EmptyHomeScreen()),
   ];
 }

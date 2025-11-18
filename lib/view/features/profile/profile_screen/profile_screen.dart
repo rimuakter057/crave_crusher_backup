@@ -20,7 +20,7 @@ class ProfileScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final stackHeight = 160.h; // height of the top stack
+    final stackHeight = 180.h; // height of the top stack
 
     return Scaffold(
       bottomNavigationBar: NavBar(currentIndex: 4),
@@ -72,6 +72,7 @@ class ProfileScreen extends StatelessWidget {
                     child: CustomText(
                       text: "Profile",
                       color: AppColors.white,
+                      fontSize: 18.sp,
                     ),
                   ),
 
@@ -126,7 +127,7 @@ class ProfileScreen extends StatelessWidget {
 
                   },),
                   Gap(12.h),
-                  CustomText(text: "More",fontWeight: FontWeight.w600,fontSize: 18.sp,),
+                  CustomText(text: "More",fontSize: 24.sp,fontWeight: FontWeight.w400,),
                   Gap(12.h),
 
 
