@@ -2,6 +2,7 @@ import 'package:crave_crusher/utils/app_colors/app_colors.dart';
 import 'package:crave_crusher/utils/app_icons/app_icons.dart';
 import 'package:crave_crusher/view/components/custom_container/custom_container.dart';
 import 'package:crave_crusher/view/components/custom_image/custom_image.dart';
+import 'package:crave_crusher/view/components/custom_leadin_title_appbar.dart';
 import 'package:crave_crusher/view/components/custom_nav_bar/navbar.dart';
 import 'package:crave_crusher/view/components/custom_text/custom_text.dart';
 import 'package:crave_crusher/view/features/rewards/widgets/custom_circular_indicator.dart';
@@ -18,29 +19,32 @@ class RewardsScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       bottomNavigationBar: NavBar(currentIndex: 3),
-      appBar: AppBar(
-        surfaceTintColor: AppColors.backgroundColor,
-        backgroundColor: AppColors.backgroundColor,
-        leading: Center(
-          child: Container(
-            width: 50.w,
-            height: 50.h,
-            alignment: Alignment.center,
-            decoration: BoxDecoration(
-              color: AppColors.subPrimary.withOpacity(.3),
-              shape: BoxShape.circle,
-              border: Border.all(color: AppColors.subPrimary),
-            ),
-            child: BackButton(color: AppColors.primary),
-          ),
-        ),
-        centerTitle: true,
-        title: CustomText(
-          text: "Rewards",
-          fontSize: 18.sp,
-          fontWeight: FontWeight.w500,
-        ),
-      ),
+      appBar:CustomLeadingTitleAppbar(title: "Reward") ,
+      
+      
+      // appBar: AppBar(
+      //   surfaceTintColor: AppColors.backgroundColor,
+      //   backgroundColor: AppColors.backgroundColor,
+      //   leading: Center(
+      //     child: Container(
+      //       width: 50.w,
+      //       height: 50.h,
+      //       alignment: Alignment.center,
+      //       decoration: BoxDecoration(
+      //         color: AppColors.subPrimary.withOpacity(.3),
+      //         shape: BoxShape.circle,
+      //         border: Border.all(color: AppColors.subPrimary),
+      //       ),
+      //       child: BackButton(color: AppColors.primary),
+      //     ),
+      //   ),
+      //   centerTitle: true,
+      //   title: CustomText(
+      //     text: "Rewards",
+      //     fontSize: 18.sp,
+      //     fontWeight: FontWeight.w500,
+      //   ),
+      // ),
 
       body: SingleChildScrollView(
         child: Padding(
@@ -48,6 +52,7 @@ class RewardsScreen extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
+              ///show progress
               // 70%
               Center(
                 child: CustomCircularIndicator(
@@ -55,15 +60,7 @@ class RewardsScreen extends StatelessWidget {
                   percent: 0.7,
                 ),
               ),
-              Gap(24.h),
-
-              ///show progress
-              CustomText(
-                text: "Ongoing Progress",
-                fontSize: 14,
-                fontWeight: FontWeight.w500,
-              ),
-              Gap(8.h),
+              _buildGainedBadgeText(title: "Ongoing Progress "),
               CustomContainer(
                 borderColor: AppColors.subPrimary,
                 width: double.infinity,
@@ -118,23 +115,16 @@ class RewardsScreen extends StatelessWidget {
               ),
 
               ///gain badge category section
-              Gap(24.h),
-              CustomText(
-                text: "Gained Badges",
-                fontSize: 14,
-                fontWeight: FontWeight.w500,
-              ),
-              Gap(8.h),
+              _buildGainedBadgeText(title: "Gained Badges"),
+
               SizedBox(
                 height: 82.h,
                 child: ListView.separated(
                   scrollDirection: Axis.horizontal,
                   itemCount: battleCategoryItems.length,
                   separatorBuilder: (_, __) => SizedBox(width: 12.w),
-
                   itemBuilder: (context, index) {
                     final item = battleCategoryItems[index];
-
                     return CustomContainer(
                       width: 104.w,
                       height: 82.h,
@@ -150,7 +140,6 @@ class RewardsScreen extends StatelessWidget {
                             width: 32.w,
                           ),
                           Gap(4.h),
-
                           CustomText(text: item.title, fontSize: 10),
                         ],
                       ),
@@ -160,23 +149,13 @@ class RewardsScreen extends StatelessWidget {
               ),
 
               ///gain badge details section====================================================================
-              Gap(24.h),
-
-              CustomText(
-                text: "Gained Badges",
-                fontSize: 14,
-                fontWeight: FontWeight.w500,
-              ),
-              Gap(8.h),
+              _buildGainedBadgeText(title: "Gained Badges"),
 
               ListView.separated(
                 shrinkWrap: true,
-
                 physics: NeverScrollableScrollPhysics(),
-
                 itemCount: battleDetailItems.length,
                 separatorBuilder: (_, __) => SizedBox(height: 8.h),
-
                 itemBuilder: (context, index) {
                   final itemDetails = battleDetailItems[index];
                   return CustomContainer(
@@ -202,7 +181,7 @@ class RewardsScreen extends StatelessWidget {
                                   borderRadius: BorderRadius.circular(3),
                                 ),
                                 child: CustomImage(
-                                  imageSrc: AppIcons.battlePng,
+                                  imageSrc: itemDetails.icon,
                                   height: 22.h,
                                   width: 22.w,
                                 ),
@@ -223,7 +202,6 @@ class RewardsScreen extends StatelessWidget {
                               size: 14,
                               color: Color(0xFFA1A1AA),
                             ),
-
                             Gap(4.w),
                             CustomText(
                               text: itemDetails.subTitle,
@@ -244,6 +222,20 @@ class RewardsScreen extends StatelessWidget {
       ),
     );
   }
+
+  /// GainedBadgeText
+  Column _buildGainedBadgeText({required String title}) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Gap(24.h),
+        CustomText(
+          text: title,
+          fontSize: 14,
+          fontWeight: FontWeight.w500,
+        ),
+        Gap(12.h),
+      ],
+    );
+  }
 }
-
-

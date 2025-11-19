@@ -1,6 +1,7 @@
 
 
 import 'package:crave_crusher/utils/app_colors/app_colors.dart';
+import 'package:crave_crusher/view/components/custom_leadin_title_appbar.dart';
 import 'package:crave_crusher/view/components/custom_text/custom_text.dart';
 import 'package:crave_crusher/view/features/change_password/change_password_screen.dart';
 
@@ -15,53 +16,34 @@ class AccountSettingScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar:  AppBar(
-        surfaceTintColor: AppColors.backgroundColor,
-        backgroundColor:AppColors.backgroundColor,
-        leading: Center(
-          child: Container(
-            width: 50.w,
-            height: 50.h,
-            alignment: Alignment.center,
-            decoration: BoxDecoration(
-              color: AppColors.subPrimary.withOpacity(.3),
-              shape: BoxShape.circle,
-              border: Border.all(color: AppColors.subPrimary),
-            ),
-            child: BackButton(color: AppColors.primary),
-          ),
-        ),
-        centerTitle: true,
-        title: CustomText(
-          text: "Account Setting",
-          fontSize: 18.sp,
-          fontWeight: FontWeight.w500,
-        ),
+      appBar:  CustomLeadingTitleAppbar(title: "Account Setting"),
+
+      body: Padding(
+        padding: const EdgeInsets.all( 16),
+        child: Column(children: [
+
+
+          CustomProfileMenu(text: 'Change Password', icon: Icon(Icons.lock_outline), onTap: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => ChangePasswordScreen()),
+            );
+          },),
+
+          Gap(16.h),
+          CustomProfileMenu(
+            iconColor: AppColors.red,
+            textColor: AppColors.red,
+            text: 'Delete Account', icon: Icon(Icons.delete_forever_outlined), onTap: () {
+            // Navigator.push(
+            //   context,
+            //   MaterialPageRoute(builder: (context) => MyProfileScreen()),
+            // );
+          },),
+
+
+        ],),
       ),
-
-      body: Column(children: [
-
-
-        CustomProfileMenu(text: 'Change Password', icon: Icon(Icons.lock_outline), onTap: () {
-          Navigator.push(
-            context,
-            MaterialPageRoute(builder: (context) => ChangePasswordScreen()),
-          );
-        },),
-
-        Gap(12.h),
-        CustomProfileMenu(
-          iconColor: AppColors.red,
-          textColor: AppColors.red,
-          text: 'Delete Account', icon: Icon(Icons.delete_forever_outlined), onTap: () {
-          // Navigator.push(
-          //   context,
-          //   MaterialPageRoute(builder: (context) => MyProfileScreen()),
-          // );
-        },),
-
-
-      ],),
 
 
     );

@@ -1,6 +1,7 @@
 import 'package:crave_crusher/utils/app_colors/app_colors.dart';
 import 'package:crave_crusher/view/components/custom_text/custom_text.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 
 
@@ -25,6 +26,11 @@ class CustomProfileMenu extends StatelessWidget {
           borderRadius: BorderRadius.circular(8), // Rounded corners (optional)
         ),
         child:ListTile(
+
+          horizontalTitleGap: 4.w,
+
+
+
           iconColor: iconColor ?? AppColors.primary,
 
           leading: IconTheme(

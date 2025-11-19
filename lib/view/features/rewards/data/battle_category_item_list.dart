@@ -28,19 +28,19 @@ final List<BattleCategoryItemModel> battleCategoryItems = [
   ),
   BattleCategoryItemModel(
     title: "Consistency\nChamp",
-    icon: AppIcons.battle,
+    icon: AppIcons.consistencyChamp,
     backgroundColor: Color(0xFFFFF7ED),
     borderColor: Color(0xFFF97316),
   ),
   BattleCategoryItemModel(
     title: "Monster\nMaster",
-    icon: AppIcons.battle,
+    icon: AppIcons.monsterMaster,
     backgroundColor: Color(0xFFFEFCE8),
     borderColor: Color(0xFFFACC15),
   ),
   BattleCategoryItemModel(
     title: "Starter Spark",
-    icon: AppIcons.battle,
+    icon: AppIcons.starSpark,
     backgroundColor: Color(0xFFF7FEE7),
     borderColor: Color(0xFF84CC16),
   ),

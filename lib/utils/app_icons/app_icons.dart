@@ -46,10 +46,20 @@ class AppIcons {
   static const String battlePng = "$basePath/battlePng.png";
   static const String todayTipsBackgroundImage =
       "$basePath/todayTipsBackgroundImage.svg";
-
-  static const String focusFighter = "$basePath/focus_fighter.svg";
   static const String alarm = "$basePath/alarm.svg";
   static const String music = "$basePath/music.png";
+
+  ///reward icon
+  static const String starSpark = "$basePath/starter_spark.png";
+  static const String monsterMaster = "$basePath/monster_master.png";
+  static const String consistencyChamp = "$basePath/consistency_champ.png";
+  static const String ccLegend = "$basePath/cc_legend.png";
+  static const String focusFighter = "$basePath/focus_fighter.png";
+  static const String victoryStreaker = "$basePath/victory_streaker.png";
+
+  static const String milestoneAchiever = "$basePath/milestone_achiever.png";
+  static const String positivePowerHouse = "$basePath/positive_power.png";
+
 
 
 }

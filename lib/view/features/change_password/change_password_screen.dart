@@ -2,6 +2,7 @@
 
 import 'package:crave_crusher/utils/app_colors/app_colors.dart';
 import 'package:crave_crusher/view/components/custom_container/custom_container.dart';
+import 'package:crave_crusher/view/components/custom_leadin_title_appbar.dart';
 import 'package:crave_crusher/view/components/custom_text/custom_text.dart';
 import 'package:crave_crusher/view/components/input_password_field_widget/input_password_field_widget.dart';
 import 'package:crave_crusher/view/features/profile/profile_screen/profile_screen.dart';
@@ -16,29 +17,7 @@ class ChangePasswordScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar:  AppBar(
-        surfaceTintColor: AppColors.backgroundColor,
-        backgroundColor:AppColors.backgroundColor,
-        leading: Center(
-          child: Container(
-            width: 50.w,
-            height: 50.h,
-            alignment: Alignment.center,
-            decoration: BoxDecoration(
-              color: AppColors.subPrimary.withOpacity(.3),
-              shape: BoxShape.circle,
-              border: Border.all(color: AppColors.subPrimary),
-            ),
-            child: BackButton(color: AppColors.primary),
-          ),
-        ),
-        centerTitle: true,
-        title: CustomText(
-          text: "Change Password",
-          fontSize: 18.sp,
-          fontWeight: FontWeight.w500,
-        ),
-      ),
+      appBar:  CustomLeadingTitleAppbar(title: "Change Password"),
 
       body: Padding(
         padding:  EdgeInsets.symmetric(horizontal:16.w),
