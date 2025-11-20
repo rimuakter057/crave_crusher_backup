@@ -13,19 +13,22 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:gap/gap.dart';
 
 class CommonCommunityWidget extends StatefulWidget {
-  final bool myPost; // Just this controls the edit button
-
-  const CommonCommunityWidget({super.key, this.myPost = false});
+  final bool myPost; // Controls the edit button visibility
+  final int index; // Determines image layout
+  const CommonCommunityWidget({super.key, this.myPost = false, this.index = 2});
 
   @override
   State<CommonCommunityWidget> createState() => _CommonCommunityWidgetState();
 }
 
 class _CommonCommunityWidgetState extends State<CommonCommunityWidget> {
+
+
+
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: EdgeInsets.only(left:16.w,right: 16.w,top: 10.h,bottom: 24.h),
+      padding: EdgeInsets.only(left: 16.w, right: 16.w, top: 10.h, bottom: 24.h),
       width: double.infinity,
       alignment: Alignment.center,
       decoration: BoxDecoration(
@@ -36,6 +39,7 @@ class _CommonCommunityWidgetState extends State<CommonCommunityWidget> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
+
           /// Profile Section
           Row(
             children: [
@@ -44,9 +48,7 @@ class _CommonCommunityWidgetState extends State<CommonCommunityWidget> {
                   onTap: () {
                     Navigator.push(
                       context,
-                      MaterialPageRoute(
-                        builder: (_) => CommunityProfileScreen(),
-                      ),
+                      MaterialPageRoute(builder: (_) => CommunityProfileScreen()),
                     );
                   },
                   title: "@Sheena s",
@@ -54,16 +56,12 @@ class _CommonCommunityWidgetState extends State<CommonCommunityWidget> {
                   image: AppImages.profileManImage,
                 ),
               ),
-
-              /// Edit Button (only if myPost is true)
               if (widget.myPost)
                 GestureDetector(
                   onTap: () {
                     Navigator.push(
                       context,
-                      MaterialPageRoute(
-                        builder: (_) => UpdatePostScreen(),
-                      ),
+                      MaterialPageRoute(builder: (_) => UpdatePostScreen()),
                     );
                   },
                   child: Container(
@@ -88,42 +86,12 @@ class _CommonCommunityWidgetState extends State<CommonCommunityWidget> {
             onTap: () {
               Navigator.push(
                 context,
-                MaterialPageRoute(
-                  builder: (_) => CommunityImageShowScreen(),
-                ),
+                MaterialPageRoute(builder: (_) => CommunityImageShowScreen()),
               );
             },
             child: Row(
               crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                ClipRRect(
-                  borderRadius: BorderRadius.circular(6),
-                  child: CustomImage(
-                    imageSrc: AppImages.imageOne,
-                    height: 180.h,
-                    width: 180.w,
-                    fit: BoxFit.cover,
-                  ),
-                ),
-                Gap(4.w),
-                Column(
-                  children: [
-                    CustomImage(
-                      imageSrc: AppImages.imageTwo,
-                      height: 90.h,
-                      width: 90.w,
-                      fit: BoxFit.cover,
-                    ),
-                    Gap(4.h),
-                    CustomImage(
-                      imageSrc: AppImages.imageThree,
-                      height: 90.h,
-                      width: 90.w,
-                      fit: BoxFit.cover,
-                    ),
-                  ],
-                )
-              ],
+              children: buildImages(),
             ),
           ),
 
@@ -137,10 +105,7 @@ class _CommonCommunityWidgetState extends State<CommonCommunityWidget> {
             text:
             "“Day 10 of my Smoking Battle! 🚭\nIt’s honestly been one of the toughest things I’ve done, but waking up without that morning cough feels incredible. I used to light up without thinking — now, I pause, breathe, and remind myself why I started this fight. My monster still whispers sometimes, but it’s losing its voice. 💪🔥",
           ),
-          CustomText(
-            text: "See More...",
-            color: AppColors.primary,
-          ),
+          CustomText(text: "See More...", color: AppColors.primary),
 
           Gap(24.h),
 
@@ -155,18 +120,12 @@ class _CommonCommunityWidgetState extends State<CommonCommunityWidget> {
                   CustomText(text: "120"),
                 ],
               ),
-              Container(
-                height: 20.h,
-                width: 1.5.w,
-                color: Color(0xFFCBD5E1),
-              ),
+              Container(height: 20.h, width: 1.5.w, color: Color(0xFFCBD5E1)),
               GestureDetector(
                 onTap: () {
                   Navigator.push(
                     context,
-                    MaterialPageRoute(
-                      builder: (_) => CommentScreen(),
-                    ),
+                    MaterialPageRoute(builder: (_) => CommentScreen()),
                   );
                 },
                 child: Row(
@@ -179,8 +138,81 @@ class _CommonCommunityWidgetState extends State<CommonCommunityWidget> {
               ),
             ],
           ),
+
         ],
       ),
     );
   }
+
+
+
+
+
+
+
+
+
+
+  /// Builds the image widgets dynamically based on index
+  List<Widget> buildImages() {
+    List<String> images;
+
+    // Assign images based on index
+    switch (widget.index) {
+      case 0:
+        images = [AppImages.imageOne];
+        break;
+      case 1:
+        images = [AppImages.imageOne, AppImages.imageTwo];
+        break;
+      case 2:
+        images = [AppImages.imageOne, AppImages.imageTwo, AppImages.imageThree];
+        break;
+      default:
+        images = [AppImages.imageOne];
+    }
+
+    if (images.length == 1) {
+      return [
+        ClipRRect(
+          borderRadius: BorderRadius.circular(6),
+          child: CustomImage(
+            imageSrc: images[0],
+            height: 180.h,
+            width: 180.w,
+            fit: BoxFit.cover,
+          ),
+        )
+      ];
+    } else {
+      return [
+        ClipRRect(
+          borderRadius: BorderRadius.circular(6),
+          child: CustomImage(
+            imageSrc: images[0],
+            height: 180.h,
+            width: 180.w,
+            fit: BoxFit.cover,
+          ),
+        ),
+        Gap(4.w),
+        Column(
+          children: images.sublist(1).map((img) => Padding(
+            padding: EdgeInsets.only(bottom: 4.h),
+            child: ClipRRect(
+              borderRadius: BorderRadius.circular(6),
+              child: CustomImage(
+                imageSrc: img,
+                height: 90.h,
+                width: 90.w,
+                fit: BoxFit.cover,
+              ),
+            ),
+          )).toList(),
+        )
+      ];
+    }
+  }
+
+
 }
