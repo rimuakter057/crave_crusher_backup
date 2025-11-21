@@ -1,0 +1,54 @@
+import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import '../../utils/app_colors/app_colors.dart';
+import 'custom_text/custom_text.dart';
+
+
+class CustomLeadingTitleAppbar extends StatelessWidget
+    implements PreferredSizeWidget {
+  final String title;
+  final VoidCallback? onBack;
+final Color? titleColor;
+  const CustomLeadingTitleAppbar({
+    super.key,
+    required this.title,
+    this.titleColor,
+    this.onBack,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return AppBar(
+      surfaceTintColor: AppColors.backgroundColor,
+      backgroundColor: AppColors.backgroundColor,
+      centerTitle: true,
+
+      leading: Center(
+        child: Container(
+          width: 50.w,
+          height: 50.h,
+          alignment: Alignment.center,
+          decoration: BoxDecoration(
+            color: AppColors.subPrimary.withOpacity(.3),
+            shape: BoxShape.circle,
+            border: Border.all(color: AppColors.subPrimary),
+          ),
+          child: BackButton(
+            color: AppColors.primary,
+            onPressed: onBack ?? () => Navigator.pop(context),
+          ),
+        ),
+      ),
+
+      title: CustomText(
+        text: title,
+        fontSize: 18.sp,
+        color: titleColor??Color(0xFF1E1E1E),
+        fontWeight: FontWeight.w500,
+      ),
+    );
+  }
+
+  @override
+  Size get preferredSize => Size.fromHeight(60.h);
+}

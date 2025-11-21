@@ -8,7 +8,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
-import 'package:device_preview_plus/device_preview_plus.dart'; // ✅ add this
+import 'package:device_preview_plus/device_preview_plus.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -20,7 +20,7 @@ Future<void> main() async {
 
   runApp(
     DevicePreview(
-      enabled: true, // ✅ set false in production
+      enabled: true,
       builder: (context) => const MyApp(),
     ),
   );
@@ -46,7 +46,7 @@ class MyApp extends StatelessWidget {
           initialRoute: AppRoutes.splashScreen,
           getPages: AppRoutes.routes,
 
-          // ✅ Device Preview integration
+
           useInheritedMediaQuery: true,
           locale: DevicePreview.locale(context),
           builder: DevicePreview.appBuilder,

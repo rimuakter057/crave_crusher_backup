@@ -54,7 +54,7 @@ class CustomButton extends StatelessWidget {
               isBorder
                   ? Border.all(color: textColor, width: borderWidth ?? .05)
                   : null,
-          borderRadius: BorderRadius.circular(borderRadius ?? 30),
+          borderRadius: BorderRadius.circular(borderRadius ?? 6),
           color: fillColor,
         ),
         child: CustomText(

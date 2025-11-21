@@ -1,12 +1,15 @@
+import 'package:crave_crusher/view/features/community/controllers/community_tab_controller.dart';
 import 'package:get/get.dart';
+
+import '../../view/features/battle/controller/battle_controller.dart';
 
 class DependencyInjection extends Bindings {
   @override
   void dependencies() {
     ///==========================Default Custom Controller ==================
-    //   Get.lazyPut(() => ChatController(), fenix: true);
+      Get.lazyPut(() => BattleController(), fenix: true);
 
-    //   Get.lazyPut(() => HomeController(), fenix: true);
+      Get.lazyPut(() => CommunityTabController(), fenix: true);
 
     //   Get.lazyPut(() => OnboardingController(), fenix: true);
     //   Get.lazyPut(() => AuthController(), fenix: true);
