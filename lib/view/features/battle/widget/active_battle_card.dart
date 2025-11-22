@@ -14,7 +14,7 @@ class ActiveBattleCard extends StatelessWidget {
   final String dayCount;
   final DetoxType detoxType;
   final VoidCallback? onBattlePressed;
-
+  final String percentText;
   const ActiveBattleCard({
     super.key,
     required this.title,
@@ -22,7 +22,7 @@ class ActiveBattleCard extends StatelessWidget {
     required this.status,
     required this.dayCount,
     required this.detoxType,
-    this.onBattlePressed,
+    this.onBattlePressed, required this.percentText,
   });
 
   String getIcon() {
@@ -97,8 +97,8 @@ class ActiveBattleCard extends StatelessWidget {
               Row(
                 children: [
                   Container(
-                    height: 30.h,
-                    width: 30.w,
+                    height: 28.h,
+                    width: 28.w,
                     alignment: Alignment.center,
                     decoration: BoxDecoration(
                       color: AppColors.subPrimary.withOpacity(.3),
@@ -111,7 +111,7 @@ class ActiveBattleCard extends StatelessWidget {
                       width: 22.w,
                     ),
                   ),
-                  SizedBox(width: 10.w),
+                  SizedBox(width: 6.w),
                   SizedBox(
                     width: width < 390 ? 160.w : 200.w,
                     child: CustomText(
@@ -131,7 +131,7 @@ class ActiveBattleCard extends StatelessWidget {
 
               // Status Badge
               Container(
-                width: width < 390 ? 72.w : 90.w,
+                width: width < 390 ? 72.w : 80.w,
                 padding: EdgeInsets.symmetric(horizontal: 4.w, vertical: 2.h),
                 decoration: BoxDecoration(
                   color: getStatusColor(status).withOpacity(0.2),
@@ -157,7 +157,8 @@ class ActiveBattleCard extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               CustomText(
-                text: "${(progress * 100).toInt()}% to complete",
+                text: percentText,
+               // text: "${(progress * 100).toInt()}% to complete",
                 fontSize: 14.w,
                 fontWeight: FontWeight.w500,
                 color: AppColors.black,

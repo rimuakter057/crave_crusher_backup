@@ -8,8 +8,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class MonsterSection extends StatelessWidget {
-  const MonsterSection({super.key});
-
+  const MonsterSection({super.key, required this.image});
+final String image;
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -52,7 +52,7 @@ class MonsterSection extends StatelessWidget {
 
         // Monster Image
         CustomImage(
-          imageSrc: AppIcons.happyMonstar, // Placeholder Monster PNG
+          imageSrc: image, // Placeholder Monster PNG
           scale: 4,
         ),
 
