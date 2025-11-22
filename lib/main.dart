@@ -4,6 +4,7 @@ import 'package:crave_crusher/core/dependency/dependency_injection.dart';
 import 'package:crave_crusher/core/routes/app_routes.dart';
 import 'package:crave_crusher/utils/app_colors/app_colors.dart';
 import 'package:crave_crusher/view/components/device_utils/device_utils.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -20,7 +21,7 @@ Future<void> main() async {
 
   runApp(
     DevicePreview(
-      enabled: true,
+      enabled: kDebugMode,
       builder: (context) => const MyApp(),
     ),
   );
