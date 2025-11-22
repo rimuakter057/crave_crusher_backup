@@ -1,7 +1,9 @@
 // ignore_for_file: deprecated_member_use
 
+import 'package:crave_crusher/core/routes/app_routes.dart';
 import 'package:crave_crusher/utils/app_colors/app_colors.dart';
 import 'package:crave_crusher/utils/app_icons/app_icons.dart';
+import 'package:crave_crusher/view/components/custom_button/custom_button.dart';
 import 'package:crave_crusher/view/components/custom_image/custom_image.dart';
 import 'package:crave_crusher/view/components/custom_nav_bar/navbar.dart';
 import 'package:crave_crusher/view/components/custom_text/custom_text.dart';
@@ -11,7 +13,7 @@ import 'package:crave_crusher/view/features/home/widget/monster_section.dart';
 import 'package:crave_crusher/view/features/home/widget/today_tips.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-
+import 'package:get/get.dart';
 class EmptyHomeScreen extends StatelessWidget {
   const EmptyHomeScreen({super.key});
 
@@ -48,6 +50,14 @@ class EmptyHomeScreen extends StatelessWidget {
                 ),
                 SizedBox(height: 16.h),
                 _buildIconText(text: "Add your first battle to get started."),
+                SizedBox(height: 32.h),
+                CustomButton(onTap: (){
+                  Get.offNamed(AppRoutes.homeScreen);
+
+                },
+                  title: "next",
+                ),
+
               ],
             ),
           ],
@@ -103,6 +113,10 @@ class EmptyHomeScreen extends StatelessWidget {
           ),
           SizedBox(width: 8.w),
           CustomText(text: title, fontWeight: FontWeight.w600, fontSize: 18.sp),
+
+
+
+
         ],
       ),
     );

@@ -87,7 +87,7 @@ class _LoginScreenState extends State<LoginScreen> {
                 CustomButton(
                     title: " Log In",
                     onTap: (){
-                      Get.offNamed(AppRoutes.homeScreen);
+                      Get.offNamed(AppRoutes.emptyHome);
 
                     }),
               ],
