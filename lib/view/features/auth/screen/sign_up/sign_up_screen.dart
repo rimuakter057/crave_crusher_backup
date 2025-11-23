@@ -3,9 +3,9 @@ import 'package:crave_crusher/view/components/custom_text/custom_text.dart';
 import 'package:crave_crusher/view/components/input_field_with_title/input_field_with_title.dart';
 import 'package:crave_crusher/view/components/input_password_field_widget/input_password_field_widget.dart';
 import 'package:crave_crusher/view/features/auth/screen/login/login_screen.dart';
+import 'package:crave_crusher/view/features/auth/screen/verify_account/verify_account_screen.dart';
 import 'package:crave_crusher/view/features/auth/screen/widgets/action_promote_widget.dart';
 import 'package:crave_crusher/view/features/auth/screen/widgets/or_divider_widget.dart';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:gap/gap.dart';
@@ -85,7 +85,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                     onTap: (){
                       Navigator.push(
                         context,
-                        MaterialPageRoute(builder: (context) => LoginScreen()),
+                        MaterialPageRoute(builder: (context) => VerifyAccountScreen()),
                       );
                 
                     }),

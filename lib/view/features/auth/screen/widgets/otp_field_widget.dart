@@ -16,7 +16,7 @@ class OtpFieldWidget extends StatefulWidget {
 }
 
 class _OtpFieldWidgetState extends State<OtpFieldWidget> {
-  late TextEditingController _controller;
+  TextEditingController? _controller;
   bool _isTyping = false;
 
   @override
@@ -27,7 +27,8 @@ class _OtpFieldWidgetState extends State<OtpFieldWidget> {
 
   @override
   void dispose() {
-    _controller.dispose();
+    _controller?.dispose();
+    _controller = null;
     super.dispose();
   }
 
@@ -36,8 +37,6 @@ class _OtpFieldWidgetState extends State<OtpFieldWidget> {
     return Stack(
       alignment: Alignment.center,
       children: [
-
-        // OTP boxes
         PinCodeTextField(
           appContext: context,
           length: widget.length,
@@ -46,7 +45,7 @@ class _OtpFieldWidgetState extends State<OtpFieldWidget> {
           animationType: AnimationType.fade,
           enableActiveFill: true,
           textStyle: const TextStyle(
-            color: Colors.grey, // user input color
+            color: Colors.grey,
             fontSize: 20,
             fontWeight: FontWeight.bold,
           ),
@@ -63,11 +62,17 @@ class _OtpFieldWidgetState extends State<OtpFieldWidget> {
             inactiveFillColor: Color(0xFFEEF2FF),
           ),
           onChanged: (value) {
+            if (!mounted) return;
             setState(() {
               _isTyping = value.isNotEmpty;
             });
           },
-          onCompleted: widget.onCompleted ?? (value) {},
+          onCompleted: (value) {
+            if (!mounted) return;
+            if (widget.onCompleted != null) {
+              widget.onCompleted!(value);
+            }
+          },
         ),
       ],
     );

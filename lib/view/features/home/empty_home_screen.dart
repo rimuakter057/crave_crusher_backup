@@ -55,7 +55,7 @@ class EmptyHomeScreen extends StatelessWidget {
                   Get.offNamed(AppRoutes.homeScreen);
 
                 },
-                  title: "next",
+                  title: "save",
                 ),
 
               ],

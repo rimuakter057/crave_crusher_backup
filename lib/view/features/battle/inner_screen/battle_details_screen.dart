@@ -55,7 +55,7 @@ class BattleDetailsScreen extends StatelessWidget {
         title: 'Battle Details',
         actionIcon: AppIcons.edit,
         onActionPressed: () {
-          Get.toNamed(AppRoutes.createBattleScreen);
+          Get.toNamed(AppRoutes.updateBattle);
         },
       ),
       body: SingleChildScrollView(

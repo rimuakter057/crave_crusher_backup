@@ -21,7 +21,7 @@ Future<void> main() async {
 
   runApp(
     DevicePreview(
-      enabled: kDebugMode,
+      enabled: false,
       builder: (context) => const MyApp(),
     ),
   );
@@ -46,8 +46,6 @@ class MyApp extends StatelessWidget {
           navigatorKey: Get.key,
           initialRoute: AppRoutes.splashScreen,
           getPages: AppRoutes.routes,
-
-
           useInheritedMediaQuery: true,
           locale: DevicePreview.locale(context),
           builder: DevicePreview.appBuilder,

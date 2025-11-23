@@ -50,7 +50,7 @@ class PrivacyPolicyScreen extends StatelessWidget {
               ),
               TextSpan(
                 text:
-                "We collect information to provide and improve our services. The types of data we collect include:\n\n",
+                "We collect information to provide and improve our service. The types of data we collect include:\n\n",
                 style: GoogleFonts.syne(fontSize: 12.sp, fontWeight: FontWeight.w400,),
               ),
 
@@ -157,7 +157,7 @@ class PrivacyPolicyScreen extends StatelessWidget {
               ),
               TextSpan(
                 text:
-                "We retain your personal information only as long as necessary for providing our services. If you delete your account, your personal data will be permanently removed within 30 days, except where retention is required by law or security purposes.\n\n",
+                "We retain your personal information only as long as necessary for providing our service. If you delete your account, your personal data will be permanently removed within 30 days, except where retention is required by law or security purposes.\n\n",
 
                 style: GoogleFonts.syne(fontSize: 12.sp, fontWeight: FontWeight.w400,),
               ),
