@@ -182,8 +182,6 @@ class _SignUpScreenState extends State<SignUpScreen> {
       }else{
         showSnackBarMessage(context, signUpController.errorMessage!, true);
       }
-
-
     }
   }
 

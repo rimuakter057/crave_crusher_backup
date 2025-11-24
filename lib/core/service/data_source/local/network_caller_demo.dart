@@ -46,6 +46,8 @@ class NetworkCaller {
 
       _logRequest(url, headers);
       Response response = await get(uri, headers: headers);
+
+
       _logResponse(url, response);
 
       final decodedResponse = jsonDecode(response.body);
@@ -60,13 +62,13 @@ class NetworkCaller {
         return NetworkResponse(
           isSuccess: false,
           statusCode: response.statusCode,
-          errorMessage: decodedResponse['msg'],
+          errorMessage: decodedResponse['message'],
         );
       } else {
         return NetworkResponse(
           isSuccess: false,
           statusCode: response.statusCode,
-          errorMessage: decodedResponse['msg'],
+          errorMessage: decodedResponse['message'],
         );
       }
     } catch (e) {
