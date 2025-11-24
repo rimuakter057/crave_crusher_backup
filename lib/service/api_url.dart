@@ -1,9 +1,12 @@
+class ApiUrl {
+  static const String primaryUrl = "http://10.10.20.45:5555";
+
+  static const String baseUrl = "$primaryUrl/api/v1";
+  // static const String baseUrl = "https://sta-map-point-2.onrender.com/api/v1";
+  static const String imageUrl = "$primaryUrl/api/v1";
 
 
-class ApiUrls{
-  ///authentication section
-  //user signup section
-  static const  String baseUrl="http://10.10.20.45:5000/api/v1";
+  //=================================== Auth ============================= //
   static const String signUpUrl="$baseUrl/user/signup";
   static const String userVerifyOtp="$baseUrl/user/verify-code";
   static const String userResendVerifyOtp="$baseUrl/user/resend-verify-code";
@@ -14,4 +17,5 @@ class ApiUrls{
   static const String resendResetOtp="$baseUrl/auth/resend-reset-code";
   static const String resetPassword="$baseUrl/auth/reset-password";
   static const String changePassword="$baseUrl/auth/change-password";
+
 }

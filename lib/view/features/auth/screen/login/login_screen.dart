@@ -40,6 +40,9 @@ class _LoginScreenState extends State<LoginScreen> {
   }
 
 
+  GlobalKey<FormState>  key = GlobalKey<FormState>();
+
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -47,50 +50,55 @@ class _LoginScreenState extends State<LoginScreen> {
         child: SingleChildScrollView(
           child: Padding(
             padding:  EdgeInsets.symmetric(horizontal: 16.w),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                ///login text
-                CustomText(
-                
-                  textAlign: TextAlign.start,
-                  text: "Welcome Back",fontSize: 30.sp,fontWeight: FontWeight.w500,),
-                CustomText(
-                  maxLines: 2,
-                  textAlign: TextAlign.start,
-                  text: "Let’s continue your journey to crush those cravings!",fontSize: 14.sp,fontWeight: FontWeight.w400,
-                color: Color(0xFF555555),
-                ),
-                Gap(24.h),
-                ///input field
-                 InputFieldWithTitleWidget(title: "Email Address", hintText: "Enter your email"),
-                Gap(16.h),
-                InputPasswordFieldWidget(title: "Password"),
-                
-                ///remember and forgot section
-                RememberMeAndForgotPassword(
-                  isChecked: _rememberMe,
-                  onRememberMeChanged: _handleRememberMeChange,
-                  onForgotPasswordTapped: _handleForgotPasswordTap,
-                ),
-                OrDivider(),
-                Gap(24.h),
-                ActionPromptWidget(prefixText: 'Don’t have an account?', actionText: 'Sign Up Now', onActionTapped: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(builder: (context) => SignUpScreen()),
-                  );
-                },),
-                Gap(24.h),
-                ///login button
-                CustomButton(
-                    title: " Log In",
-                    onTap: (){
-                      Get.offNamed(AppRoutes.emptyHome);
+            child: Form(
+              key: key,
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  ///login text
+                  CustomText(
 
-                    }),
-              ],
+                    textAlign: TextAlign.start,
+                    text: "Welcome Back",fontSize: 30.sp,fontWeight: FontWeight.w500,),
+                  CustomText(
+                    maxLines: 2,
+                    textAlign: TextAlign.start,
+                    text: "Let’s continue your journey to crush those cravings!",fontSize: 14.sp,fontWeight: FontWeight.w400,
+                  color: Color(0xFF555555),
+                  ),
+                  Gap(24.h),
+                  ///input field
+                   InputFieldWithTitleWidget(title: "Email Address", hintText: "Enter your email"),
+
+
+                  Gap(16.h),
+                  InputPasswordFieldWidget(title: "Password"),
+
+                  ///remember and forgot section
+                  RememberMeAndForgotPassword(
+                    isChecked: _rememberMe,
+                    onRememberMeChanged: _handleRememberMeChange,
+                    onForgotPasswordTapped: _handleForgotPasswordTap,
+                  ),
+                  OrDivider(),
+                  Gap(24.h),
+                  ActionPromptWidget(prefixText: 'Don’t have an account?', actionText: 'Sign Up Now', onActionTapped: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => SignUpScreen()),
+                    );
+                  },),
+                  Gap(24.h),
+                  ///login button
+                  CustomButton(
+                      title: " Log In",
+                      onTap: (){
+                        Get.offNamed(AppRoutes.emptyHome);
+
+                      }),
+                ],
+              ),
             ),
           ),
         ),

@@ -3,14 +3,20 @@ import 'package:crave_crusher/view/components/custom_text_field/custom_text_fiel
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:gap/gap.dart';
+import 'package:google_fonts/google_fonts.dart';
+
+import '../../../utils/app_colors/app_colors.dart';
 
 
 class InputFieldWithTitleWidget extends StatelessWidget {
   const InputFieldWithTitleWidget({
-    super.key, required this.title, required this.hintText,
+    super.key, required this.title, required this.hintText, this.controller, this.validator,
   });
   final String title;
   final String hintText;
+  final TextEditingController? controller;
+  final String? Function(String?)? validator ;
+
 
   @override
   Widget build(BuildContext context) {
@@ -20,12 +26,15 @@ class InputFieldWithTitleWidget extends StatelessWidget {
         CustomText(text: title,fontSize: 14.sp,fontWeight: FontWeight.w500,),
         Gap(8.h),
         CustomTextField(
-          fillColor: Color(0xFFEEF2FF),
+          textEditingController: controller,
+          fillColor: AppColors.naveBordar,
           hintText:hintText ,
-          hintStyle: TextStyle(
+          hintStyle: GoogleFonts.syne(
               fontSize: 14.sp,
               color: Color(0xFFA1A1AA)
           ),
+          validator: validator ,
+
 
 
         ),

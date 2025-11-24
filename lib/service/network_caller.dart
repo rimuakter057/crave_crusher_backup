@@ -1,6 +1,4 @@
 import 'dart:convert';
-
-
 import 'package:crave_crusher/view/features/auth/controllers/auth_controller.dart';
 import 'package:get/get.dart' as getx;
 import 'package:http/http.dart';
@@ -62,13 +60,13 @@ class NetworkCaller {
         return NetworkResponse(
           isSuccess: false,
           statusCode: response.statusCode,
-          errorMessage: decodedResponse['msg'],
+          errorMessage: decodedResponse['message'],
         );
       } else {
         return NetworkResponse(
           isSuccess: false,
           statusCode: response.statusCode,
-          errorMessage: decodedResponse['msg'],
+          errorMessage: decodedResponse['message'],
         );
       }
     } catch (e) {
@@ -109,13 +107,13 @@ class NetworkCaller {
         return NetworkResponse(
           isSuccess: false,
           statusCode: response.statusCode,
-          errorMessage: decodedResponse['msg'],
+          errorMessage: decodedResponse['message'],
         );
       } else {
         return NetworkResponse(
           isSuccess: false,
           statusCode: response.statusCode,
-          errorMessage: decodedResponse['msg'],
+          errorMessage: decodedResponse['message'],
         );
       }
     } catch (e) {
