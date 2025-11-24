@@ -1,9 +1,9 @@
 
-class VerifyOtpModel{
+class VerifyAccountOtpModel{
   final String email;
   final String verifyCode;
 
-  VerifyOtpModel({required this.email,required this.verifyCode});
+  VerifyAccountOtpModel({required this.email,required this.verifyCode});
 
   Map<String, dynamic> toJson() {
     return {

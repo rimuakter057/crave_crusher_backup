@@ -43,7 +43,7 @@ class _LoginScreenState extends State<LoginScreen> {
   void _handleForgotPasswordTap() {
     // Add logic here to navigate to the forgot password screen
     print('Navigating to Forgot Password screen...');
-    Navigator.push(context, MaterialPageRoute(builder: (context) => VerifyIdentityScreen()));
+    Navigator.push(context, MaterialPageRoute(builder: (context) => VerifyIdentityScreen(email: _emailController.text,)));
   }
 
 

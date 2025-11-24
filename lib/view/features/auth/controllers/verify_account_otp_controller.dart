@@ -2,17 +2,17 @@
 
 import 'package:crave_crusher/core/service/data_source/local/network_caller_demo.dart';
 import 'package:crave_crusher/service/api_url.dart';
-import 'package:crave_crusher/view/features/auth/models/verify_otp_model.dart';
+import 'package:crave_crusher/view/features/auth/models/verify_account_otp_model.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-class VerifyOtpController extends GetxController {
+class VerifyAccountOtpController extends GetxController {
   bool _inProgress =false;
   bool get inProgress =>_inProgress;
   String? _errorMessage;
   String? get errorMessage =>errorMessage;
 
-  Future <bool> verifyOtp (VerifyOtpModel verifyOtpModel) async {
+  Future <bool> verifyOtp (VerifyAccountOtpModel verifyOtpModel) async {
     bool isSuccess =false;
     _inProgress=true;
     update();

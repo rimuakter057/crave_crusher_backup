@@ -2,6 +2,9 @@
 
 import 'package:crave_crusher/view/components/custom_button/custom_button.dart';
 import 'package:crave_crusher/view/components/custom_text/custom_text.dart';
+import 'package:crave_crusher/view/components/show_snakbar/show_snakbar.dart';
+import 'package:crave_crusher/view/features/auth/controllers/verify_identity_otp_controller.dart';
+import 'package:crave_crusher/view/features/auth/models/verify_indentity_otp_model.dart';
 import 'package:crave_crusher/view/features/auth/screen/login/login_screen.dart';
 import 'package:crave_crusher/view/features/auth/screen/reset_password/reset_password_screen.dart';
 import 'package:crave_crusher/view/features/auth/screen/widgets/action_promote_widget.dart';
@@ -9,16 +12,24 @@ import 'package:crave_crusher/view/features/auth/screen/widgets/otp_field_widget
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:gap/gap.dart';
+import 'package:get/get.dart';
 
+class VerifyIdentityScreen extends StatefulWidget {
+  const VerifyIdentityScreen({super.key, required this.email});
+final String email;
+  @override
+  State<VerifyIdentityScreen> createState() => _VerifyIdentityScreenState();
+}
 
-class VerifyIdentityScreen extends StatelessWidget {
-  const VerifyIdentityScreen({super.key});
+class _VerifyIdentityScreenState extends State<VerifyIdentityScreen> {
+
+  final TextEditingController _otpController=TextEditingController();
+
+  final VerifyIdentityOtpController verifyOtpController = Get.find<VerifyIdentityOtpController>();
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-
-
       body: Center(
         child: SingleChildScrollView(
           child: Padding(
@@ -40,6 +51,7 @@ class VerifyIdentityScreen extends StatelessWidget {
                 Gap(24.h),
 
                 OtpFieldWidget(
+                  controller: _otpController,
                   onCompleted: (value) {
                     print("OTP Completed: $value");
                   },
@@ -56,14 +68,30 @@ class VerifyIdentityScreen extends StatelessWidget {
 
                 ///reset button
                 Gap(16.h),
-                CustomButton(
-                    title: "Verify OTP",
-                    onTap: (){
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(builder: (context) => ResetPasswordScreen()),
+
+
+                GetBuilder<VerifyIdentityOtpController>(
+                    builder: (controller) {
+                      return Visibility(
+                        visible: controller.inProgress==false,
+                        replacement: Center(child: CircularProgressIndicator(),),
+                        child: CustomButton(
+                            title: "Verify OTP",
+                            onTap: _otpButton,
+                        ),
                       );
-                    })
+                    }
+                ),
+
+
+                // CustomButton(
+                //     title: "Verify OTP",
+                //     onTap: (){
+                //       Navigator.push(
+                //         context,
+                //         MaterialPageRoute(builder: (context) => ResetPasswordScreen()),
+                //       );
+                //     })
               ],
             ),
           ),
@@ -72,6 +100,54 @@ class VerifyIdentityScreen extends StatelessWidget {
 
     );
   }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  Future<void> _otpButton() async {
+    if (_otpController.text.isEmpty || _otpController.text.length != 6) {
+      showSnackBarMessage(context, "Please enter a 6-digit OTP", true);
+      return;
+    }
+
+  VerifyIdentityOtpModel verifyIdentityOtpModel =VerifyIdentityOtpModel(
+      email:widget.email,
+      resetCode: _otpController.text,
+  );
+
+    final bool isSuccess = await Get.find<VerifyIdentityOtpController>().verifyOtp(verifyIdentityOtpModel);
+
+    if(isSuccess){
+      Get.to(()=>ResetPasswordScreen());
+    }else{
+      showSnackBarMessage(context, verifyOtpController.errorMessage ?? "Something went wrong", true);
+    }
+
+    // Pass the text as string
+    // VerifyAccountOtpModel verifyOtpModel = VerifyAccountOtpModel(
+    //   email: widget.email,
+    //   verifyCode: _otpController.text, // ✅ string
+    // );
+
+    //final bool isSuccess = await Get.find<VerifyAccountOtpController>().verifyOtp(verifyOtpModel);
+
+    // if (isSuccess) {
+    //   Get.to(() => LoginScreen()); // pass instance
+    // } else {
+    //   showSnackBarMessage(context, verifyOtpController.errorMessage ?? "Something went wrong", true);
+    // }
+  }
+
 }
 
 
