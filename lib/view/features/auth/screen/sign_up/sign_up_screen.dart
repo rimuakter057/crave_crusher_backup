@@ -178,7 +178,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
       final bool isSuccess= await signUpController.signUp(userModel);
 
       if(isSuccess){
-        Get.to(VerifyAccountScreen());
+        Get.to(VerifyAccountScreen(email: _emailController.text,));
       }else{
         showSnackBarMessage(context, signUpController.errorMessage!, true);
       }

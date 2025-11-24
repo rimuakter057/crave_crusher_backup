@@ -3,13 +3,13 @@ import 'package:crave_crusher/view/features/auth/controllers/auth_controller.dar
 import 'package:get/get.dart' as getx;
 import 'package:http/http.dart';
 import 'package:logger/logger.dart';
-class NetworkResponseDemo {
+class NetworkResponse {
   final int statusCode;
   final Map<String, dynamic>? responseData;
   final bool isSuccess;
   final String errorMessage;
 
-  NetworkResponseDemo({
+  NetworkResponse({
     required this.isSuccess,
     required this.statusCode,
     this.responseData,
@@ -34,7 +34,7 @@ class NetworkCaller {
   }
 
   ///get request
-  Future<NetworkResponseDemo> getRequest(
+  Future<NetworkResponse> getRequest(
       {required String url, Map<String, dynamic>? queryParams}) async {
     try {
       url += '?';
@@ -51,26 +51,26 @@ class NetworkCaller {
       final decodedResponse = jsonDecode(response.body);
 
       if (response.statusCode == 200) {
-        return NetworkResponseDemo(
+        return NetworkResponse(
           isSuccess: true,
           statusCode: response.statusCode,
           responseData: decodedResponse,
         );
       } else if (response.statusCode == 401) {
-        return NetworkResponseDemo(
+        return NetworkResponse(
           isSuccess: false,
           statusCode: response.statusCode,
           errorMessage: decodedResponse['msg'],
         );
       } else {
-        return NetworkResponseDemo(
+        return NetworkResponse(
           isSuccess: false,
           statusCode: response.statusCode,
           errorMessage: decodedResponse['msg'],
         );
       }
     } catch (e) {
-      return NetworkResponseDemo(
+      return NetworkResponse(
         isSuccess: false,
         statusCode: -1,
         errorMessage: e.toString(),
@@ -81,7 +81,7 @@ class NetworkCaller {
   ///post request===================================
 
 
-  Future<NetworkResponseDemo> postRequest(
+  Future<NetworkResponse> postRequest(
       {required String url, Map<String, dynamic>? body}) async {
     try {
       Uri uri = Uri.parse(url);
@@ -98,26 +98,26 @@ class NetworkCaller {
       final decodedResponse = jsonDecode(response.body);
 
       if (response.statusCode == 200 || response.statusCode == 201) {
-        return NetworkResponseDemo(
+        return NetworkResponse(
             isSuccess: true,
             statusCode: response.statusCode,
             responseData: decodedResponse);
       } else if (response.statusCode == 401) {
         await _clearUserData();
-        return NetworkResponseDemo(
+        return NetworkResponse(
           isSuccess: false,
           statusCode: response.statusCode,
           errorMessage: decodedResponse['msg'],
         );
       } else {
-        return NetworkResponseDemo(
+        return NetworkResponse(
           isSuccess: false,
           statusCode: response.statusCode,
           errorMessage: decodedResponse['msg'],
         );
       }
     } catch (e) {
-      return NetworkResponseDemo(
+      return NetworkResponse(
         isSuccess: false,
         statusCode: -1,
         errorMessage: e.toString(),

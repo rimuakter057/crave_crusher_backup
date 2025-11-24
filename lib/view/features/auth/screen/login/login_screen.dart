@@ -5,6 +5,7 @@ import 'package:crave_crusher/view/components/input_field_with_title/input_field
 import 'package:crave_crusher/view/components/input_password_field_widget/input_password_field_widget.dart';
 import 'package:crave_crusher/view/features/auth/screen/sign_up/sign_up_screen.dart';
 import 'package:crave_crusher/view/features/auth/screen/verify_account/verify_account_screen.dart';
+import 'package:crave_crusher/view/features/auth/screen/verify_identity/verify_identity_screen.dart';
 import 'package:crave_crusher/view/features/auth/screen/widgets/action_promote_widget.dart';
 import 'package:crave_crusher/view/features/auth/screen/widgets/or_divider_widget.dart';
 import 'package:crave_crusher/view/features/auth/screen/widgets/remember_me_widget.dart';
@@ -24,7 +25,7 @@ class LoginScreen extends StatefulWidget {
 class _LoginScreenState extends State<LoginScreen> {
 
   bool _rememberMe = false;
-
+ final TextEditingController _emailController=TextEditingController();
   void _handleRememberMeChange(bool? newValue) {
     setState(() {
       _rememberMe = newValue ?? false;
@@ -36,7 +37,7 @@ class _LoginScreenState extends State<LoginScreen> {
   void _handleForgotPasswordTap() {
     // Add logic here to navigate to the forgot password screen
     print('Navigating to Forgot Password screen...');
-    Navigator.push(context, MaterialPageRoute(builder: (context) => VerifyAccountScreen()));
+    Navigator.push(context, MaterialPageRoute(builder: (context) => VerifyIdentityScreen()));
   }
 
 
