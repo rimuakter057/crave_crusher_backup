@@ -8,7 +8,9 @@ import 'package:crave_crusher/view/features/auth/controllers/sign_up_controller.
 import 'package:crave_crusher/view/features/auth/controllers/user_resend_otp_controller.dart';
 import 'package:crave_crusher/view/features/auth/controllers/verify_account_otp_controller.dart';
 import 'package:crave_crusher/view/features/auth/controllers/verify_identity_otp_controller.dart';
+import 'package:crave_crusher/view/features/change_password/controllers/change_password_controller.dart';
 import 'package:crave_crusher/view/features/community/controllers/community_tab_controller.dart';
+import 'package:crave_crusher/view/features/community/controllers/image_picker_controller.dart';
 import 'package:crave_crusher/view/features/home/controller/home_controller.dart';
 import 'package:crave_crusher/view/features/rewards/controller/reward_controller.dart';
 import 'package:get/get.dart';
@@ -32,6 +34,10 @@ class DependencyInjection extends Bindings {
     Get.lazyPut(() => ResetPasswordController(), fenix: true);
     Get.lazyPut(() => ResendOtpController(), fenix: true);
     Get.lazyPut(() => UserResendOtpController(), fenix: true);
+    Get.lazyPut(() => ChangePasswordController(), fenix: true);
+    ///==========================Community section==================
+
+    Get.lazyPut(() => ImagePickerController(), fenix: true);
     ///==========================Default Custom Controller ==================
       Get.lazyPut(() => BattleController(), fenix: true);
 

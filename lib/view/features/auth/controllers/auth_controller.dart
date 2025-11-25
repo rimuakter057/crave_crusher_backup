@@ -11,8 +11,8 @@ import 'package:shared_preferences/shared_preferences.dart';
 import '../../../../helper/shared_prefe/shared_prefe.dart';
 
 class AuthController {
-  final String _tokenKey = 'token';
-  final String _userDataKey = 'user-data';
+  final String _tokenKey = 'accessToken';
+  final String _userDataKey = 'data';
 
   String? token;
   UserModel? user;
@@ -31,17 +31,6 @@ class AuthController {
     user = userModel;
   }
 
-  // Future<void> saveUserData(String accessToken, UserModel userModel) async {
-  //   SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
-  //   await sharedPreferences.setString(_tokenKey, accessToken);
-  //   await sharedPreferences.setString(
-  //     _userDataKey,
-  //     jsonEncode(userModel.toJson()),
-  //   );
-  //
-  //   token = accessToken;
-  //   user = userModel;
-  // }
 
 
 

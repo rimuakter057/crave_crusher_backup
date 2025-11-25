@@ -3,6 +3,7 @@ import 'package:crave_crusher/view/features/auth/controllers/auth_controller.dar
 import 'package:get/get.dart' as getx;
 import 'package:http/http.dart';
 import 'package:logger/logger.dart';
+
 class NetworkResponse {
   final int statusCode;
   final Map<String, dynamic>? responseData;
@@ -20,55 +21,68 @@ class NetworkResponse {
 class NetworkCaller {
   final Logger _logger = Logger();
 
-  /// log request=============================================================================
+  /// log request
   void _logRequest(String url, Map<String, dynamic> headers,
       {Map<String, dynamic>? requestBody}) {
     _logger.i("URL => $url\nHeaders: $headers\nBody: $requestBody");
   }
 
-
-  /// log response=============================================================================
+  /// log response
   void _logResponse(String url, Response response) {
-    _logger.i(
-        "URL => $url\nStatus Code: ${response.statusCode}\nHeaders: ${response.headers}\nBody: ${response.body}");
+    _logger.i("URL => $url\n"
+        "Status Code: ${response.statusCode}\n"
+        "Headers: ${response.headers}\n"
+        "Body: ${response.body}");
   }
 
-  ///get request
-  Future<NetworkResponse> getRequest(
-      {required String url, Map<String, dynamic>? queryParams}) async {
+  /// ---------------- GET REQUEST ----------------
+  Future<NetworkResponse> getRequest({
+    required String url,
+    Map<String, dynamic>? queryParams,
+  }) async {
     try {
-      url += '?';
-      for (String key in queryParams?.keys ?? {}) {
-        url += '$key=${queryParams![key]}&';
+      /// build URL
+      if (queryParams != null && queryParams.isNotEmpty) {
+        url += '?';
+        queryParams.forEach((key, value) {
+          url += '$key=$value&';
+        });
       }
+
       Uri uri = Uri.parse(url);
-      Map<String, String> headers = {'token': getx.Get.find<AuthController>().token ?? ''};
+
+      /// Correct token header
+      String? token = getx.Get.find<AuthController>().token;
+      Map<String, String> headers = {
+        "Content-Type": "application/json",
+        if (token != null) "Authorization": "Bearer $token",
+      };
 
       _logRequest(url, headers);
+
       Response response = await get(uri, headers: headers);
+
       _logResponse(url, response);
 
-      final decodedResponse = jsonDecode(response.body);
+      final data = jsonDecode(response.body);
 
       if (response.statusCode == 200) {
         return NetworkResponse(
           isSuccess: true,
           statusCode: response.statusCode,
-          responseData: decodedResponse,
-        );
-      } else if (response.statusCode == 401) {
-        return NetworkResponse(
-          isSuccess: false,
-          statusCode: response.statusCode,
-          errorMessage: decodedResponse['message'],
-        );
-      } else {
-        return NetworkResponse(
-          isSuccess: false,
-          statusCode: response.statusCode,
-          errorMessage: decodedResponse['message'],
+          responseData: data,
         );
       }
+
+      if (response.statusCode == 401) {
+        await _clearUserData();
+      }
+
+      return NetworkResponse(
+        isSuccess: false,
+        statusCode: response.statusCode,
+        errorMessage: data['message'] ?? "Request failed",
+      );
     } catch (e) {
       return NetworkResponse(
         isSuccess: false,
@@ -78,44 +92,47 @@ class NetworkCaller {
     }
   }
 
-  ///post request===================================
-
-
-  Future<NetworkResponse> postRequest(
-      {required String url, Map<String, dynamic>? body}) async {
+  /// ---------------- POST REQUEST ----------------
+  Future<NetworkResponse> postRequest({
+    required String url,
+    Map<String, dynamic>? body,
+  }) async {
     try {
       Uri uri = Uri.parse(url);
+
+      /// Correct token header
+      String? token = getx.Get.find<AuthController>().token;
       Map<String, String> headers = {
-        'content-type': 'application/json',
-        'token': getx.Get.find<AuthController>().token ?? ''
+        "Content-Type": "application/json",
+        if (token != null) "Authorization": "Bearer $token",
       };
 
-      _logRequest(url, headers);
+      _logRequest(url, headers, requestBody: body);
+
       Response response =
       await post(uri, headers: headers, body: jsonEncode(body));
+
       _logResponse(url, response);
 
-      final decodedResponse = jsonDecode(response.body);
+      final data = jsonDecode(response.body);
 
       if (response.statusCode == 200 || response.statusCode == 201) {
         return NetworkResponse(
-            isSuccess: true,
-            statusCode: response.statusCode,
-            responseData: decodedResponse);
-      } else if (response.statusCode == 401) {
-        await _clearUserData();
-        return NetworkResponse(
-          isSuccess: false,
+          isSuccess: true,
           statusCode: response.statusCode,
-          errorMessage: decodedResponse['message'],
-        );
-      } else {
-        return NetworkResponse(
-          isSuccess: false,
-          statusCode: response.statusCode,
-          errorMessage: decodedResponse['message'],
+          responseData: data,
         );
       }
+
+      if (response.statusCode == 401) {
+        await _clearUserData();
+      }
+
+      return NetworkResponse(
+        isSuccess: false,
+        statusCode: response.statusCode,
+        errorMessage: data['message'] ?? "Request failed",
+      );
     } catch (e) {
       return NetworkResponse(
         isSuccess: false,
@@ -128,7 +145,4 @@ class NetworkCaller {
   Future<void> _clearUserData() async {
     await getx.Get.find<AuthController>().clearUserData();
   }
-
-
-
 }

@@ -1,4 +1,6 @@
 
+import 'dart:io';
+
 import 'package:crave_crusher/utils/app_colors/app_colors.dart';
 import 'package:crave_crusher/utils/app_icons/app_icons.dart';
 
@@ -6,14 +8,18 @@ import 'package:crave_crusher/view/components/custom_container/custom_container.
 import 'package:crave_crusher/view/components/custom_image/custom_image.dart';
 
 import 'package:crave_crusher/view/components/custom_text/custom_text.dart';
-
-
+import 'package:crave_crusher/view/features/community/controllers/image_picker_controller.dart';
+import 'package:get/get.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:gap/gap.dart';
 
 class CreatePostScreen extends StatelessWidget {
-  const CreatePostScreen({super.key});
+   CreatePostScreen({super.key});
+
+
+  final ImagePickerController imagePickerController = Get.find<ImagePickerController>();
+
 
   @override
   Widget build(BuildContext context) {
@@ -44,7 +50,6 @@ class CreatePostScreen extends StatelessWidget {
           fontWeight: FontWeight.w500,
         ),
       ),
-
 
       body: SingleChildScrollView(
         child: Padding(
@@ -84,6 +89,9 @@ class CreatePostScreen extends StatelessWidget {
             ),
 
 
+
+
+
            Gap(24.h),
 
             /// add photo
@@ -91,12 +99,37 @@ class CreatePostScreen extends StatelessWidget {
                 fontWeight: FontWeight.w500,
               ),
               Gap(8.h),
-              CustomContainer(
-                width: double.infinity,
-                height: 120.h,
-                backgroundColor: AppColors.subPrimary.withOpacity(.5),
-                child: Center(child: CustomImage(imageSrc: AppIcons.addImage),)
+
+              GetBuilder<ImagePickerController>(
+                builder: (controller) {
+                  return GestureDetector(
+                    onTap: (){
+                      controller.getImage();
+                    },
+                    child:controller.imagePath.isNotEmpty?
+                    CustomContainer(
+                      padding: 0,
+                      width: double.infinity,
+                      height: 120.h,
+                      backgroundColor: AppColors.subPrimary.withOpacity(.5),
+                      child: Center(child: Image.file(
+                        File(controller.imagePath),
+                        width: double.infinity,
+                        height: 120.h,
+                        fit: BoxFit.cover,
+                      ),)
+                    ):      CustomContainer(
+                        width: double.infinity,
+                        height: 120.h,
+                        backgroundColor: AppColors.subPrimary.withOpacity(.5),
+                        child: Center(child: CustomImage(imageSrc: AppIcons.addImage),),
+                    )
+                  );
+                }
               ),
+
+
+
               Gap(12.h),
               ///post now button
               GestureDetector(

@@ -162,6 +162,7 @@ final ForgetPasswordController forgetPasswordController =Get.find<ForgetPassword
       final bool isSuccess =await logInController.logIn(logInModel);
 
       if(isSuccess){
+
         Get.offNamed(AppRoutes.emptyHome);
       }else{
         showSnackBarMessage(context, logInController.errorMessage!, true);
@@ -195,5 +196,6 @@ final ForgetPasswordController forgetPasswordController =Get.find<ForgetPassword
     _passwordController.dispose();
     super.dispose();
   }
+
 
 }
