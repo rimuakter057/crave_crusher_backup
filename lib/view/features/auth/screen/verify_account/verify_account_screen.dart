@@ -1,8 +1,10 @@
 
 
+import 'package:crave_crusher/utils/app_colors/app_colors.dart';
 import 'package:crave_crusher/view/components/custom_button/custom_button.dart';
 import 'package:crave_crusher/view/components/custom_text/custom_text.dart';
 import 'package:crave_crusher/view/components/show_snakbar/show_snakbar.dart';
+import 'package:crave_crusher/view/features/auth/controllers/user_resend_otp_controller.dart';
 import 'package:crave_crusher/view/features/auth/controllers/verify_account_otp_controller.dart';
 import 'package:crave_crusher/view/features/auth/models/verify_account_otp_model.dart';
 import 'package:crave_crusher/view/features/auth/screen/login/login_screen.dart';
@@ -28,6 +30,8 @@ class _VerifyAccountScreenState extends State<VerifyAccountScreen> {
   final TextEditingController _otpController=TextEditingController();
 
   final VerifyAccountOtpController verifyOtpController = Get.find<VerifyAccountOtpController>();
+  final UserResendOtpController userResendOtpController= Get.find<UserResendOtpController>();
+
 
   @override
   Widget build(BuildContext context) {
@@ -63,12 +67,55 @@ class _VerifyAccountScreenState extends State<VerifyAccountScreen> {
 
                   Gap(16.h),
                   ///action promot
-                  ActionPromptWidget(prefixText: 'Didn’t receive the code?', actionText: 'Resend OTP (30s)', onActionTapped: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(builder: (context) => LoginScreen()),
-                    );
-                  },),
+
+
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    children: [
+                      Flexible(
+                        child: CustomText(text: "'Didn’t receive the code?'",
+                          fontSize: 14,
+                          fontWeight: FontWeight.w400,
+                          color: Color(0xFF555555),
+                        ),
+
+                      ),
+                      ///resend button
+                      GetBuilder<UserResendOtpController>(
+                          builder: (controller) {
+                            return Visibility(
+                              visible: controller.inProgress==false,
+                              replacement: Center(child: CircularProgressIndicator(),),
+                              child: GestureDetector(
+                                onTap: _resendOtpButton,
+                                child: Padding(
+                                  padding: const EdgeInsets.only(left: 4.0),
+                                  child: CustomText(text: 'Resend OTP (30s)',
+                                    fontSize: 14,
+                                    fontWeight: FontWeight.w500,
+                                    color: AppColors.primary,
+                                  ),
+
+
+                                ),
+                              ),
+                            );
+                          }
+                      ),
+                    ],
+                  ),
+
+
+
+
+
+
+                  // ActionPromptWidget(prefixText: 'Didn’t receive the code?', actionText: 'Resend OTP (30s)', onActionTapped: () {
+                  //   Navigator.push(
+                  //     context,
+                  //     MaterialPageRoute(builder: (context) => LoginScreen()),
+                  //   );
+                  // },),
 
 
                   ///reset button
@@ -102,6 +149,8 @@ class _VerifyAccountScreenState extends State<VerifyAccountScreen> {
     );
   }
 
+
+  ///verify_otp button
   Future<void> _verifyOtpButton() async {
     if (_otpController.text.isEmpty || _otpController.text.length != 6) {
       showSnackBarMessage(context, "Please enter a 6-digit OTP", true);
@@ -124,6 +173,24 @@ class _VerifyAccountScreenState extends State<VerifyAccountScreen> {
   }
 
 
+
+
+  ///resend otp
+  Future<void> _resendOtpButton() async {
+
+    if (widget.email.isEmpty) {
+      Get.snackbar("Error", "Email not found!");
+      return;
+    }
+
+    final bool isSuccess = await userResendOtpController.resendOtp(widget.email);
+
+    if (isSuccess) {
+      Get.snackbar("Success", "A new OTP has been sent to your email.");
+    } else {
+      Get.snackbar("Error", userResendOtpController.errorMessage ?? "Something went wrong.");
+    }
+  }
 
 
 

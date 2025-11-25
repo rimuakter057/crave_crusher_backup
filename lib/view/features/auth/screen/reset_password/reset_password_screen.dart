@@ -59,11 +59,17 @@ class ResetPasswordScreen extends StatelessWidget {
                   InputPasswordFieldWidget(title: "Confirmed Password",
                   controller: _confirmedPassword,
                     validator: (String? value) {
-                      if (value?.isEmpty ?? true && _newPassController!=_confirmedPassword) {
+                      if (value == null || value.isEmpty) {
                         return "Enter Confirmed Password";
                       }
+
+                      if (_newPassController.text != _confirmedPassword.text) {
+                        return "Passwords do not match";
+                      }
+
                       return null;
                     },
+
                   ),
                   Gap(16.h),
                   ActionPromptWidget(prefixText: 'Remembered it now?', actionText: 'Log In', onActionTapped: () {
