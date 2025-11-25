@@ -89,6 +89,12 @@ final ForgetPasswordController forgetPasswordController =Get.find<ForgetPassword
                     Gap(16.h),
                     InputPasswordFieldWidget(title: "Password",
                     controller: _passwordController,
+                      validator: (String? value) {
+                        if (value?.isEmpty ?? true && _passwordController.text.length<6) {
+                          return "Enter Your password minimum length 6";
+                        }
+                        return null;
+                      },
                     ),
             
                     ///remember and forgot section
@@ -179,15 +185,6 @@ final ForgetPasswordController forgetPasswordController =Get.find<ForgetPassword
        Get.snackbar("Error", "Please Enter Your Email");
      }
 
-
-      // LogInModel logInModel = LogInModel(email: _emailController.text, password: _passwordController.text);
-      // final bool isSuccess =await logInController.logIn(logInModel);
-      //
-      // if(isSuccess){
-      //   Get.offNamed(AppRoutes.emptyHome);
-      // }else{
-      //   showSnackBarMessage(context, logInController.errorMessage!, true);
-      // }
 
   }
 

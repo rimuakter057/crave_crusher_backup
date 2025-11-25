@@ -119,7 +119,7 @@ class _VerifyIdentityScreenState extends State<VerifyIdentityScreen> {
     final bool isSuccess = await Get.find<VerifyIdentityOtpController>().verifyIdentityOtp(verifyIdentityOtpModel);
 
     if(isSuccess){
-      Get.to(()=>ResetPasswordScreen());
+      Get.to(()=>ResetPasswordScreen(email:widget.email,));
     }else{
       showSnackBarMessage(context, verifyOtpIdentityController.errorMessage ?? "Something went wrong", true);
     }
