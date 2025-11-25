@@ -8,7 +8,7 @@ class VerifyIdentityOtpModel{
   Map<String, dynamic> toJson() {
     return {
       "email": email,
-      "verifyCode": int.tryParse(resetCode) ?? 0, // convert string to int
+      "resetCode": int.tryParse(resetCode) ?? 0, // convert string to int
     };
   }
 

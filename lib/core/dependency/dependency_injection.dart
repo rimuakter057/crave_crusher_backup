@@ -1,5 +1,6 @@
 import 'package:crave_crusher/core/service/data_source/local/network_caller_demo.dart';
 import 'package:crave_crusher/view/features/auth/controllers/auth_controller.dart';
+import 'package:crave_crusher/view/features/auth/controllers/forget_password_controller.dart';
 import 'package:crave_crusher/view/features/auth/controllers/login_controller.dart';
 import 'package:crave_crusher/view/features/auth/controllers/sign_up_controller.dart';
 import 'package:crave_crusher/view/features/auth/controllers/verify_account_otp_controller.dart';
@@ -23,6 +24,7 @@ class DependencyInjection extends Bindings {
     Get.lazyPut(() => SignUpController(), fenix: true);
     Get.lazyPut(() => LogInController(), fenix: true);
     Get.lazyPut(() => VerifyAccountOtpController(), fenix: true);
+    Get.lazyPut(() => ForgetPasswordController(), fenix: true);
     Get.lazyPut(() => VerifyIdentityOtpController(), fenix: true);
     ///==========================Default Custom Controller ==================
       Get.lazyPut(() => BattleController(), fenix: true);

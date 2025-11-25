@@ -23,9 +23,9 @@ final String email;
 
 class _VerifyIdentityScreenState extends State<VerifyIdentityScreen> {
 
-  final TextEditingController _otpController=TextEditingController();
+  final TextEditingController _controller=TextEditingController();
 
-  final VerifyIdentityOtpController verifyOtpController = Get.find<VerifyIdentityOtpController>();
+  final VerifyIdentityOtpController verifyOtpIdentityController = Get.find<VerifyIdentityOtpController>();
 
   @override
   Widget build(BuildContext context) {
@@ -51,7 +51,7 @@ class _VerifyIdentityScreenState extends State<VerifyIdentityScreen> {
                 Gap(24.h),
 
                 OtpFieldWidget(
-                  controller: _otpController,
+                  controller: _controller,
                   onCompleted: (value) {
                     print("OTP Completed: $value");
                   },
@@ -83,15 +83,6 @@ class _VerifyIdentityScreenState extends State<VerifyIdentityScreen> {
                     }
                 ),
 
-
-                // CustomButton(
-                //     title: "Verify OTP",
-                //     onTap: (){
-                //       Navigator.push(
-                //         context,
-                //         MaterialPageRoute(builder: (context) => ResetPasswordScreen()),
-                //       );
-                //     })
               ],
             ),
           ),
@@ -115,37 +106,24 @@ class _VerifyIdentityScreenState extends State<VerifyIdentityScreen> {
 
 
   Future<void> _otpButton() async {
-    if (_otpController.text.isEmpty || _otpController.text.length != 6) {
+    if (_controller.text.isEmpty || _controller.text.length != 6) {
       showSnackBarMessage(context, "Please enter a 6-digit OTP", true);
       return;
     }
 
   VerifyIdentityOtpModel verifyIdentityOtpModel =VerifyIdentityOtpModel(
       email:widget.email,
-      resetCode: _otpController.text,
+      resetCode: _controller.text,
   );
 
-    final bool isSuccess = await Get.find<VerifyIdentityOtpController>().verifyOtp(verifyIdentityOtpModel);
+    final bool isSuccess = await Get.find<VerifyIdentityOtpController>().verifyIdentityOtp(verifyIdentityOtpModel);
 
     if(isSuccess){
       Get.to(()=>ResetPasswordScreen());
     }else{
-      showSnackBarMessage(context, verifyOtpController.errorMessage ?? "Something went wrong", true);
+      showSnackBarMessage(context, verifyOtpIdentityController.errorMessage ?? "Something went wrong", true);
     }
 
-    // Pass the text as string
-    // VerifyAccountOtpModel verifyOtpModel = VerifyAccountOtpModel(
-    //   email: widget.email,
-    //   verifyCode: _otpController.text, // ✅ string
-    // );
-
-    //final bool isSuccess = await Get.find<VerifyAccountOtpController>().verifyOtp(verifyOtpModel);
-
-    // if (isSuccess) {
-    //   Get.to(() => LoginScreen()); // pass instance
-    // } else {
-    //   showSnackBarMessage(context, verifyOtpController.errorMessage ?? "Something went wrong", true);
-    // }
   }
 
 }

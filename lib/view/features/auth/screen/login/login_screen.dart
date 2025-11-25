@@ -1,9 +1,11 @@
 import 'package:crave_crusher/core/routes/app_routes.dart';
+import 'package:crave_crusher/utils/app_colors/app_colors.dart';
 import 'package:crave_crusher/view/components/custom_button/custom_button.dart';
 import 'package:crave_crusher/view/components/custom_text/custom_text.dart';
 import 'package:crave_crusher/view/components/input_field_with_title/input_field_with_title.dart';
 import 'package:crave_crusher/view/components/input_password_field_widget/input_password_field_widget.dart';
 import 'package:crave_crusher/view/components/show_snakbar/show_snakbar.dart';
+import 'package:crave_crusher/view/features/auth/controllers/forget_password_controller.dart';
 import 'package:crave_crusher/view/features/auth/controllers/login_controller.dart';
 import 'package:crave_crusher/view/features/auth/models/login_model.dart';
 import 'package:crave_crusher/view/features/auth/screen/sign_up/sign_up_screen.dart';
@@ -40,15 +42,11 @@ class _LoginScreenState extends State<LoginScreen> {
     print('Remember Me is now: $_rememberMe');
   }
 
-  void _handleForgotPasswordTap() {
-    // Add logic here to navigate to the forgot password screen
-    print('Navigating to Forgot Password screen...');
-    Navigator.push(context, MaterialPageRoute(builder: (context) => VerifyIdentityScreen(email: _emailController.text,)));
-  }
 
 
   GlobalKey<FormState>  _key = GlobalKey<FormState>();
  final LogInController logInController = Get.find<LogInController>();
+final ForgetPasswordController forgetPasswordController =Get.find<ForgetPasswordController>();
 
   @override
   Widget build(BuildContext context) {
@@ -97,11 +95,25 @@ class _LoginScreenState extends State<LoginScreen> {
                     RememberMeAndForgotPassword(
                       isChecked: _rememberMe,
                       onRememberMeChanged: _handleRememberMeChange,
-                      onForgotPasswordTapped: _handleForgotPasswordTap,
+                    child:  GetBuilder<ForgetPasswordController>(
+                      builder: (controller) {
+                        return Visibility(
+                          visible: controller.inProgress==false,
+                          replacement: Center(child: CircularProgressIndicator(),),
+                          child: TextButton(
+                            onPressed: _forgetButtonTap,
+                            child: CustomText(text:"Forget Password?",fontWeight: FontWeight.w600,fontSize: 12,color: AppColors.primary,),
+
+                          ),
+                        );
+                      }
+                    ),
                     ),
                     OrDivider(),
                     Gap(24.h),
                     ActionPromptWidget(prefixText: 'Don’t have an account?', actionText: 'Sign Up Now', onActionTapped: () {
+
+
                       Navigator.push(
                         context,
                         MaterialPageRoute(builder: (context) => SignUpScreen()),
@@ -118,7 +130,7 @@ class _LoginScreenState extends State<LoginScreen> {
                           replacement: Center(child: CircularProgressIndicator()),
                           child: CustomButton(
                             title: "Log In",
-                            onTap: _signIn, // <-- calls separate method
+                            onTap: _signInButtonTap, // <-- calls separate method
                           ),
                         );
                       },
@@ -136,8 +148,8 @@ class _LoginScreenState extends State<LoginScreen> {
     );
   }
 
-
-  Future <void> _signIn()async{
+///sign in button
+  Future <void> _signInButtonTap()async{
     if (_key.currentState!.validate()){
 
       LogInModel logInModel = LogInModel(email: _emailController.text, password: _passwordController.text);
@@ -151,6 +163,34 @@ class _LoginScreenState extends State<LoginScreen> {
 
     }
   }
+
+
+  ///forget button
+  Future <void> _forgetButtonTap()async{
+
+   // _emailController.text.isEmpty?  Get.snackbar("Error", "Please Enter Your Email"):  Get.to(VerifyIdentityScreen(email: _emailController.text,));
+
+
+    final bool isSuccess=  await forgetPasswordController.forgetPassword(_emailController.text);
+
+     if(isSuccess && _emailController.text.isNotEmpty){
+       Get.to(VerifyIdentityScreen(email: _emailController.text));
+     }else {
+       Get.snackbar("Error", "Please Enter Your Email");
+     }
+
+
+      // LogInModel logInModel = LogInModel(email: _emailController.text, password: _passwordController.text);
+      // final bool isSuccess =await logInController.logIn(logInModel);
+      //
+      // if(isSuccess){
+      //   Get.offNamed(AppRoutes.emptyHome);
+      // }else{
+      //   showSnackBarMessage(context, logInController.errorMessage!, true);
+      // }
+
+  }
+
 
   @override
   void dispose() {

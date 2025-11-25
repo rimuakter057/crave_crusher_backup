@@ -11,9 +11,9 @@ class VerifyIdentityOtpController extends GetxController {
   bool _inProgress =false;
   bool get inProgress =>_inProgress;
   String? _errorMessage;
-  String? get errorMessage =>errorMessage;
+  String? get errorMessage =>_errorMessage;
 
-  Future <bool> verifyOtp (VerifyIdentityOtpModel verifyIdentityOtpModel) async {
+  Future <bool> verifyIdentityOtp (VerifyIdentityOtpModel verifyIdentityOtpModel) async {
     bool isSuccess =false;
     _inProgress=true;
     update();
@@ -37,32 +37,3 @@ class VerifyIdentityOtpController extends GetxController {
 
 
 
-// class SignUpController extends GetxController {
-//   bool _signUpInProgress = false;
-//
-//   bool get signUpInProgress => _signUpInProgress;
-//
-//   String? _errorMessage;
-//
-//   String? get errorMessage => _errorMessage;
-//
-//   Future<bool> signUp(UserModel userModel) async {
-//     bool isSuccess = false;
-//     _signUpInProgress = true;
-//     update();
-//     final NetworkResponseDemo response =
-//     await Get.find<NetworkCaller>().postRequest(
-//       url: ApiUrl.signUpUrl,
-//       body: userModel.toJson(),
-//     );
-//     if (response.isSuccess) {
-//       _errorMessage = null;
-//       isSuccess = true;
-//     } else {
-//       _errorMessage = response.errorMessage;
-//     }
-//     _signUpInProgress = false;
-//     update();
-//     return isSuccess;
-//   }
-// }

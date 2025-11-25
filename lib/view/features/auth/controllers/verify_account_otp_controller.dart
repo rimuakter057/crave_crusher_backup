@@ -10,7 +10,7 @@ class VerifyAccountOtpController extends GetxController {
   bool _inProgress =false;
   bool get inProgress =>_inProgress;
   String? _errorMessage;
-  String? get errorMessage =>errorMessage;
+  String? get errorMessage =>_errorMessage;
 
   Future <bool> verifyOtp (VerifyAccountOtpModel verifyOtpModel) async {
     bool isSuccess =false;
