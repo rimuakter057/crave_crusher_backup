@@ -24,12 +24,12 @@ class LogInController extends GetxController {
     if (response.isSuccess) {
       //save user data
 
-      UserModel userModel = UserModel.fromJson(response.responseData!['data']);
+     // UserModel userModel = UserModel.fromJson(response.responseData!['data']);
 
       //save user token
       String accessToken = response.responseData!['data']['accessToken'];
-
-      await Get.find<AuthController>().saveUserData(accessToken, userModel);
+      await Get.find<AuthController>().saveUserData(accessToken, );
+     // await Get.find<AuthController>().saveUserData(accessToken, userModel);
 
       _errorMessage = null;
       isSuccess = true;

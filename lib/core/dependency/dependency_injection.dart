@@ -12,7 +12,7 @@ import 'package:crave_crusher/view/features/auth/controllers/verify_identity_otp
 import 'package:crave_crusher/view/features/change_password/controllers/change_password_controller.dart';
 import 'package:crave_crusher/view/features/community/controllers/community_tab_controller.dart';
 import 'package:crave_crusher/view/features/community/controllers/create_post_controller.dart';
-import 'package:crave_crusher/view/features/community/controllers/image_picker_controller.dart';
+import 'package:crave_crusher/view/features/community/controllers/create_post_controller.dart';
 import 'package:crave_crusher/view/features/community/controllers/post_show_controller.dart';
 import 'package:crave_crusher/view/features/home/controller/home_controller.dart';
 import 'package:crave_crusher/view/features/rewards/controller/reward_controller.dart';
@@ -41,9 +41,9 @@ class DependencyInjection extends Bindings {
     Get.lazyPut(() => ChangePasswordController(), fenix: true);
     ///==========================Community section==================
 
-    Get.lazyPut(() => ImagePickerController(), fenix: true);
+    Get.lazyPut(() => AddPostController(), fenix: true);
    Get.lazyPut(() => PostShowController(), fenix: true);
-    Get.lazyPut(() => CreatePostController(), fenix: true);
+
 
 
 

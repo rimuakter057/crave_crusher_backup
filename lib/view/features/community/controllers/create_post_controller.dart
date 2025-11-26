@@ -1,55 +1,75 @@
-import 'package:crave_crusher/view/features/community/models/create_post_model.dart';
-import 'package:get/get.dart';
-import 'package:crave_crusher/service/network_caller.dart';
+import 'package:crave_crusher/service/api_client.dart';
 import 'package:crave_crusher/service/api_url.dart';
+import 'package:get/get.dart';
+import 'package:image_picker/image_picker.dart';
+import 'dart:io';
 
 
-class CreatePostController extends GetxController {
-  bool _inProgress = false;
-  bool get inProgress => _inProgress;
+class AddPostController extends GetxController {
+  //============================= Rx Variables ===========================
+  var postText = ''.obs;
+  var imagePath = ''.obs;
+  var isLoading = false.obs;
 
-  String? _errorMessage;
-  String? get errorMessage => _errorMessage;
+  //============================= Image Picker ===========================
+  Future<void> pickImage({bool fromCamera = true}) async {
+    final ImagePicker _imagePicker = ImagePicker();
+    final image = await _imagePicker.pickImage(
+      source: fromCamera ? ImageSource.camera : ImageSource.gallery,
+    );
 
-  CreatePostModel? _createdPost;
-  CreatePostModel? get createdPost => _createdPost;
+    if (image != null) {
+      imagePath.value = image.path; // Rx updated
+    }
+  }
 
-  /// Function to create a post
-  Future<bool> createPost({
-    required String content,
-    List<String>? postImages,
-  }) async {
-    bool isSuccess = false;
-    _inProgress = true;
-    update();
+  void removeImage() {
+    imagePath.value = '';
+  }
+
+  //============================= Post Validation ========================
+  bool validatePost() {
+    if (postText.value.trim().isEmpty) {
+      Get.snackbar("Error", "Post content cannot be empty");
+      return false;
+    }
+    return true;
+  }
+
+  //============================= Create Post ============================
+  Future<void> createPost(String authorId) async {
+    if (!validatePost()) return;
+
+    isLoading.value = true;
 
     try {
-      final NetworkResponse response = await Get.find<NetworkCaller>().postRequest(
-        url: "${ApiUrl.baseUrl}/community-post/create-post", // your API
-        body: {
-          'content': content,
-          'post_images': postImages ?? [],
-        },
+      Map<String, String> body = {
+        'content': postText.value.trim(),
+        'authorId': authorId,
+      };
+
+      List<MultipartBody>? multipartFiles;
+      if (imagePath.value.isNotEmpty) {
+        multipartFiles = [MultipartBody('post_images', File(imagePath.value))];
+      }
+
+      final response = await ApiClient.postMultipartData(
+        ApiUrl.createPost,
+        body,
+        multipartBody: multipartFiles,
       );
 
-      if (response.isSuccess && response.responseData != null) {
-        _errorMessage = null;
-
-        // Parse the response to model
-        if (response.responseData!['data'] != null) {
-          _createdPost = CreatePostModel.fromJson(response.responseData!['data']);
-        }
-
-        isSuccess = true;
+      if (response.statusCode == 200) {
+        Get.snackbar("Success", "Post created successfully");
+        postText.value = '';
+        imagePath.value = '';
       } else {
-        _errorMessage = response.errorMessage ?? "Something went wrong";
+        Get.snackbar("Error", response.body['message'] ?? "Something went wrong");
       }
     } catch (e) {
-      _errorMessage = e.toString();
+      Get.snackbar("Error", e.toString());
+    } finally {
+      isLoading.value = false;
     }
-
-    _inProgress = false;
-    update();
-    return isSuccess;
   }
 }

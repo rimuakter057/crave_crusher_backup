@@ -1,4 +1,5 @@
 
+import 'package:crave_crusher/helper/time_converter/date_converter.dart';
 import 'package:crave_crusher/utils/app_images/app_images.dart';
 import 'package:crave_crusher/view/components/custom_app_bar/custom_app_bar.dart';
 import 'package:crave_crusher/view/components/custom_nav_bar/navbar.dart';
@@ -58,22 +59,38 @@ class CommunityAllFeedScreen extends StatelessWidget {
                       final post = postController.posts[index];
                       return Column(
                         children: [
-                          CommonCommunityWidget(
-                            profileTitle: "@${post.content}", // dynamic
-                            profileSubtitle: "27 Aug 2020 06:20 AM", // static
-                            profileImage: AppImages.profileManImage, // static
-                            postText:
-                            "Day 10 of my Smoking Battle! 🚭\nIt’s honestly been one of the toughest things I’ve done, "
-                                "but waking up without that morning cough feels incredible. "
-                                "I used to light up without thinking — now, I pause, breathe, and remind myself why I started this fight. "
-                                "My monster still whispers sometimes, but it’s losing its voice. 💪🔥", // static
-                            likesText: "${post.totalVotes}", // dynamic
-                            commentsText: "${post.totalComments}", // dynamic
-                            myPost: false, // static
-                            index: 2, // static
-                          ),
+                          // CommonCommunityWidget(
+                          //   profileTitle: "@${post.content}", // dynamic
+                          //   profileSubtitle: "27 Aug 2020 06:20 AM", // static
+                          //   profileImage: AppImages.profileManImage, // static
+                          //   postText:
+                          //   "Day 10 of my Smoking Battle! 🚭\nIt’s honestly been one of the toughest things I’ve done, "
+                          //       "but waking up without that morning cough feels incredible. "
+                          //       "I used to light up without thinking — now, I pause, breathe, and remind myself why I started this fight. "
+                          //       "My monster still whispers sometimes, but it’s losing its voice. 💪🔥", // static
+                          //   likesText: "${post.totalVotes}", // dynamic
+                          //   commentsText: "${post.totalComments}", // dynamic
+                          //   myPost: false, // static
+                          //   index: 2, // static
+                          // ),
 
-                          SizedBox(height: 8.h),
+
+                      CommonCommunityWidget(
+                      profileTitle: "@${post.author?.fullName ?? 'Unknown'}",
+                        profileSubtitle: DateConverter.formattedTime(
+                            DateTime.parse(post.createdAt ?? DateTime.now().toString())
+                        ),
+                     // profileImage: post.author?.profileImage ?? AppImages.profileManImage,
+                        profileImage:AppImages.profileManImage,
+                        postText: post.content ?? "",
+                        likesText: "${post.totalVotes ?? 0}",
+                        commentsText: "${post.totalComments ?? 0}",
+                        myPost: false,
+                        index: 2,
+                      ),
+
+
+                      SizedBox(height: 8.h),
                         ],
                       );
                     },
