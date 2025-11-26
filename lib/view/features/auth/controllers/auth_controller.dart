@@ -1,10 +1,12 @@
 import 'dart:convert';
+import 'package:crave_crusher/helper/shared_prefe/shared_prefe.dart';
+import 'package:crave_crusher/utils/app_const/app_const.dart';
 import 'package:crave_crusher/view/features/auth/models/user_model.dart';
 import 'package:get/get.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class AuthController extends GetxController {
-  final String _tokenKey = 'accessToken';
+  final String _tokenKey = AppConstants.bearerToken;
   final String _userDataKey = 'data';
 
   String? token;
@@ -12,7 +14,7 @@ class AuthController extends GetxController {
 
   Future<void> saveUserData(String accessToken, UserModel userModel) async {
     SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
-    await sharedPreferences.setString(_tokenKey, accessToken);
+    await SharePrefsHelper.setString(_tokenKey, accessToken);
     await sharedPreferences.setString(_userDataKey, jsonEncode(userModel.toJson()));
     token = accessToken;
     user = userModel;

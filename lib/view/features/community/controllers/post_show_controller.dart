@@ -1,51 +1,40 @@
+import 'package:crave_crusher/service/api_client.dart';
 import 'package:crave_crusher/service/api_url.dart';
-import 'package:crave_crusher/service/network_caller.dart';
 import 'package:crave_crusher/view/features/community/models/post_model.dart';
 import 'package:get/get.dart';
+import 'package:logger/logger.dart';
 
 class PostShowController extends GetxController {
-  bool _getPostsInProgress = false;
-  List<Data> _postList = [];
-  String? _errorMessage;
+  var posts = <Data>[].obs;
+  var isLoading = false.obs;
+  static final Logger logger = Logger();
 
-  // Getters
-  bool get getPostsInProgress => _getPostsInProgress;
-  List<Data> get posts => _postList;
-  String? get errorMessage => _errorMessage;
+  // @override
+  // void onInit() {
+  //   super.onInit();
+  //   fetchPosts(); // Screen open hole auto load hobe
+  // }
 
-  @override
-  void onInit() {
-    super.onInit();
-    getPosts();
-  }
+  void fetchPosts() async {
+    try {
+      isLoading.value = true;
 
-  Future<bool> getPosts() async {
-    bool isSuccess = false;
-    _getPostsInProgress = true;
-    update();
-    final NetworkResponse response =
-    await Get.find<NetworkCaller>().getRequest(url: ApiUrl.getAllPost);
-
-    if (response.isSuccess && response.responseData != null) {
-      try {
-        // ensure response is a Map
-        final Map<String, dynamic> json =
-        Map<String, dynamic>.from(response.responseData!);
-        PostModel postModel = PostModel.fromJson(json);
-        _postList = postModel.data ?? [];
-        print("Posts parsed: ${_postList.length}"); // debug
-        _errorMessage = null;
-        isSuccess = true;
-      } catch (e) {
-        print("Parsing error: $e");
-        _errorMessage = "Failed to parse posts";
+      final response = await ApiClient.getData(ApiUrl.getAllPost);
+      if (response.statusCode == 200 && response.body['data'] != null) {
+        var postList = (response.body['data'] as List)
+            .map((e) => Data.fromJson(e))
+            .toList();
+        posts.value = postList;
+      } else {
+        posts.clear();
       }
-    } else {
-      _errorMessage = response.errorMessage ?? "Something went wrong";
+    } catch (e) {
+      posts.clear();
+      Logger().e("Fetch posts error: $e");
+    } finally {
+      isLoading.value = false;
     }
-
-    _getPostsInProgress = false;
-    update(); // rebuild UI
-    return isSuccess;
   }
 }
+
+

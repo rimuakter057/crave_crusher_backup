@@ -1,5 +1,4 @@
 
-import 'package:crave_crusher/core/service/data_source/local/network_caller_demo.dart';
 import 'package:crave_crusher/service/api_url.dart';
 import 'package:crave_crusher/service/network_caller.dart';
 import 'package:crave_crusher/view/features/auth/models/reset_password_model.dart';

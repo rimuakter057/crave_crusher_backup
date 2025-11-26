@@ -32,9 +32,11 @@ final void Function() ?onTap;
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               CustomText(
+                maxLines: 1,
+                overflow: TextOverflow.ellipsis,
                 text: title,
                 fontWeight: FontWeight.w600,
-                fontSize: 18.w,
+                fontSize: 14.sp,
                 color: AppColors.black_02,
               ),
               CustomText(

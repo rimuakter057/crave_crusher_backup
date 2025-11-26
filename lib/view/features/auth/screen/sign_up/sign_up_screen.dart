@@ -4,7 +4,8 @@ import 'package:crave_crusher/view/components/input_field_with_title/input_field
 import 'package:crave_crusher/view/components/input_password_field_widget/input_password_field_widget.dart';
 import 'package:crave_crusher/view/components/show_snakbar/show_snakbar.dart';
 import 'package:crave_crusher/view/features/auth/controllers/sign_up_controller.dart';
-import 'package:crave_crusher/view/features/auth/models/user_model.dart';
+import 'package:crave_crusher/view/features/auth/models/signup_model.dart';
+
 import 'package:crave_crusher/view/features/auth/screen/login/login_screen.dart';
 import 'package:crave_crusher/view/features/auth/screen/verify_account/verify_account_screen.dart';
 import 'package:crave_crusher/view/features/auth/screen/widgets/action_promote_widget.dart';
@@ -173,7 +174,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
 
  Future <void> _signUp() async{
     if (_formKey.currentState!.validate()) {
-      UserModel userModel =UserModel(fullName: _fullNameController.text.trim(), email: _emailController.text.trim(),
+      SignUpModel userModel =SignUpModel(fullName: _fullNameController.text.trim(), email: _emailController.text.trim(),
           password: _passwordController.text);
       final bool isSuccess= await signUpController.signUp(userModel);
 
