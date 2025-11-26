@@ -1,8 +1,12 @@
-
 import 'package:get/get.dart';
 
 class CommunityTabController extends GetxController {
+  /// Current selected tab index
+  int communityTabIndex = 0;
 
-  RxInt communityTabIndex =0.obs;
-
+  /// Update the selected tab
+  void changeTab(int index) {
+    communityTabIndex = index;
+    update(); // triggers GetBuilder rebuild
+  }
 }

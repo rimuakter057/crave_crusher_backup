@@ -18,9 +18,9 @@ final void Function() ?onTap;
       child: Row(
         children: [
 
-          ProfileAvatarWidget(imagePath: image,
 
-          ),
+
+          ProfileAvatarWidget(imagePath: image,),
 
           // CustomImage(
           //   imageSrc: image,

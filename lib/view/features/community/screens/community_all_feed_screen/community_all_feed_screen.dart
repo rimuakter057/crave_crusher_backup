@@ -1,107 +1,102 @@
+import 'package:crave_crusher/utils/app_images/app_images.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:get/get.dart';
 import 'package:crave_crusher/view/components/custom_app_bar/custom_app_bar.dart';
 import 'package:crave_crusher/view/components/custom_nav_bar/navbar.dart';
 import 'package:crave_crusher/view/features/community/controllers/community_tab_controller.dart';
-import 'package:crave_crusher/view/features/community/screens/create_post_screen/create_post_screen.dart';
+import 'package:crave_crusher/view/features/community/controllers/post_show_controller.dart';
 import 'package:crave_crusher/view/features/community/widgets/common%20comunity%20widget.dart';
 import 'package:crave_crusher/view/features/community/widgets/community_tab_selector.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:gap/gap.dart';
-import 'package:get/get.dart';
 
 class CommunityAllFeedScreen extends StatelessWidget {
-   CommunityAllFeedScreen({super.key});
+  CommunityAllFeedScreen({super.key});
 
-  final CommunityTabController controller= Get.find<CommunityTabController>();
-
+  final CommunityTabController tabController = Get.find<CommunityTabController>();
+  final PostShowController postController = Get.find<PostShowController>();
 
   @override
   Widget build(BuildContext context) {
-
-    return
-
-
-      Scaffold(
+    return Scaffold(
       bottomNavigationBar: NavBar(currentIndex: 2),
-      // appBar: ,
       appBar: CustomAppBar(
         title: 'Community',
         onActionPressed: () {
-          Navigator.push(
-            context,
-            MaterialPageRoute(
-                builder: (context) =>  CreatePostScreen()),
-          );
+          // Navigate to CreatePostScreen
         },
       ),
       body: SingleChildScrollView(
         child: Padding(
-          padding:  EdgeInsets.all(16.w),
-          child: Obx((){
-            return Column(children: [
+          padding: EdgeInsets.all(16.w),
+          child: Column(
+            children: [
               SizedBox(height: 16.h),
-              /// tab section
-              CommunityTabSelector(),
+
+              /// Tab selector using GetBuilder
+              GetBuilder<CommunityTabController>(
+                builder: (controller) {
+                  return CommunityTabSelector(
+                    onTabChanged: (index) {
+                      controller.changeTab(index); // updates the selected tab
+                    },
+                  );
+                },
+              ),
+
+
               Gap(24.h),
 
-              if(controller.communityTabIndex.value==0)...[
+              /// Posts list
+              GetBuilder<PostShowController>(
+                builder: (controller) {
+                  if (controller.getPostsInProgress) {
+                    return const Center(child: CircularProgressIndicator());
+                  }
 
-                ListView.builder(
-                   physics: BouncingScrollPhysics(),
-                    scrollDirection: Axis.vertical,
-                    itemCount: 6,
+                  if (controller.errorMessage != null) {
+                    return Center(
+                      child: Text(
+                        controller.errorMessage!,
+                        style: const TextStyle(color: Colors.red),
+                      ),
+                    );
+                  }
+
+                  if (controller.posts.isEmpty) {
+                    return const Center(child: Text('No posts available'));
+                  }
+
+                  // Display posts
+                  return ListView.builder(
+                    itemCount: controller.posts.length,
                     shrinkWrap: true,
-                    itemBuilder: (context,index){
-                  return         Column(
-                    children: [
-                      CommonCommunityWidget(),
-                      SizedBox(height: 8.h,),
-
-                    ],
-                  );
-                }),
-
-
-              ],
-              if(controller.communityTabIndex.value==1)...[
-
-                ListView.builder(
-                    physics: BouncingScrollPhysics(),
-                    scrollDirection: Axis.vertical,
-                    itemCount: 6,
-                    shrinkWrap: true,
-                    itemBuilder: (context,index){
-                      return         Column(
+                    physics: const NeverScrollableScrollPhysics(),
+                    itemBuilder: (context, index) {
+                      final post = controller.posts[index];
+                      return Column(
                         children: [
                           CommonCommunityWidget(
-                            myPost: true,
+                            profileTitle: post.author?.fullName ?? 'Unknown',
+                            profileSubtitle: "27 Aug 2020 06:20 AM",
+                            profileImage: AppImages.profileManImage, // replace with actual profile image
+                            postText: post.content ?? '',
+                            likesText: post.totalVotes.toString(),
+                            commentsText: post.totalComments.toString(),
+                            myPost: false, // set true if it's user's own post
+                            index: 2, // number of images layout
                           ),
-                          SizedBox(height: 8.h,),
+                          SizedBox(height: 8.h),
                         ],
                       );
-                    }),
-
-
-
-              ],
-
-
-
-
-
-              ///common community widget
-              //CommonCommunityWidget(),
-              // Gap(24.h),
-              // CommonCommunityWidget(),
-
-            ]);
-          }
+                    },
+                  );
+                },
+              ),
+            ],
           ),
         ),
       ),
-
     );
   }
 }
-
-

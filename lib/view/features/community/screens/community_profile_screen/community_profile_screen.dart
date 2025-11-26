@@ -68,9 +68,33 @@ class CommunityProfileScreen extends StatelessWidget {
              
             Gap(24.h),
             ///common community widget
-            CommonCommunityWidget(),
+            CommonCommunityWidget(
+              profileTitle: "@Sheena S",
+              profileSubtitle: "27 Aug 2020 06:20 AM",
+              profileImage: AppImages.profileManImage, // replace with your image path
+              postText: "Day 10 of my Smoking Battle! 🚭\nIt’s honestly been one of the toughest things I’ve done, "
+                  "but waking up without that morning cough feels incredible. "
+                  "I used to light up without thinking — now, I pause, breathe, and remind myself why I started this fight. "
+                  "My monster still whispers sometimes, but it’s losing its voice. 💪🔥",
+              likesText: "120",
+              commentsText: "45",
+              myPost: false, // set true if this is the user's post to show edit button
+              index: 2, // number of images layout (0,1,2)
+            ),
             Gap(24.h),
-            CommonCommunityWidget(),
+            CommonCommunityWidget(
+              profileTitle: "@Sheena S",
+              profileSubtitle: "27 Aug 2020 06:20 AM",
+              profileImage: AppImages.profileManImage, // replace with your image path
+              postText: "Day 10 of my Smoking Battle! 🚭\nIt’s honestly been one of the toughest things I’ve done, "
+                  "but waking up without that morning cough feels incredible. "
+                  "I used to light up without thinking — now, I pause, breathe, and remind myself why I started this fight. "
+                  "My monster still whispers sometimes, but it’s losing its voice. 💪🔥",
+              likesText: "120",
+              commentsText: "45",
+              myPost: false, // set true if this is the user's post to show edit button
+              index: 2, // number of images layout (0,1,2)
+            ),
 
           ],),
         ),

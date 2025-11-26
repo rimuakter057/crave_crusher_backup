@@ -15,16 +15,32 @@ import 'package:gap/gap.dart';
 class CommonCommunityWidget extends StatefulWidget {
   final bool myPost; // Controls the edit button visibility
   final int index; // Determines image layout
-  const CommonCommunityWidget({super.key, this.myPost = false, this.index = 2});
+  final String profileTitle; // Required profile name
+  final String profileSubtitle; // Required subtitle (like date/time)
+  final String profileImage; // Required profile image
+  final String postText; // Required post text
+
+  final String likesText; // Required likes count text
+  final String commentsText; // Required comments count text
+
+  const CommonCommunityWidget({
+    super.key,
+    this.myPost = false,
+    this.index = 2,
+    required this.profileTitle,
+    required this.profileSubtitle,
+    required this.profileImage,
+    required this.postText,
+
+    required this.likesText,
+    required this.commentsText,
+  });
 
   @override
   State<CommonCommunityWidget> createState() => _CommonCommunityWidgetState();
 }
 
 class _CommonCommunityWidgetState extends State<CommonCommunityWidget> {
-
-
-
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -39,7 +55,6 @@ class _CommonCommunityWidgetState extends State<CommonCommunityWidget> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-
           /// Profile Section
           Row(
             children: [
@@ -51,9 +66,9 @@ class _CommonCommunityWidgetState extends State<CommonCommunityWidget> {
                       MaterialPageRoute(builder: (_) => CommunityProfileScreen()),
                     );
                   },
-                  title: "@Sheena s",
-                  subTitle: "27 Aug 2020 06:20 AM",
-                  image: AppImages.profileManImage,
+                  title: widget.profileTitle,
+                  subTitle: widget.profileSubtitle,
+                  image: widget.profileImage,
                 ),
               ),
               if (widget.myPost)
@@ -91,7 +106,7 @@ class _CommonCommunityWidgetState extends State<CommonCommunityWidget> {
             },
             child: Row(
               crossAxisAlignment: CrossAxisAlignment.start,
-              children: buildImages(),
+              children: _buildImages(),
             ),
           ),
 
@@ -102,10 +117,9 @@ class _CommonCommunityWidgetState extends State<CommonCommunityWidget> {
             fontWeight: FontWeight.w500,
             textAlign: TextAlign.start,
             maxLines: 3,
-            text:
-            "“Day 10 of my Smoking Battle! 🚭\nIt’s honestly been one of the toughest things I’ve done, but waking up without that morning cough feels incredible. I used to light up without thinking — now, I pause, breathe, and remind myself why I started this fight. My monster still whispers sometimes, but it’s losing its voice. 💪🔥",
+            text: widget.postText,
           ),
-          CustomText(text: "See More...", color: AppColors.primary),
+          CustomText(text:"see more", color: AppColors.primary),
 
           Gap(24.h),
 
@@ -117,7 +131,7 @@ class _CommonCommunityWidgetState extends State<CommonCommunityWidget> {
                 children: [
                   Icon(Icons.favorite_border, color: AppColors.red, size: 20.w),
                   Gap(4.w),
-                  CustomText(text: "120"),
+                  CustomText(text: widget.likesText),
                 ],
               ),
               Container(height: 20.h, width: 1.5.w, color: Color(0xFFCBD5E1)),
@@ -132,32 +146,21 @@ class _CommonCommunityWidgetState extends State<CommonCommunityWidget> {
                   children: [
                     Icon(Icons.message_outlined, color: AppColors.primary, size: 20.w),
                     Gap(4.w),
-                    CustomText(text: "120"),
+                    CustomText(text: widget.commentsText),
                   ],
                 ),
               ),
             ],
           ),
-
         ],
       ),
     );
   }
 
-
-
-
-
-
-
-
-
-
   /// Builds the image widgets dynamically based on index
-  List<Widget> buildImages() {
+  List<Widget> _buildImages() {
     List<String> images;
 
-    // Assign images based on index
     switch (widget.index) {
       case 0:
         images = [AppImages.imageOne];
@@ -213,6 +216,4 @@ class _CommonCommunityWidgetState extends State<CommonCommunityWidget> {
       ];
     }
   }
-
-
 }
