@@ -17,5 +17,15 @@ class ApiUrl {
   static const String resendResetOtp="$baseUrl/auth/resend-reset-code";
   static const String resetPassword="$baseUrl/auth/reset-password";
   static const String changePassword="$baseUrl/auth/change-password";
-
+  //community section
+  static const String createPost="$baseUrl/community-post/create-post";
+  static const String getSinglePost="$baseUrl/community-post/post/6925890de1d7dae96182e1df";
+  static const String getAllPost="$baseUrl/community-post/posts";
+  static const String updatePost="$baseUrl/community-post/update-post/6925890de1d7dae96182e1df";
+  static const String deletePost="$baseUrl}/community-post/post/6925890de1d7dae96182e1df";
+  static const String addVote="$baseUrl/community-vote/vote/6925890de1d7dae96182e1df";
+  //static const String getAllVote="$baseUrl/auth/signin";
+  static const String createComment="$baseUrl/community-comment/comment/6925890de1d7dae96182e1df";
+  static const String editComment="$baseUrl/community-comment/comment/6925b7bca0423a01b0dcf43b";
+  static const String deleteComment="$baseUrl/community-comment/comment/6925b7bca0423a01b0dcf43b";
 }

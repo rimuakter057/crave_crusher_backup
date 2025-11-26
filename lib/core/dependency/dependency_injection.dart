@@ -1,4 +1,5 @@
 import 'package:crave_crusher/core/service/data_source/local/network_caller_demo.dart';
+import 'package:crave_crusher/service/network_caller.dart';
 import 'package:crave_crusher/view/features/auth/controllers/auth_controller.dart';
 import 'package:crave_crusher/view/features/auth/controllers/forget_password_controller.dart';
 import 'package:crave_crusher/view/features/auth/controllers/login_controller.dart';
@@ -11,6 +12,7 @@ import 'package:crave_crusher/view/features/auth/controllers/verify_identity_otp
 import 'package:crave_crusher/view/features/change_password/controllers/change_password_controller.dart';
 import 'package:crave_crusher/view/features/community/controllers/community_tab_controller.dart';
 import 'package:crave_crusher/view/features/community/controllers/image_picker_controller.dart';
+import 'package:crave_crusher/view/features/community/controllers/post_show_controller.dart';
 import 'package:crave_crusher/view/features/home/controller/home_controller.dart';
 import 'package:crave_crusher/view/features/rewards/controller/reward_controller.dart';
 import 'package:get/get.dart';
@@ -20,7 +22,7 @@ import '../../view/features/battle/controller/battle_controller.dart';
 class DependencyInjection extends Bindings {
   @override
   void dependencies() {
-    
+
     
     Get.put(NetworkCaller());
 
@@ -38,6 +40,11 @@ class DependencyInjection extends Bindings {
     ///==========================Community section==================
 
     Get.lazyPut(() => ImagePickerController(), fenix: true);
+   // Get.lazyPut(() => PostShowController(), fenix: true);
+    Get.put(PostShowController());
+
+
+
     ///==========================Default Custom Controller ==================
       Get.lazyPut(() => BattleController(), fenix: true);
 

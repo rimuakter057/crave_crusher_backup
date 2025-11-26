@@ -130,26 +130,6 @@ class ResetPasswordScreen extends StatelessWidget {
   }
 
 
-
-
-
-
-   // ///sign in button
-   // Future <void> _signInButtonTap()async{
-   //   if (_key.currentState!.validate()){
-   //
-   //     LogInModel logInModel = LogInModel(email: _emailController.text, password: _passwordController.text);
-   //     final bool isSuccess =await logInController.logIn(logInModel);
-   //
-   //     if(isSuccess){
-   //       Get.offNamed(AppRoutes.emptyHome);
-   //     }else{
-   //       showSnackBarMessage(context, logInController.errorMessage!, true);
-   //     }
-   //
-   //   }
-   // }
-
 }
 
 

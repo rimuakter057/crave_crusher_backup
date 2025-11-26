@@ -1,9 +1,11 @@
+import 'package:crave_crusher/core/routes/app_routes.dart';
 import 'package:crave_crusher/utils/app_colors/app_colors.dart';
 import 'package:crave_crusher/utils/app_images/app_images.dart';
 import 'package:crave_crusher/view/components/common_profile/avater_widget.dart';
 import 'package:crave_crusher/view/components/custom_nav_bar/navbar.dart';
 import 'package:crave_crusher/view/components/custom_text/custom_text.dart';
 import 'package:crave_crusher/view/features/account_setting/account_setting_screen.dart';
+import 'package:crave_crusher/view/features/auth/controllers/auth_controller.dart';
 import 'package:crave_crusher/view/features/auth/screen/login/login_screen.dart';
 import 'package:crave_crusher/view/features/help_support/help_support_screen.dart';
 import 'package:crave_crusher/view/features/notification/notification_screen.dart';
@@ -14,7 +16,7 @@ import 'package:crave_crusher/view/features/terms_condition/terms_condition_scre
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:gap/gap.dart';
-
+import 'package:get/get.dart';
 class ProfileScreen extends StatelessWidget {
   const ProfileScreen({super.key});
 
@@ -157,13 +159,13 @@ class ProfileScreen extends StatelessWidget {
                     );
                   },),
                   Gap(12.h),
-                  CustomProfileMenu(text: 'Log Out', icon: Icon(Icons.logout_outlined), onTap: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(builder: (context) => LoginScreen()),
-                    );
+                  CustomProfileMenu(text: 'Log Out', icon: Icon(Icons.logout_outlined),
+                      onTap: () async {
+                        await Get.find<AuthController>().clearUserData();
+                        Get.offAllNamed(AppRoutes.onBoardingOneScreen);
+                      }
 
-                  },),
+                  ),
                 ],
               )
 

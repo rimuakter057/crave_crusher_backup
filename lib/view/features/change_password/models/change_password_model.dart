@@ -1,22 +1,19 @@
-
-class  ChangePasswordModel {
+class ChangePasswordModel {
   final String oldPassword;
   final String newPassword;
-  final String  confirmNewPassword;
+  final String confirmNewPassword;
 
-  ChangePasswordModel ({required this.oldPassword,required this.newPassword,required this.confirmNewPassword});
+  ChangePasswordModel({
+    required this.oldPassword,
+    required this.newPassword,
+    required this.confirmNewPassword,
+  });
 
-
-Map<String,dynamic>toJson(){
-  return {
-
-    'oldPassword':confirmNewPassword,
-    'newPassword':confirmNewPassword,
-    "confirmNewPassword":confirmNewPassword,
-
-  };
+  Map<String, dynamic> toJson() {
+    return {
+      'oldPassword': oldPassword,
+      'newPassword': newPassword,
+      'confirmNewPassword': confirmNewPassword,
+    };
+  }
 }
-
-}
-
-

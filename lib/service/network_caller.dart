@@ -21,18 +21,16 @@ class NetworkResponse {
 class NetworkCaller {
   final Logger _logger = Logger();
 
-  /// log request
+  /// Log request
   void _logRequest(String url, Map<String, dynamic> headers,
       {Map<String, dynamic>? requestBody}) {
     _logger.i("URL => $url\nHeaders: $headers\nBody: $requestBody");
   }
 
-  /// log response
+  /// Log response
   void _logResponse(String url, Response response) {
-    _logger.i("URL => $url\n"
-        "Status Code: ${response.statusCode}\n"
-        "Headers: ${response.headers}\n"
-        "Body: ${response.body}");
+    _logger.i(
+        "URL => $url\nStatus Code: ${response.statusCode}\nHeaders: ${response.headers}\nBody: ${response.body}");
   }
 
   /// ---------------- GET REQUEST ----------------
@@ -41,7 +39,7 @@ class NetworkCaller {
     Map<String, dynamic>? queryParams,
   }) async {
     try {
-      /// build URL
+      // Build query parameters
       if (queryParams != null && queryParams.isNotEmpty) {
         url += '?';
         queryParams.forEach((key, value) {
@@ -51,8 +49,13 @@ class NetworkCaller {
 
       Uri uri = Uri.parse(url);
 
-      /// Correct token header
+      // Ensure token is loaded
       String? token = getx.Get.find<AuthController>().token;
+      if (token == null) {
+        await getx.Get.find<AuthController>().getUserData();
+        token = getx.Get.find<AuthController>().token;
+      }
+
       Map<String, String> headers = {
         "Content-Type": "application/json",
         if (token != null) "Authorization": "Bearer $token",
@@ -75,7 +78,7 @@ class NetworkCaller {
       }
 
       if (response.statusCode == 401) {
-        await _clearUserData();
+        await _handleUnauthorized();
       }
 
       return NetworkResponse(
@@ -100,8 +103,13 @@ class NetworkCaller {
     try {
       Uri uri = Uri.parse(url);
 
-      /// Correct token header
+      // Ensure token is loaded
       String? token = getx.Get.find<AuthController>().token;
+      if (token == null) {
+        await getx.Get.find<AuthController>().getUserData();
+        token = getx.Get.find<AuthController>().token;
+      }
+
       Map<String, String> headers = {
         "Content-Type": "application/json",
         if (token != null) "Authorization": "Bearer $token",
@@ -125,7 +133,7 @@ class NetworkCaller {
       }
 
       if (response.statusCode == 401) {
-        await _clearUserData();
+        await _handleUnauthorized();
       }
 
       return NetworkResponse(
@@ -142,7 +150,9 @@ class NetworkCaller {
     }
   }
 
-  Future<void> _clearUserData() async {
+  /// ---------------- Handle Unauthorized ----------------
+  Future<void> _handleUnauthorized() async {
     await getx.Get.find<AuthController>().clearUserData();
+    getx.Get.offAllNamed('/login'); // Replace with your login route
   }
 }
