@@ -1,3 +1,4 @@
+import 'package:crave_crusher/view/features/community/screens/comment_screen/comment_screen.dart';
 import 'package:crave_crusher/view/features/community/screens/create_post_screen/create_post_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -55,7 +56,11 @@ class CommunityAllFeedScreen extends StatelessWidget {
                   CommunityTabSelector(),
                   Gap(24.h),
 
-                  // Post List
+
+
+
+
+
                   ListView.builder(
                     physics: const BouncingScrollPhysics(),
                     scrollDirection: Axis.vertical,
@@ -78,6 +83,12 @@ class CommunityAllFeedScreen extends StatelessWidget {
                               commentsText: "${post.totalComments ?? 0}",
                               myPost: false,
                               index: index,
+                              onTap: () {
+                                final postId = post.sId;
+                                if (postId != null) {
+                                  Get.to(() => CommentScreen(postId: postId));
+                                }
+                              },
                             ),
                             SizedBox(height: 8.h),
                           ],
@@ -95,6 +106,12 @@ class CommunityAllFeedScreen extends StatelessWidget {
                               commentsText: "0",
                               myPost: true,
                               index: index,
+                              onTap: () {
+                                final postId = post['_id'];
+                                if (postId != null) {
+                                  Get.to(() => CommentScreen(postId: postId));
+                                }
+                              },
                             ),
                             SizedBox(height: 8.h),
                           ],
@@ -102,6 +119,70 @@ class CommunityAllFeedScreen extends StatelessWidget {
                       }
                     },
                   ),
+
+
+
+
+
+
+
+
+
+
+
+
+
+                  // // Post List
+                  // ListView.builder(
+                  //   physics: const BouncingScrollPhysics(),
+                  //   scrollDirection: Axis.vertical,
+                  //   shrinkWrap: true,
+                  //   itemCount: tabController.communityTabIndex.value == 0
+                  //       ? postController.posts.length
+                  //       : addPostController.myPosts.length,
+                  //   itemBuilder: (context, index) {
+                  //     if (tabController.communityTabIndex.value == 0) {
+                  //       final post = postController.posts[index];
+                  //       return Column(
+                  //         children: [
+                  //           CommonCommunityWidget(
+                  //             profileTitle: post.author?.fullName ?? 'Unknown',
+                  //             profileSubtitle: DateConverter.formattedTime(
+                  //                 DateTime.parse(post.createdAt ?? DateTime.now().toString())),
+                  //             profileImage: post.author?.profileImage ?? AppImages.profileManImage,
+                  //             postText: post.content ?? "",
+                  //             likesText: "${post.totalVotes ?? 0}",
+                  //             commentsText: "${post.totalComments ?? 0}",
+                  //             myPost: false,
+                  //             index: index, onTap: () {
+                  //              Get.to(CommentScreen(postId: postId));
+                  //           },
+                  //           ),
+                  //           SizedBox(height: 8.h),
+                  //         ],
+                  //       );
+                  //     } else {
+                  //       final post = addPostController.myPosts[index];
+                  //       return Column(
+                  //         children: [
+                  //           CommonCommunityWidget(
+                  //             profileTitle: "@You",
+                  //             profileSubtitle: DateConverter.formattedTime(DateTime.now()),
+                  //             profileImage: AppImages.profileManImage,
+                  //             postText: post['content'] ?? "",
+                  //             likesText: "0",
+                  //             commentsText: "0",
+                  //             myPost: true,
+                  //             index: index, onTap: () {
+                  //             // Get.to(CommentScreen(postId: postId));
+                  //           },
+                  //           ),
+                  //           SizedBox(height: 8.h),
+                  //         ],
+                  //       );
+                  //     }
+                  //   },
+                  // ),
                 ],
               );
             }),

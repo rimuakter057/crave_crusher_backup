@@ -28,4 +28,7 @@ class ApiUrl {
   static const String createComment="/community-comment/comment/6925890de1d7dae96182e1df";
   static const String editComment="/community-comment/comment/6925b7bca0423a01b0dcf43b";
   static const String deleteComment="/community-comment/comment/6925b7bca0423a01b0dcf43b";
+  static String getAllComment(String postId) {
+    return "/community-comment/comment/$postId";
+  }
 }

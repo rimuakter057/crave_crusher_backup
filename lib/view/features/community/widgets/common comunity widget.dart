@@ -19,7 +19,7 @@ class CommonCommunityWidget extends StatefulWidget {
   final String profileSubtitle; // Required subtitle (like date/time)
   final String profileImage; // Required profile image
   final String postText; // Required post text
-
+  final void Function() onTap;
   final String likesText; // Required likes count text
   final String commentsText; // Required comments count text
 
@@ -33,7 +33,7 @@ class CommonCommunityWidget extends StatefulWidget {
     required this.postText,
 
     required this.likesText,
-    required this.commentsText,
+    required this.commentsText,required this.onTap,
   });
 
   @override
@@ -139,7 +139,7 @@ class _CommonCommunityWidgetState extends State<CommonCommunityWidget> {
                 onTap: () {
                   Navigator.push(
                     context,
-                    MaterialPageRoute(builder: (_) => CommentScreen()),
+                    MaterialPageRoute(builder: (_) => CommentScreen(postId: '',)),
                   );
                 },
                 child: Row(

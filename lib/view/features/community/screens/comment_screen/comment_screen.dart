@@ -12,10 +12,27 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:gap/gap.dart';
 import 'package:get/get.dart';
 
-class CommentScreen extends StatelessWidget {
-  CommentScreen({super.key});
-  final TextEditingController _controller = TextEditingController();
+class CommentScreen extends StatefulWidget {
+  final String postId;
+  const CommentScreen({super.key, required this.postId});
+
+  @override
+  State<CommentScreen> createState() => _CommentScreenState();
+}
+
+class _CommentScreenState extends State<CommentScreen> {
   final CommunityController commentController = Get.find<CommunityController>();
+  final TextEditingController _controller = TextEditingController();
+
+  @override
+  void initState() {
+    super.initState();
+
+    // UI render হওয়ার পরে fetch
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      commentController.fetchCommentList(widget.postId);
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -49,6 +66,7 @@ class CommentScreen extends StatelessWidget {
           child: Column(
             children: [
               Gap(16.h),
+
               /// Write comment section
               Obx(() => CustomContainer(
                 width: double.infinity,
@@ -86,7 +104,8 @@ class CommentScreen extends StatelessWidget {
                         decoration: InputDecoration(
                           contentPadding: EdgeInsets.symmetric(
                               horizontal: 8.w, vertical: 8.h),
-                          border: OutlineInputBorder(borderSide: BorderSide.none),
+                          border: OutlineInputBorder(
+                              borderSide: BorderSide.none),
                         ),
                       ),
                     ),
@@ -106,10 +125,10 @@ class CommentScreen extends StatelessWidget {
                           return;
                         }
 
-                        await commentController.createComment();
-
+                        // Server এ save হবে + list update হবে
+                        await commentController
+                            .createComment(widget.postId);
                         _controller.clear();
-                        commentController.commentText.value = '';
                       },
                       child: commentController.isLoading.value
                           ? CircularProgressIndicator()
@@ -133,21 +152,29 @@ class CommentScreen extends StatelessWidget {
                 ),
               )),
 
+              Gap(24.h),
 
-             Gap(24.h),
               /// Show comments
-              Obx(() => ListView.builder(
-                itemCount: commentController.myComment.length,
-                shrinkWrap: true,
-                physics: NeverScrollableScrollPhysics(),
-                itemBuilder: (context, index) {
-                  final comment =
-                  commentController.myComment[index];
-                  return CommentWidget(
-                    commentText: comment['commentText'] ?? "",
+              Obx(() {
+                if (commentController.isLoading.value &&
+                    commentController.comments.isEmpty) {
+                  return Center(child: CircularProgressIndicator());
+                } else if (commentController.comments.isEmpty) {
+                  return Text("No comments yet");
+                } else {
+                  return ListView.builder(
+                    itemCount: commentController.comments.length,
+                    shrinkWrap: true,
+                    physics: NeverScrollableScrollPhysics(),
+                    itemBuilder: (context, index) {
+                      final comment = commentController.comments[index];
+                      return CommentWidget(
+                        commentText: comment['commentText'] ?? "",
+                      );
+                    },
                   );
-                },
-              )),
+                }
+              }),
             ],
           ),
         ),
