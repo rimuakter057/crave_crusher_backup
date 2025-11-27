@@ -352,7 +352,7 @@ packages:
   image_picker:
     dependency: "direct main"
     description:
-      name: image_picker
+      name: post_show
       sha256: "736eb56a911cf24d1859315ad09ddec0b66104bc41a7f8c5b96b4e2620cf5041"
       url: "https://pub.dev"
     source: hosted

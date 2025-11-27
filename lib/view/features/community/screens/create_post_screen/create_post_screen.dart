@@ -4,12 +4,15 @@ import 'dart:io';
 import 'package:crave_crusher/utils/app_colors/app_colors.dart';
 import 'package:crave_crusher/utils/app_const/app_const.dart';
 import 'package:crave_crusher/utils/app_icons/app_icons.dart';
+import 'package:crave_crusher/view/components/custom_button/custom_button.dart';
 
 import 'package:crave_crusher/view/components/custom_container/custom_container.dart';
 import 'package:crave_crusher/view/components/custom_image/custom_image.dart';
 
 import 'package:crave_crusher/view/components/custom_text/custom_text.dart';
 import 'package:crave_crusher/view/features/community/controllers/create_post_controller.dart';
+import 'package:crave_crusher/view/features/community/screens/community_all_feed_screen/community_all_feed_screen.dart';
+import 'package:crave_crusher/view/features/community/screens/post_preview_screen/post_preview_screen.dart';
 import 'package:get/get.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -24,7 +27,7 @@ class CreatePostScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     // Set initial text for controller
-    textController.text = controller.postText.value;
+    //textController.text = controller.postText.value;
 
     return Scaffold(
       appBar: AppBar(
@@ -119,37 +122,98 @@ class CreatePostScreen extends StatelessWidget {
                 ),
               ),
               Gap(12.h),
+              ///button section
+              // GestureDetector(
+              //   onTap: controller.isLoading.value
+              //       ? null
+              //       : () => controller.createPost(),
+              //   child: CustomContainer(
+              //     backgroundColor: controller.isLoading.value
+              //         ? AppColors.subPrimary.withOpacity(.5)
+              //         : AppColors.primary,
+              //     padding: 4,
+              //     height: 36.h,
+              //     width: 100.w,
+              //     child: Row(
+              //       mainAxisAlignment: MainAxisAlignment.center,
+              //       children: [
+              //         controller.isLoading.value
+              //             ? SizedBox(
+              //           width: 16.w,
+              //           height: 16.w,
+              //           child: CircularProgressIndicator(
+              //             color: AppColors.white,
+              //             strokeWidth: 2,
+              //           ),
+              //         )
+              //             : CustomText(
+              //           text: "Post Now",
+              //           color: AppColors.white,
+              //         ),
+              //       ],
+              //     ),
+              //   ),
+              // ),
+
+
+              /// Button section
               GestureDetector(
                 onTap: controller.isLoading.value
                     ? null
-                    : () => controller.createPost(AppConstants.userId),
+                    : () async {
+                  if (controller.postText.value.trim().isEmpty) {
+                    Get.snackbar("Error", "Post content cannot be empty");
+                    return;
+                  }
+
+
+                  await controller.createPost();
+
+
+                  Get.to(CommunityAllFeedScreen());
+
+
+                  textController.clear();
+                  controller.postText.value = '';
+                  controller.imagePath.value = '';
+                },
                 child: CustomContainer(
+                  width: controller.isLoading.value ? 36.w : 100.w,
+                  height: 36.h,
+                  padding: 4,
+                  radius: controller.isLoading.value ? 18.h : 8.h,
                   backgroundColor: controller.isLoading.value
                       ? AppColors.subPrimary.withOpacity(.5)
                       : AppColors.primary,
-                  padding: 4,
-                  height: 36.h,
-                  width: 100.w,
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      controller.isLoading.value
-                          ? SizedBox(
-                        width: 16.w,
-                        height: 16.w,
-                        child: CircularProgressIndicator(
-                          color: AppColors.white,
-                          strokeWidth: 2,
-                        ),
-                      )
-                          : CustomText(
-                        text: "Post Now",
+                  child: Center(
+                    child: controller.isLoading.value
+                        ? SizedBox(
+                      width: 16.w,
+                      height: 16.w,
+                      child: CircularProgressIndicator(
                         color: AppColors.white,
+                        strokeWidth: 2,
                       ),
-                    ],
+                    )
+                        : CustomText(
+                      text: "Post Now",
+                      color: AppColors.white,
+                    ),
                   ),
                 ),
               ),
+
+
+
+
+
+
+
+
+
+
+
+
             ],
           ),
         ),

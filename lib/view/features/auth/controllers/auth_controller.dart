@@ -9,25 +9,22 @@ import 'package:shared_preferences/shared_preferences.dart';
 class AuthController extends GetxController {
   final String _tokenKey = AppConstants.bearerToken;
   final String _userDataKey = 'data';
-
+  final String _userId = AppConstants.userId;
   String? token;
   UserModel? user;
 
-  Future<void> saveUserData(String accessToken, ) async {
+  Future<void> saveTokenId(String accessToken,String userId ) async {
     SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
-    await SharePrefsHelper.setString(_tokenKey, accessToken);
-
-    token = accessToken;
-
+    await sharedPreferences.setString(_tokenKey, accessToken);
+    await sharedPreferences.setString(_userId, userId);
   }
 
-  // Future<void> saveUserData(String accessToken, UserModel userModel) async {
-  //   SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
-  //   await SharePrefsHelper.setString(_tokenKey, accessToken);
-  //   await sharedPreferences.setString(_userDataKey, jsonEncode(userModel.toJson()));
-  //   token = accessToken;
-  //   user = userModel;
-  // }
+
+  Future<void> saveId(String userId ) async {
+    SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
+    await sharedPreferences.setString(_userId, userId);
+  }
+
 
   Future<void> getUserData() async {
     SharedPreferences sharedPreferences = await SharedPreferences.getInstance();

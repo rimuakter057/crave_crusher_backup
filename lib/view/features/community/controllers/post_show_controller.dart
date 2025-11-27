@@ -9,13 +9,8 @@ class PostShowController extends GetxController {
   var isLoading = false.obs;
   static final Logger logger = Logger();
 
-  // @override
-  // void onInit() {
-  //   super.onInit();
-  //   fetchPosts(); // Screen open hole auto load hobe
-  // }
 
-  void fetchPosts() async {
+  Future<void> fetchPosts() async {
     try {
       isLoading.value = true;
 

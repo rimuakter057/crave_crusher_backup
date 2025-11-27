@@ -1,27 +1,32 @@
-
-import 'package:crave_crusher/helper/time_converter/date_converter.dart';
-import 'package:crave_crusher/utils/app_images/app_images.dart';
-import 'package:crave_crusher/view/components/custom_app_bar/custom_app_bar.dart';
-import 'package:crave_crusher/view/components/custom_nav_bar/navbar.dart';
-import 'package:crave_crusher/view/features/community/controllers/community_tab_controller.dart';
-import 'package:crave_crusher/view/features/community/controllers/post_show_controller.dart';
 import 'package:crave_crusher/view/features/community/screens/create_post_screen/create_post_screen.dart';
-import 'package:crave_crusher/view/features/community/widgets/common%20comunity%20widget.dart';
-import 'package:crave_crusher/view/features/community/widgets/community_tab_selector.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:gap/gap.dart';
 import 'package:get/get.dart';
+import 'package:gap/gap.dart';
+
+import '../../../../../helper/time_converter/date_converter.dart';
+import '../../../../../utils/app_images/app_images.dart';
+import '../../../../components/custom_app_bar/custom_app_bar.dart';
+import '../../../../components/custom_nav_bar/navbar.dart';
+
+
+import '../../controllers/community_tab_controller.dart';
+import '../../controllers/create_post_controller.dart';
+import '../../controllers/post_show_controller.dart';
+
+import '../../widgets/common comunity widget.dart';
+import '../../widgets/community_tab_selector.dart';
+
 
 class CommunityAllFeedScreen extends StatelessWidget {
   CommunityAllFeedScreen({super.key});
 
   final CommunityTabController tabController = Get.find<CommunityTabController>();
   final PostShowController postController = Get.find<PostShowController>();
+  final AddPostController addPostController = Get.find<AddPostController>();
 
   @override
   Widget build(BuildContext context) {
-    // Fetch posts if not already fetched
     if (postController.posts.isEmpty) {
       Future.microtask(() => postController.fetchPosts());
     }
@@ -31,126 +36,78 @@ class CommunityAllFeedScreen extends StatelessWidget {
       appBar: CustomAppBar(
         title: 'Community',
         onActionPressed: () {
-          Navigator.push(
-            context,
-            MaterialPageRoute(builder: (context) => CreatePostScreen()),
-          );
+         Get.to(CreatePostScreen());
         },
       ),
-      body: SingleChildScrollView(
-        child: Padding(
-          padding: EdgeInsets.all(16.w),
-          child: Obx(() {
-            return Column(
-              children: [
-                SizedBox(height: 16.h),
+      body: RefreshIndicator(
+        onRefresh: () async {
+          await postController.fetchPosts();
+        },
+        child: SingleChildScrollView(
+          child: Padding(
+            padding: EdgeInsets.all(16.w),
+            child: Obx(() {
+              return Column(
+                children: [
+                  SizedBox(height: 16.h),
 
-                /// tab section
-                CommunityTabSelector(),
-                Gap(24.h),
+                  /// Tab Section
+                  CommunityTabSelector(),
+                  Gap(24.h),
 
-                if (tabController.communityTabIndex.value == 0) ...[
+                  // Post List
                   ListView.builder(
                     physics: const BouncingScrollPhysics(),
                     scrollDirection: Axis.vertical,
-                    itemCount: postController.posts.length,
                     shrinkWrap: true,
+                    itemCount: tabController.communityTabIndex.value == 0
+                        ? postController.posts.length
+                        : addPostController.myPosts.length,
                     itemBuilder: (context, index) {
-                      final post = postController.posts[index];
-                      return Column(
-                        children: [
-                          // CommonCommunityWidget(
-                          //   profileTitle: "@${post.content}", // dynamic
-                          //   profileSubtitle: "27 Aug 2020 06:20 AM", // static
-                          //   profileImage: AppImages.profileManImage, // static
-                          //   postText:
-                          //   "Day 10 of my Smoking Battle! 🚭\nIt’s honestly been one of the toughest things I’ve done, "
-                          //       "but waking up without that morning cough feels incredible. "
-                          //       "I used to light up without thinking — now, I pause, breathe, and remind myself why I started this fight. "
-                          //       "My monster still whispers sometimes, but it’s losing its voice. 💪🔥", // static
-                          //   likesText: "${post.totalVotes}", // dynamic
-                          //   commentsText: "${post.totalComments}", // dynamic
-                          //   myPost: false, // static
-                          //   index: 2, // static
-                          // ),
-
-
-                      CommonCommunityWidget(
-                      profileTitle: "@${post.author?.fullName ?? 'Unknown'}",
-                        profileSubtitle: DateConverter.formattedTime(
-                            DateTime.parse(post.createdAt ?? DateTime.now().toString())
-                        ),
-                     // profileImage: post.author?.profileImage ?? AppImages.profileManImage,
-                        profileImage:AppImages.profileManImage,
-                        postText: post.content ?? "",
-                        likesText: "${post.totalVotes ?? 0}",
-                        commentsText: "${post.totalComments ?? 0}",
-                        myPost: false,
-                        index: 2,
-                      ),
-
-
-                      SizedBox(height: 8.h),
-                        ],
-                      );
+                      if (tabController.communityTabIndex.value == 0) {
+                        final post = postController.posts[index];
+                        return Column(
+                          children: [
+                            CommonCommunityWidget(
+                              profileTitle: post.author?.fullName ?? 'Unknown',
+                              profileSubtitle: DateConverter.formattedTime(
+                                  DateTime.parse(post.createdAt ?? DateTime.now().toString())),
+                              profileImage: post.author?.profileImage ?? AppImages.profileManImage,
+                              postText: post.content ?? "",
+                              likesText: "${post.totalVotes ?? 0}",
+                              commentsText: "${post.totalComments ?? 0}",
+                              myPost: false,
+                              index: index,
+                            ),
+                            SizedBox(height: 8.h),
+                          ],
+                        );
+                      } else {
+                        final post = addPostController.myPosts[index];
+                        return Column(
+                          children: [
+                            CommonCommunityWidget(
+                              profileTitle: "@You",
+                              profileSubtitle: DateConverter.formattedTime(DateTime.now()),
+                              profileImage: AppImages.profileManImage,
+                              postText: post['content'] ?? "",
+                              likesText: "0",
+                              commentsText: "0",
+                              myPost: true,
+                              index: index,
+                            ),
+                            SizedBox(height: 8.h),
+                          ],
+                        );
+                      }
                     },
                   ),
                 ],
-
-                if (tabController.communityTabIndex.value == 1) ...[
-                  ListView.builder(
-                    physics: const BouncingScrollPhysics(),
-                    scrollDirection: Axis.vertical,
-                    itemCount: postController.posts.length,
-                    shrinkWrap: true,
-                    itemBuilder: (context, index) {
-                      final post = postController.posts[index];
-                      return Column(
-                        children: [
-                          CommonCommunityWidget(
-                            profileTitle: "@${post.content}", // dynamic
-                            profileSubtitle: "27 Aug 2020 06:20 AM", // static
-                            profileImage: AppImages.profileManImage, // static
-                            postText:
-                            "Day 10 of my Smoking Battle! 🚭\nIt’s honestly been one of the toughest things I’ve done, "
-                                "but waking up without that morning cough feels incredible. "
-                                "I used to light up without thinking — now, I pause, breathe, and remind myself why I started this fight. "
-                                "My monster still whispers sometimes, but it’s losing its voice. 💪🔥", // static
-                            likesText: "${post.totalVotes}", // dynamic
-                            commentsText: "${post.totalComments}", // dynamic
-                            myPost: false, // static
-                            index: 2, // static
-                          ),
-
-                          SizedBox(height: 8.h),
-                        ],
-                      );
-                    },
-                  ),
-                ],
-              ],
-            );
-          }),
+              );
+            }),
+          ),
         ),
       ),
     );
   }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
