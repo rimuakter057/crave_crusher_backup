@@ -1,5 +1,4 @@
 import 'dart:io';
-import 'package:crave_crusher/helper/shared_prefe/shared_prefe.dart';
 import 'package:crave_crusher/service/api_client.dart';
 import 'package:crave_crusher/service/api_url.dart';
 import 'package:get/get.dart';
@@ -14,7 +13,7 @@ class AddPostController extends GetxController {
 
   RxString userID = ''.obs;
 
-  // নিজের পোস্টের লিস্ট
+
   RxList<Map<String, dynamic>> myPosts = <Map<String, dynamic>>[].obs;
 
   @override
@@ -55,54 +54,7 @@ class AddPostController extends GetxController {
     return true;
   }
 
-  // Future<void> createPost() async {
-  //   if (!validatePost()) return;
-  //   isLoading.value = true;
-  //
-  //   try {
-  //     Map<String, String> body = {
-  //       'content': postText.value.trim(),
-  //       'authorId': userID.value,
-  //     };
-  //
-  //     List<MultipartBody>? multipartFiles;
-  //     if (imagePath.value.isNotEmpty) {
-  //       multipartFiles = [MultipartBody('post_images', File(imagePath.value))];
-  //     }
-  //
-  //     final response = await ApiClient.postMultipartData(
-  //       ApiUrl.createPost,
-  //       body,
-  //       multipartBody: multipartFiles,
-  //     );
-  //
-  //     if (response.statusCode == 200) {
-  //       // নতুন পোস্ট লিস্টে যোগ করা
-  //       Map<String, dynamic> newPost = {
-  //         '_id': response.body['data']['_id'],
-  //         'content': postText.value.trim(),
-  //         'authorId': userID.value,
-  //         'post_images': imagePath.value.isNotEmpty ? [imagePath.value] : [],
-  //       };
-  //       myPosts.insert(0, newPost);
-  //
-  //       postText.value = '';
-  //       imagePath.value = '';
-  //       Get.snackbar("Success", "Post created successfully");
-  //     } else {
-  //       Get.snackbar("Error", response.body['message'] ?? "Something went wrong");
-  //     }
-  //   } catch (e) {
-  //     Get.snackbar("Error", e.toString());
-  //   } finally {
-  //     isLoading.value = false;
-  //   }
-  // }
 
-
-
-
-  // AddPostController
   Future<bool> createPost() async {
     if (!validatePost()) return false;
 

@@ -6,10 +6,10 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:gap/gap.dart';
 
 class CommentWidget extends StatelessWidget {
-
+final String commentText;
 
   const CommentWidget({
-    super.key,
+    super.key, required this.commentText,
 
   });
 
@@ -41,7 +41,9 @@ class CommentWidget extends StatelessWidget {
                   maxLines: 3,
                   overflow: TextOverflow.ellipsis,
                   color: Color(0xFFA1A1AA),
-                  text:'Love This Energy! It\'s Amazing How Small Wins Every Day Start To Change Everything. Keep Going – Your Monster Doesn\'t Stand A Chance 🏗️🎶',),
+                  text:commentText,
+                  //'Love This Energy! It\'s Amazing How Small Wins Every Day Start To Change Everything. Keep Going – Your Monster Doesn\'t Stand A Chance 🏗️🎶',
+                ),
 
               ],
             ),

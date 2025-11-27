@@ -10,6 +10,7 @@ import 'package:crave_crusher/view/features/auth/controllers/user_resend_otp_con
 import 'package:crave_crusher/view/features/auth/controllers/verify_account_otp_controller.dart';
 import 'package:crave_crusher/view/features/auth/controllers/verify_identity_otp_controller.dart';
 import 'package:crave_crusher/view/features/change_password/controllers/change_password_controller.dart';
+import 'package:crave_crusher/view/features/community/controllers/community_controller.dart';
 import 'package:crave_crusher/view/features/community/controllers/community_tab_controller.dart';
 import 'package:crave_crusher/view/features/community/controllers/create_post_controller.dart';
 import 'package:crave_crusher/view/features/community/controllers/post_show_controller.dart';
@@ -27,7 +28,7 @@ class DependencyInjection extends Bindings {
     Get.put(NetworkCaller());
 
     Get.put(AuthController());
-    //Get.put(PostShowController());
+
     //auth================================
     Get.lazyPut(() => SignUpController(), fenix: true);
     Get.lazyPut(() => LogInController(), fenix: true);
@@ -42,6 +43,7 @@ class DependencyInjection extends Bindings {
 
     Get.lazyPut(() => AddPostController(), fenix: true);
    Get.lazyPut(() => PostShowController(), fenix: true);
+    Get.lazyPut(() => CommunityController(), fenix: true);
 
 
 

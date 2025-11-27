@@ -1,4 +1,3 @@
-
 import 'dart:io';
 
 import 'package:crave_crusher/utils/app_colors/app_colors.dart';
@@ -53,181 +52,160 @@ class CreatePostScreen extends StatelessWidget {
           fontWeight: FontWeight.w500,
         ),
       ),
-      body: Obx(() => SingleChildScrollView(
-        child: Padding(
-          padding: EdgeInsets.symmetric(horizontal: 16.w),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              CustomText(
-                text: "What’s on your mind today?",
-                fontSize: 14.sp,
-                fontWeight: FontWeight.w500,
-              ),
-              Gap(8.h),
-              CustomContainer(
-                width: double.infinity,
-                height: 120.h,
-                backgroundColor: AppColors.subPrimary.withOpacity(.5),
-                child: SizedBox(
-                  height: 90.h,
-                  child: TextField(
-                    maxLines: 4,
-                    controller: textController,
-                    onChanged: (val) => controller.postText.value = val,
-                    decoration: InputDecoration(
-                      hintText:
-                      "Share your progress, thoughts, or a victory moment…",
-                      hintStyle: TextStyle(
-                        color: AppColors.black.withOpacity(0.5),
-                        fontSize: 14.sp,
-                      ),
-                      contentPadding: EdgeInsets.symmetric(
-                          horizontal: 8.w, vertical: 8.h),
-                      border: OutlineInputBorder(borderSide: BorderSide.none),
-                    ),
-                  ),
+      body: Obx(
+        () => SingleChildScrollView(
+          child: Padding(
+            padding: EdgeInsets.symmetric(horizontal: 16.w),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                CustomText(
+                  text: "What’s on your mind today?",
+                  fontSize: 14.sp,
+                  fontWeight: FontWeight.w500,
                 ),
-              ),
-              Gap(24.h),
-              CustomText(
-                text: "Add a photo or moment (optional)",
-                fontSize: 14.sp,
-                fontWeight: FontWeight.w500,
-              ),
-              Gap(8.h),
-              GestureDetector(
-                onTap: () => controller.pickImage(fromCamera: false),
-                child: controller.imagePath.value.isNotEmpty
-                    ? CustomContainer(
-                  padding: 0,
+                Gap(8.h),
+                CustomContainer(
                   width: double.infinity,
                   height: 120.h,
                   backgroundColor: AppColors.subPrimary.withOpacity(.5),
-                  child: Center(
-                    child: Image.file(
-                      File(controller.imagePath.value),
-                      width: double.infinity,
-                      height: 120.h,
-                      fit: BoxFit.cover,
-                    ),
-                  ),
-                )
-                    : CustomContainer(
-                  width: double.infinity,
-                  height: 120.h,
-                  backgroundColor: AppColors.subPrimary.withOpacity(.5),
-                  child: Center(
-                      child: CustomImage(imageSrc: AppIcons.addImage)),
-                ),
-              ),
-              Gap(12.h),
-              ///button section
-              // GestureDetector(
-              //   onTap: controller.isLoading.value
-              //       ? null
-              //       : () => controller.createPost(),
-              //   child: CustomContainer(
-              //     backgroundColor: controller.isLoading.value
-              //         ? AppColors.subPrimary.withOpacity(.5)
-              //         : AppColors.primary,
-              //     padding: 4,
-              //     height: 36.h,
-              //     width: 100.w,
-              //     child: Row(
-              //       mainAxisAlignment: MainAxisAlignment.center,
-              //       children: [
-              //         controller.isLoading.value
-              //             ? SizedBox(
-              //           width: 16.w,
-              //           height: 16.w,
-              //           child: CircularProgressIndicator(
-              //             color: AppColors.white,
-              //             strokeWidth: 2,
-              //           ),
-              //         )
-              //             : CustomText(
-              //           text: "Post Now",
-              //           color: AppColors.white,
-              //         ),
-              //       ],
-              //     ),
-              //   ),
-              // ),
-
-
-              /// Button section
-              GestureDetector(
-                onTap: controller.isLoading.value
-                    ? null
-                    : () async {
-                  if (controller.postText.value.trim().isEmpty) {
-                    Get.snackbar("Error", "Post content cannot be empty");
-                    return;
-                  }
-
-
-                  await controller.createPost();
-
-
-                  Get.to(CommunityAllFeedScreen());
-
-
-                  textController.clear();
-                  controller.postText.value = '';
-                  controller.imagePath.value = '';
-                },
-                child: CustomContainer(
-                  width: controller.isLoading.value ? 36.w : 100.w,
-                  height: 36.h,
-                  padding: 4,
-                  radius: controller.isLoading.value ? 18.h : 8.h,
-                  backgroundColor: controller.isLoading.value
-                      ? AppColors.subPrimary.withOpacity(.5)
-                      : AppColors.primary,
-                  child: Center(
-                    child: controller.isLoading.value
-                        ? SizedBox(
-                      width: 16.w,
-                      height: 16.w,
-                      child: CircularProgressIndicator(
-                        color: AppColors.white,
-                        strokeWidth: 2,
+                  child: SizedBox(
+                    height: 90.h,
+                    child: TextField(
+                      maxLines: 4,
+                      controller: textController,
+                      onChanged: (val) => controller.postText.value = val,
+                      decoration: InputDecoration(
+                        hintText:
+                            "Share your progress, thoughts, or a victory moment…",
+                        hintStyle: TextStyle(
+                          color: AppColors.black.withOpacity(0.5),
+                          fontSize: 14.sp,
+                        ),
+                        contentPadding: EdgeInsets.symmetric(
+                          horizontal: 8.w,
+                          vertical: 8.h,
+                        ),
+                        border: OutlineInputBorder(borderSide: BorderSide.none),
                       ),
-                    )
-                        : CustomText(
-                      text: "Post Now",
-                      color: AppColors.white,
                     ),
                   ),
                 ),
-              ),
+                Gap(24.h),
+                CustomText(
+                  text: "Add a photo or moment (optional)",
+                  fontSize: 14.sp,
+                  fontWeight: FontWeight.w500,
+                ),
+                Gap(8.h),
+                GestureDetector(
+                  onTap: () => controller.pickImage(fromCamera: false),
+                  child:
+                      controller.imagePath.value.isNotEmpty
+                          ? CustomContainer(
+                            padding: 0,
+                            width: double.infinity,
+                            height: 120.h,
+                            backgroundColor: AppColors.subPrimary.withOpacity(
+                              .5,
+                            ),
+                            child: Center(
+                              child: Image.file(
+                                File(controller.imagePath.value),
+                                width: double.infinity,
+                                height: 120.h,
+                                fit: BoxFit.cover,
+                              ),
+                            ),
+                          )
+                          : CustomContainer(
+                            width: double.infinity,
+                            height: 120.h,
+                            backgroundColor: AppColors.subPrimary.withOpacity(
+                              .5,
+                            ),
+                            child: Center(
+                              child: CustomImage(imageSrc: AppIcons.addImage),
+                            ),
+                          ),
+                ),
+                Gap(12.h),
 
+                ///button section
+                // GestureDetector(
+                //   onTap: controller.isLoading.value
+                //       ? null
+                //       : () => controller.createPost(),
+                //   child: CustomContainer(
+                //     backgroundColor: controller.isLoading.value
+                //         ? AppColors.subPrimary.withOpacity(.5)
+                //         : AppColors.primary,
+                //     padding: 4,
+                //     height: 36.h,
+                //     width: 100.w,
+                //     child: Row(
+                //       mainAxisAlignment: MainAxisAlignment.center,
+                //       children: [
+                //         controller.isLoading.value
+                //             ? SizedBox(
+                //           width: 16.w,
+                //           height: 16.w,
+                //           child: CircularProgressIndicator(
+                //             color: AppColors.white,
+                //             strokeWidth: 2,
+                //           ),
+                //         )
+                //             : CustomText(
+                //           text: "Post Now",
+                //           color: AppColors.white,
+                //         ),
+                //       ],
+                //     ),
+                //   ),
+                // ),
 
+                /// Button section
+                GestureDetector(
+                  onTap:
+                      controller.isLoading.value
+                          ? null
+                          : () async {
+                            if (controller.postText.value.trim().isEmpty) {
+                              Get.snackbar(
+                                "Error",
+                                "Post content cannot be empty",
+                              );
+                              return;
+                            }
 
+                            await controller.createPost();
 
+                            Get.to(CommunityAllFeedScreen());
 
-
-
-
-
-
-
-
-            ],
+                            textController.clear();
+                            controller.postText.value = '';
+                            controller.imagePath.value = '';
+                          },
+                  child:controller.isLoading.value
+                      ? CircularProgressIndicator(): CustomContainer(
+                    backgroundColor: AppColors.primary,
+                    padding: 4,
+                    height: 36.h,
+                    width: 100.w,
+                    child: Center(
+                      child:
+                          CustomText(
+                                text: "Post Now",
+                                color: AppColors.white,
+                              ),
+                    ),
+                  ),
+                ),
+              ],
+            ),
           ),
         ),
-      )),
+      ),
     );
   }
 }
-
-
-
-
-
-
-
-
-
-
