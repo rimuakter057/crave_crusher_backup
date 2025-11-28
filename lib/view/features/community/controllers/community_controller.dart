@@ -53,26 +53,27 @@ class CommunityController extends GetxController {
       Map<String, dynamic> body = {
         'commentText': commentText.value,
         'authorId': userID.value,
-        'postId': postId,
+
       };
 
       final response = await ApiClient.postData(
-        ApiUrl.createComment(userID.value),
+        ApiUrl.createComment(postId),
         body,
         isJson: true,
       );
       isLoadingSend.value = false;
-      if (response.statusCode == 200) {
-        Map<String, dynamic> newComment = {
-          '_id': response.body['data']['_id'],
-          'commentText': commentText.value,
-          'authorId': {
-            '_id': userID.value,
-            'fullName': 'You',
-            'profileImage': null,
-          },
-        };
+      if (response.statusCode == 200  || response.statusCode == 201) {
+        // Map<String, dynamic> newComment = {
+        //   '_id': response.body['data']['_id'],
+        //   'commentText': commentText.value,
+        //   'authorId': {
+        //     '_id': userID.value,
+        //     'fullName': 'You',
+        //     'profileImage': null,
+        //   },
+        // };
         isLoadingSend.value = true;
+        ///=====================================================================
         CommentModel model = CommentModel(
           id: "",
           commentText: commentText.value,
@@ -80,6 +81,7 @@ class CommunityController extends GetxController {
           createdAt: DateTime.now()
         );
         commentList.insert(0, model);
+        ///=====================================================================
         commentText.value = '';
 
         Get.snackbar("Success", "Comment posted successfully");
@@ -103,19 +105,18 @@ class CommunityController extends GetxController {
 
 ///fetch comment====================================
    Rx<Status> commentStatus = Status.loading.obs;
-  var isLoadingFetch = false.obs;
+  var isLoadingComment = false.obs;
   RxList<CommentModel> commentList = <CommentModel>[].obs;
 
   /// Fetch all comments for a specific post
   Future<void> fetchCommentList(String postId) async {
-    isLoadingFetch.value = true;
-     debugPrint('Fetching comments for post: $postId');
+    isLoadingComment.value = true;
+     debugPrint('Fetching comments for post:=============================== $postId');
     final response = await ApiClient.getData(ApiUrl.getAllComment(postId));
-    isLoadingFetch.value = false;
-    if (response.statusCode == 200 && response.statusCode == 201) {
-      commentList.value = List<CommentModel>.from(
-        response.body['data'].toMap((x) => CommentModel.fromJson(x)),
-      );
+    isLoadingComment.value = false;
+    if (response.statusCode == 200 || response.statusCode == 201) {
+      final data = response.body['data'] as List;
+      commentList.value = data.map((e) => CommentModel.fromJson(e)).toList();
 
       commentStatus(Status.completed);
     } else {
@@ -125,4 +126,43 @@ class CommunityController extends GetxController {
       ApiChecker.checkApi(response);
     }
   }
+
+
+  ///get my post==========================================
+  // Rx<Status> myPostStatus = Status.loading.obs;
+  // var isLoadingPost = false.obs;
+  // RxList<MyPostModel> myPostList = <MyPostModel>[].obs;
+  //
+  // Future<void> fetchMyPost() async {
+  //   isLoadingPost.value = true;
+  //
+  //   final response = await ApiClient.getData(ApiUrl.getMyPost);
+  //
+  //   isLoadingPost.value = false;
+  //
+  //   if (response.statusCode == 200 || response.statusCode == 201) {
+  //
+  //     myPostList.value = (response.body['data'] as List)
+  //         .map((x) => MyPostModel.fromJson(x))
+  //         .toList();
+  //
+  //     myPostStatus(Status.completed);
+  //   } else {
+  //     myPostList.clear();
+  //     myPostStatus(Status.error);
+  //     ApiChecker.checkApi(response);
+  //   }
+  // }
+  //
+  //
+
+
+
+
+
+
+
+
+
+
 }
