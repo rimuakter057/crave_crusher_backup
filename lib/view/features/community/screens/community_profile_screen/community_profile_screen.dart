@@ -4,8 +4,11 @@ import 'package:crave_crusher/view/components/common_profile/avater_widget.dart'
 import 'package:crave_crusher/view/components/custom_nav_bar/navbar.dart';
 import 'package:crave_crusher/view/components/custom_text/custom_text.dart';
 import 'package:crave_crusher/view/features/community/screens/comment_screen/comment_screen.dart';
+import 'package:crave_crusher/view/features/community/screens/community_image_show_screen/community_image_show_screen.dart';
 import 'package:crave_crusher/view/features/community/screens/community_profile_screen/widgets/profile_status_container.dart';
+import 'package:crave_crusher/view/features/community/screens/update_post_screen/update_post_screen.dart';
 import 'package:crave_crusher/view/features/community/widgets/common%20comunity%20widget.dart';
+import 'package:crave_crusher/view/features/profile/profile_screen/profile_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:gap/gap.dart';
@@ -72,6 +75,13 @@ class CommunityProfileScreen extends StatelessWidget {
             Gap(24.h),
             ///common community widget
             CommonCommunityWidget(
+              onTapUpdate: () {
+                Get.to(() => UpdatePostScreen);
+              }, onTapImageShow: () {
+              Get.to(() => CommunityImageShowScreen());
+            }, onTapProfile: () {
+              Get.to(() => ProfileScreen());
+            },
               profileTitle: "@Sheena S",
               profileSubtitle: "27 Aug 2020 06:20 AM",
               profileImage: AppImages.profileManImage, // replace with your image path
@@ -82,12 +92,19 @@ class CommunityProfileScreen extends StatelessWidget {
               likesText: "120",
               commentsText: "45",
               myPost: false, // set true if this is the user's post to show edit button
-              index: 2, onTap: () {
+              index: 2, onTapComment: () {
               // Get.to(CommentScreen(postId: postId));
             }, // number of images layout (0,1,2)
             ),
             Gap(24.h),
             CommonCommunityWidget(
+              onTapUpdate: () {
+                Get.to(() => UpdatePostScreen);
+              }, onTapImageShow: () {
+              Get.to(() => CommunityImageShowScreen());
+            }, onTapProfile: () {
+              Get.to(() => ProfileScreen());
+            },
               profileTitle: "@Sheena S",
               profileSubtitle: "27 Aug 2020 06:20 AM",
               profileImage: AppImages.profileManImage, // replace with your image path
@@ -98,7 +115,7 @@ class CommunityProfileScreen extends StatelessWidget {
               likesText: "120",
               commentsText: "45",
               myPost: false, // set true if this is the user's post to show edit button
-              index: 2, onTap: () {
+              index: 2, onTapComment: () {
              // Get.to(CommentScreen(postId: postId));
 
             }, // number of images layout (0,1,2)

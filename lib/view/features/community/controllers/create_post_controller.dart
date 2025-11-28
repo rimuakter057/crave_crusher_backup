@@ -102,7 +102,4 @@ class AddPostController extends GetxController {
       isLoading.value = false;
     }
   }
-
-
-
 }

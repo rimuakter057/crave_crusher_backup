@@ -19,7 +19,10 @@ class CommonCommunityWidget extends StatefulWidget {
   final String profileSubtitle; // Required subtitle (like date/time)
   final String profileImage; // Required profile image
   final String postText; // Required post text
-  final void Function() onTap;
+  final void Function() onTapComment;
+  final void Function() onTapUpdate;
+  final void Function() onTapImageShow;
+  final void Function() onTapProfile;
   final String likesText; // Required likes count text
   final String commentsText; // Required comments count text
 
@@ -33,7 +36,7 @@ class CommonCommunityWidget extends StatefulWidget {
     required this.postText,
 
     required this.likesText,
-    required this.commentsText,required this.onTap,
+    required this.commentsText,required this.onTapComment, required this.onTapUpdate, required this.onTapImageShow, required this.onTapProfile,
   });
 
   @override
@@ -60,12 +63,7 @@ class _CommonCommunityWidgetState extends State<CommonCommunityWidget> {
             children: [
               Expanded(
                 child: CommonProfileWidget(
-                  onTap: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(builder: (_) => CommunityProfileScreen()),
-                    );
-                  },
+                  onTap: widget.onTapProfile,
                   title: widget.profileTitle,
                   subTitle: widget.profileSubtitle,
                   image: widget.profileImage,
@@ -73,12 +71,7 @@ class _CommonCommunityWidgetState extends State<CommonCommunityWidget> {
               ),
               if (widget.myPost)
                 GestureDetector(
-                  onTap: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(builder: (_) => UpdatePostScreen()),
-                    );
-                  },
+                  onTap: widget.onTapUpdate,
                   child: Container(
                     width: 35.w,
                     height: 35.h,
@@ -98,12 +91,7 @@ class _CommonCommunityWidgetState extends State<CommonCommunityWidget> {
 
           /// Image Section
           GestureDetector(
-            onTap: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(builder: (_) => CommunityImageShowScreen()),
-              );
-            },
+            onTap:widget.onTapImageShow,
             child: Row(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: _buildImages(),
@@ -136,12 +124,7 @@ class _CommonCommunityWidgetState extends State<CommonCommunityWidget> {
               ),
               Container(height: 20.h, width: 1.5.w, color: Color(0xFFCBD5E1)),
               GestureDetector(
-                onTap: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(builder: (_) => CommentScreen(postId: '',)),
-                  );
-                },
+                onTap: widget.onTapComment,
                 child: Row(
                   children: [
                     Icon(Icons.message_outlined, color: AppColors.primary, size: 20.w),

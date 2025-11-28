@@ -28,7 +28,8 @@ class _CommentScreenState extends State<CommentScreen> {
   void initState() {
     super.initState();
 
-    // UI render হওয়ার পরে fetch
+   debugPrint('====================>> ${widget.postId}');
+
     WidgetsBinding.instance.addPostFrameCallback((_) {
       commentController.fetchCommentList(widget.postId);
     });
@@ -60,122 +61,126 @@ class _CommentScreenState extends State<CommentScreen> {
           fontWeight: FontWeight.w500,
         ),
       ),
-      body: SingleChildScrollView(
-        child: Padding(
-          padding: EdgeInsets.symmetric(horizontal: 16.w),
-          child: Column(
-            children: [
-              Gap(16.h),
+      body: RefreshIndicator(
+        onRefresh: () async {
+          await commentController.fetchCommentList(widget.postId);
+        },
+        child: SingleChildScrollView(
+          child: Padding(
+            padding: EdgeInsets.symmetric(horizontal: 16.w),
+            child: Column(
+              children: [
+                Gap(16.h),
 
-              /// Write comment section
-              Obx(() => CustomContainer(
-                width: double.infinity,
-                height: 150.h,
-                backgroundColor: Colors.blue.shade50,
-                borderColor: AppColors.primary,
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    /// Profile row
-                    Row(
-                      children: [
-                        ProfileAvatarWidget(
-                          imagePath: AppImages.profileManImage,
-                          heightA: 25.h,
-                          widthA: 25.w,
-                        ),
-                        Gap(4.w),
-                        CustomText(
-                          text: "@ Sheena",
-                          fontSize: 14,
-                        ),
-                      ],
-                    ),
+                /// Write comment section
+                Obx(() => CustomContainer(
+                  width: double.infinity,
+                  height: 150.h,
+                  backgroundColor: Colors.blue.shade50,
+                  borderColor: AppColors.primary,
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      /// Profile row
+                      Row(
+                        children: [
+                          ProfileAvatarWidget(
+                            imagePath: AppImages.profileManImage,
+                            heightA: 25.h,
+                            widthA: 25.w,
+                          ),
+                          Gap(4.w),
+                          CustomText(
+                            text: "@ Sheena",
+                            fontSize: 14,
+                          ),
+                        ],
+                      ),
 
-                    /// Comment TextField
-                    SizedBox(
-                      height: 60.h,
-                      child: TextField(
-                        maxLines: 2,
-                        controller: _controller,
-                        onChanged: (val) =>
-                        commentController.commentText.value = val,
-                        decoration: InputDecoration(
-                          contentPadding: EdgeInsets.symmetric(
-                              horizontal: 8.w, vertical: 8.h),
-                          border: OutlineInputBorder(
-                              borderSide: BorderSide.none),
+                      /// Comment TextField
+                      SizedBox(
+                        height: 60.h,
+                        child: TextField(
+                          maxLines: 2,
+                          controller: _controller,
+                          onChanged: (val) =>
+                          commentController.commentText.value = val,
+                          decoration: InputDecoration(
+                            contentPadding: EdgeInsets.symmetric(
+                                horizontal: 8.w, vertical: 8.h),
+                            border: OutlineInputBorder(
+                                borderSide: BorderSide.none),
+                          ),
                         ),
                       ),
-                    ),
 
-                    /// Send button
-                    GestureDetector(
-                      onTap: commentController.isLoading.value
-                          ? null
-                          : () async {
-                        if (commentController.commentText.value
-                            .trim()
-                            .isEmpty) {
-                          Get.snackbar(
-                            "Error",
-                            "Comment cannot be empty",
-                          );
-                          return;
-                        }
+                      /// Send button
+                      GestureDetector(
+                        onTap: commentController.isLoadingSend.value
+                            ? null
+                            : () async {
+                          if (commentController.commentText.value
+                              .trim()
+                              .isEmpty) {
+                            Get.snackbar(
+                              "Error",
+                              "Comment cannot be empty",
+                            );
+                            return;
+                          }
 
-                        // Server এ save হবে + list update হবে
-                        await commentController
-                            .createComment(widget.postId);
-                        _controller.clear();
+                          await commentController
+                              .createComment(widget.postId);
+                          _controller.clear();
+                        },
+                        child: commentController.isLoadingSend.value
+                            ? CircularProgressIndicator()
+                            : CustomContainer(
+                          backgroundColor: AppColors.primary,
+                          padding: 2,
+                          height: 32.h,
+                          width: 81.w,
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              CustomImage(imageSrc: AppIcons.send),
+                              SizedBox(width: 2.w),
+                              CustomText(
+                                  text: "Send", color: AppColors.white),
+                            ],
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                )),
+
+                Gap(24.h),
+
+                /// Show comments
+                Obx(() {
+                  if (commentController.isLoadingSend.value &&
+                      commentController.comments.isEmpty) {
+                    return Center(child: CircularProgressIndicator());
+                  } else if (commentController.comments.isEmpty) {
+                    return Text("No comments yet");
+                  } else {
+                    return ListView.builder(
+                      itemCount: commentController.comments.length,
+                      shrinkWrap: true,
+                      physics: NeverScrollableScrollPhysics(),
+                      itemBuilder: (context, index) {
+                        final comment = commentController.comments[index];
+                        return CommentWidget(
+                          commentText: comment['commentText'] ?? "",
+                        );
                       },
-                      child: commentController.isLoading.value
-                          ? CircularProgressIndicator()
-                          : CustomContainer(
-                        backgroundColor: AppColors.primary,
-                        padding: 2,
-                        height: 32.h,
-                        width: 81.w,
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            CustomImage(imageSrc: AppIcons.send),
-                            SizedBox(width: 2.w),
-                            CustomText(
-                                text: "Send", color: AppColors.white),
-                          ],
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
-              )),
-
-              Gap(24.h),
-
-              /// Show comments
-              Obx(() {
-                if (commentController.isLoading.value &&
-                    commentController.comments.isEmpty) {
-                  return Center(child: CircularProgressIndicator());
-                } else if (commentController.comments.isEmpty) {
-                  return Text("No comments yet");
-                } else {
-                  return ListView.builder(
-                    itemCount: commentController.comments.length,
-                    shrinkWrap: true,
-                    physics: NeverScrollableScrollPhysics(),
-                    itemBuilder: (context, index) {
-                      final comment = commentController.comments[index];
-                      return CommentWidget(
-                        commentText: comment['commentText'] ?? "",
-                      );
-                    },
-                  );
-                }
-              }),
-            ],
+                    );
+                  }
+                }),
+              ],
+            ),
           ),
         ),
       ),

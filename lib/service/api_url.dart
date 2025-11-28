@@ -21,11 +21,16 @@ class ApiUrl {
   static const String createPost="/community-post/create-post";
   static const String getSinglePost="/community-post/post/6925890de1d7dae96182e1df";
   static const String getAllPost="/community-post/posts";
+  static const String getMyPost="/community-post/my-posts";
   static const String updatePost="/community-post/update-post/6925890de1d7dae96182e1df";
   static const String deletePost="/community-post/post/6925890de1d7dae96182e1df";
   static const String addVote="/community-vote/vote/6925890de1d7dae96182e1df";
   //static const String getAllVote="$baseUrl/auth/signin";
-  static const String createComment="/community-comment/comment/6925890de1d7dae96182e1df";
+  static String createComment(String userId) {
+    return "/community-comment/comment/$userId";
+  }
+
+ // static const String createComment="/community-comment/comment/6925890de1d7dae96182e1df";
   static const String editComment="/community-comment/comment/6925b7bca0423a01b0dcf43b";
   static const String deleteComment="/community-comment/comment/6925b7bca0423a01b0dcf43b";
   static String getAllComment(String postId) {
