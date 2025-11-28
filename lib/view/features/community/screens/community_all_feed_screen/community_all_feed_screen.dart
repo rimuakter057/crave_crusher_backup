@@ -14,7 +14,7 @@ import '../../../../components/custom_app_bar/custom_app_bar.dart';
 import '../../../../components/custom_nav_bar/navbar.dart';
 import '../../controllers/community_tab_controller.dart';
 import '../../controllers/create_post_controller.dart';
-import '../../controllers/get_post_controller.dart';
+import '../../controllers/post_controller.dart';
 import '../../widgets/common comunity widget.dart';
 import '../../widgets/community_tab_selector.dart';
 
@@ -23,23 +23,23 @@ class CommunityAllFeedScreen extends StatelessWidget {
 
   final CommunityTabController tabController =
   Get.find<CommunityTabController>();
-  final GetPostController getPostController = Get.find<GetPostController>();
-  final AddPostController addPostController = Get.find<AddPostController>();
+  final PostController postController = Get.find<PostController>();
+ // final AddPostController addPostController = Get.find<AddPostController>();
 
   @override
   Widget build(BuildContext context) {
     /// TAB CHANGE HOILE API AUTO CALL HOBE
     tabController.communityTabIndex.listen((index) {
       if (index == 0) {
-        getPostController.fetchAllPosts();
+        postController.fetchAllPosts();
       } else {
-        getPostController.fetchMyPost();
+        postController.fetchMyPost();
       }
     });
 
     /// FIRST TIME ONLY ALL POST LOAD
-    if (getPostController.allPostList.isEmpty) {
-      Future.microtask(() => getPostController.fetchAllPosts());
+    if (postController.allPostList.isEmpty) {
+      Future.microtask(() => postController.fetchAllPosts());
     }
 
     return Scaffold(
@@ -53,9 +53,9 @@ class CommunityAllFeedScreen extends StatelessWidget {
       body: RefreshIndicator(
         onRefresh: () async {
           if (tabController.communityTabIndex.value == 0) {
-            await getPostController.fetchAllPosts();
+            await postController.fetchAllPosts();
           } else {
-            await getPostController.fetchMyPost();
+            await postController.fetchMyPost();
           }
         },
         child: SingleChildScrollView(
@@ -76,14 +76,14 @@ class CommunityAllFeedScreen extends StatelessWidget {
                     scrollDirection: Axis.vertical,
                     shrinkWrap: true,
                     itemCount: tabController.communityTabIndex.value == 0
-                        ? getPostController.allPostList.length
-                        : getPostController.myPostList.length,
+                        ? postController.allPostList.length
+                        : postController.myPostList.length,
                     itemBuilder: (context, index) {
                       /// ----------------------------------
                       /// TAB: ALL POST (index = 0)
                       /// ----------------------------------
                       if (tabController.communityTabIndex.value == 0) {
-                        final post = getPostController.allPostList[index];
+                        final post = postController.allPostList[index];
 
                         return Column(
                           children: [
@@ -106,8 +106,8 @@ class CommunityAllFeedScreen extends StatelessWidget {
                               profileImage: post.author?.profileImage ??
                                   AppImages.profileManImage,
                               postText: post.content ?? "",
-                              likesText: "${post.totalVotes ?? 0}",
-                              commentsText: "${post.totalComments ?? 0}",
+                              likesText: "${post.totalVotes ?? 00}",
+                              commentsText: "${post.totalComments ?? 00}",
                               myPost: false,
                               index: index,
 
@@ -126,7 +126,7 @@ class CommunityAllFeedScreen extends StatelessWidget {
                       /// TAB: MY POST (index = 1)
                       /// ----------------------------------
                       else {
-                        final myPost = getPostController.myPostList[index];
+                        final myPost = postController.myPostList[index];
 
                         return Column(
                           children: [
