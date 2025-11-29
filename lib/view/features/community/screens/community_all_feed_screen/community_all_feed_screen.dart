@@ -39,17 +39,24 @@ class CommunityAllFeedScreen extends StatelessWidget {
       }
     });
 
-    /// FIRST TIME ONLY ALL POST LOAD
+    final postId=postController.allPostList.map((e) => e.sId!).toString();
+
+
+    // Load posts and votes once
     if (postController.allPostList.isEmpty) {
-      Future.microtask(() => postController.fetchAllPosts());
+      Future.microtask(() async {
+        await postController.fetchAllPosts();
+
+      });
     }
+
 
     return Scaffold(
       bottomNavigationBar: NavBar(currentIndex: 2),
       appBar: CustomAppBar(
         title: 'Community',
         onActionPressed: () {
-          Get.to(CreatePostScreen());
+          Get.to(() => CreatePostScreen());
         },
       ),
       body: RefreshIndicator(
@@ -59,6 +66,7 @@ class CommunityAllFeedScreen extends StatelessWidget {
           } else {
             await postController.fetchMyPost();
           }
+          await postController.fetchMyPost();
         },
         child: SingleChildScrollView(
           child: Padding(
@@ -71,6 +79,8 @@ class CommunityAllFeedScreen extends StatelessWidget {
                   /// TAB SELECTOR
                   CommunityTabSelector(),
                   Gap(24.h),
+
+                  if(tabController.communityTabIndex.value == 0)...[],
 
                   /// POST LIST
                   ListView.builder(
@@ -91,13 +101,11 @@ class CommunityAllFeedScreen extends StatelessWidget {
                         return Column(
                           children: [
                             CommonCommunityWidget(
+                              // Favourite widget
                               favouriteWidget: Obx(() {
-                                final postId = post.sId!; // post ID
-                                final isLiked = communityController.reactList.contains(postId);
-                                final totalLikes =
-                                    communityController.likesMap[postId] ?? post.totalVotes ?? 0;
-
-                                return Row(
+                                final postId = post.sId!;
+                                final isLiked = communityController.userVotedPosts.contains(postId);
+                             return Row(
                                   children: [
                                     IconButton(
                                       onPressed: () {
@@ -109,16 +117,14 @@ class CommunityAllFeedScreen extends StatelessWidget {
                                         size: 20.w,
                                       ),
                                     ),
-                                    Gap(4.w),
-                                    CustomText(text: totalLikes.toString()),
+                                    SizedBox(width: 4.w),
+                                    CustomText(text:"${post.totalVotes ?? 00}",),
                                   ],
                                 );
                               }),
 
 
-                              onTapUpdate: () {
-                                Get.to(() => UpdatePostScreen());
-                              },
+
                               onTapImageShow: () {
                                 Get.to(() => CommunityImageShowScreen());
                               },
@@ -166,23 +172,30 @@ class CommunityAllFeedScreen extends StatelessWidget {
                               ),
                               profileImage: AppImages.profileManImage,
                               postText: myPost.content.toString(),
-                              favouriteWidget: Row(
-                                children: [
-                                  IconButton(
-                                    onPressed: () {},
-                                    icon: Icon(
-                                      Icons.favorite_border,
-                                      color: AppColors.red,
-                                      size: 20.w,
-                                    ),
-                                  ),
+                              favouriteWidget: Obx(() {
+                                final postId = myPost.id;
+                                final isLiked = communityController.userVotedPosts.contains(postId);
+                                final totalLikes =
+                                    communityController.votesNumberPerPost[postId] ?? myPost.totalVotes ?? 0;
 
-                                  Gap(4.w),
-                                  CustomText(
-                                    text: myPost.totalVotes.toString(),
-                                  ),
-                                ],
-                              ),
+                                return Row(
+                                  children: [
+                                    IconButton(
+                                      onPressed: () {
+                                        communityController.addVote(myPost.id.toString());
+                                      },
+                                      icon: Icon(
+                                        isLiked ? Icons.favorite : Icons.favorite_border,
+                                        color: AppColors.red,
+                                        size: 20.w,
+                                      ),
+                                    ),
+                                    SizedBox(width: 4.w),
+                                    CustomText(text: totalLikes.toString()),
+                                  ],
+                                );
+                              }),
+
                               commentsText: "0",
                               myPost: true,
                               index: index,
@@ -196,13 +209,18 @@ class CommunityAllFeedScreen extends StatelessWidget {
                               },
 
                               onTapUpdate: () {
-                                Get.to(
-                                  () => UpdatePostScreen(),
-                                  arguments: {
-                                    "id": myPost.id,
-                                    "content": myPost.content,
-                                  },
-                                );
+                                 final content=myPost.content;
+                                final postId = myPost.id;
+                                if (postId != null && content != null) {
+                                  Get.to(() => UpdatePostScreen(postId: postId,content: content,));
+                                }
+                                // Get.to(
+                                //   () => UpdatePostScreen(),
+                                //   arguments: {
+                                //     "id": myPost.id,
+                                //     "content": myPost.content,
+                                //   },
+                                // );
                               },
                               onTapImageShow: () {
                                 Get.to(() => CommunityImageShowScreen());

@@ -45,7 +45,7 @@ class ApiClient extends GetxService {
     };
 
     try {
-      logger.i("➡️ GET REQUEST\nURL: $uri\nHeaders: ${headers ?? mainHeaders}");
+      logger.i("➡️ GET REQUEST=====================================\nURL:===================================== $uri\nHeaders:=========================================== ${headers ?? mainHeaders}");
 
       http.Response response = await client
           .get(Uri.parse(ApiUrl.baseUrl + uri), headers: headers ?? mainHeaders)
@@ -53,7 +53,7 @@ class ApiClient extends GetxService {
 
       return handleResponse(response, uri);
     } catch (e) {
-      logger.e("❌ GET Error:============= $e");
+      logger.e("❌ GET Error:==================================== $e");
       return const Response(statusCode: 1, statusText: somethingWentWrong);
     }
   }
@@ -82,7 +82,7 @@ class ApiClient extends GetxService {
     };
 
     try {
-      logger.i("➡️ POST REQUEST\nURL: $uri\nHeaders: ${headers ?? mainHeaders}\nBody: $body");
+      logger.i("➡️ POST REQUEST==========================================\nURL:======================================= $uri\nHeaders:=================================== ${headers ?? mainHeaders}\nBody:================================================== $body");
 
       http.Response response = await client
           .post(
@@ -94,7 +94,7 @@ class ApiClient extends GetxService {
 
       return handleResponse(response, uri);
     } catch (e) {
-      logger.e("❌ POST Error: $e");
+      logger.e("❌ POST Error:================================================ $e");
       return const Response(statusCode: 1, statusText: somethingWentWrong);
     }
   }
@@ -124,7 +124,7 @@ class ApiClient extends GetxService {
     };
 
     try {
-      logger.i("➡️ PATCH REQUEST\nURL: $uri\nHeaders: ${headers ?? mainHeaders}\nBody: $body");
+      logger.i("➡️ PATCH REQUEST===============================================\nURL:=============================================== $uri\nHeaders:========================================== ${headers ?? mainHeaders}\nBody:================================== $body");
 
       http.Response response = await client
           .patch(
@@ -136,7 +136,7 @@ class ApiClient extends GetxService {
 
       return handleResponse(response, uri);
     } catch (e) {
-      logger.e("❌ PATCH Error: $e");
+      logger.e("❌ PATCH Error:============================================================== $e");
       return const Response(statusCode: 1, statusText: somethingWentWrong);
     }
   }
@@ -160,14 +160,14 @@ class ApiClient extends GetxService {
       request.fields.addAll(body);
       request.headers.addAll(headers);
 
-      logger.i("➡️ MULTIPART POST\nURL: $uri\nBody Fields: $body");
+      logger.i("➡️ MULTIPART POST==============================================================================\nURL:======================================================================== $uri\nBody Fields:============================================================= $body");
 
       // Attach Files
       if (multipartBody != null) {
         for (var element in multipartBody) {
           var mimeType = lookupMimeType(element.file.path) ?? "image/jpeg";
 
-          logger.i("📎 File Attached: ${element.file.path} → ${element.key}");
+          logger.i("📎 File Attached:=========================== ${element.file.path} → ${element.key}");
 
           request.files.add(
             await http.MultipartFile.fromPath(
@@ -182,7 +182,7 @@ class ApiClient extends GetxService {
       http.StreamedResponse response = await request.send();
       final content = await response.stream.bytesToString();
 
-      logger.i("⬅️ MULTIPART RESPONSE [$uri]: $content");
+      logger.i("⬅️ MULTIPART RESPONSE [$uri]:============================================ $content");
 
       return Response(
         statusCode: response.statusCode,
@@ -190,7 +190,7 @@ class ApiClient extends GetxService {
         statusText: somethingWentWrong,
       );
     } catch (e) {
-      logger.e("❌ MULTIPART POST Error: $e");
+      logger.e("❌ MULTIPART POST Error:====================================================== $e");
       return const Response(statusCode: 1, statusText: somethingWentWrong);
     }
   }
@@ -213,7 +213,7 @@ class ApiClient extends GetxService {
     };
 
     try {
-      logger.i("➡️ PUT REQUEST\nURL: $uri\nBody: $body");
+      logger.i("➡️ PUT REQUEST========================================================\nURL:===================================================== $uri\nBody:===================================================== $body");
 
       http.Response response = await client
           .put(
@@ -225,7 +225,7 @@ class ApiClient extends GetxService {
 
       return handleResponse(response, uri);
     } catch (e) {
-      logger.e("❌ PUT Error: $e");
+      logger.e("❌ PUT Error:===================================================================== $e");
       return const Response(statusCode: 1, statusText: somethingWentWrong);
     }
   }
@@ -244,7 +244,7 @@ class ApiClient extends GetxService {
     };
 
     try {
-      logger.i("🗑️ DELETE REQUEST\nURL: $uri\nBody: $body");
+      logger.i("🗑️ DELETE REQUEST====================================================\nURL:======================================= $uri\nBody:==================================================== $body");
 
       http.Response response = await client
           .delete(
@@ -256,7 +256,7 @@ class ApiClient extends GetxService {
 
       return handleResponse(response, uri);
     } catch (e) {
-      logger.e("❌ DELETE Error: $e");
+      logger.e("❌ DELETE Error:================================================ $e");
       return const Response(statusCode: 1, statusText: somethingWentWrong);
     }
   }
@@ -272,7 +272,7 @@ class ApiClient extends GetxService {
     }
 
     logger.i(
-      "⬅️ RESPONSE FOR [$uri]\nStatus: ${response.statusCode}\nBody: ${response.body}",
+      "⬅️ RESPONSE FOR=============================== [$uri]\nStatus:============================================= ${response.statusCode}\nBody:===================================== ${response.body}",
     );
 
     return Response(

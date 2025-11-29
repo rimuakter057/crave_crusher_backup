@@ -4,69 +4,97 @@ import 'package:crave_crusher/view/components/common_profile/avater_widget.dart'
 import 'package:crave_crusher/view/components/custom_container/custom_container.dart';
 import 'package:crave_crusher/view/components/custom_leadin_title_appbar.dart';
 import 'package:crave_crusher/view/components/custom_text/custom_text.dart';
+import 'package:crave_crusher/view/features/profile/controllers/profile_controller.dart';
 import 'package:crave_crusher/view/features/profile/edit_profile/edit_profile_screens.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:gap/gap.dart';
+import 'package:get/get.dart';
 
 import 'widgets/custom_profile_input_field.dart';
 
 
 class MyProfileScreen extends StatelessWidget {
-  const MyProfileScreen({super.key});
+  MyProfileScreen({super.key});
+  final ProfileController profileController = Get.find<ProfileController>();
 
   @override
   Widget build(BuildContext context) {
+    // প্রথমে প্রোফাইল ডেটা ফেচ করি
+    profileController.fetchMyProfile();
+
     return Scaffold(
-
-      appBar:CustomLeadingTitleAppbar(title: "My Profile"),
-
+      appBar: CustomLeadingTitleAppbar(title: "My Profile"),
       body: SingleChildScrollView(
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 16),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-            Gap(8.h),
-            Center(child: ProfileAvatarWidget(imagePath: AppImages.profileManImage,heightA: 100.h,widthA: 100.w,)),
-            Gap(16.h),
-            CustomProfileInputField(title: 'Name', hintText: 'Sheena DuBois',),
-            Gap(8.h),
-            CustomProfileInputField(title: 'Email', hintText: 'SheenaDuBois@email.com',),
-            Gap(16.h),
-            ///post now button
-            GestureDetector(
-              onTap: (){
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => EditProfileScreens()),
-                );
+          child: Obx(() {
+            // loading check
+            if (profileController.isLoadingMyProfile.value) {
+              return Center(child: CircularProgressIndicator());
+            }
 
+            final profile = profileController.myProfile.value;
 
-              },
-              child: CustomContainer(
-                backgroundColor: AppColors.primary,
-                padding: 4,
-                height: 36.h,
-                width: 140.w,
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-        
-                    CustomText(text: "Edit  Profile", color: AppColors.white),
-                  ],
+            if (profile == null) {
+              return Center(child: Text("No profile data"));
+            }
+
+            return Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Gap(8.h),
+                Center(
+                  child: ProfileAvatarWidget(imagePath:AppImages.profileManImage,
+                  //   imagePath: profile.profileImage.isNotEmpty
+                  //       ? profile.profileImage
+                  //       : AppImages.profileManImage,
+                  //   heightA: 100.h,
+                  //   widthA: 100.w,
+                  // ),
+                ),),
+                Gap(24.h),
+                // Name
+                CustomProfileInputField(
+                  title: 'Name',
+                  text: profile.fullName,
                 ),
-              ),
-            ),
-        
-          ],),
+                Gap(16.h),
+                // Email
+                CustomProfileInputField(
+                  title: 'Email',
+                  text: profile.email,
+                ),
+                Gap(16.h),
+                GestureDetector(
+                  onTap: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => EditProfileScreens()),
+                    );
+                  },
+                  child: CustomContainer(
+                    backgroundColor: AppColors.primary,
+                    padding: 4,
+                    height: 36.h,
+                    width: 140.w,
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        CustomText(text: "Edit Profile", color: AppColors.white),
+                      ],
+                    ),
+                  ),
+                ),
+              ],
+            );
+          }),
         ),
       ),
-
     );
   }
-
-
 }
+
 
 

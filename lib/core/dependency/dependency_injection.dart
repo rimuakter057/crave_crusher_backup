@@ -14,6 +14,7 @@ import 'package:crave_crusher/view/features/community/controllers/community_cont
 import 'package:crave_crusher/view/features/community/controllers/community_tab_controller.dart';
 import 'package:crave_crusher/view/features/community/controllers/post_controller.dart';
 import 'package:crave_crusher/view/features/home/controller/home_controller.dart';
+import 'package:crave_crusher/view/features/profile/controllers/profile_controller.dart';
 import 'package:crave_crusher/view/features/rewards/controller/reward_controller.dart';
 import 'package:get/get.dart';
 
@@ -39,6 +40,7 @@ class DependencyInjection extends Bindings {
     Get.lazyPut(() => ResendOtpController(), fenix: true);
     Get.lazyPut(() => UserResendOtpController(), fenix: true);
     Get.lazyPut(() => ChangePasswordController(), fenix: true);
+
     ///==========================Community section==================
 
     //Get.lazyPut(() => AddPostController(), fenix: true);
@@ -46,7 +48,8 @@ class DependencyInjection extends Bindings {
     Get.lazyPut(() => CommunityController(), fenix: true);
 
 
-
+///profile section========================
+    Get.lazyPut(() => ProfileController(), fenix: true);
 
     ///==========================Default Custom Controller ==================
       Get.lazyPut(() => BattleController(), fenix: true);

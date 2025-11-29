@@ -36,4 +36,10 @@ class ApiUrl {
   static String getAllComment(String postId) {
     return "/community-comment/comment/$postId";
   }
+
+
+///profile section==================================================================
+  static const String getMyProfile="/user/get-my-profile";
+
+
 }

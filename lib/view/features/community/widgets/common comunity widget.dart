@@ -20,7 +20,7 @@ class CommonCommunityWidget extends StatefulWidget {
   final String profileImage; // Required profile image
   final String postText; // Required post text
   final void Function() onTapComment;
-  final void Function() onTapUpdate;
+  final void Function()? onTapUpdate;
   final void Function() onTapImageShow;
   final void Function() onTapProfile;
   //  final String likesText; // Required likes count text
@@ -38,7 +38,7 @@ class CommonCommunityWidget extends StatefulWidget {
     // required this.likesText,
     required this.commentsText,
     required this.onTapComment,
-    required this.onTapUpdate,
+     this.onTapUpdate,
     required this.onTapImageShow,
     required this.onTapProfile,
     required this.favouriteWidget,

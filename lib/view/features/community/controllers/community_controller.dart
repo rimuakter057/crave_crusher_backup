@@ -1,9 +1,9 @@
-import 'dart:convert';
 
 import 'package:crave_crusher/service/api_check.dart';
 import 'package:crave_crusher/service/api_client.dart';
 import 'package:crave_crusher/service/api_url.dart';
 import 'package:crave_crusher/utils/app_const/app_const.dart';
+import 'package:crave_crusher/view/features/community/models/vote_model.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -115,11 +115,46 @@ class CommunityController extends GetxController {
   }
 
 
-  ///add vote ================================================================
+  ///add vote =====================================================Post Method================================
 
-  RxList<String> reactList = <String>[].obs; // locally liked posts
-  RxMap<String, int> likesMap = <String, int>{}.obs; // postId -> total likes
+// Votes============================================
+
+
+  RxList<VoteModel> voteList = <VoteModel>[].obs;
+  RxInt totalVotes = 0.obs; // total votes
+
+  Future<void> fetchVotesForPost(String postId) async {
+    try {
+      final response = await ApiClient.getData(ApiUrl.getAllVote(postId));
+
+      if (response.statusCode == 200 || response.statusCode == 201) {
+        final data = response.body['data'] as List;
+        voteList.value = data.map((e) => VoteModel.fromJson(e)).toList();
+
+        totalVotes.value = voteList.length; // total vote count
+      } else {
+        Get.snackbar("Error", "Failed to fetch votes. Status: ${response.statusCode}");
+      }
+    } catch (e) {
+      Get.snackbar("Error", "Failed to fetch votes: $e");
+    }
+  }
+
+
+
+
+
+
+
+// Add or remove vote
+  RxMap<String, int> votesNumberPerPost = <String, int>{}.obs; // postId -> total votes
+  RxList<String> userVotedPosts = <String>[].obs; // posts liked by current user
+
+
+// Add or remove vote
   Future<bool> addVote(String postId) async {
+    if (userID.value.isEmpty) return false;
+
     try {
       final body = {'userId': userID.value};
       final response = await ApiClient.postData(
@@ -129,15 +164,16 @@ class CommunityController extends GetxController {
       );
 
       if (response.statusCode == 200 || response.statusCode == 201) {
-        if (reactList.contains(postId)) {
-          reactList.remove(postId);
-        } else {
-          reactList.add(postId);
-        }
 
-        // update likes count from API response
-        final updatedCount = response.body['totalVotes'] ?? 0;
-        likesMap[postId] = updatedCount;
+
+        // Toggle UI logic
+        if (userVotedPosts.contains(postId)) {
+          userVotedPosts.remove(postId);
+          votesNumberPerPost[postId] = (votesNumberPerPost[postId] ?? 1) - 1;
+        } else {
+          userVotedPosts.add(postId);
+          votesNumberPerPost[postId] = (votesNumberPerPost[postId] ?? 0) + 1;
+        }
 
         return true;
       } else {
@@ -149,5 +185,6 @@ class CommunityController extends GetxController {
       return false;
     }
   }
+
 
 }

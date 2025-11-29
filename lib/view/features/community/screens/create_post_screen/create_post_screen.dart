@@ -131,43 +131,11 @@ class CreatePostScreen extends StatelessWidget {
                 ),
                 Gap(12.h),
 
-                ///button section
-                // GestureDetector(
-                //   onTap: controller.isLoading.value
-                //       ? null
-                //       : () => controller.createPost(),
-                //   child: CustomContainer(
-                //     backgroundColor: controller.isLoading.value
-                //         ? AppColors.subPrimary.withOpacity(.5)
-                //         : AppColors.primary,
-                //     padding: 4,
-                //     height: 36.h,
-                //     width: 100.w,
-                //     child: Row(
-                //       mainAxisAlignment: MainAxisAlignment.center,
-                //       children: [
-                //         controller.isLoading.value
-                //             ? SizedBox(
-                //           width: 16.w,
-                //           height: 16.w,
-                //           child: CircularProgressIndicator(
-                //             color: AppColors.white,
-                //             strokeWidth: 2,
-                //           ),
-                //         )
-                //             : CustomText(
-                //           text: "Post Now",
-                //           color: AppColors.white,
-                //         ),
-                //       ],
-                //     ),
-                //   ),
-                // ),
 
                 /// Button section
                 GestureDetector(
                   onTap:
-                      controller.isLoading.value
+                      controller.isLoadingCreate.value
                           ? null
                           : () async {
                             if (controller.postText.value.trim().isEmpty) {
@@ -179,14 +147,14 @@ class CreatePostScreen extends StatelessWidget {
                             }
 
                             await controller.createPost();
-
-                            Get.to(CommunityAllFeedScreen());
+                          // Get.back();
+                            Get.to(()=>CommunityAllFeedScreen());
 
                             textController.clear();
                             controller.postText.value = '';
                             controller.imagePath.value = '';
                           },
-                  child:controller.isLoading.value
+                  child:controller.isLoadingCreate.value
                       ? CircularProgressIndicator(): CustomContainer(
                     backgroundColor: AppColors.primary,
                     padding: 4,

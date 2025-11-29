@@ -21,6 +21,9 @@ class MyPostModel {
     this.hasVoted,
   });
 
+
+
+
   factory MyPostModel.fromJson(Map<String, dynamic> json) => MyPostModel(
     id: json["_id"],
     content: json["content"],

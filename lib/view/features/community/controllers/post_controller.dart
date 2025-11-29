@@ -3,9 +3,10 @@ import 'dart:io';
 import 'package:crave_crusher/service/api_check.dart';
 import 'package:crave_crusher/service/api_client.dart';
 import 'package:crave_crusher/service/api_url.dart';
+import 'package:crave_crusher/utils/ToastMsg/toast_message.dart';
 import 'package:crave_crusher/utils/app_const/app_const.dart';
 import 'package:crave_crusher/view/features/community/models/my_post_model.dart';
-import 'package:crave_crusher/view/features/community/models/post_model.dart';
+import 'package:crave_crusher/view/features/community/models/all_post_model.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:logger/logger.dart';
@@ -16,7 +17,7 @@ class PostController extends GetxController {
 
   var postText = ''.obs;
   var imagePath = ''.obs;
-  var isLoading = false.obs;
+  var isLoadingCreate = false.obs;
 
   RxString userID = ''.obs;
 
@@ -61,10 +62,11 @@ class PostController extends GetxController {
     return true;
   }
 
+  ///create post========================================================================
   Future<bool> createPost() async {
     if (!validatePost()) return false;
 
-    isLoading.value = true;
+    isLoadingCreate.value = true;
     try {
       Map<String, String> body = {
         'content': postText.value.trim(),
@@ -108,12 +110,11 @@ class PostController extends GetxController {
       Get.snackbar("Error", e.toString());
       return false;
     } finally {
-      isLoading.value = false;
+      isLoadingCreate.value = false;
     }
   }
 
   /// get all post ==============================================================================Get Method====================
-
   var allPostList = <Data>[].obs;
   var isLoadingAllPost = false.obs;
   static final Logger logger = Logger();
@@ -134,7 +135,7 @@ class PostController extends GetxController {
       }
     } catch (e) {
       allPostList.clear();
-      Logger().e("Fetch posts error: $e");
+      Logger().e("Fetch posts error:======================= $e");
     } finally {
       isLoadingAllPost.value = false;
     }
@@ -147,11 +148,8 @@ class PostController extends GetxController {
 
   Future<void> fetchMyPost() async {
     isLoadingPost.value = true;
-
     final response = await ApiClient.getData(ApiUrl.getMyPost);
-
     isLoadingPost.value = false;
-
     if (response.statusCode == 200 || response.statusCode == 201) {
       myPostList.value =
           (response.body['data'] as List)
@@ -166,20 +164,31 @@ class PostController extends GetxController {
     }
   }
 
-
-
   ///update post==================================================================Patch Methode=======================================
+  Rx<Status> updatePostStatus = Status.loading.obs;
+  var isLoadingUpdate = false.obs;
 
+  Future<void> updatePost(String postId, String content) async {
+    isLoadingUpdate(true);
+    final body = {"content": content};
 
-Rx <Status> updatePostStatus = Status.loading.obs;
-var isLoadingUpdate = false.obs;
-RxList<MyPostModel> updatePostList = <MyPostModel>[].obs;
+    final response = await ApiClient.patchData(
+      ApiUrl.updatePost(postId),
+      body,
+      isJson: true,
+    );
+    isLoadingUpdate(false);
+    if (response.statusCode == 200 || response.statusCode == 201) {
+      showCustomSnackBar("Post updated successfully", isError:  false);
 
+      fetchMyPost();
 
+      Get.back();
 
-
-
-
-
+     // return true;
+    } else {
+     ApiChecker.checkApi(response);
+    //  return false;
+    }
+  }
 }
-
