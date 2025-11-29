@@ -11,19 +11,14 @@ import 'package:image_picker/image_picker.dart';
 import 'package:logger/logger.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-
 class PostController extends GetxController {
-
-  ///create post=============================================================
-
-
+  ///create post==============================================================Post Method================================================
 
   var postText = ''.obs;
   var imagePath = ''.obs;
   var isLoading = false.obs;
 
   RxString userID = ''.obs;
-
 
   RxList<Map<String, dynamic>> myPosts = <Map<String, dynamic>>[].obs;
 
@@ -42,7 +37,8 @@ class PostController extends GetxController {
   Future<void> pickImage({bool fromCamera = true}) async {
     final ImagePicker picker = ImagePicker();
     final pickedFile = await picker.pickImage(
-        source: fromCamera ? ImageSource.camera : ImageSource.gallery);
+      source: fromCamera ? ImageSource.camera : ImageSource.gallery,
+    );
 
     if (pickedFile != null) {
       imagePath.value = pickedFile.path;
@@ -64,7 +60,6 @@ class PostController extends GetxController {
     }
     return true;
   }
-
 
   Future<bool> createPost() async {
     if (!validatePost()) return false;
@@ -103,7 +98,10 @@ class PostController extends GetxController {
         Get.snackbar("Success", "Post created successfully");
         return true; // success
       } else {
-        Get.snackbar("Error", response.body['message'] ?? "Something went wrong");
+        Get.snackbar(
+          "Error",
+          response.body['message'] ?? "Something went wrong",
+        );
         return false;
       }
     } catch (e) {
@@ -114,8 +112,7 @@ class PostController extends GetxController {
     }
   }
 
-
-  /// get all post ====================================
+  /// get all post ==============================================================================Get Method====================
 
   var allPostList = <Data>[].obs;
   var isLoadingAllPost = false.obs;
@@ -127,12 +124,11 @@ class PostController extends GetxController {
 
       final response = await ApiClient.getData(ApiUrl.getAllPost);
       if (response.statusCode == 200 && response.body['data'] != null) {
-        var postList = (response.body['data'] as List)
-            .map((e) => Data.fromJson(e))
-            .toList();
+        var postList =
+            (response.body['data'] as List)
+                .map((e) => Data.fromJson(e))
+                .toList();
         allPostList.value = postList;
-
-
       } else {
         this.allPostList.clear();
       }
@@ -144,7 +140,7 @@ class PostController extends GetxController {
     }
   }
 
-  ///get my post==========================================
+  ///get my post==================================================================================Get Method====================
   Rx<Status> myPostStatus = Status.loading.obs;
   var isLoadingPost = false.obs;
   RxList<MyPostModel> myPostList = <MyPostModel>[].obs;
@@ -157,10 +153,10 @@ class PostController extends GetxController {
     isLoadingPost.value = false;
 
     if (response.statusCode == 200 || response.statusCode == 201) {
-
-      myPostList.value = (response.body['data'] as List)
-          .map((x) => MyPostModel.fromJson(x))
-          .toList();
+      myPostList.value =
+          (response.body['data'] as List)
+              .map((x) => MyPostModel.fromJson(x))
+              .toList();
 
       myPostStatus(Status.completed);
     } else {
@@ -172,51 +168,12 @@ class PostController extends GetxController {
 
 
 
+  ///update post==================================================================Patch Methode=======================================
 
-// Rx<Status> myPostStatus=Status.loading.obs;
-//   var isLoadingPost=false.obs;
-//   RxList<MyPostModel> myPostList=<MyPostModel>[].obs;
-//
-//   Future <void> fetchMyPost()async{
-//     isLoadingPost.value=true;
-//     final response=await ApiClient.getData(ApiUrl.getMyPost);
-//     isLoadingPost.value=false;
-//  if(response.statusCode==200 && response.statusCode==201){
-//    myPostList.value= List<MyPostModel>.from(
-//      response.body['data'].toMap((x)=>MyPostModel.fromJson(x)),
-//    );
-//    myPostStatus(Status.completed);
-//  }else{
-//    myPostList.clear();
-//    myPostStatus(Status.error);
-//      ApiChecker.checkApi(response);
-//  }
 
-  }
-
-  // Rx<Status> commentStatus = Status.loading.obs;
-  // var isLoadingFetch = false.obs;
-  // RxList<CommentModel> commentList = <CommentModel>[].obs;
-  //
-  // /// Fetch all comments for a specific post
-  // Future<void> fetchCommentList(String postId) async {
-  //   isLoadingFetch.value = true;
-  //   debugPrint('Fetching comments for post: $postId');
-  //   final response = await ApiClient.getData(ApiUrl.getAllComment(postId));
-  //   isLoadingFetch.value = false;
-  //   if (response.statusCode == 200 && response.statusCode == 201) {
-  //     commentList.value = List<CommentModel>.from(
-  //       response.body['data'].toMap((x) => CommentModel.fromJson(x)),
-  //     );
-  //
-  //     commentStatus
-  //   } else {
-  //     comments.clear();
-  //     commentStatus(Status.error);
-  //
-  //     ApiChecker.checkApi(response);
-  //   }
-  //}
+Rx <Status> updatePostStatus = Status.loading.obs;
+var isLoadingUpdate = false.obs;
+RxList<MyPostModel> updatePostList = <MyPostModel>[].obs;
 
 
 
@@ -224,5 +181,5 @@ class PostController extends GetxController {
 
 
 
-
+}
 

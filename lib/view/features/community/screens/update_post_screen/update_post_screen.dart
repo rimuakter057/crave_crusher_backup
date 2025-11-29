@@ -4,13 +4,21 @@ import 'package:crave_crusher/utils/app_images/app_images.dart';
 import 'package:crave_crusher/view/components/custom_container/custom_container.dart';
 import 'package:crave_crusher/view/components/custom_image/custom_image.dart';
 import 'package:crave_crusher/view/components/custom_text/custom_text.dart';
+import 'package:crave_crusher/view/components/custom_text_field/custom_text_field.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:gap/gap.dart';
+import 'package:get/get.dart';
+import 'package:google_fonts/google_fonts.dart';
 
-class UpdatePostScreen extends StatelessWidget {
+class UpdatePostScreen extends StatefulWidget {
   UpdatePostScreen({super.key});
 
+  @override
+  State<UpdatePostScreen> createState() => _UpdatePostScreenState();
+}
+
+class _UpdatePostScreenState extends State<UpdatePostScreen> {
   /// dummy image list (you can replace with real data)
   final List<String> images = [
     AppImages.imageOne,
@@ -19,6 +27,23 @@ class UpdatePostScreen extends StatelessWidget {
     AppImages.imageOne,
     AppImages.imageOne,
   ];
+
+
+
+  final contentController = TextEditingController();
+
+
+  @override
+  void initState() {
+    super.initState();
+
+    final data = Get.arguments;
+
+    contentController.text = data["content"] ?? "";
+  }
+
+
+
 
   @override
   Widget build(BuildContext context) {
@@ -66,24 +91,18 @@ class UpdatePostScreen extends StatelessWidget {
               ),
               Gap(8.h),
 
-              CustomContainer(
-                width: double.infinity,
-                height: 120.h,
-                backgroundColor: AppColors.subPrimary.withOpacity(.5),
-                child: TextField(
-                  maxLines: 4,
-                  decoration: InputDecoration(
-                    hintText: "Share your progress, thoughts, or a victory moment…",
-                    hintStyle: TextStyle(
-                      color: AppColors.black.withOpacity(0.5),
-                      fontSize: 14.sp,
-                    ),
-                    contentPadding:
-                    EdgeInsets.symmetric(horizontal: 8.w, vertical: 8.h),
-                    border: InputBorder.none,
+
+              CustomTextField(
+                maxLines: 4,
+                textEditingController: contentController,
+                hintText: "Share your progress, thoughts, or a victory moment…",
+                  hintStyle: GoogleFonts.syne(
+                    color: AppColors.black.withOpacity(0.5),
+                           fontSize: 14.sp,
                   ),
-                ),
+                fillColor: AppColors.subPrimary.withOpacity(.5),
               ),
+
 
               Gap(24.h),
 

@@ -8,6 +8,7 @@ import 'package:http/http.dart' as http;
 import 'package:http_parser/http_parser.dart';
 import 'package:mime/mime.dart';
 import 'package:logger/logger.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import '../helper/shared_prefe/shared_prefe.dart';
 import '../utils/app_const/app_const.dart';
@@ -108,8 +109,9 @@ class ApiClient extends GetxService {
     if (!await _checkConnection()) {
       return const Response(statusCode: 0, statusText: 'No Internet Connection');
     }
+    SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
 
-    bearerToken = await SharePrefsHelper.getString(AppConstants.bearerToken);
+    bearerToken = ( sharedPreferences.getString(AppConstants.bearerToken))!;
 
     var mainHeaders = isJson
         ? {

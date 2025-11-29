@@ -4,7 +4,6 @@ import 'package:crave_crusher/utils/app_colors/app_colors.dart';
 import 'package:crave_crusher/utils/app_icons/app_icons.dart';
 import 'package:crave_crusher/view/components/custom_image/custom_image.dart';
 import 'package:crave_crusher/view/features/battle/battle_screen.dart';
-import 'package:crave_crusher/view/features/community/controllers/create_post_controller.dart';
 import 'package:crave_crusher/view/features/community/screens/community_all_feed_screen/community_all_feed_screen.dart';
 import 'package:crave_crusher/view/features/community/screens/post/post_screen.dart';
 

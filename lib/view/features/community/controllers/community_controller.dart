@@ -13,7 +13,7 @@ import '../models/comment_model.dart';
 
 class CommunityController extends GetxController {
 
-  ///create comment section=================================
+  ///create comment section=============================================Post Method============================================
   var commentText = ''.obs;
   var isLoadingSend = false.obs;
   RxString userID = ''.obs;
@@ -44,7 +44,7 @@ class CommunityController extends GetxController {
     return true;
   }
 
-  /// Create a comment and update list instantly
+  /// Create a comment and update list instantly=======================================================================
   Future<bool> createComment(String postId) async {
     if (!validateComment()) return false;
 
@@ -63,17 +63,7 @@ class CommunityController extends GetxController {
       );
       isLoadingSend.value = false;
       if (response.statusCode == 200  || response.statusCode == 201) {
-        // Map<String, dynamic> newComment = {
-        //   '_id': response.body['data']['_id'],
-        //   'commentText': commentText.value,
-        //   'authorId': {
-        //     '_id': userID.value,
-        //     'fullName': 'You',
-        //     'profileImage': null,
-        //   },
-        // };
         isLoadingSend.value = true;
-        ///=====================================================================
         CommentModel model = CommentModel(
           id: "",
           commentText: commentText.value,
@@ -81,9 +71,7 @@ class CommunityController extends GetxController {
           createdAt: DateTime.now()
         );
         commentList.insert(0, model);
-        ///=====================================================================
         commentText.value = '';
-
         Get.snackbar("Success", "Comment posted successfully");
         return true;
       } else {
@@ -103,12 +91,11 @@ class CommunityController extends GetxController {
 
 
 
-///fetch comment====================================
+///get all comment==========================================================Get Method=============================================
    Rx<Status> commentStatus = Status.loading.obs;
   var isLoadingComment = false.obs;
   RxList<CommentModel> commentList = <CommentModel>[].obs;
 
-  /// Fetch all comments for a specific post
   Future<void> fetchCommentList(String postId) async {
     isLoadingComment.value = true;
      debugPrint('Fetching comments for post:=============================== $postId');
@@ -128,41 +115,39 @@ class CommunityController extends GetxController {
   }
 
 
-  ///get my post==========================================
-  // Rx<Status> myPostStatus = Status.loading.obs;
-  // var isLoadingPost = false.obs;
-  // RxList<MyPostModel> myPostList = <MyPostModel>[].obs;
-  //
-  // Future<void> fetchMyPost() async {
-  //   isLoadingPost.value = true;
-  //
-  //   final response = await ApiClient.getData(ApiUrl.getMyPost);
-  //
-  //   isLoadingPost.value = false;
-  //
-  //   if (response.statusCode == 200 || response.statusCode == 201) {
-  //
-  //     myPostList.value = (response.body['data'] as List)
-  //         .map((x) => MyPostModel.fromJson(x))
-  //         .toList();
-  //
-  //     myPostStatus(Status.completed);
-  //   } else {
-  //     myPostList.clear();
-  //     myPostStatus(Status.error);
-  //     ApiChecker.checkApi(response);
-  //   }
-  // }
-  //
-  //
+  ///add vote ================================================================
 
+  RxList<String> reactList = <String>[].obs; // locally liked posts
+  RxMap<String, int> likesMap = <String, int>{}.obs; // postId -> total likes
+  Future<bool> addVote(String postId) async {
+    try {
+      final body = {'userId': userID.value};
+      final response = await ApiClient.postData(
+        ApiUrl.addVote(postId),
+        body,
+        isJson: true,
+      );
 
+      if (response.statusCode == 200 || response.statusCode == 201) {
+        if (reactList.contains(postId)) {
+          reactList.remove(postId);
+        } else {
+          reactList.add(postId);
+        }
 
+        // update likes count from API response
+        final updatedCount = response.body['totalVotes'] ?? 0;
+        likesMap[postId] = updatedCount;
 
-
-
-
-
-
+        return true;
+      } else {
+        Get.snackbar("Error", "Failed to add reaction");
+        return false;
+      }
+    } catch (e) {
+      Get.snackbar("Error", "Exception: $e");
+      return false;
+    }
+  }
 
 }

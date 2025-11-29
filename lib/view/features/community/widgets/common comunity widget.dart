@@ -23,9 +23,9 @@ class CommonCommunityWidget extends StatefulWidget {
   final void Function() onTapUpdate;
   final void Function() onTapImageShow;
   final void Function() onTapProfile;
-  final String likesText; // Required likes count text
+  //  final String likesText; // Required likes count text
   final String commentsText; // Required comments count text
-
+  final Widget favouriteWidget;
   const CommonCommunityWidget({
     super.key,
     this.myPost = false,
@@ -35,8 +35,13 @@ class CommonCommunityWidget extends StatefulWidget {
     required this.profileImage,
     required this.postText,
 
-    required this.likesText,
-    required this.commentsText,required this.onTapComment, required this.onTapUpdate, required this.onTapImageShow, required this.onTapProfile,
+    // required this.likesText,
+    required this.commentsText,
+    required this.onTapComment,
+    required this.onTapUpdate,
+    required this.onTapImageShow,
+    required this.onTapProfile,
+    required this.favouriteWidget,
   });
 
   @override
@@ -47,7 +52,12 @@ class _CommonCommunityWidgetState extends State<CommonCommunityWidget> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: EdgeInsets.only(left: 16.w, right: 16.w, top: 10.h, bottom: 24.h),
+      padding: EdgeInsets.only(
+        left: 16.w,
+        right: 16.w,
+        top: 10.h,
+        bottom: 24.h,
+      ),
       width: double.infinity,
       alignment: Alignment.center,
       decoration: BoxDecoration(
@@ -91,7 +101,7 @@ class _CommonCommunityWidgetState extends State<CommonCommunityWidget> {
 
           /// Image Section
           GestureDetector(
-            onTap:widget.onTapImageShow,
+            onTap: widget.onTapImageShow,
             child: Row(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: _buildImages(),
@@ -107,7 +117,7 @@ class _CommonCommunityWidgetState extends State<CommonCommunityWidget> {
             maxLines: 3,
             text: widget.postText,
           ),
-          CustomText(text:"see more", color: AppColors.primary),
+          CustomText(text: "see more", color: AppColors.primary),
 
           Gap(24.h),
 
@@ -115,19 +125,18 @@ class _CommonCommunityWidgetState extends State<CommonCommunityWidget> {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Row(
-                children: [
-                  Icon(Icons.favorite_border, color: AppColors.red, size: 20.w),
-                  Gap(4.w),
-                  CustomText(text: widget.likesText),
-                ],
-              ),
+              widget.favouriteWidget,
+
               Container(height: 20.h, width: 1.5.w, color: Color(0xFFCBD5E1)),
               GestureDetector(
                 onTap: widget.onTapComment,
                 child: Row(
                   children: [
-                    Icon(Icons.message_outlined, color: AppColors.primary, size: 20.w),
+                    Icon(
+                      Icons.message_outlined,
+                      color: AppColors.primary,
+                      size: 20.w,
+                    ),
                     Gap(4.w),
                     CustomText(text: widget.commentsText),
                   ],
@@ -168,7 +177,7 @@ class _CommonCommunityWidgetState extends State<CommonCommunityWidget> {
             width: 180.w,
             fit: BoxFit.cover,
           ),
-        )
+        ),
       ];
     } else {
       return [
@@ -183,19 +192,25 @@ class _CommonCommunityWidgetState extends State<CommonCommunityWidget> {
         ),
         Gap(4.w),
         Column(
-          children: images.sublist(1).map((img) => Padding(
-            padding: EdgeInsets.only(bottom: 4.h),
-            child: ClipRRect(
-              borderRadius: BorderRadius.circular(6),
-              child: CustomImage(
-                imageSrc: img,
-                height: 90.h,
-                width: 90.w,
-                fit: BoxFit.cover,
-              ),
-            ),
-          )).toList(),
-        )
+          children:
+              images
+                  .sublist(1)
+                  .map(
+                    (img) => Padding(
+                      padding: EdgeInsets.only(bottom: 4.h),
+                      child: ClipRRect(
+                        borderRadius: BorderRadius.circular(6),
+                        child: CustomImage(
+                          imageSrc: img,
+                          height: 90.h,
+                          width: 90.w,
+                          fit: BoxFit.cover,
+                        ),
+                      ),
+                    ),
+                  )
+                  .toList(),
+        ),
       ];
     }
   }

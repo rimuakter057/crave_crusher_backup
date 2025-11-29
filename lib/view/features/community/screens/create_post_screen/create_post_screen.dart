@@ -9,7 +9,6 @@ import 'package:crave_crusher/view/components/custom_container/custom_container.
 import 'package:crave_crusher/view/components/custom_image/custom_image.dart';
 
 import 'package:crave_crusher/view/components/custom_text/custom_text.dart';
-import 'package:crave_crusher/view/features/community/controllers/create_post_controller.dart';
 import 'package:crave_crusher/view/features/community/controllers/post_controller.dart';
 import 'package:crave_crusher/view/features/community/screens/community_all_feed_screen/community_all_feed_screen.dart';
 import 'package:crave_crusher/view/features/community/screens/post_preview_screen/post_preview_screen.dart';
