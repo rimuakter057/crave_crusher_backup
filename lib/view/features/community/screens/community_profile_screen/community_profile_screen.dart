@@ -1,4 +1,5 @@
 import 'package:crave_crusher/utils/app_colors/app_colors.dart';
+import 'package:crave_crusher/utils/app_const/app_const.dart';
 import 'package:crave_crusher/utils/app_images/app_images.dart';
 import 'package:crave_crusher/view/components/common_profile/avater_widget.dart';
 import 'package:crave_crusher/view/components/custom_nav_bar/navbar.dart';
@@ -54,7 +55,7 @@ class CommunityProfileScreen extends StatelessWidget {
             children: [
               ///profile image
               ProfileAvatarWidget(
-                imagePath: AppImages.profileManImage,
+                imagePath: AppConstants.unknown,
                 heightA: 100.h,
                 widthA: 100.w,
                 borderColor: Colors.blue.shade100,
@@ -77,6 +78,7 @@ class CommunityProfileScreen extends StatelessWidget {
 
               ///common community widget
               CommonCommunityWidget(
+
                 onTapUpdate: () {
                   Get.to(() => UpdatePostScreen);
                 },
@@ -117,7 +119,8 @@ class CommunityProfileScreen extends StatelessWidget {
                 index: 2,
                 onTapComment: () {
                   // Get.to(CommentScreen(postId: postId));
-                }, // number of images layout (0,1,2)
+                },
+                postImages: [], // number of images layout (0,1,2)
               ),
               Gap(24.h),
               CommonCommunityWidget(
@@ -163,6 +166,7 @@ class CommunityProfileScreen extends StatelessWidget {
                     CustomText(text: "000"),
                   ],
                 ),
+                postImages: [],
               ),
             ],
           ),

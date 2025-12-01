@@ -13,6 +13,41 @@ import 'package:logger/logger.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class PostController extends GetxController {
+
+  /// get all post ==============================================================================Get Method====================
+  var allPostList = <Data>[].obs;
+  var isLoadingAllPost = false.obs;
+  static final Logger logger = Logger();
+
+  Future<void> fetchAllPosts() async {
+    try {
+      isLoadingAllPost.value = true;
+
+      final response = await ApiClient.getData(ApiUrl.getAllPost);
+
+      // print("RAW POST RESPONSE:");
+      // print(response.body);   // 👈 পুরো JSON দেখাবে
+
+      if (response.statusCode == 200 && response.body['data'] != null) {
+        var postList = (response.body['data'] as List)
+            .map((e) => Data.fromJson(e))
+            .toList();
+        allPostList.value = postList;
+      } else {
+        allPostList.clear();
+      }
+    } catch (e) {
+      allPostList.clear();
+      Logger().e("Fetch posts error: $e");
+    } finally {
+      isLoadingAllPost.value = false;
+    }
+  }
+
+
+
+
+
   ///create post==============================================================Post Method================================================
 
   var postText = ''.obs;
@@ -67,7 +102,7 @@ class PostController extends GetxController {
     if (!validatePost()) return false;
 
     isLoadingCreate.value = true;
-    try {
+
       Map<String, String> body = {
         'content': postText.value.trim(),
         'authorId': userID.value,
@@ -100,46 +135,13 @@ class PostController extends GetxController {
         Get.snackbar("Success", "Post created successfully");
         return true; // success
       } else {
-        Get.snackbar(
-          "Error",
-          response.body['message'] ?? "Something went wrong",
-        );
+        ApiChecker.checkApi(response);
         return false;
       }
-    } catch (e) {
-      Get.snackbar("Error", e.toString());
-      return false;
-    } finally {
-      isLoadingCreate.value = false;
-    }
+
   }
 
-  /// get all post ==============================================================================Get Method====================
-  var allPostList = <Data>[].obs;
-  var isLoadingAllPost = false.obs;
-  static final Logger logger = Logger();
 
-  Future<void> fetchAllPosts() async {
-    try {
-      isLoadingAllPost.value = true;
-
-      final response = await ApiClient.getData(ApiUrl.getAllPost);
-      if (response.statusCode == 200 && response.body['data'] != null) {
-        var postList =
-            (response.body['data'] as List)
-                .map((e) => Data.fromJson(e))
-                .toList();
-        allPostList.value = postList;
-      } else {
-        this.allPostList.clear();
-      }
-    } catch (e) {
-      allPostList.clear();
-      Logger().e("Fetch posts error:======================= $e");
-    } finally {
-      isLoadingAllPost.value = false;
-    }
-  }
 
   ///get my post==================================================================================Get Method====================
   Rx<Status> myPostStatus = Status.loading.obs;

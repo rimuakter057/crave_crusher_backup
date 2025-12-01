@@ -1,19 +1,21 @@
 
+import 'package:crave_crusher/service/api_check.dart';
 import 'package:crave_crusher/service/api_client.dart';
 import 'package:crave_crusher/service/api_url.dart';
 import 'package:crave_crusher/utils/app_const/app_const.dart';
+import 'package:crave_crusher/view/features/profile/models/edit_profile_model.dart';
 import 'package:crave_crusher/view/features/profile/models/user_profile_model.dart';
 import 'package:get/get.dart';
 
 
 class ProfileController extends GetxController {
-
+/// my profile controller
   var isLoadingMyProfile = false.obs;
   Rx<Status> myProfileStatus = Status.loading.obs;
   Rx<UserProfileModel?> myProfile = Rx<UserProfileModel?>(null);
 
   Future<void> fetchMyProfile() async {
-    try {
+
       isLoadingMyProfile.value = true;
       myProfileStatus(Status.loading);
 
@@ -32,14 +34,41 @@ class ProfileController extends GetxController {
         }
       } else {
         myProfileStatus(Status.error);
-        Get.snackbar("Error", "Failed to fetch profile. Status: ${response.statusCode}");
+        ApiChecker.checkApi(response);
+      }}
+
+
+
+
+  ///edit profile controller
+  var isLoadingEditProfile = false.obs;
+  Rx<Status> editProfileStatus = Status.loading.obs;
+  Rx<EditProfileModel?> editProfile = Rx<EditProfileModel?>(null);
+
+  Future<void> fetchEditProfile() async {
+
+    isLoadingEditProfile.value = true;
+    editProfileStatus(Status.loading);
+
+    final response = await ApiClient.getData(ApiUrl.getMyProfile);
+
+    isLoadingEditProfile.value = false;
+
+    if (response.statusCode == 200 || response.statusCode == 201) {
+      final data = response.body['data'];
+      if (data != null) {
+        editProfile.value = EditProfileModel.fromJson(data);
+        editProfileStatus(Status.completed);
+      } else {
+        editProfileStatus(Status.error);
+        Get.snackbar("Error", "No profile data found");
       }
-    } catch (e) {
-      isLoadingMyProfile.value = false;
-      myProfileStatus(Status.error);
-      Get.snackbar("Error", "Exception: $e");
-    }
-  }
+    } else {
+      editProfileStatus(Status.error);
+      ApiChecker.checkApi(response);
+    }}
+
+
 
 
 

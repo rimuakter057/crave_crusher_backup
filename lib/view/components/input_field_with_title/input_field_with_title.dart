@@ -10,13 +10,13 @@ import '../../../utils/app_colors/app_colors.dart';
 
 class InputFieldWithTitleWidget extends StatelessWidget {
   const InputFieldWithTitleWidget({
-    super.key, required this.title, required this.hintText, this.controller, this.validator,
+    super.key, required this.title, required this.hintText, this.controller, this.validator,  this.readOnly,
   });
   final String title;
   final String hintText;
   final TextEditingController? controller;
   final String? Function(String?)? validator ;
-
+  final bool? readOnly;
 
   @override
   Widget build(BuildContext context) {
@@ -26,6 +26,7 @@ class InputFieldWithTitleWidget extends StatelessWidget {
         CustomText(text: title,fontSize: 14.sp,fontWeight: FontWeight.w500,),
         Gap(8.h),
         CustomTextField(
+          readOnly:readOnly?? false,
           textEditingController: controller,
           fillColor: AppColors.naveBordar,
           hintText:hintText ,

@@ -1,3 +1,4 @@
+import 'package:crave_crusher/utils/app_const/app_const.dart';
 import 'package:crave_crusher/utils/app_images/app_images.dart';
 import 'package:crave_crusher/view/components/common_profile/avater_widget.dart';
 import 'package:crave_crusher/view/components/custom_text/custom_text.dart';
@@ -22,7 +23,7 @@ final String commentText;
         children: [
 
           /// Profile avatar
-          ProfileAvatarWidget(imagePath: AppImages.profileManImage,heightA: 40.h,widthA: 40.w,),
+          ProfileAvatarWidget(    imagePath: AppConstants.unknown,heightA: 40.h,widthA: 40.w,),
 
           Gap(8.w),
 

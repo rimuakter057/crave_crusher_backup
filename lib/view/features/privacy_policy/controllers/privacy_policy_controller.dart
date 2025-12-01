@@ -1,4 +1,5 @@
 
+import 'package:crave_crusher/service/api_check.dart';
 import 'package:crave_crusher/service/api_client.dart';
 import 'package:crave_crusher/service/api_url.dart';
 import 'package:crave_crusher/utils/app_const/app_const.dart';
@@ -12,7 +13,7 @@ class PrivacyController extends GetxController {
   Rx<TermsModel?> privacy = Rx<TermsModel?>(null);
 
   Future<void> getPrivacy() async {
-    try {
+
       isLoadingPrivacy.value = true;
       privacyStatus(Status.loading);
 
@@ -31,13 +32,9 @@ class PrivacyController extends GetxController {
         }
       } else {
         privacyStatus(Status.error);
-        Get.snackbar("Error", "Failed to privacy. Status: ${response.statusCode}");
+        ApiChecker.checkApi(response);
       }
-    } catch (e) {
-      isLoadingPrivacy.value = false;
-      privacyStatus(Status.error);
-      Get.snackbar("Error", "Exception: $e");
-    }
+
   }
 
 

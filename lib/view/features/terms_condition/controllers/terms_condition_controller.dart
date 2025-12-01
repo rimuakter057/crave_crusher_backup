@@ -1,6 +1,7 @@
 
 
 
+import 'package:crave_crusher/service/api_check.dart';
 import 'package:crave_crusher/service/api_client.dart';
 import 'package:crave_crusher/service/api_url.dart';
 import 'package:crave_crusher/utils/app_const/app_const.dart';
@@ -14,7 +15,7 @@ class TermsConditionController extends GetxController {
   Rx<TermsModel?> termsList = Rx<TermsModel?>(null);
 
   Future<void> getTerms() async {
-    try {
+
       isLoadingTerms.value = true;
       termsStatus(Status.loading);
 
@@ -33,13 +34,9 @@ class TermsConditionController extends GetxController {
         }
       } else {
         termsStatus(Status.error);
-        Get.snackbar("Error", "Failed to terms. Status: ${response.statusCode}");
+        ApiChecker.checkApi(response);
       }
-    } catch (e) {
-      isLoadingTerms.value = false;
-      termsStatus(Status.error);
-      Get.snackbar("Error", "Exception: $e");
-    }
+
   }
 
 

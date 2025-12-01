@@ -1,4 +1,5 @@
 import 'package:crave_crusher/utils/app_colors/app_colors.dart';
+import 'package:crave_crusher/utils/app_const/app_const.dart';
 import 'package:crave_crusher/utils/app_icons/app_icons.dart';
 import 'package:crave_crusher/utils/app_images/app_images.dart';
 import 'package:crave_crusher/view/components/common_profile/avater_widget.dart';
@@ -90,7 +91,7 @@ class _CommentScreenState extends State<CommentScreen> {
                           Row(
                             children: [
                               ProfileAvatarWidget(
-                                imagePath: AppImages.profileManImage,
+                                imagePath: AppConstants.unknown,
                                 heightA: 25.h,
                                 widthA: 25.w,
                               ),

@@ -124,7 +124,7 @@ class CommunityController extends GetxController {
   RxInt totalVotes = 0.obs; // total votes
 
   Future<void> fetchVotesForPost(String postId) async {
-    try {
+
       final response = await ApiClient.getData(ApiUrl.getAllVote(postId));
 
       if (response.statusCode == 200 || response.statusCode == 201) {
@@ -133,11 +133,9 @@ class CommunityController extends GetxController {
 
         totalVotes.value = voteList.length; // total vote count
       } else {
-        Get.snackbar("Error", "Failed to fetch votes. Status: ${response.statusCode}");
+        ApiChecker.checkApi(response);
       }
-    } catch (e) {
-      Get.snackbar("Error", "Failed to fetch votes: $e");
-    }
+
   }
 
 
@@ -155,7 +153,6 @@ class CommunityController extends GetxController {
   Future<bool> addVote(String postId) async {
     if (userID.value.isEmpty) return false;
 
-    try {
       final body = {'userId': userID.value};
       final response = await ApiClient.postData(
         ApiUrl.addVote(postId),
@@ -177,13 +174,10 @@ class CommunityController extends GetxController {
 
         return true;
       } else {
-        Get.snackbar("Error", "Failed to add reaction");
+        ApiChecker.checkApi(response);
         return false;
       }
-    } catch (e) {
-      Get.snackbar("Error", "Exception: $e");
-      return false;
-    }
+
   }
 
 

@@ -1,4 +1,5 @@
 import 'package:crave_crusher/utils/app_colors/app_colors.dart';
+import 'package:crave_crusher/utils/app_const/app_const.dart';
 import 'package:crave_crusher/utils/app_images/app_images.dart';
 import 'package:crave_crusher/view/components/common_profile/avater_widget.dart';
 import 'package:crave_crusher/view/components/custom_container/custom_container.dart';
@@ -45,7 +46,7 @@ class MyProfileScreen extends StatelessWidget {
               children: [
                 Gap(8.h),
                 Center(
-                  child: ProfileAvatarWidget(imagePath:AppImages.profileManImage,
+                  child: ProfileAvatarWidget(    imagePath: AppConstants.unknown,
                   //   imagePath: profile.profileImage.isNotEmpty
                   //       ? profile.profileImage
                   //       : AppImages.profileManImage,

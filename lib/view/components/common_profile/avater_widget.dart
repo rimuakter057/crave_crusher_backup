@@ -1,6 +1,8 @@
 import 'package:crave_crusher/utils/app_colors/app_colors.dart';
+import 'package:crave_crusher/utils/app_const/app_const.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 
 class ProfileAvatarWidget extends StatelessWidget {
   final String imagePath;
@@ -43,12 +45,20 @@ class ProfileAvatarWidget extends StatelessWidget {
           Align(
             alignment: Alignment.bottomCenter,
             child: ClipOval(
-              child: Image.asset(
-                imagePath,
-                width: imageWidth,   // 👈 dynamically fixed
-                height: imageHeight, // 👈 dynamically fixed
-                fit: BoxFit.cover,
+              child: CachedNetworkImage(
+                imageUrl:imagePath,
+                fit:BoxFit.cover,
+                  width: imageWidth,   // 👈 dynamically fixed
+                  height: imageHeight, // 👈 dynamically fixed
               ),
+
+
+              // Image.asset(
+              //   imagePath,
+              //   width: imageWidth,   // 👈 dynamically fixed
+              //   height: imageHeight, // 👈 dynamically fixed
+              //   fit: BoxFit.cover,
+              // ),
             ),
           ),
         ],

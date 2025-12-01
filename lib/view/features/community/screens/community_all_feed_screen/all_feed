@@ -85,6 +85,68 @@ class CommunityAllFeedScreen extends StatelessWidget {
                             }, onTapProfile: () {
                               Get.to(() => ProfileScreen());
                             },
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                            =====================================
+
+                               Container(
+                                  height: avatarHeight,
+                                    width: avatarWidth,
+                                    decoration: BoxDecoration(
+                                      shape: BoxShape.circle,
+                                      border: Border.all(color: Colors.blue, width: 2),
+                                      color: Colors.white,
+                                    ),
+                                    alignment: Alignment.center,
+                                    child: ClipOval(
+                                      child: CachedNetworkImage(
+                                        imageUrl: image.isNotEmpty ? image[0] : '',
+                                        width: imageWidth,
+                                        height: imageHeight,
+                                        fit: BoxFit.cover,
+                                        placeholder: (context, url) => Container(
+                                          width: imageWidth,
+                                          height: imageHeight,
+                                          color: Colors.grey[200],
+                                          child: Icon(Icons.person, color: Colors.grey[400], size: imageWidth * 0.5),
+                                        ),
+                                        errorWidget: (context, url, error) => Container(
+                                          width: imageWidth,
+                                          height: imageHeight,
+                                          color: Colors.grey[200],
+                                          child: Icon(Icons.error, color: Colors.red, size: imageWidth * 0.5),
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+
+
+
+
+                      =========================
+
+
+
+
+
+
+
+
+
+
                               profileTitle: post.author?.fullName ?? 'Unknown',
                               profileSubtitle: DateConverter.formattedTime(
                                   DateTime.parse(post.createdAt ?? DateTime.now().toString())),

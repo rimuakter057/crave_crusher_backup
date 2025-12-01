@@ -3,7 +3,7 @@ class ApiUrl {
 
   static const String baseUrl = "$primaryUrl/api/v1";
   // static const String baseUrl = "https://sta-map-point-2.onrender.com/api/v1";
-  static const String imageUrl = "$primaryUrl/api/v1";
+  static const String imageUrl = "$primaryUrl/";
 
 
   //=================================== Auth ============================= //

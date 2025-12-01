@@ -1,13 +1,11 @@
+import 'package:crave_crusher/helper/imges_handler/image_handler.dart';
 import 'package:crave_crusher/utils/app_colors/app_colors.dart';
 import 'package:crave_crusher/utils/app_icons/app_icons.dart';
 import 'package:crave_crusher/utils/app_images/app_images.dart';
 import 'package:crave_crusher/view/components/common_profile/common_profile_widget.dart';
 import 'package:crave_crusher/view/components/custom_image/custom_image.dart';
+import 'package:crave_crusher/view/components/custom_netwrok_image/custom_network_image.dart';
 import 'package:crave_crusher/view/components/custom_text/custom_text.dart';
-import 'package:crave_crusher/view/features/community/screens/comment_screen/comment_screen.dart';
-import 'package:crave_crusher/view/features/community/screens/community_image_show_screen/community_image_show_screen.dart';
-import 'package:crave_crusher/view/features/community/screens/community_profile_screen/community_profile_screen.dart';
-import 'package:crave_crusher/view/features/community/screens/update_post_screen/update_post_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:gap/gap.dart';
@@ -26,13 +24,14 @@ class CommonCommunityWidget extends StatefulWidget {
   //  final String likesText; // Required likes count text
   final String commentsText; // Required comments count text
   final Widget favouriteWidget;
+  final List<String> postImages;
   const CommonCommunityWidget({
     super.key,
     this.myPost = false,
     this.index = 2,
     required this.profileTitle,
     required this.profileSubtitle,
-    required this.profileImage,
+   required this.profileImage,
     required this.postText,
 
     // required this.likesText,
@@ -41,7 +40,7 @@ class CommonCommunityWidget extends StatefulWidget {
      this.onTapUpdate,
     required this.onTapImageShow,
     required this.onTapProfile,
-    required this.favouriteWidget,
+    required this.favouriteWidget, required this.postImages,
   });
 
   @override
@@ -76,7 +75,7 @@ class _CommonCommunityWidgetState extends State<CommonCommunityWidget> {
                   onTap: widget.onTapProfile,
                   title: widget.profileTitle,
                   subTitle: widget.profileSubtitle,
-                  image: widget.profileImage,
+                  profileImage: widget.profileImage,
                 ),
               ),
               if (widget.myPost)
@@ -151,67 +150,115 @@ class _CommonCommunityWidgetState extends State<CommonCommunityWidget> {
 
   /// Builds the image widgets dynamically based on index
   List<Widget> _buildImages() {
-    List<String> images;
+    final images = widget.postImages;
 
-    switch (widget.index) {
-      case 0:
-        images = [AppImages.imageOne];
-        break;
-      case 1:
-        images = [AppImages.imageOne, AppImages.imageTwo];
-        break;
-      case 2:
-        images = [AppImages.imageOne, AppImages.imageTwo, AppImages.imageThree];
-        break;
-      default:
-        images = [AppImages.imageOne];
-    }
+    if (images.isEmpty) return [];
 
     if (images.length == 1) {
+      // Single image
       return [
         ClipRRect(
           borderRadius: BorderRadius.circular(6),
-          child: CustomImage(
-            imageSrc: images[0],
+          child: CustomNetworkImage(
+
             height: 180.h,
-            width: 180.w,
-            fit: BoxFit.cover,
+            width: double.infinity,
+           imageUrl: ImageHandler.imagesHandle(images[0]),
           ),
         ),
       ];
-    } else {
+    }  else if(images.length == 2){
+      return [
+      ClipRRect(
+        borderRadius: BorderRadius.circular(6),
+        child: CustomNetworkImage(
+          imageUrl:ImageHandler.imagesHandle( images[0]),
+          height: 180.h,
+          width: 180.w,
+
+        ),
+      ),
+    Gap(4.w),
+    Column(
+    children: [
+
+    CustomNetworkImage(
+    imageUrl: ImageHandler.imagesHandle( images[1]),
+    height: 180.h,
+    width: 90.w,
+    borderRadius: BorderRadius.circular(6),
+
+    ),
+      ])];
+    }
+
+
+
+
+    else {
+      // Multiple images
       return [
         ClipRRect(
           borderRadius: BorderRadius.circular(6),
-          child: CustomImage(
-            imageSrc: images[0],
+          child: CustomNetworkImage(
+            imageUrl:ImageHandler.imagesHandle( images[0]),
             height: 180.h,
             width: 180.w,
-            fit: BoxFit.cover,
+
           ),
         ),
         Gap(4.w),
         Column(
-          children:
-              images
-                  .sublist(1)
-                  .map(
-                    (img) => Padding(
-                      padding: EdgeInsets.only(bottom: 4.h),
-                      child: ClipRRect(
-                        borderRadius: BorderRadius.circular(6),
-                        child: CustomImage(
-                          imageSrc: img,
-                          height: 90.h,
-                          width: 90.w,
-                          fit: BoxFit.cover,
-                        ),
-                      ),
-                    ),
-                  )
-                  .toList(),
+          children: [
+
+    CustomNetworkImage(
+            imageUrl: ImageHandler.imagesHandle( images[1]),
+            height: 90.h,
+            width: 90.w,
+      borderRadius: BorderRadius.circular(6),
+
+          ),
+
+
+            if(images.length > 2)...[
+              Gap(4.h),
+              CustomNetworkImage(
+                imageUrl: ImageHandler.imagesHandle( images[2]),
+                height: 90.h,
+                width: 90.w,
+                borderRadius: BorderRadius.circular(6), 
+                child: images.length > 3?
+                Center(
+                  child: CustomText(text: '+${images.length - 3}'),
+                ) : SizedBox(),
+
+              ),
+            ]
+
+
+
+          ]
+
+
+
+          // images.sublist(1).map((img) {
+          //
+          //
+          //
+          //
+          //
+          //
+          //   return Padding(
+          //     padding: EdgeInsets.only(bottom: 4.h),
+          //     child: ClipRRect(
+          //       borderRadius: BorderRadius.circular(6),
+          //       child:
+          //     ),
+          //   );
+          // }).toList(),
         ),
       ];
     }
   }
+
 }

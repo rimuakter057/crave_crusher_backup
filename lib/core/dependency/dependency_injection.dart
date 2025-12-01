@@ -1,4 +1,3 @@
-
 import 'package:crave_crusher/service/network_caller.dart';
 import 'package:crave_crusher/view/features/auth/controllers/auth_controller.dart';
 import 'package:crave_crusher/view/features/auth/controllers/forget_password_controller.dart';
@@ -20,8 +19,6 @@ import 'package:crave_crusher/view/features/profile/controllers/profile_controll
 import 'package:crave_crusher/view/features/rewards/controller/reward_controller.dart';
 import 'package:crave_crusher/view/features/terms_condition/controllers/terms_condition_controller.dart';
 import 'package:get/get.dart';
-
-
 import '../../view/features/battle/controller/battle_controller.dart';
 
 class DependencyInjection extends Bindings {
@@ -63,7 +60,7 @@ class DependencyInjection extends Bindings {
        Get.lazyPut(() => HomeController(), fenix: true);
 
        ///privacy terms faq
-      Get.lazyPut(() => PrivacyController(), fenix: true);
+    Get.lazyPut(() => PrivacyController(), fenix: true);
     Get.lazyPut(() => TermsConditionController(), fenix: true);
     Get.lazyPut(() => HelpController(), fenix: true);
     //   Get.lazyPut(() => SettingsController(), fenix: true);

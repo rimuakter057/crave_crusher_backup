@@ -1,7 +1,6 @@
 
 
 import 'package:crave_crusher/utils/app_colors/app_colors.dart';
-import 'package:crave_crusher/utils/app_images/app_images.dart';
 import 'package:crave_crusher/view/components/common_profile/avater_widget.dart';
 import 'package:crave_crusher/view/components/custom_container/custom_container.dart';
 import 'package:crave_crusher/view/components/custom_leadin_title_appbar.dart';
@@ -11,6 +10,8 @@ import 'package:crave_crusher/view/features/profile/profile_screen/profile_scree
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:gap/gap.dart';
+
+import '../../../../utils/app_const/app_const.dart' show AppConstants;
 
 
 class EditProfileScreens extends StatelessWidget {
@@ -27,12 +28,16 @@ class EditProfileScreens extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Gap(8.h),
-            Center(child: ProfileAvatarWidget(imagePath: AppImages.profileManImage,heightA: 100.h,widthA: 100.w,)),
+            Center(child: ProfileAvatarWidget(
+              imagePath: AppConstants.unknown,
+              heightA: 100.h,widthA: 100.w,)),
             Gap(16.h),
 
             InputFieldWithTitleWidget(title:"Full Name", hintText: "e.g. Sheena DuBois ",),
             Gap(16.h),
-            InputFieldWithTitleWidget(title:"Email Address", hintText: "e.g. kristin.SheenaDuBois@example.com",),
+            InputFieldWithTitleWidget(title:"Email Address", hintText: "e.g. kristin.SheenaDuBois@example.com",
+            readOnly: true,
+            ),
             Gap(16.h),
             ///update button
             GestureDetector(
