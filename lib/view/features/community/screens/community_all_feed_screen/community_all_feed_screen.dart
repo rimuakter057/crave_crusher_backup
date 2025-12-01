@@ -80,7 +80,11 @@ class CommunityAllFeedScreen extends StatelessWidget {
                   CommunityTabSelector(),
                   Gap(24.h),
 
-                  if(tabController.communityTabIndex.value == 0)...[],
+                  if(tabController.communityTabIndex.value == 0)...[
+
+
+
+                  ],
 
                   /// POST LIST
                   ListView.builder(

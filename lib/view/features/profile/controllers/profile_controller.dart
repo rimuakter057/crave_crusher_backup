@@ -7,6 +7,7 @@ import 'package:get/get.dart';
 
 
 class ProfileController extends GetxController {
+
   var isLoadingMyProfile = false.obs;
   Rx<Status> myProfileStatus = Status.loading.obs;
   Rx<UserProfileModel?> myProfile = Rx<UserProfileModel?>(null);
@@ -39,4 +40,7 @@ class ProfileController extends GetxController {
       Get.snackbar("Error", "Exception: $e");
     }
   }
+
+
+
 }

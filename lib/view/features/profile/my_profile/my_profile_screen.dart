@@ -20,7 +20,7 @@ class MyProfileScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // প্রথমে প্রোফাইল ডেটা ফেচ করি
+
     profileController.fetchMyProfile();
 
     return Scaffold(

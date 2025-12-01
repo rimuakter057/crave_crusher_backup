@@ -14,8 +14,10 @@ import 'package:crave_crusher/view/features/community/controllers/community_cont
 import 'package:crave_crusher/view/features/community/controllers/community_tab_controller.dart';
 import 'package:crave_crusher/view/features/community/controllers/post_controller.dart';
 import 'package:crave_crusher/view/features/home/controller/home_controller.dart';
+import 'package:crave_crusher/view/features/privacy_policy/controllers/privacy_policy_controller.dart';
 import 'package:crave_crusher/view/features/profile/controllers/profile_controller.dart';
 import 'package:crave_crusher/view/features/rewards/controller/reward_controller.dart';
+import 'package:crave_crusher/view/features/terms_condition/controllers/terms_condition_controller.dart';
 import 'package:get/get.dart';
 
 
@@ -58,7 +60,11 @@ class DependencyInjection extends Bindings {
 
        Get.lazyPut(() => RewardsController(), fenix: true);
        Get.lazyPut(() => HomeController(), fenix: true);
-    //   Get.lazyPut(() => ConnectionController(), fenix: true);
+
+       ///privacy terms faq
+      Get.lazyPut(() => PrivacyController(), fenix: true);
+    Get.lazyPut(() => TermsConditionController(), fenix: true);
+
     //   Get.lazyPut(() => ProfileController(), fenix: true);
     //   Get.lazyPut(() => SettingsController(), fenix: true);
     //   Get.lazyPut(() => WifiSettingsController(), fenix: true);

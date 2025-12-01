@@ -41,5 +41,11 @@ class ApiUrl {
 ///profile section==================================================================
   static const String getMyProfile="/user/get-my-profile";
 
+  ///terms faq privacy
+
+  static const String termsCondition="/manage-web/get-terms-conditions";
+  static const String privacyPolicy="/manage-web/get-privacy-policy";
+  static const String help="/manage-web/get-faq";
+
 
 }
