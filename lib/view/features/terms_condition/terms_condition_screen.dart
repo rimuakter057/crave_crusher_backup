@@ -11,10 +11,11 @@ import 'package:google_fonts/google_fonts.dart';
 class TermsConditionScreen extends StatelessWidget {
    TermsConditionScreen({super.key});
 
-  TermsConditionController termsConditionController =TermsConditionController();
+ final TermsConditionController termsConditionController =TermsConditionController();
 
   @override
   Widget build(BuildContext context) {
+    termsConditionController.getTerms();
     return Scaffold(
       appBar:  CustomLeadingTitleAppbar(title: "Terms & Condition"),
 
@@ -25,7 +26,7 @@ class TermsConditionScreen extends StatelessWidget {
             return Center(child: CircularProgressIndicator());
           }
 
-          final termsData = termsConditionController.terms.value;
+          final termsData = termsConditionController.termsList.value;
 
           if (termsData == null) {
             return Center(child: Text("No profile data"));

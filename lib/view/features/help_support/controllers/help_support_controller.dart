@@ -8,29 +8,24 @@ import 'package:crave_crusher/view/features/help_support/models/help_support_mod
 import 'package:get/get.dart';
 
 class HelpController extends GetxController {
-
-
-
-  ///get help==================================================================================Get Method====================
   Rx<Status> helpStatus = Status.loading.obs;
-  var isLoadingHelp = false.obs;
   RxList<FaqModel> helpList = <FaqModel>[].obs;
 
-  Future<void> fetchHelp() async {
-    isLoadingHelp.value = true;
+  Future<void> getHelp() async {
+    helpStatus.value = Status.loading;
     final response = await ApiClient.getData(ApiUrl.help);
-    isLoadingHelp.value = false;
-    if (response.statusCode == 200 || response.statusCode == 201) {
-      helpList.value =
-          (response.body['data'] as List)
-              .map((x) => FaqModel.fromJson(x))
-              .toList();
 
-      helpStatus(Status.completed);
+    if (response.statusCode == 200 || response.statusCode == 201) {
+      helpList.value = (response.body['data'] as List)
+          .map((x) => FaqModel.fromJson(x))
+          .toList();
+      helpStatus.value = Status.completed;
     } else {
       helpList.clear();
-      helpStatus(Status.error);
+      helpStatus.value = Status.error;
       ApiChecker.checkApi(response);
     }
   }
 }
+
+

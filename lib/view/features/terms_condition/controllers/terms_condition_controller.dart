@@ -11,7 +11,7 @@ class TermsConditionController extends GetxController {
 
   var isLoadingTerms = false.obs;
   Rx<Status> termsStatus = Status.loading.obs;
-  Rx<TermsModel?> terms = Rx<TermsModel?>(null);
+  Rx<TermsModel?> termsList = Rx<TermsModel?>(null);
 
   Future<void> getTerms() async {
     try {
@@ -25,7 +25,7 @@ class TermsConditionController extends GetxController {
       if (response.statusCode == 200 || response.statusCode == 201) {
         final data = response.body['data'];
         if (data != null) {
-          terms.value = TermsModel.fromJson(data);
+          termsList.value = TermsModel.fromJson(data);
           termsStatus(Status.completed);
         } else {
           termsStatus(Status.error);
