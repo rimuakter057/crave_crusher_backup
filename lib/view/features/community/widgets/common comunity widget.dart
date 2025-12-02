@@ -51,6 +51,7 @@ class _CommonCommunityWidgetState extends State<CommonCommunityWidget> {
   @override
   Widget build(BuildContext context) {
     return Container(
+
       padding: EdgeInsets.only(
         left: 16.w,
         right: 16.w,
@@ -99,13 +100,14 @@ class _CommonCommunityWidgetState extends State<CommonCommunityWidget> {
           Gap(16.h),
 
           /// Image Section
-          GestureDetector(
-            onTap: widget.onTapImageShow,
-            child: Row(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: _buildImages(),
+      GestureDetector(
+              onTap: widget.onTapImageShow,
+              child: Row(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: _buildImages(),
+              ),
             ),
-          ),
+
 
           Gap(24.h),
 
@@ -162,7 +164,7 @@ class _CommonCommunityWidgetState extends State<CommonCommunityWidget> {
           child: CustomNetworkImage(
 
             height: 180.h,
-            width: double.infinity,
+            width: 180.w,
            imageUrl: ImageHandler.imagesHandle(images[0]),
           ),
         ),
@@ -185,7 +187,7 @@ class _CommonCommunityWidgetState extends State<CommonCommunityWidget> {
     CustomNetworkImage(
     imageUrl: ImageHandler.imagesHandle( images[1]),
     height: 180.h,
-    width: 90.w,
+    width: 180.w,
     borderRadius: BorderRadius.circular(6),
 
     ),
@@ -234,28 +236,8 @@ class _CommonCommunityWidgetState extends State<CommonCommunityWidget> {
 
               ),
             ]
-
-
-
           ]
 
-
-
-          // images.sublist(1).map((img) {
-          //
-          //
-          //
-          //
-          //
-          //
-          //   return Padding(
-          //     padding: EdgeInsets.only(bottom: 4.h),
-          //     child: ClipRRect(
-          //       borderRadius: BorderRadius.circular(6),
-          //       child:
-          //     ),
-          //   );
-          // }).toList(),
         ),
       ];
     }

@@ -98,78 +98,102 @@ class CreatePostScreen extends StatelessWidget {
                   fontWeight: FontWeight.w500,
                 ),
                 Gap(8.h),
-                GestureDetector(
-                  onTap: () => controller.pickImage(fromCamera: false),
-                  child:
-                      controller.imagePath.value.isNotEmpty
-                          ? CustomContainer(
-                            padding: 0,
-                            width: double.infinity,
-                            height: 120.h,
-                            backgroundColor: AppColors.subPrimary.withOpacity(
-                              .5,
-                            ),
-                            child: Center(
-                              child: Image.file(
-                                File(controller.imagePath.value),
-                                width: double.infinity,
-                                height: 120.h,
-                                fit: BoxFit.cover,
-                              ),
-                            ),
-                          )
-                          : CustomContainer(
-                            width: double.infinity,
-                            height: 120.h,
-                            backgroundColor: AppColors.subPrimary.withOpacity(
-                              .5,
-                            ),
-                            child: Center(
-                              child: CustomImage(imageSrc: AppIcons.addImage),
+                ///image add option
+              GestureDetector(
+                onTap: () => controller.pickImages(), // multiple image picker
+                child: controller.imagePaths.isNotEmpty
+                    ? SizedBox(
+                  height: 120.h,
+                  child: ListView.separated(
+                    scrollDirection: Axis.horizontal,
+                    itemCount: controller.imagePaths.length,
+                    separatorBuilder: (_, __) => SizedBox(width: 10),
+                    itemBuilder: (context, index) {
+                      final path = controller.imagePaths[index];
+                      return Stack(
+                        children: [
+                          ClipRRect(
+                            borderRadius: BorderRadius.circular(12),
+                            child: Image.file(
+                              File(path),
+                              width: 120.w,
+                              height: 120.h,
+                              fit: BoxFit.cover,
                             ),
                           ),
-                ),
-                Gap(12.h),
 
-
-                /// Button section
-                GestureDetector(
-                  onTap:
-                      controller.isLoadingCreate.value
-                          ? null
-                          : () async {
-                            if (controller.postText.value.trim().isEmpty) {
-                              Get.snackbar(
-                                "Error",
-                                "Post content cannot be empty",
-                              );
-                              return;
-                            }
-
-                            await controller.createPost();
-                          // Get.back();
-                            Get.to(()=>CommunityAllFeedScreen());
-
-                            textController.clear();
-                            controller.postText.value = '';
-                            controller.imagePath.value = '';
-                          },
-                  child:controller.isLoadingCreate.value
-                      ? CircularProgressIndicator(): CustomContainer(
-                    backgroundColor: AppColors.primary,
-                    padding: 4,
-                    height: 36.h,
-                    width: 100.w,
-                    child: Center(
-                      child:
-                          CustomText(
-                                text: "Post Now",
-                                color: AppColors.white,
+                          /// Remove button
+                          Positioned(
+                            right: 5,
+                            top: 5,
+                            child: GestureDetector(
+                              onTap: () => controller.removeImage(path),
+                              child: Container(
+                                padding: const EdgeInsets.all(4),
+                                decoration: BoxDecoration(
+                                  color: Colors.black54,
+                                  shape: BoxShape.circle,
+                                ),
+                                child: Icon(Icons.close, color: Colors.white, size: 18),
                               ),
-                    ),
+                            ),
+                          ),
+                        ],
+                      );
+                    },
+                  ),
+                )
+                    : CustomContainer(
+                  width: double.infinity,
+                  height: 120.h,
+                  backgroundColor: AppColors.subPrimary.withOpacity(.5),
+                  child: Center(
+                    child: CustomImage(imageSrc: AppIcons.addImage),
                   ),
                 ),
-              ],
+              ),
+
+              Gap(12.h),
+
+
+                /// post Button section
+            GestureDetector(
+              onTap: controller.isLoadingCreate.value
+                  ? null
+                  : () async {
+                if (controller.postText.value.trim().isEmpty) {
+                  Get.snackbar(
+                    "Error",
+                    "Post content cannot be empty",
+                  );
+                  return;
+                }
+
+                await controller.createPost();
+
+                Get.to(() => CommunityAllFeedScreen());
+
+                textController.clear();
+                controller.postText.value = '';
+                controller.imagePaths.clear(); // <-- FIXED
+              },
+              child: controller.isLoadingCreate.value
+                  ? CircularProgressIndicator()
+                  : CustomContainer(
+                backgroundColor: AppColors.primary,
+                padding: 4,
+                height: 36.h,
+                width: 100.w,
+                child: Center(
+                  child: CustomText(
+                    text: "Post Now",
+                    color: AppColors.white,
+                  ),
+                ),
+              ),
+            ),
+
+            ],
             ),
           ),
         ),

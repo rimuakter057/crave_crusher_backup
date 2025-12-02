@@ -49,11 +49,10 @@ class PostController extends GetxController {
 
 
   ///create post==============================================================Post Method================================================
-
+  // ======================== VARIABLES ============================
   var postText = ''.obs;
-  var imagePath = ''.obs;
+  var imagePaths = <String>[].obs; // multiple image support
   var isLoadingCreate = false.obs;
-
   RxString userID = ''.obs;
 
   RxList<Map<String, dynamic>> myPosts = <Map<String, dynamic>>[].obs;
@@ -64,27 +63,31 @@ class PostController extends GetxController {
     super.onInit();
   }
 
+  // ======================== LOAD USER ID =========================
   Future<void> loadUserId() async {
     SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
     userID.value = sharedPreferences.getString(AppConstants.userId) ?? '';
   }
 
-  // Image picker
-  Future<void> pickImage({bool fromCamera = true}) async {
+  // ========================= IMAGE PICKER =========================
+  Future<void> pickImages() async {
     final ImagePicker picker = ImagePicker();
-    final pickedFile = await picker.pickImage(
-      source: fromCamera ? ImageSource.camera : ImageSource.gallery,
-    );
+    final List<XFile> pickedFiles = await picker.pickMultiImage();
 
-    if (pickedFile != null) {
-      imagePath.value = pickedFile.path;
+    if (pickedFiles.isNotEmpty) {
+      imagePaths.addAll(pickedFiles.map((e) => e.path).toList());
     }
   }
 
-  void removeImage() {
-    imagePath.value = '';
+  void removeImage(String path) {
+    imagePaths.remove(path);
   }
 
+  void removeAllImages() {
+    imagePaths.clear();
+  }
+
+  // ========================= VALIDATION =========================
   bool validatePost() {
     if (postText.value.trim().isEmpty) {
       Get.snackbar("Error", "Post content cannot be empty");
@@ -97,50 +100,53 @@ class PostController extends GetxController {
     return true;
   }
 
-  ///create post========================================================================
+  // ========================= CREATE POST =========================
   Future<bool> createPost() async {
     if (!validatePost()) return false;
 
     isLoadingCreate.value = true;
 
-      Map<String, String> body = {
+    Map<String, String> body = {
+      'content': postText.value.trim(),
+      'authorId': userID.value,
+    };
+
+    List<MultipartBody> multipartFiles = [];
+
+    // Attach Multiple Images
+    for (var path in imagePaths) {
+      multipartFiles.add(MultipartBody('post_images', File(path)));
+    }
+
+    final response = await ApiClient.postMultipartData(
+      ApiUrl.createPost,
+      body,
+      multipartBody: multipartFiles.isNotEmpty ? multipartFiles : null,
+    );
+
+    isLoadingCreate.value = false;
+
+    if (response.statusCode == 200) {
+      Map<String, dynamic> newPost = {
+        '_id': response.body['data']['_id'],
         'content': postText.value.trim(),
         'authorId': userID.value,
+        'post_images': imagePaths.toList(),
       };
 
-      List<MultipartBody>? multipartFiles;
-      if (imagePath.value.isNotEmpty) {
-        multipartFiles = [MultipartBody('post_images', File(imagePath.value))];
-      }
+      myPosts.insert(0, newPost);
 
-      final response = await ApiClient.postMultipartData(
-        ApiUrl.createPost,
-        body,
-        multipartBody: multipartFiles,
-      );
+      // Reset
+      postText.value = '';
+      imagePaths.clear();
 
-      if (response.statusCode == 200) {
-        Map<String, dynamic> newPost = {
-          '_id': response.body['data']['_id'],
-          'content': postText.value.trim(),
-          'authorId': userID.value,
-          'post_images': imagePath.value.isNotEmpty ? [imagePath.value] : [],
-        };
-        myPosts.insert(0, newPost);
-
-        // ফিল্ড ক্লিয়ার
-        postText.value = '';
-        imagePath.value = '';
-
-        Get.snackbar("Success", "Post created successfully");
-        return true; // success
-      } else {
-        ApiChecker.checkApi(response);
-        return false;
-      }
-
+      Get.snackbar("Success", "Post created successfully");
+      return true;
+    } else {
+      ApiChecker.checkApi(response);
+      return false;
+    }
   }
-
 
 
   ///get my post==================================================================================Get Method====================
