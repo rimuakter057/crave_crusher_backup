@@ -1,14 +1,19 @@
 
+import 'package:crave_crusher/helper/imges_handler/image_handler.dart';
 import 'package:crave_crusher/service/api_check.dart';
 import 'package:crave_crusher/service/api_client.dart';
 import 'package:crave_crusher/service/api_url.dart';
+import 'package:crave_crusher/utils/ToastMsg/toast_message.dart';
 import 'package:crave_crusher/utils/app_const/app_const.dart';
 import 'package:crave_crusher/view/features/profile/models/edit_profile_model.dart';
 import 'package:crave_crusher/view/features/profile/models/user_profile_model.dart';
 import 'package:get/get.dart';
+import 'package:image_picker/image_picker.dart';
 
 
 class ProfileController extends GetxController {
+
+
   /// my profile controller
   var isLoadingMyProfile = false.obs;
   Rx<Status> myProfileStatus = Status.loading.obs;
@@ -36,7 +41,51 @@ class ProfileController extends GetxController {
       ApiChecker.checkApi(response);
     }
   }
-  ///edit profile controller
+
+
+  ///profile image show =================================================================image picker==============================================
+
+  RxString profileImagePath = ImageHandler.imagesHandle(null, isProfile: true).obs;
+
+  final ImagePicker _picker = ImagePicker();
+
+  Future<void> pickImageFromGallery() async {
+    final pickedFile = await _picker.pickImage(source: ImageSource.gallery);
+
+    if (pickedFile != null) {
+      profileImagePath.value = pickedFile.path; // reactive update
+    }
+  }
+
+
+
+///update profile==================================================================Patch Methode=======================================
+Rx<Status> updateProfileStatus = Status.loading.obs;
+var isLoadingUpdateProfile = false.obs;
+
+Future<void> updatePost( String name,) async {
+  isLoadingUpdateProfile(true);
+  final body = {"fullName": name};
+
+  final response = await ApiClient.patchData(
+    ApiUrl.updateProfile,
+    body,
+    isJson: true,
+  );
+  isLoadingUpdateProfile(false);
+  if (response.statusCode == 200 || response.statusCode == 201) {
+    showCustomSnackBar("Profile updated successfully", isError:  false);
+
+     fetchMyProfile();
+
+    Get.back();
+
+    // return true;
+  } else {
+    ApiChecker.checkApi(response);
+    //  return false;
+  }
+}
 
 
 
@@ -45,3 +94,14 @@ class ProfileController extends GetxController {
 
 
 }
+
+
+
+
+
+
+
+
+
+
+

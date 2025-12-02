@@ -11,9 +11,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:gap/gap.dart';
 import 'package:get/get.dart';
-
 import 'widgets/custom_profile_input_field.dart';
-
 
 class MyProfileScreen extends StatelessWidget {
   MyProfileScreen({super.key});
@@ -21,7 +19,6 @@ class MyProfileScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-
     profileController.fetchMyProfile();
 
     return Scaffold(
@@ -46,33 +43,22 @@ class MyProfileScreen extends StatelessWidget {
               children: [
                 Gap(8.h),
                 Center(
-                  child: ProfileAvatarWidget(    imagePath: AppConstants.unknown,
-                  //   imagePath: profile.profileImage.isNotEmpty
-                  //       ? profile.profileImage
-                  //       : AppImages.profileManImage,
-                  //   heightA: 100.h,
-                  //   widthA: 100.w,
-                  // ),
-                ),),
+                  child: ProfileAvatarWidget(imagePath: AppConstants.unknown),
+                ),
                 Gap(24.h),
                 // Name
-                CustomProfileInputField(
-                  title: 'Name',
-                  text: profile.fullName,
-                ),
+                CustomProfileInputField(title: 'Name', text: profile.fullName),
                 Gap(16.h),
                 // Email
-                CustomProfileInputField(
-                  title: 'Email',
-                  text: profile.email,
-                ),
+                CustomProfileInputField(title: 'Email', text: profile.email),
                 Gap(16.h),
                 GestureDetector(
                   onTap: () {
                     Navigator.push(
                       context,
                       MaterialPageRoute(
-                          builder: (context) => EditProfileScreens()),
+                        builder: (context) => EditProfileScreens(name: profile.fullName, email:  profile.email,),
+                      ),
                     );
                   },
                   child: CustomContainer(
@@ -83,7 +69,10 @@ class MyProfileScreen extends StatelessWidget {
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        CustomText(text: "Edit Profile", color: AppColors.white),
+                        CustomText(
+                          text: "Edit Profile",
+                          color: AppColors.white,
+                        ),
                       ],
                     ),
                   ),
@@ -96,6 +85,3 @@ class MyProfileScreen extends StatelessWidget {
     );
   }
 }
-
-
-

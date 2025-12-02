@@ -164,7 +164,7 @@ class _CommonCommunityWidgetState extends State<CommonCommunityWidget> {
           child: CustomNetworkImage(
 
             height: 180.h,
-            width: 180.w,
+            width: 160.w,
            imageUrl: ImageHandler.imagesHandle(images[0]),
           ),
         ),
@@ -176,7 +176,7 @@ class _CommonCommunityWidgetState extends State<CommonCommunityWidget> {
         child: CustomNetworkImage(
           imageUrl:ImageHandler.imagesHandle( images[0]),
           height: 180.h,
-          width: 180.w,
+          width: 160.w,
 
         ),
       ),
@@ -187,7 +187,7 @@ class _CommonCommunityWidgetState extends State<CommonCommunityWidget> {
     CustomNetworkImage(
     imageUrl: ImageHandler.imagesHandle( images[1]),
     height: 180.h,
-    width: 180.w,
+    width: 160.w,
     borderRadius: BorderRadius.circular(6),
 
     ),
@@ -205,7 +205,7 @@ class _CommonCommunityWidgetState extends State<CommonCommunityWidget> {
           child: CustomNetworkImage(
             imageUrl:ImageHandler.imagesHandle( images[0]),
             height: 180.h,
-            width: 180.w,
+            width: 160.w,
 
           ),
         ),
@@ -216,7 +216,7 @@ class _CommonCommunityWidgetState extends State<CommonCommunityWidget> {
     CustomNetworkImage(
             imageUrl: ImageHandler.imagesHandle( images[1]),
             height: 90.h,
-            width: 90.w,
+            width: 85.w,
       borderRadius: BorderRadius.circular(6),
 
           ),
@@ -227,7 +227,7 @@ class _CommonCommunityWidgetState extends State<CommonCommunityWidget> {
               CustomNetworkImage(
                 imageUrl: ImageHandler.imagesHandle( images[2]),
                 height: 90.h,
-                width: 90.w,
+                width: 85.w,
                 borderRadius: BorderRadius.circular(6), 
                 child: images.length > 3?
                 Center(

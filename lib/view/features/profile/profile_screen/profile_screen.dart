@@ -130,7 +130,7 @@ class ProfileScreen extends StatelessWidget {
 
                   },),
                   Gap(12.h),
-                  CustomText(text: "More",fontSize: 24.sp,fontWeight: FontWeight.w400,),
+                  CustomText(text: "More",fontSize: 18.sp,fontWeight: FontWeight.w500,),
                   Gap(12.h),
 
 
