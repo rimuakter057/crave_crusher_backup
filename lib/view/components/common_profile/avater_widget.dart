@@ -1,4 +1,5 @@
 import 'dart:io';
+import 'package:crave_crusher/utils/app_const/app_const.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -60,27 +61,28 @@ class ProfileAvatarWidget extends StatelessWidget {
               color: Colors.white,
             ),
             child: ClipOval(
-              child: imagePath.startsWith("http")
+              child: imagePath.isEmpty
+                  ? Image.asset(
+                AppConstants.unknown, // placeholder
+                width: imageWidth,
+                height: imageHeight,
+                fit: BoxFit.cover,
+              )
+                  : imagePath.startsWith("http")
                   ? CachedNetworkImage(
                 imageUrl: imagePath,
                 width: imageWidth,
                 height: imageHeight,
                 fit: BoxFit.cover,
               )
-                  : File(imagePath).existsSync()
-                  ? Image.file(
+                  : Image.file(
                 File(imagePath),
-                width: imageWidth,
-                height: imageHeight,
-                fit: BoxFit.cover,
-              )
-                  : Image.asset(
-                imagePath,
                 width: imageWidth,
                 height: imageHeight,
                 fit: BoxFit.cover,
               ),
             ),
+
           ),
 
           // Bottom-right edit icon

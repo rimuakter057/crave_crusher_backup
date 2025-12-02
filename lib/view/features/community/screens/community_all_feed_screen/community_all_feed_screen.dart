@@ -87,7 +87,7 @@ class CommunityAllFeedScreen extends StatelessWidget {
                         return Column(
                           children: [
                             CommonCommunityWidget(
-                              profileTitle: post.author?.fullName ?? '....',
+                              profileTitle: post.author?.fullName ?? '...',
                               profileSubtitle: DateConverter.formattedTime(
                                 DateTime.parse(
                                   post.createdAt ?? DateTime.now().toString(),
