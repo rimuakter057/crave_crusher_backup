@@ -1,14 +1,19 @@
-import 'package:crave_crusher/utils/app_colors/app_colors.dart';
-import 'package:crave_crusher/utils/app_const/app_const.dart';
+import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:image_picker/image_picker.dart';
+import 'package:crave_crusher/utils/app_colors/app_colors.dart';
 
 class ProfileAvatarWidget extends StatelessWidget {
   final String imagePath;
   final Color? borderColor;
   final double? heightA;
   final double? widthA;
+  final bool enableEdit; // enable edit icon
+  final VoidCallback? onEdit; // callback on edit tap
+  final String editIconAsset;
 
   const ProfileAvatarWidget({
     super.key,
@@ -16,54 +21,90 @@ class ProfileAvatarWidget extends StatelessWidget {
     this.borderColor,
     this.heightA,
     this.widthA,
+    this.enableEdit = false,
+    this.onEdit,
+    this.editIconAsset = "assets/icon/edit_profile_camera.svg",
   });
 
   @override
   Widget build(BuildContext context) {
-    final double avatarHeight = heightA ?? 60.h;
-    final double avatarWidth  = widthA ?? 60.w;
+    // final double avatarHeight = heightA ?? 60.h;
+    // final double avatarWidth = widthA ?? 60.w;
+    //
+    // final double imageHeight = avatarHeight * 0.8;
+    // final double imageWidth = avatarWidth * 0.8;
 
-    // 👇 Fixed 80% rule (just like your UI)
-    final double imageHeight = avatarHeight * 0.8;
-    final double imageWidth  = avatarWidth * 0.8;
+    final double avatarHeight =  80.h;
+    final double avatarWidth = 80.w;
 
-    return Container(
+    final double imageHeight = 80.h;
+    final double imageWidth = 80.w;
+
+    return SizedBox(
       height: avatarHeight,
       width: avatarWidth,
-      alignment: Alignment.center,
-      decoration: BoxDecoration(
-        shape: BoxShape.circle,
-        border: Border.all(
-          color: borderColor ?? AppColors.subPrimary,
-          width: 1,
-        ),
-        color: Colors.white,
-      ),
       child: Stack(
-        alignment: Alignment.bottomCenter,
+        clipBehavior: Clip.none,
         children: [
-          Align(
-            alignment: Alignment.bottomCenter,
-            child: ClipOval(
-              child: CachedNetworkImage(
-                imageUrl:imagePath,
-                fit:BoxFit.cover,
-                  width: imageWidth,   // 👈 dynamically fixed
-                  height: imageHeight, // 👈 dynamically fixed
+          // Circular profile image
+          Container(
+            height: avatarHeight,
+            width: avatarWidth,
+            alignment: Alignment.center,
+            decoration: BoxDecoration(
+              shape: BoxShape.circle,
+              border: Border.all(
+                color: borderColor ?? AppColors.subPrimary,
+                width: 1,
               ),
-
-
-              // Image.asset(
-              //   imagePath,
-              //   width: imageWidth,   // 👈 dynamically fixed
-              //   height: imageHeight, // 👈 dynamically fixed
-              //   fit: BoxFit.cover,
-              // ),
+              color: Colors.white,
+            ),
+            child: ClipOval(
+              child: imagePath.startsWith("http")
+                  ? CachedNetworkImage(
+                imageUrl: imagePath,
+                width: imageWidth,
+                height: imageHeight,
+                fit: BoxFit.cover,
+              )
+                  : File(imagePath).existsSync()
+                  ? Image.file(
+                File(imagePath),
+                width: imageWidth,
+                height: imageHeight,
+                fit: BoxFit.cover,
+              )
+                  : Image.asset(
+                imagePath,
+                width: imageWidth,
+                height: imageHeight,
+                fit: BoxFit.cover,
+              ),
             ),
           ),
+
+          // Bottom-right edit icon
+          if (enableEdit)
+            Positioned(
+              bottom: 0,
+              right:0,
+              child:SizedBox(
+                height: 24.h,
+                width: 24.w,
+                child: IconButton(
+                    padding: EdgeInsets.zero, // default padding কমাবে
+                    constraints: BoxConstraints(), // default constraints রিমুভ
+                    onPressed: onEdit,
+                    style: IconButton.styleFrom(
+                      shape: CircleBorder(),
+                      backgroundColor: AppColors.primary
+                    ),
+                    icon: Icon(Icons.camera_alt_outlined,color: AppColors.white,size: 15.w,)),
+              )
+
+            ),
         ],
       ),
     );
   }
 }
-

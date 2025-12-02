@@ -1,89 +1,93 @@
+// To parse this JSON data, do
+//
+//     final editProfileModel = editProfileModelFromJson(jsonString);
+
+import 'dart:convert';
+
+EditProfileModel editProfileModelFromJson(String str) => EditProfileModel.fromJson(json.decode(str));
+
+String editProfileModelToJson(EditProfileModel data) => json.encode(data.toJson());
+
 class EditProfileModel {
-  final List<String> playerIds;
-  final String id;
-  final String fullName;
-  final String email;
-  final String role;
-  final String? profileImage;
-  final String password;
-  final bool isBlocked;
-  final int verifyCode;
-  final bool isVerified;
-  final bool isResetVerified;
-  final String codeExpireIn;
-  final bool isActive;
-  final bool isDeleted;
-  final String createdAt;
-  final String updatedAt;
-  final int v;
-  final String passwordChangedAt;
+  final String? id;
+  final String? fullName;
+  final String? email;
+  final String? role;
+  final dynamic profileImage;
+  final String? password;
+  final bool? isBlocked;
+  final int? verifyCode;
+  final bool? isVerified;
+  final bool? isResetVerified;
+  final DateTime? codeExpireIn;
+  final bool? isActive;
+  final bool? isDeleted;
+  final DateTime? createdAt;
+  final DateTime? updatedAt;
+  final int? v;
+  final DateTime? passwordChangedAt;
+  final List<dynamic>? playerIds;
 
   EditProfileModel({
-    required this.playerIds,
-    required this.id,
-    required this.fullName,
-    required this.email,
-    required this.role,
+    this.id,
+    this.fullName,
+    this.email,
+    this.role,
     this.profileImage,
-    required this.password,
-    required this.isBlocked,
-    required this.verifyCode,
-    required this.isVerified,
-    required this.isResetVerified,
-    required this.codeExpireIn,
-    required this.isActive,
-    required this.isDeleted,
-    required this.createdAt,
-    required this.updatedAt,
-    required this.v,
-    required this.passwordChangedAt,
+    this.password,
+    this.isBlocked,
+    this.verifyCode,
+    this.isVerified,
+    this.isResetVerified,
+    this.codeExpireIn,
+    this.isActive,
+    this.isDeleted,
+    this.createdAt,
+    this.updatedAt,
+    this.v,
+    this.passwordChangedAt,
+    this.playerIds,
   });
 
-  // From JSON (API → Model)
-  factory EditProfileModel.fromJson(Map<String, dynamic> json) {
-    return EditProfileModel(
-      playerIds: List<String>.from(json['playerIds'] ?? []),
-      id: json['_id'] ?? '',
-      fullName: json['fullName'] ?? '',
-      email: json['email'] ?? '',
-      role: json['role'] ?? '',
-      profileImage: json['profileImage'],
-      password: json['password'] ?? '',
-      isBlocked: json['isBlocked'] ?? false,
-      verifyCode: json['verifyCode'] ?? 0,
-      isVerified: json['isVerified'] ?? false,
-      isResetVerified: json['isResetVerified'] ?? false,
-      codeExpireIn: json['codeExpireIn'] ?? '',
-      isActive: json['isActive'] ?? false,
-      isDeleted: json['isDeleted'] ?? false,
-      createdAt: json['createdAt'] ?? '',
-      updatedAt: json['updatedAt'] ?? '',
-      v: json['__v'] ?? 0,
-      passwordChangedAt: json['passwordChangedAt'] ?? '',
-    );
-  }
+  factory EditProfileModel.fromJson(Map<String, dynamic> json) => EditProfileModel(
+    id: json["_id"],
+    fullName: json["fullName"],
+    email: json["email"],
+    role: json["role"],
+    profileImage: json["profileImage"],
+    password: json["password"],
+    isBlocked: json["isBlocked"],
+    verifyCode: json["verifyCode"],
+    isVerified: json["isVerified"],
+    isResetVerified: json["isResetVerified"],
+    codeExpireIn: json["codeExpireIn"] == null ? null : DateTime.parse(json["codeExpireIn"]),
+    isActive: json["isActive"],
+    isDeleted: json["isDeleted"],
+    createdAt: json["createdAt"] == null ? null : DateTime.parse(json["createdAt"]),
+    updatedAt: json["updatedAt"] == null ? null : DateTime.parse(json["updatedAt"]),
+    v: json["__v"],
+    passwordChangedAt: json["passwordChangedAt"] == null ? null : DateTime.parse(json["passwordChangedAt"]),
+    playerIds: json["playerIds"] == null ? [] : List<dynamic>.from(json["playerIds"]!.map((x) => x)),
+  );
 
-  // To JSON (Model → API)
-  Map<String, dynamic> toJson() {
-    return {
-      'playerIds': playerIds,
-      '_id': id,
-      'fullName': fullName,
-      'email': email,
-      'role': role,
-      'profileImage': profileImage,
-      'password': password,
-      'isBlocked': isBlocked,
-      'verifyCode': verifyCode,
-      'isVerified': isVerified,
-      'isResetVerified': isResetVerified,
-      'codeExpireIn': codeExpireIn,
-      'isActive': isActive,
-      'isDeleted': isDeleted,
-      'createdAt': createdAt,
-      'updatedAt': updatedAt,
-      '__v': v,
-      'passwordChangedAt': passwordChangedAt,
-    };
-  }
+  Map<String, dynamic> toJson() => {
+    "_id": id,
+    "fullName": fullName,
+    "email": email,
+    "role": role,
+    "profileImage": profileImage,
+    "password": password,
+    "isBlocked": isBlocked,
+    "verifyCode": verifyCode,
+    "isVerified": isVerified,
+    "isResetVerified": isResetVerified,
+    "codeExpireIn": codeExpireIn?.toIso8601String(),
+    "isActive": isActive,
+    "isDeleted": isDeleted,
+    "createdAt": createdAt?.toIso8601String(),
+    "updatedAt": updatedAt?.toIso8601String(),
+    "__v": v,
+    "passwordChangedAt": passwordChangedAt?.toIso8601String(),
+    "playerIds": playerIds == null ? [] : List<dynamic>.from(playerIds!.map((x) => x)),
+  };
 }

@@ -9,7 +9,9 @@ import 'package:crave_crusher/view/components/input_field_with_title/input_field
 import 'package:crave_crusher/view/features/profile/profile_screen/profile_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:gap/gap.dart';
+import 'package:image_picker/image_picker.dart';
 
 import '../../../../utils/app_const/app_const.dart' show AppConstants;
 
@@ -28,9 +30,26 @@ class EditProfileScreens extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Gap(8.h),
-            Center(child: ProfileAvatarWidget(
+            Center(
+              child:ProfileAvatarWidget(
               imagePath: AppConstants.unknown,
-              heightA: 100.h,widthA: 100.w,)),
+              heightA: 100.h,
+              widthA: 100.w,
+              enableEdit: true,
+              onEdit: () async {
+                // Example: pick image from gallery
+                final picker = ImagePicker();
+                final pickedFile = await picker.pickImage(source: ImageSource.gallery);
+                if (pickedFile != null) {
+                  print("Selected image path: ${pickedFile.path}");
+                  // setState / controller update করুন
+                }
+              },
+            ),
+            ),
+
+
+
             Gap(16.h),
 
             InputFieldWithTitleWidget(title:"Full Name", hintText: "e.g. Sheena DuBois ",),

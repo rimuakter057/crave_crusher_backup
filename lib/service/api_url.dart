@@ -40,6 +40,7 @@ class ApiUrl {
 
 ///profile section==================================================================
   static const String getMyProfile="/user/get-my-profile";
+  static const String updateProfile="/user/update-profile";
 
   ///terms faq privacy
 
