@@ -12,7 +12,7 @@ class CommunityImageShowScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
-    return Scaffold(bottomNavigationBar: NavBar(currentIndex: 2),
+    return Scaffold(
       // appBar: ,
       appBar: CustomAppBar(
         title: 'Media ',

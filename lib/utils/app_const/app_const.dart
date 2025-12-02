@@ -62,8 +62,8 @@ class AppConstants {
 
   static const String cairns =
       'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ5dp1ISldAN3oYoeiKvtrdfC-PB_d0phVGfQ&s';
-  static String profileImage2 =
-      'https://ntvb.tmsimg.com/assets/assets/866126_v9_bc.jpg';
+  static String unknown =
+      'https://upload.wikimedia.org/wikipedia/commons/thumb/b/bc/Unknown_person.jpg/500px-Unknown_person.jpg';
   static String profileImage =
       'https://i.pinimg.com/1200x/98/1d/6b/981d6b2e0ccb5e968a0618c8d47671da.jpg';
   static String bdFlag = 'https://flagcdn.com/w320/bd.png';

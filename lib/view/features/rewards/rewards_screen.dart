@@ -9,42 +9,20 @@ import 'package:crave_crusher/view/features/rewards/widgets/custom_circular_indi
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:gap/gap.dart';
+import 'controller/reward_controller.dart';
 import 'data/battle_category_item_list.dart';
 import 'data/battle_item_details_list.dart';
+import 'package:get/get.dart';
+
 
 class RewardsScreen extends StatelessWidget {
-  const RewardsScreen({super.key});
-
+  RewardsScreen({super.key});
+  final RewardsController controller = Get.put(RewardsController());
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       bottomNavigationBar: NavBar(currentIndex: 3),
       appBar:CustomLeadingTitleAppbar(title: "Reward") ,
-      
-      
-      // appBar: AppBar(
-      //   surfaceTintColor: AppColors.backgroundColor,
-      //   backgroundColor: AppColors.backgroundColor,
-      //   leading: Center(
-      //     child: Container(
-      //       width: 50.w,
-      //       height: 50.h,
-      //       alignment: Alignment.center,
-      //       decoration: BoxDecoration(
-      //         color: AppColors.subPrimary.withOpacity(.3),
-      //         shape: BoxShape.circle,
-      //         border: Border.all(color: AppColors.subPrimary),
-      //       ),
-      //       child: BackButton(color: AppColors.primary),
-      //     ),
-      //   ),
-      //   centerTitle: true,
-      //   title: CustomText(
-      //     text: "Rewards",
-      //     fontSize: 18.sp,
-      //     fontWeight: FontWeight.w500,
-      //   ),
-      // ),
 
       body: SingleChildScrollView(
         child: Padding(

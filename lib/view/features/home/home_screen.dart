@@ -2,6 +2,7 @@
 
 import 'package:crave_crusher/utils/app_colors/app_colors.dart';
 import 'package:crave_crusher/utils/app_icons/app_icons.dart';
+import 'package:crave_crusher/utils/app_images/app_images.dart';
 import 'package:crave_crusher/view/components/custom_image/custom_image.dart';
 import 'package:crave_crusher/view/components/custom_nav_bar/navbar.dart';
 import 'package:crave_crusher/view/components/custom_text/custom_text.dart';
@@ -26,7 +27,7 @@ class HomeScreen extends StatelessWidget {
           children: [
             // Tip and Monster Section
             TodayTips(),
-            MonsterSection(),
+            MonsterSection(image:AppIcons.happyMonstar),
 
             SizedBox(height: 24.h),
 
@@ -70,18 +71,19 @@ class HomeScreen extends StatelessWidget {
               title: "Smoking Detox",
               progress: 0.58, // 58%
               status: "Pending",
-              dayCount: "Day 12 of 30",
-            //  statusColor: AppColors.primary,
+              dayCount: "Day 12 of 30", percentText: '57% to completed',
+              //  statusColor: AppColors.primary,
             ),
             SizedBox(height: 16.h),
             ActiveBattleCard(
+              percentText: '57% to completed',
               detoxType: DetoxType.love,
               // Placeholder
               title: "Toxic Relationship Detox",
               progress: 0.58, // 58%
               status: "Pending",
               dayCount: "Day 12 of 30",
-            //  statusColor: AppColors.primary,
+              //  statusColor: AppColors.primary,
             ),
             // _ActiveBattleCard(
             //   iconSrc: 'assets/icons/money_battle.svg', // Placeholder

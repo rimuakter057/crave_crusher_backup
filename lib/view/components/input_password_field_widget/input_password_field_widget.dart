@@ -7,11 +7,14 @@ import 'package:gap/gap.dart';
 
 class InputPasswordFieldWidget extends StatelessWidget {
   const InputPasswordFieldWidget({
-    super.key, required this.title, this.hintText,
+    super.key, required this.title, this.hintText, this.controller, this.validator,
   });
 
   final String title;
  final String ?hintText;
+  final TextEditingController? controller;
+  final String? Function(String?)? validator ;
+
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -20,6 +23,8 @@ class InputPasswordFieldWidget extends StatelessWidget {
         CustomText(text: title,fontSize: 14.sp,fontWeight: FontWeight.w500,),
         Gap(8.h),
         CustomTextField(
+          textEditingController: controller,
+          validator: validator,
           isPassword: true,
           hintText:hintText?? "Enter Your Password",
           fillColor: Color(0xFFEEF2FF),

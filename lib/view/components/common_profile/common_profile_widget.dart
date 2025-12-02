@@ -6,10 +6,10 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'avater_widget.dart';
 
 class CommonProfileWidget extends StatelessWidget {
-  const CommonProfileWidget({super.key, required this.title, required this.subTitle, required this.image, this.onTap});
+  const CommonProfileWidget({super.key, required this.title, required this.subTitle, required this.profileImage, this.onTap});
 final String title;
 final String subTitle;
-final String image;
+final String profileImage;
 final void Function() ?onTap;
   @override
   Widget build(BuildContext context) {
@@ -18,9 +18,10 @@ final void Function() ?onTap;
       child: Row(
         children: [
 
-          ProfileAvatarWidget(imagePath: image,
 
-          ),
+
+
+        ProfileAvatarWidget(imagePath: profileImage,),
 
           // CustomImage(
           //   imageSrc: image,
@@ -32,9 +33,11 @@ final void Function() ?onTap;
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               CustomText(
+                maxLines: 1,
+                overflow: TextOverflow.ellipsis,
                 text: title,
                 fontWeight: FontWeight.w600,
-                fontSize: 18.w,
+                fontSize: 14.sp,
                 color: AppColors.black_02,
               ),
               CustomText(

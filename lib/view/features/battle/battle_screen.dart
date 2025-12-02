@@ -42,6 +42,7 @@ class BattleScreen extends StatelessWidget {
                       physics: AlwaysScrollableScrollPhysics(),
                       itemBuilder: (context, index){
                     return   ActiveBattleCard(
+                      percentText: "57%",
                             detoxType: DetoxType.smoke,
                             // Placeholder
                             title: "Smoking Detox",
@@ -66,6 +67,7 @@ class BattleScreen extends StatelessWidget {
                           detoxType: DetoxType.smoke,
                           // Placeholder
                           title: "Smoking Detox",
+                          percentText: "57%",
                           progress: 0.58, // 58%
                           status: "Completed",
                           dayCount: "Day 12 of 30",
@@ -88,6 +90,7 @@ class BattleScreen extends StatelessWidget {
                           detoxType: DetoxType.smoke,
                           // Placeholder
                           title: "Smoking Detox",
+                          percentText: "57%",
                           progress: 0.58, // 58%
                           status: "Canceled",
                           dayCount: "Day 12 of 30",

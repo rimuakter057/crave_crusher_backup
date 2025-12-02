@@ -72,4 +72,3 @@ class _CommunityTabSelectorState extends State<CommunityTabSelector> {
     );
   }
 }
-

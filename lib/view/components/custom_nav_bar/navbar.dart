@@ -5,6 +5,7 @@ import 'package:crave_crusher/utils/app_icons/app_icons.dart';
 import 'package:crave_crusher/view/components/custom_image/custom_image.dart';
 import 'package:crave_crusher/view/features/battle/battle_screen.dart';
 import 'package:crave_crusher/view/features/community/screens/community_all_feed_screen/community_all_feed_screen.dart';
+import 'package:crave_crusher/view/features/community/screens/post/post_screen.dart';
 
 import 'package:crave_crusher/view/features/home/home_screen.dart';
 import 'package:crave_crusher/view/features/profile/profile_screen/profile_screen.dart';
@@ -117,8 +118,14 @@ class _NavBarState extends State<NavBar> {
     } else if (index == 1 && widget.currentIndex != 1) {
       Get.to(() => BattleScreen());
     } else if (index == 2 && widget.currentIndex != 2) {
-      Get.to(() => CommunityAllFeedScreen());
-    } else if (index == 3 && widget.currentIndex != 3) {
+     // final AddPostController controller = Get.find<AddPostController>();
+
+      Get.to(() => CommunityAllFeedScreen(
+        // postText: controller.postText.value,
+        // imagePath: controller.imagePath.value.isEmpty ? null : controller.imagePath.value,
+      ));
+    }
+    else if (index == 3 && widget.currentIndex != 3) {
       Get.to(() => RewardsScreen());
     } else if (index == 4 && widget.currentIndex != 4) {
      // Get.to(() => ProfileScreen());

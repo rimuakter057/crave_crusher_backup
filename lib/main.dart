@@ -4,11 +4,13 @@ import 'package:crave_crusher/core/dependency/dependency_injection.dart';
 import 'package:crave_crusher/core/routes/app_routes.dart';
 import 'package:crave_crusher/utils/app_colors/app_colors.dart';
 import 'package:crave_crusher/view/components/device_utils/device_utils.dart';
+import 'package:crave_crusher/view/features/auth/controllers/auth_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:device_preview_plus/device_preview_plus.dart';
+import 'package:get/get_core/src/get_main.dart' as getx;
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -17,7 +19,9 @@ Future<void> main() async {
 
   DependencyInjection di = DependencyInjection();
   di.dependencies();
-
+  /// Load Token Immediately (VERY IMPORTANT)
+  final auth = getx.Get.find<AuthController>();
+  await auth.getUserData();
   runApp(
     DevicePreview(
       enabled: true,
@@ -45,8 +49,6 @@ class MyApp extends StatelessWidget {
           navigatorKey: Get.key,
           initialRoute: AppRoutes.splashScreen,
           getPages: AppRoutes.routes,
-
-
           useInheritedMediaQuery: true,
           locale: DevicePreview.locale(context),
           builder: DevicePreview.appBuilder,
