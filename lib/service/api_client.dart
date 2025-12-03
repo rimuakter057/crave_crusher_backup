@@ -14,6 +14,8 @@ import '../helper/shared_prefe/shared_prefe.dart';
 import '../utils/app_const/app_const.dart';
 import 'api_url.dart';
 
+
+
 class ApiClient extends GetxService {
   static var client = http.Client();
   static final Logger logger = Logger();
@@ -22,6 +24,7 @@ class ApiClient extends GetxService {
   static const int timeoutInSeconds = 30;
 
   static String bearerToken = "";
+
 
   //============================= CHECK INTERNET =============================
   static Future<bool> _checkConnection() async {
@@ -141,11 +144,68 @@ class ApiClient extends GetxService {
     }
   }
 
+
+  ///=========================multipart patch===================================================================
+
+
+
+  static Future<Response> patchMultipartData(
+      String uri,
+      Map<String, String> body, {
+        List<MultipartBodyPost>? multipartBody,
+        Map<String, String>? headers,
+      }) async {
+    try {
+      bearerToken = await SharePrefsHelper.getString(AppConstants.bearerToken);
+
+      var mainHeaders = {
+        'Accept': 'application/json',
+        'Authorization': "Bearer $bearerToken",
+      };
+
+      var request = http.MultipartRequest(
+        'PATCH',
+        Uri.parse(ApiUrl.baseUrl + uri),
+      );
+
+      request.fields.addAll(body);
+
+      if (multipartBody != null && multipartBody.isNotEmpty) {
+        for (var element in multipartBody) {
+          var mimeType = lookupMimeType(element.file.path) ?? 'application/octet-stream';
+          var multipartImg = await http.MultipartFile.fromPath(
+            element.key,
+            element.file.path,
+            contentType: MediaType.parse(mimeType),
+          );
+          request.files.add(multipartImg);
+        }
+      }
+
+      request.headers.addAll(mainHeaders);
+
+      var streamedResponse = await request.send();
+      final responseString = await streamedResponse.stream.bytesToString();
+
+      debugPrint('====> API Response [${streamedResponse.statusCode}]: $uri\n$responseString');
+
+      return Response(
+        statusCode: streamedResponse.statusCode,
+        body: jsonDecode(responseString),
+      );
+    } catch (e) {
+      debugPrint('Multipart PATCH Error: $e');
+      return Response(
+        statusCode: 500,
+        body: {"message": "Something went wrong"},
+      );
+    }
+  }
   //============================= MULTIPART POST ================================
   static Future<Response> postMultipartData(
       String uri,
       Map<String, String> body, {
-        List<MultipartBody>? multipartBody,
+        List<MultipartBodyPost>? multipartBody,
       }) async {
     try {
       bearerToken = await SharePrefsHelper.getString(AppConstants.bearerToken);
@@ -284,8 +344,15 @@ class ApiClient extends GetxService {
   }
 }
 
-class MultipartBody {
+class MultipartBodyPost {
   String key;
   File file;
-  MultipartBody(this.key, this.file);
+  MultipartBodyPost(this.key, this.file);
 }
+
+// class MultipartBodyPatch {
+//   final String key;
+//   final File file;
+//
+//   MultipartBodyPatch({required this.key, required this.file});
+// }

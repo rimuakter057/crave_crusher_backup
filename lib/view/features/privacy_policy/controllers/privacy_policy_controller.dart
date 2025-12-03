@@ -8,31 +8,31 @@ import 'package:get/get.dart';
 
 class PrivacyController extends GetxController {
 
-  var isLoadingPrivacy = false.obs;
-  Rx<Status> privacyStatus = Status.loading.obs;
-  Rx<TermsModel?> privacy = Rx<TermsModel?>(null);
+        var isLoadingPrivacy = false.obs;
+        Rx<Status> privacyStatus = Status.loading.obs;
+        Rx<TermsModel?> privacy = Rx<TermsModel?>(null);
 
-  Future<void> getPrivacy() async {
+        Future<void> getPrivacy() async {
 
-      isLoadingPrivacy.value = true;
-      privacyStatus(Status.loading);
+          isLoadingPrivacy.value = true;
+          privacyStatus(Status.loading);
 
-      final response = await ApiClient.getData(ApiUrl.privacyPolicy);
+          final response = await ApiClient.getData(ApiUrl.privacyPolicy);
 
-      isLoadingPrivacy.value = false;
+          isLoadingPrivacy.value = false;
 
-      if (response.statusCode == 200 || response.statusCode == 201) {
-        final data = response.body['data'];
-        if (data != null) {
-          privacy.value = TermsModel.fromJson(data);
-          privacyStatus(Status.completed);
-        } else {
-          privacyStatus(Status.error);
-          Get.snackbar("Error", "No privacy data found");
-        }
-      } else {
-        privacyStatus(Status.error);
-        ApiChecker.checkApi(response);
+          if (response.statusCode == 200 || response.statusCode == 201) {
+            final data = response.body['data'];
+            if (data != null) {
+              privacy.value = TermsModel.fromJson(data);
+              privacyStatus(Status.completed);
+            } else {
+              privacyStatus(Status.error);
+              Get.snackbar("Error", "No privacy data found");
+            }
+          } else {
+            privacyStatus(Status.error);
+            ApiChecker.checkApi(response);
       }
 
   }

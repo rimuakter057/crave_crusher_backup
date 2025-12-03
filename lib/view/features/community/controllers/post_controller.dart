@@ -15,7 +15,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 class PostController extends GetxController {
 
   /// get all post ==============================================================================Get Method====================
-  var allPostList = <Data>[].obs;
+  RxList<PostModel> allPostList = <PostModel>[].obs;
   var isLoadingAllPost = false.obs;
   static final Logger logger = Logger();
 
@@ -25,12 +25,10 @@ class PostController extends GetxController {
 
       final response = await ApiClient.getData(ApiUrl.getAllPost);
 
-      // print("RAW POST RESPONSE:");
-      // print(response.body);   // 👈 পুরো JSON দেখাবে
 
       if (response.statusCode == 200 && response.body['data'] != null) {
         var postList = (response.body['data'] as List)
-            .map((e) => Data.fromJson(e))
+            .map((e) => PostModel.fromJson(e))
             .toList();
         allPostList.value = postList;
       } else {
@@ -111,11 +109,11 @@ class PostController extends GetxController {
       'authorId': userID.value,
     };
 
-    List<MultipartBody> multipartFiles = [];
+    List<MultipartBodyPost> multipartFiles = [];
 
     // Attach Multiple Images
     for (var path in imagePaths) {
-      multipartFiles.add(MultipartBody('post_images', File(path)));
+      multipartFiles.add(MultipartBodyPost('post_images', File(path)));
     }
 
     final response = await ApiClient.postMultipartData(

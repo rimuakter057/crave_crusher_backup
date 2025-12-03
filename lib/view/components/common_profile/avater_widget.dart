@@ -1,4 +1,6 @@
 import 'dart:io';
+import 'package:crave_crusher/helper/imges_handler/image_handler.dart';
+import 'package:crave_crusher/utils/app_const/app_const.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -14,6 +16,7 @@ class ProfileAvatarWidget extends StatelessWidget {
   final bool enableEdit; // enable edit icon
   final VoidCallback? onEdit; // callback on edit tap
   final String editIconAsset;
+  final bool? isFile  ;
 
   const ProfileAvatarWidget({
     super.key,
@@ -23,7 +26,7 @@ class ProfileAvatarWidget extends StatelessWidget {
     this.widthA,
     this.enableEdit = false,
     this.onEdit,
-    this.editIconAsset = "assets/icon/edit_profile_camera.svg",
+    this.editIconAsset = "assets/icon/edit_profile_camera.svg", this.isFile = false,
   });
 
   @override
@@ -48,8 +51,8 @@ class ProfileAvatarWidget extends StatelessWidget {
         children: [
           // Circular profile image
           Container(
-            height: avatarHeight,
-            width: avatarWidth,
+            height:heightA?? avatarHeight,
+            width:widthA?? avatarWidth,
             alignment: Alignment.center,
             decoration: BoxDecoration(
               shape: BoxShape.circle,
@@ -60,27 +63,21 @@ class ProfileAvatarWidget extends StatelessWidget {
               color: Colors.white,
             ),
             child: ClipOval(
-              child: imagePath.startsWith("http")
+              child:  !isFile!
                   ? CachedNetworkImage(
-                imageUrl: imagePath,
+                imageUrl: ImageHandler.imagesHandle(imagePath),
                 width: imageWidth,
                 height: imageHeight,
                 fit: BoxFit.cover,
               )
-                  : File(imagePath).existsSync()
-                  ? Image.file(
+                  : Image.file(
                 File(imagePath),
-                width: imageWidth,
-                height: imageHeight,
-                fit: BoxFit.cover,
-              )
-                  : Image.asset(
-                imagePath,
                 width: imageWidth,
                 height: imageHeight,
                 fit: BoxFit.cover,
               ),
             ),
+
           ),
 
           // Bottom-right edit icon

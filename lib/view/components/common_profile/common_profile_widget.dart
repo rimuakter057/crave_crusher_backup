@@ -16,19 +16,14 @@ final void Function() ?onTap;
     return GestureDetector(
       onTap: onTap,
       child: Row(
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
+        ProfileAvatarWidget(imagePath: profileImage,
+        heightA: 50.h,
+          widthA: 50.w,
+        ),
 
-
-
-
-        ProfileAvatarWidget(imagePath: profileImage,),
-
-          // CustomImage(
-          //   imageSrc: image,
-          //   // height: 24,
-          //   //width: 24,
-          // ),
-          SizedBox(width: 16.w),
+          SizedBox(width: 8.w),
           Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
