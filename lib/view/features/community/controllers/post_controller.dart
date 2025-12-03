@@ -109,11 +109,11 @@ class PostController extends GetxController {
       'authorId': userID.value,
     };
 
-    List<MultipartBodyPost> multipartFiles = [];
+    List<MultipartBody> multipartFiles = [];
 
     // Attach Multiple Images
     for (var path in imagePaths) {
-      multipartFiles.add(MultipartBodyPost('post_images', File(path)));
+      multipartFiles.add(MultipartBody('post_images', File(path)));
     }
 
     final response = await ApiClient.postMultipartData(

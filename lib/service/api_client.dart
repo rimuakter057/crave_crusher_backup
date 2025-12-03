@@ -152,7 +152,7 @@ class ApiClient extends GetxService {
   static Future<Response> patchMultipartData(
       String uri,
       Map<String, String> body, {
-        List<MultipartBodyPost>? multipartBody,
+        List<MultipartBody>? multipartBody,
         Map<String, String>? headers,
       }) async {
     try {
@@ -205,7 +205,7 @@ class ApiClient extends GetxService {
   static Future<Response> postMultipartData(
       String uri,
       Map<String, String> body, {
-        List<MultipartBodyPost>? multipartBody,
+        List<MultipartBody>? multipartBody,
       }) async {
     try {
       bearerToken = await SharePrefsHelper.getString(AppConstants.bearerToken);
@@ -344,15 +344,9 @@ class ApiClient extends GetxService {
   }
 }
 
-class MultipartBodyPost {
+class MultipartBody {
   String key;
   File file;
-  MultipartBodyPost(this.key, this.file);
+  MultipartBody(this.key, this.file);
 }
 
-// class MultipartBodyPatch {
-//   final String key;
-//   final File file;
-//
-//   MultipartBodyPatch({required this.key, required this.file});
-// }

@@ -34,53 +34,6 @@ class ProfileController extends GetxController {
   Rx<Status> updateProfileStatus = Status.loading.obs;
   var isLoadingUpdateProfile = false.obs;
 
-  // Future<void> updatePost(String name) async {
-  //   isLoadingUpdateProfile(true);
-  //
-  //   try {
-  //     if (profileImagePath.value.isEmpty) {
-  //       // No new image -> normal JSON patch
-  //       final body = {"fullName": name};
-  //       final response = await ApiClient.patchData(
-  //         ApiUrl.updateProfile,
-  //         body,
-  //         isJson: true,
-  //       );
-  //
-  //       if (response.statusCode == 200 || response.statusCode == 201) {
-  //         showCustomSnackBar("Profile updated successfully", isError: false);
-  //         fetchMyProfile();
-  //         Get.back();
-  //       } else {
-  //         ApiChecker.checkApi(response);
-  //       }
-  //     } else {
-  //       // New image picked -> multipart PATCH
-  //       final response = await ApiClient.patchMultipartData(
-  //         ApiUrl.updateProfile,
-  //         {"fullName": name},
-  //         multipartBody: [
-  //           MultipartBodyPost(
-  //             key: "profileImage",
-  //             file: File(profileImagePath.value),
-  //           ),
-  //         ],
-  //       );
-  //
-  //       if (response.statusCode == 200 || response.statusCode == 201) {
-  //         showCustomSnackBar("Profile updated successfully", isError: false);
-  //         fetchMyProfile();
-  //         Get.back();
-  //       } else {
-  //         ApiChecker.checkApi(response);
-  //       }
-  //     }
-  //   } catch (e) {
-  //     showCustomSnackBar("Something went wrong: $e", isError: true);
-  //   } finally {
-  //     isLoadingUpdateProfile(false);
-  //   }
-  // }
 
   Future<void> updateProfile(String name) async {
     isLoadingUpdateProfile(true);
@@ -94,7 +47,7 @@ class ProfileController extends GetxController {
               isJson: true,
             )
             : await ApiClient.patchMultipartData(ApiUrl.updateProfile, body, multipartBody: [
-              MultipartBodyPost(
+              MultipartBody(
                 "profileImage",
                  profileImageFile.value!,
               ),

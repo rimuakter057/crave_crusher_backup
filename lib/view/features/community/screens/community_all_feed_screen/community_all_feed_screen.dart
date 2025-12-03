@@ -177,78 +177,95 @@ class CommunityAllFeedScreen extends StatelessWidget {
 
                           return Column(
                             children: [
-                              CommonCommunityWidget(
-                                profileTitle: "unknown",
-                                profileSubtitle: DateConverter.formattedTime(
-                                  DateTime.now(),
-                                ),
-                                profileImage: AppConstants.unknown,
-                                postImages: myPost.postImages ?? [],
-                                postText: myPost.content.toString(),
-                                favouriteWidget: Obx(() {
-                                  final postId = myPost.id;
-                                  final isLiked = communityController
-                                      .userVotedPosts
-                                      .contains(postId);
-                                  final totalLikes =
-                                      communityController
-                                          .votesNumberPerPost[postId] ??
-                                      myPost.totalVotes ??
-                                      000;
+                             Obx((){
+                               final postId = myPost.id;
+                               final isLiked = communityController
+                                   .userVotedPosts
+                                   .contains(postId);
 
-                                  return Row(
-                                    children: [
-                                      IconButton(
-                                        onPressed: () {
-                                          communityController.addVote(
-                                            myPost.id.toString(),
-                                          );
-                                        },
-                                        icon: Icon(
-                                          isLiked
-                                              ? Icons.favorite
-                                              : Icons.favorite_border,
-                                          color: AppColors.red,
-                                          size: 20.w,
-                                        ),
-                                      ),
-                                      SizedBox(width: 4.w),
-                                      CustomText(text: totalLikes.toString()),
-                                    ],
-                                  );
-                                }),
+                               final totalLikes =
+                                   communityController
+                                       .votesNumberPerPost[postId] ??
+                                       myPost.totalVotes ??
+                                       000;
 
-                                commentsText: myPost.totalComments.toString(),
-                                myPost: true,
-                                index: index,
+                               return                             CommonCommunityWidget(
+                                 profileTitle: myPost.totalVotes.toString(),
+                                 profileSubtitle: DateConverter.formattedTime(
+                                   DateTime.now(),
+                                 ),
+                                 profileImage: AppConstants.unknown,
+                                 postImages: myPost.postImages ?? [],
+                                 postText: myPost.content.toString(),
+                                 favouriteWidget:
 
-                                /// COMMENT
-                                onTapComment: () {
-                                  Get.to(
-                                    () =>
-                                        CommentScreen(postId: myPost.id ?? ''),
-                                  );
-                                },
 
-                                onTapUpdate: () {
-                                  final content = myPost.content;
-                                  final postId = myPost.id;
-                                  if (postId != null && content != null) {
-                                    Get.to(
-                                      () => UpdatePostScreen(
-                                        postId: postId,
-                                        content: content,
-                                      ),
-                                    );
-                                  }
-                                },
-                                onTapImageShow: () {
-                                  Get.to(() => CommunityImageShowScreen());
-                                },
-                                onTapProfile: () {
-                                  Get.to(() => ProfileScreen());
-                                },
-                              ),
+                                   Row(
+                                     children: [
+                                       IconButton(
+                                         onPressed: () {
+                                           communityController.addVote(
+                                             myPost.id.toString(),
+                                           );
+                                         },
+                                         icon: Icon(
+                                           isLiked
+                                               ? Icons.favorite
+                                               : Icons.favorite_border,
+                                           color: AppColors.red,
+                                           size: 20.w,
+                                         ),
+                                       ),
+                                       SizedBox(width: 4.w),
+                                       CustomText(text: totalLikes.toString()),
+                                     ],
+                                   ),
+
+
+
+
+
+
+
+
+
+
+
+
+
+                                 commentsText: myPost.totalComments.toString(),
+                                 myPost: true,
+                                 index: index,
+
+                                 /// COMMENT
+                                 onTapComment: () {
+                                   Get.to(
+                                         () =>
+                                         CommentScreen(postId: myPost.id ?? ''),
+                                   );
+                                 },
+
+                                 onTapUpdate: () {
+                                   final content = myPost.content;
+                                   final postId = myPost.id;
+                                   if (postId != null && content != null) {
+                                     Get.to(
+                                           () => UpdatePostScreen(
+                                         postId: postId,
+                                         content: content,
+                                       ),
+                                     );
+                                   }
+                                 },
+                                 onTapImageShow: () {
+                                   Get.to(() => CommunityImageShowScreen());
+                                 },
+                                 onTapProfile: () {
+                                   Get.to(() => ProfileScreen());
+                                 },
+                               );
+
+                             }),
                               SizedBox(height: 8.h),
                             ],
                           );
