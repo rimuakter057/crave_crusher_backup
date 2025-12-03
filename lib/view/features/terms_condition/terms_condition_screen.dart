@@ -1,14 +1,16 @@
 import 'package:crave_crusher/view/components/custom_leadin_title_appbar.dart';
-import 'package:crave_crusher/view/features/terms_condition/controllers/terms_condition_controller.dart';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 
+import '../account_setting/controllers/acount_setting_controller.dart';
+
 class TermsConditionScreen extends StatelessWidget {
    TermsConditionScreen({super.key});
 
- final TermsConditionController termsConditionController =TermsConditionController();
+ final AccountSettingController termsConditionController =AccountSettingController();
 
   @override
   Widget build(BuildContext context) {

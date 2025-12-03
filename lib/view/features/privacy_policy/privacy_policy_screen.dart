@@ -1,5 +1,5 @@
 import 'package:crave_crusher/view/components/custom_leadin_title_appbar.dart';
-import 'package:crave_crusher/view/features/privacy_policy/controllers/privacy_policy_controller.dart';
+import 'package:crave_crusher/view/features/account_setting/controllers/acount_setting_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -8,7 +8,7 @@ import 'package:get/get.dart';
 
 class PrivacyPolicyScreen extends StatelessWidget {
    PrivacyPolicyScreen({super.key});
-  final PrivacyController privacyController = Get.find<PrivacyController>();
+  final AccountSettingController privacyController = Get.find<AccountSettingController>();
 
   @override
   Widget build(BuildContext context) {

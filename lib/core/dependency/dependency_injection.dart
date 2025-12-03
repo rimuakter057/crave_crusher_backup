@@ -1,4 +1,5 @@
 import 'package:crave_crusher/service/network_caller.dart';
+import 'package:crave_crusher/view/features/account_setting/controllers/acount_setting_controller.dart';
 import 'package:crave_crusher/view/features/auth/controllers/auth_controller.dart';
 import 'package:crave_crusher/view/features/auth/controllers/forget_password_controller.dart';
 import 'package:crave_crusher/view/features/auth/controllers/login_controller.dart';
@@ -12,12 +13,10 @@ import 'package:crave_crusher/view/features/change_password/controllers/change_p
 import 'package:crave_crusher/view/features/community/controllers/community_controller.dart';
 import 'package:crave_crusher/view/features/community/controllers/community_tab_controller.dart';
 import 'package:crave_crusher/view/features/community/controllers/post_controller.dart';
-import 'package:crave_crusher/view/features/help_support/controllers/help_support_controller.dart';
+
 import 'package:crave_crusher/view/features/home/controller/home_controller.dart';
-import 'package:crave_crusher/view/features/privacy_policy/controllers/privacy_policy_controller.dart';
 import 'package:crave_crusher/view/features/profile/controllers/profile_controller.dart';
 import 'package:crave_crusher/view/features/rewards/controller/reward_controller.dart';
-import 'package:crave_crusher/view/features/terms_condition/controllers/terms_condition_controller.dart';
 import 'package:get/get.dart';
 import '../../view/features/battle/controller/battle_controller.dart';
 
@@ -60,9 +59,9 @@ class DependencyInjection extends Bindings {
        Get.lazyPut(() => HomeController(), fenix: true);
 
        ///privacy terms faq
-    Get.lazyPut(() => PrivacyController(), fenix: true);
-    Get.lazyPut(() => TermsConditionController(), fenix: true);
-    Get.lazyPut(() => HelpController(), fenix: true);
+
+    Get.lazyPut(() => AccountSettingController(), fenix: true);
+
     //   Get.lazyPut(() => SettingsController(), fenix: true);
     //   Get.lazyPut(() => WifiSettingsController(), fenix: true);
     //   Get.lazyPut(() => LanguageController(), fenix: true);

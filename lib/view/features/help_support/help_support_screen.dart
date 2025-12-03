@@ -8,7 +8,8 @@ import 'package:crave_crusher/view/components/custom_image/custom_image.dart';
 import 'package:crave_crusher/view/components/custom_leadin_title_appbar.dart';
 
 import 'package:crave_crusher/view/components/custom_text/custom_text.dart';
-import 'package:crave_crusher/view/features/help_support/controllers/help_support_controller.dart';
+import 'package:crave_crusher/view/features/account_setting/controllers/acount_setting_controller.dart';
+
 
 
 import 'package:flutter/material.dart';
@@ -19,7 +20,7 @@ import 'package:get/get.dart';
 class HelpSupportScreen extends StatelessWidget {
   HelpSupportScreen({super.key});
 
-  final HelpController helpController = Get.find<HelpController>();
+  final AccountSettingController helpController = Get.find<AccountSettingController>();
   @override
   Widget build(BuildContext context) {
     // Fetch FAQs once

@@ -40,7 +40,7 @@ class CommunityAllFeedScreen extends StatelessWidget {
       }
     });
 
-   // final postId = postController.allPostList.map((e) => e.id??'').toString();
+    // final postId = postController.allPostList.map((e) => e.id??'').toString();
 
     // Load posts and votes once
     if (postController.allPostList.isEmpty) {
@@ -78,7 +78,6 @@ class CommunityAllFeedScreen extends StatelessWidget {
                   CommunityTabSelector(),
                   Gap(24.h),
 
-
                   if (tabController.communityTabIndex.value == 0) ...[
                     if (postController.isLoadingAllPost.value)
                       const PostShimmerLoader()
@@ -101,7 +100,9 @@ class CommunityAllFeedScreen extends StatelessWidget {
                             children: [
                               Obx(() {
                                 final postId = post.id ?? "";
-                                final isLiked = communityController.userVotedPosts.contains(postId);
+                                final isLiked = communityController
+                                    .userVotedPosts
+                                    .contains(postId);
                                 return CommonCommunityWidget(
                                   profileTitle: post.author?.fullName ?? '...',
                                   profileSubtitle: DateConverter.formattedTime(
@@ -110,23 +111,39 @@ class CommunityAllFeedScreen extends StatelessWidget {
                                   profileImage: AppConstants.unknown,
                                   postImages: post.postImages ?? [],
                                   postText: post.content ?? "",
-                                  onTapProfile: () => Get.to(() => ProfileScreen()),
-                                  onTapImageShow: () => Get.to(() => CommunityImageShowScreen()),
+                                  onTapProfile:
+                                      () => Get.to(() => ProfileScreen()),
+                                  onTapImageShow:
+                                      () => Get.to(
+                                        () => CommunityImageShowScreen(),
+                                      ),
                                   favouriteWidget: Row(
                                     children: [
                                       IconButton(
-                                        onPressed: () => communityController.addVote(postId),
+                                        onPressed:
+                                            () => communityController.addVote(
+                                              postId,
+                                            ),
                                         icon: Icon(
-                                          isLiked ? Icons.favorite : Icons.favorite_border,
+                                          isLiked
+                                              ? Icons.favorite
+                                              : Icons.favorite_border,
                                           color: AppColors.red,
                                           size: 20.w,
                                         ),
                                       ),
                                       SizedBox(width: 4.w),
-                                      CustomText(text: "${post.totalVotes ?? 0}"),
+                                      CustomText(
+                                        text: "${post.totalVotes ?? 0}",
+                                      ),
                                     ],
                                   ),
-                                  onTapComment: () => Get.to(() => CommentScreen(postId: post.id ?? '')),
+                                  onTapComment:
+                                      () => Get.to(
+                                        () => CommentScreen(
+                                          postId: post.id ?? '',
+                                        ),
+                                      ),
                                   commentsText: "${post.totalComments ?? 0}",
                                   myPost: false,
                                   index: index,
@@ -139,23 +156,18 @@ class CommunityAllFeedScreen extends StatelessWidget {
                       ),
                   ],
 
-
-
-
-
-
                   if (tabController.communityTabIndex.value == 1) ...[
-
-                    if (postController.isLoadingAllPost.value)
+                    if (postController.isLoadingPost.value)
                       const PostShimmerLoader()
-                    else if (postController.allPostList.isEmpty)
+                    else if (postController.myPostList.isEmpty)
                       Center(
                         child: Padding(
                           padding: EdgeInsets.symmetric(vertical: 50.h),
                           child: CustomText(text: "No posts available"),
                         ),
                       )
-                    else    ListView.builder(
+                    else
+                      ListView.builder(
                         physics: const BouncingScrollPhysics(),
                         scrollDirection: Axis.vertical,
                         shrinkWrap: true,
@@ -181,8 +193,8 @@ class CommunityAllFeedScreen extends StatelessWidget {
                                   final totalLikes =
                                       communityController
                                           .votesNumberPerPost[postId] ??
-                                          myPost.totalVotes ??
-                                          000;
+                                      myPost.totalVotes ??
+                                      000;
 
                                   return Row(
                                     children: [
@@ -213,7 +225,8 @@ class CommunityAllFeedScreen extends StatelessWidget {
                                 /// COMMENT
                                 onTapComment: () {
                                   Get.to(
-                                        () => CommentScreen(postId: myPost.id ?? ''),
+                                    () =>
+                                        CommentScreen(postId: myPost.id ?? ''),
                                   );
                                 },
 
@@ -222,7 +235,7 @@ class CommunityAllFeedScreen extends StatelessWidget {
                                   final postId = myPost.id;
                                   if (postId != null && content != null) {
                                     Get.to(
-                                          () => UpdatePostScreen(
+                                      () => UpdatePostScreen(
                                         postId: postId,
                                         content: content,
                                       ),
@@ -241,165 +254,7 @@ class CommunityAllFeedScreen extends StatelessWidget {
                           );
                         },
                       ),
-
-
                   ],
-
-                  ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-                  // /// POST LIST
-                  // ListView.builder(
-                  //   physics: const BouncingScrollPhysics(),
-                  //   scrollDirection: Axis.vertical,
-                  //   shrinkWrap: true,
-                  //   itemCount:
-                  //       tabController.communityTabIndex.value == 0
-                  //           ? postController.allPostList.length
-                  //           : postController.myPostList.length,
-                  //   itemBuilder: (context, index) {
-                  //     /// ----------------------------------
-                  //     /// TAB: ALL POST (index = 0)
-                  //     /// ----------------------------------
-                  //     if (tabController.communityTabIndex.value == 0) {
-                  //       final post = postController.allPostList[index];
-                  //
-                  //       return Column(
-                  //         children: [
-                  //           CommonCommunityWidget(
-                  //             // Favourite widget
-                  //             favouriteWidget: Obx(() {
-                  //               final postId = post.sId!;
-                  //               final isLiked = communityController.userVotedPosts.contains(postId);
-                  //            return Row(
-                  //                 children: [
-                  //                   IconButton(
-                  //                     onPressed: () {
-                  //                       communityController.addVote(postId);
-                  //                     },
-                  //                     icon: Icon(
-                  //                       isLiked ? Icons.favorite : Icons.favorite_border,
-                  //                       color: AppColors.red,
-                  //                       size: 20.w,
-                  //                     ),
-                  //                   ),
-                  //                   SizedBox(width: 4.w),
-                  //                   CustomText(text:"${post.totalVotes ?? 00}",),
-                  //                 ],
-                  //               );
-                  //             }),
-                  //
-                  //
-                  //
-                  //             onTapImageShow: () {
-                  //               Get.to(() => CommunityImageShowScreen());
-                  //             },
-                  //             onTapProfile: () {
-                  //               Get.to(() => ProfileScreen());
-                  //             },
-                  //
-                  //             profileTitle: post.author?.fullName ?? 'Unknown',
-                  //             profileSubtitle: DateConverter.formattedTime(
-                  //               DateTime.parse(
-                  //                 post.createdAt ?? DateTime.now().toString(),
-                  //               ),
-                  //             ),
-                  //             profileImage:
-                  //                 post.author?.profileImage ??
-                  //                 AppImages.profileManImage,
-                  //             postText: post.content ?? "",
-                  //             commentsText: "${post.totalComments ?? 00}",
-                  //             myPost: false,
-                  //             index: index,
-                  //
-                  //             /// COMMENT NAVIGATION
-                  //             onTapComment: () {
-                  //               Get.to(
-                  //                 () => CommentScreen(postId: post.sId ?? ''),
-                  //               );
-                  //             },
-                  //           ),
-                  //           SizedBox(height: 8.h),
-                  //         ],
-                  //       );
-                  //     }
-                  //     /// ----------------------------------
-                  //     /// TAB: MY POST (index = 1)
-                  //     /// ----------------------------------
-                  //     else {
-                  //       final myPost = postController.myPostList[index];
-                  //
-                  //       return Column(
-                  //         children: [
-                  //           CommonCommunityWidget(
-                  //             profileTitle: "@You",
-                  //             profileSubtitle: DateConverter.formattedTime(
-                  //               DateTime.now(),
-                  //             ),
-                  //             profileImage: AppImages.profileManImage,
-                  //             postText: myPost.content.toString(),
-                  //             favouriteWidget: Obx(() {
-                  //               final postId = myPost.id;
-                  //               final isLiked = communityController.userVotedPosts.contains(postId);
-                  //               final totalLikes =
-                  //                   communityController.votesNumberPerPost[postId] ?? myPost.totalVotes ?? 0;
-                  //
-                  //               return Row(
-                  //                 children: [
-                  //                   IconButton(
-                  //                     onPressed: () {
-                  //                       communityController.addVote(myPost.id.toString());
-                  //                     },
-                  //                     icon: Icon(
-                  //                       isLiked ? Icons.favorite : Icons.favorite_border,
-                  //                       color: AppColors.red,
-                  //                       size: 20.w,
-                  //                     ),
-                  //                   ),
-                  //                   SizedBox(width: 4.w),
-                  //                   CustomText(text: totalLikes.toString()),
-                  //                 ],
-                  //               );
-                  //             }),
-                  //
-                  //             commentsText: "0",
-                  //             myPost: true,
-                  //             index: index,
-                  //
-                  //             /// COMMENT
-                  //             onTapComment: () {
-                  //               final postId = myPost.id;
-                  //               if (postId != null) {
-                  //                 Get.to(() => CommentScreen(postId: postId));
-                  //               }
-                  //             },
-                  //
-                  //             onTapUpdate: () {
-                  //                final content=myPost.content;
-                  //               final postId = myPost.id;
-                  //               if (postId != null && content != null) {
-                  //                 Get.to(() => UpdatePostScreen(postId: postId,content: content,));
-                  //               }
-                  //               // Get.to(
-                  //               //   () => UpdatePostScreen(),
-                  //               //   arguments: {
-                  //               //     "id": myPost.id,
-                  //               //     "content": myPost.content,
-                  //               //   },
-                  //               // );
-                  //             },
-                  //             onTapImageShow: () {
-                  //               Get.to(() => CommunityImageShowScreen());
-                  //             },
-                  //             onTapProfile: () {
-                  //               Get.to(() => ProfileScreen());
-                  //             },
-                  //           ),
-                  //           SizedBox(height: 8.h),
-                  //         ],
-                  //       );
-                  //     }
-                  //   },
-                  // ),
                 ],
               );
             }),
