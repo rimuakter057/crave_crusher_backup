@@ -34,12 +34,12 @@ class CommunityAllFeedScreen extends StatelessWidget {
     tabController.communityTabIndex.listen((index) {
       if (index == 0) {
         postController.fetchAllPosts();
-      } else if  (index == 1){
+      } else if (index == 1) {
         postController.fetchMyPost();
       }
     });
 
-    final postId = postController.allPostList.map((e) => e.sId!).toString();
+    final postId = postController.allPostList.map((e) => e.id??'').toString();
 
     // Load posts and votes once
     if (postController.allPostList.isEmpty) {
@@ -86,31 +86,30 @@ class CommunityAllFeedScreen extends StatelessWidget {
                         final post = postController.allPostList[index];
                         return Column(
                           children: [
-                            CommonCommunityWidget(
-                              profileTitle: post.author?.fullName ?? '...',
-                              profileSubtitle: DateConverter.formattedTime(
-                                DateTime.parse(
-                                  post.createdAt ?? DateTime.now().toString(),
+                            Obx(() {
+                              final postId = post.id??"";
+                              final isLiked = communityController.userVotedPosts
+                                  .contains(postId);
+                              return CommonCommunityWidget(
+                                profileTitle: post.author?.fullName ?? '...',
+                                profileSubtitle: DateConverter.formattedTime(
+
+                                    post.createdAt ?? DateTime.now() ,
+
                                 ),
-                              ),
-                              onTapProfile: () {
-                                Get.to(() => ProfileScreen());
-                              },
-                              profileImage: AppConstants.unknown,
-                              postImages: post.postImages ?? [], // <-- pass images from API
+                                onTapProfile: () {
+                                  Get.to(() => ProfileScreen());
+                                },
+                                profileImage: AppConstants.unknown,
+                                postImages:
+                                    post.postImages ??
+                                    [], // <-- pass images from API
 
-
-
-                              onTapImageShow: () {
-                                Get.to(() => CommunityImageShowScreen());
-                              },
-                              postText: post.content ?? "",
-                              favouriteWidget: Obx(() {
-                                final postId = post.sId!;
-                                final isLiked = communityController
-                                    .userVotedPosts
-                                    .contains(postId);
-                                return Row(
+                                onTapImageShow: () {
+                                  Get.to(() => CommunityImageShowScreen());
+                                },
+                                postText: post.content ?? "",
+                                favouriteWidget: Row(
                                   children: [
                                     IconButton(
                                       onPressed: () {
@@ -129,19 +128,20 @@ class CommunityAllFeedScreen extends StatelessWidget {
                                       text: "${post.totalVotes ?? 00}",
                                     ),
                                   ],
-                                );
-                              }),
-                              commentsText: "${post.totalComments ?? 00}",
-                              myPost: false,
-                              index: 2,
+                                ),
+                                onTapComment: () {
+                                  Get.to(
+                                    () => CommentScreen(postId: post.id ?? ''),
+                                  );
+                                },
 
-                              /// COMMENT NAVIGATION
-                              onTapComment: () {
-                                Get.to(
-                                  () => CommentScreen(postId: post.sId ?? ''),
-                                );
-                              },
-                            ),
+                                commentsText: "${post.totalComments ?? 00}",
+                                myPost: false,
+                                index: 2,
+
+                                /// COMMENT NAVIGATION
+                              );
+                            }),
                             SizedBox(height: 8.h),
                           ],
                         );
@@ -160,8 +160,7 @@ class CommunityAllFeedScreen extends StatelessWidget {
                         return Column(
                           children: [
                             CommonCommunityWidget(
-
-                              profileTitle: "@You",
+                              profileTitle: "unknown",
                               profileSubtitle: DateConverter.formattedTime(
                                 DateTime.now(),
                               ),

@@ -43,7 +43,7 @@ class MyProfileScreen extends StatelessWidget {
               children: [
                 Gap(8.h),
                 Center(
-                  child: ProfileAvatarWidget(imagePath: AppConstants.unknown),
+                  child: ProfileAvatarWidget(imagePath: profile.profileImage??''),
                 ),
                 Gap(24.h),
                 // Name

@@ -11,11 +11,11 @@ import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 
 class ProfileController extends GetxController {
-
-
   ///profile image show =================================================================image picker==============================================
 
-  RxString profileImagePath = ImageHandler.imagesHandle(null, isProfile: true).obs;
+  //RxString? profileImagePath;
+  Rx<File?> profileImageFile = Rx<File?>(null);
+
 
   final ImagePicker _picker = ImagePicker();
 
@@ -23,19 +23,17 @@ class ProfileController extends GetxController {
     final pickedFile = await _picker.pickImage(source: ImageSource.gallery);
 
     if (pickedFile != null) {
-      profileImagePath.value = pickedFile.path; // reactive update
+     // profileImagePath?.value = pickedFile.path; // reactive update
+
+      profileImageFile.value = File(pickedFile.path);
+
     }
   }
-
-
 
   ///update profile==================================================================Patch Methode=======================================
   Rx<Status> updateProfileStatus = Status.loading.obs;
   var isLoadingUpdateProfile = false.obs;
 
-
-
-  //
   // Future<void> updatePost(String name) async {
   //   isLoadingUpdateProfile(true);
   //
@@ -83,24 +81,27 @@ class ProfileController extends GetxController {
   //     isLoadingUpdateProfile(false);
   //   }
   // }
-  //
-  //
-  //
 
-
-
-  Future<void> updatePost( String name,) async {
+  Future<void> updateProfile(String name) async {
     isLoadingUpdateProfile(true);
     final body = {"fullName": name};
 
-    final response = await ApiClient.patchData(
-      ApiUrl.updateProfile,
-      body,
-      isJson: true,
-    );
+    final response =
+        profileImageFile.value == null
+            ? await ApiClient.patchData(
+              ApiUrl.updateProfile,
+              body,
+              isJson: true,
+            )
+            : await ApiClient.patchMultipartData(ApiUrl.updateProfile, body, multipartBody: [
+              MultipartBodyPost(
+                "profileImage",
+                 profileImageFile.value!,
+              ),
+        ]);
     isLoadingUpdateProfile(false);
     if (response.statusCode == 200 || response.statusCode == 201) {
-      showCustomSnackBar("Profile updated successfully", isError:  false);
+      showCustomSnackBar("Profile updated successfully", isError: false);
 
       fetchMyProfile();
 
@@ -112,13 +113,6 @@ class ProfileController extends GetxController {
       //  return false;
     }
   }
-
-
-
-
-
-
-
 
   /// my profile controller
   var isLoadingMyProfile = false.obs;

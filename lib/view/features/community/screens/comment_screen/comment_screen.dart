@@ -6,6 +6,7 @@ import 'package:crave_crusher/view/components/common_profile/avater_widget.dart'
 import 'package:crave_crusher/view/components/custom_container/custom_container.dart';
 import 'package:crave_crusher/view/components/custom_image/custom_image.dart';
 import 'package:crave_crusher/view/components/custom_text/custom_text.dart';
+import 'package:crave_crusher/view/components/custom_text_field/custom_text_field.dart';
 import 'package:crave_crusher/view/features/community/controllers/community_controller.dart';
 import 'package:crave_crusher/view/features/community/screens/comment_screen/widgets/comment_widget.dart';
 import 'package:flutter/material.dart';
@@ -80,43 +81,44 @@ class _CommentScreenState extends State<CommentScreen> {
                   child: Obx(
                         () => CustomContainer(
                       width: double.infinity,
-                      height: 150.h,
+
                       backgroundColor: Colors.blue.shade50,
                       borderColor: AppColors.primary,
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+
                         children: [
                           // Profile row
-                          Row(
-                            children: [
-                              ProfileAvatarWidget(
-                                imagePath: AppConstants.unknown,
-                                heightA: 25.h,
-                                widthA: 25.w,
-                              ),
-                              Gap(4.w),
-                              CustomText(text: "@ Sheena", fontSize: 14),
-                            ],
+                          SizedBox(
+                            height:38.h,
+                            child: Row(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                ProfileAvatarWidget(
+                                  imagePath: AppConstants.unknown,
+                                  heightA: 35.h,
+                                  widthA: 35.w,
+                                ),
+
+                                CustomText(text: "@ Sheena", fontSize: 18),
+                              ],
+                            ),
                           ),
                           // Comment input
-                          SizedBox(
-                            height: 60.h,
-                            child: TextField(
-                              maxLines: 2,
-                              controller: _controller,
-                              onChanged: (val) =>
-                              commentController.commentText.value = val,
-                              decoration: InputDecoration(
-                                contentPadding: EdgeInsets.symmetric(
-                                    horizontal: 8.w, vertical: 8.h),
-                                border: OutlineInputBorder(
-                                  borderSide: BorderSide.none,
-                                ),
+                          TextField(
+                            maxLines: 2,
+                            controller: _controller,
+                            onChanged: (val) =>
+                            commentController.commentText.value = val,
+                            decoration: InputDecoration(
+                              contentPadding: EdgeInsets.symmetric(
+                                  horizontal: 8.w, vertical: 8.h),
+                              border: OutlineInputBorder(
+                                borderSide: BorderSide.none,
                               ),
                             ),
                           ),
-                          // Send button
+                          /// Send button
                           GestureDetector(
                             onTap: commentController.isLoadingSend.value
                                 ? null

@@ -12,7 +12,11 @@ import 'package:get/get.dart';
 import 'package:gap/gap.dart';
 
 class EditProfileScreens extends StatefulWidget {
-  const EditProfileScreens({super.key, required this.name, required this.email});
+  const EditProfileScreens({
+    super.key,
+    required this.name,
+    required this.email,
+  });
 
   final String name;
   final String email;
@@ -36,6 +40,13 @@ class _EditProfileScreensState extends State<EditProfileScreens> {
   }
 
   @override
+  void dispose() {
+    // T ODO: implement dispose
+    controller.profileImageFile.value== null;
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: CustomLeadingTitleAppbar(title: "Edit Profile"),
@@ -49,12 +60,16 @@ class _EditProfileScreensState extends State<EditProfileScreens> {
             /// Profile Image Picker
             Center(
               child: Obx(
-                    () => ProfileAvatarWidget(
-                  imagePath: controller.profileImagePath.value,
+                () => ProfileAvatarWidget(
+                  imagePath:
+                      controller.profileImageFile.value == null
+                          ? controller.myProfile.value?.profileImage ?? ''
+                          : controller.profileImageFile.value?.path ?? '',
                   heightA: 100.h,
                   widthA: 100.w,
                   enableEdit: true,
                   onEdit: controller.pickImageFromGallery,
+                  isFile: controller.profileImageFile.value == null? false:true,
                 ),
               ),
             ),
@@ -84,7 +99,7 @@ class _EditProfileScreensState extends State<EditProfileScreens> {
             GestureDetector(
               onTap: () {
                 /// Call update API
-                controller.updatePost(nameController.text);
+                controller.updateProfile(nameController.text);
               },
               child: CustomContainer(
                 backgroundColor: AppColors.primary,
@@ -92,10 +107,7 @@ class _EditProfileScreensState extends State<EditProfileScreens> {
                 height: 36.h,
                 width: 140.w,
                 child: Center(
-                  child: CustomText(
-                    text: "Update",
-                    color: AppColors.white,
-                  ),
+                  child: CustomText(text: "Update", color: AppColors.white),
                 ),
               ),
             ),

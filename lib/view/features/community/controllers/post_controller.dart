@@ -15,7 +15,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 class PostController extends GetxController {
 
   /// get all post ==============================================================================Get Method====================
-  var allPostList = <Data>[].obs;
+  RxList<PostModel> allPostList = <PostModel>[].obs;
   var isLoadingAllPost = false.obs;
   static final Logger logger = Logger();
 
@@ -28,7 +28,7 @@ class PostController extends GetxController {
 
       if (response.statusCode == 200 && response.body['data'] != null) {
         var postList = (response.body['data'] as List)
-            .map((e) => Data.fromJson(e))
+            .map((e) => PostModel.fromJson(e))
             .toList();
         allPostList.value = postList;
       } else {
