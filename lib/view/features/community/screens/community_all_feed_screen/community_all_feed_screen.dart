@@ -237,15 +237,19 @@ class CommunityAllFeedScreen extends StatelessWidget {
                                          CommentScreen(postId: myPost.id ?? ''),
                                    );
                                  },
-
                                  onTapUpdate: () {
                                    final content = myPost.content;
                                    final postId = myPost.id;
-                                   if (postId != null && content != null) {
+                                   if (postId != null && content != null) {  
+                                     PostUpdateModel model = PostUpdateModel(postId: postId, content: content,
+                                        // images: myPost.postImages ?? []
+                                     );
+                                     
                                      Get.to(
-                                           () => UpdatePostScreen(
-                                         postId: postId,
-                                         content: content,
+                                           () => UpdatePostScreen( 
+                                         updatePostData: model,
+                                              
+                                              // images:myPost.postImages ?? []
                                        ),
                                      );
                                    }

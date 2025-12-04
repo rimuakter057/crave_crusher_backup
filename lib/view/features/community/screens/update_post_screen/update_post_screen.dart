@@ -16,9 +16,14 @@ import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class UpdatePostScreen extends StatefulWidget {
-  const UpdatePostScreen({super.key, required this.postId, required this.content});
-final String postId;
-final String content;
+  const UpdatePostScreen({
+    super.key,
+    required this.updatePostData,
+  });
+  // final String postId;
+  // final String content;
+
+  final PostUpdateModel updatePostData;
   @override
   State<UpdatePostScreen> createState() => _UpdatePostScreenState();
 }
@@ -38,16 +43,18 @@ class _UpdatePostScreenState extends State<UpdatePostScreen> {
   @override
   void initState() {
     super.initState();
-    debugPrint("postId==================================${widget.postId}");
-    contentController.text =widget.content;
-  }
+    debugPrint("postId==================================${widget.updatePostData.postId}");
+    contentController.text = widget.updatePostData.content;
 
+
+    //debugPrint("images==================================${widget.updatePostData.images}");
+  }
 
   @override
   Widget build(BuildContext context) {
-
     double screenWidth = MediaQuery.of(context).size.width;
-    double itemWidth = (screenWidth - 16.w - 16.w - 8.w * 2) / 3; // 3 item fixed
+    double itemWidth =
+        (screenWidth - 16.w - 16.w - 8.w * 2) / 3; // 3 item fixed
 
     return Scaffold(
       appBar: AppBar(
@@ -80,7 +87,6 @@ class _UpdatePostScreenState extends State<UpdatePostScreen> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-
               /// write comment
               CustomText(
                 text: "What’s on your mind today?",
@@ -89,19 +95,17 @@ class _UpdatePostScreenState extends State<UpdatePostScreen> {
               ),
               Gap(8.h),
 
-
               CustomTextField(
                 cursorColor: AppColors.black,
                 maxLines: 4,
                 textEditingController: contentController,
                 hintText: "Share your progress, thoughts, or a victory moment…",
-                  hintStyle: GoogleFonts.syne(
-                    color: AppColors.black.withOpacity(0.5),
-                           fontSize: 14.sp,
-                  ),
+                hintStyle: GoogleFonts.syne(
+                  color: AppColors.black.withOpacity(0.5),
+                  fontSize: 14.sp,
+                ),
                 fillColor: AppColors.subPrimary.withOpacity(.5),
               ),
-
 
               Gap(24.h),
 
@@ -119,7 +123,7 @@ class _UpdatePostScreenState extends State<UpdatePostScreen> {
                 runSpacing: 8.h,
                 children: List.generate(
                   images.length,
-                      (index) => _buildImageItem(images[index], itemWidth),
+                  (index) => _buildImageItem(images[index], itemWidth),
                 ),
               ),
 
@@ -131,16 +135,13 @@ class _UpdatePostScreenState extends State<UpdatePostScreen> {
                 width: double.infinity,
                 height: 120.h,
                 backgroundColor: AppColors.subPrimary.withOpacity(.5),
-                child: Center(
-                    child: CustomImage(imageSrc: AppIcons.addImage)),
+                child: Center(child: CustomImage(imageSrc: AppIcons.addImage)),
               ),
 
               Gap(16.h),
 
               /// post button
-
-
-              Obx((){
+              Obx(() {
                 return GestureDetector(
                   onTap: () async {
                     if (contentController.text.isEmpty) {
@@ -148,34 +149,31 @@ class _UpdatePostScreenState extends State<UpdatePostScreen> {
                       return;
                     }
                     final isUpdated = await communityController.updatePost(
-                      widget.postId,
-                     contentController.text,
+                      widget.updatePostData.postId,
+                      contentController.text,
                     );
                     // if (isUpdated) {
                     //   Get.to(()=>CommunityAllFeedScreen());
                     // }
                   },
-                  child:communityController.isLoadingUpdate.value
-                      ? CustomLoader()
-                      : CustomContainer(
-                    backgroundColor: AppColors.primary,
-                    padding: 4,
-                    height: 45.h,
-                    width: 140.w,
-                    child: Center(
-                      child: CustomText(
-                        text: "Update Post",
-                        color: AppColors.white,
-                        fontSize: 18,
-                      ),
-                    ),
-                  ),
+                  child:
+                      communityController.isLoadingUpdate.value
+                          ? CustomLoader()
+                          : CustomContainer(
+                            backgroundColor: AppColors.primary,
+                            padding: 4,
+                            height: 45.h,
+                            width: 140.w,
+                            child: Center(
+                              child: CustomText(
+                                text: "Update Post",
+                                color: AppColors.white,
+                                fontSize: 18,
+                              ),
+                            ),
+                          ),
                 );
-              })
-
-
-
-
+              }),
             ],
           ),
         ),
@@ -189,11 +187,7 @@ class _UpdatePostScreenState extends State<UpdatePostScreen> {
       children: [
         ClipRRect(
           borderRadius: BorderRadius.circular(12),
-          child: CustomImage(
-            imageSrc: img,
-            height: size,
-            width: size,
-          ),
+          child: CustomImage(imageSrc: img, height: size, width: size),
         ),
 
         Positioned(
@@ -214,4 +208,16 @@ class _UpdatePostScreenState extends State<UpdatePostScreen> {
       ],
     );
   }
+}
+
+class PostUpdateModel {
+  final String postId;
+  final String content;
+  //final List<String> images;
+
+  PostUpdateModel({
+    required this.postId,
+    required this.content,
+    //required this.images,
+  });
 }

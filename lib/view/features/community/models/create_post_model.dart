@@ -7,6 +7,10 @@ class CreatePostModel {
   bool? isDeleted;
   String? postId;         // post _id
 
+
+
+
+
   CreatePostModel({
     this.authorId,
     this.content,

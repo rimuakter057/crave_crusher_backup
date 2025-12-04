@@ -19,8 +19,7 @@ class CreatePostScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // Set initial text for controller
-    //textController.text = controller.postText.value;
+
 
     return Scaffold(
       appBar: AppBar(

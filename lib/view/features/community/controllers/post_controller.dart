@@ -147,30 +147,6 @@ class PostController extends GetxController {
   }
 
 
-  ///get my post==================================================================================Get Method====================
-  // Rx<Status> myPostStatus = Status.loading.obs;
-  // var isLoadingPost = false.obs;
-  // RxList<MyPostModel> myPostList = <MyPostModel>[].obs;
-  //
-  // Future<void> fetchMyPost() async {
-  //   isLoadingPost.value = true;
-  //   final response = await ApiClient.getData(ApiUrl.getMyPost);
-  //   isLoadingPost.value = false;
-  //   if (response.statusCode == 200 || response.statusCode == 201) {
-  //     myPostList.value =
-  //         (response.body['data'] as List)
-  //             .map((x) => MyPostModel.fromJson(x))
-  //             .toList();
-  //
-  //     myPostStatus(Status.completed);
-  //   } else {
-  //     myPostList.clear();
-  //     myPostStatus(Status.error);
-  //     ApiChecker.checkApi(response);
-  //   }
-  // }
-
-
 
 
 
@@ -205,23 +181,21 @@ class PostController extends GetxController {
   }
 
 
-// allPostList= getMyPostList
-
-  // postList= myPostList
-  // fetchAllPosts    =fetchMyPost
-// isLoadingAllPost =    isLoadingPost
-
-
-
 
 
   ///update post==================================================================Patch Methode=======================================
   Rx<Status> updatePostStatus = Status.loading.obs;
   var isLoadingUpdate = false.obs;
 
+ // RxList<String> deleteImages = <String>[].obs;
+
+
+
   Future<void> updatePost(String postId, String content) async {
     isLoadingUpdate(true);
-    final body = {"content": content};
+    final body = {"content": content, //"deleted_images" : deleteImages,
+
+    };
 
     final response = await ApiClient.patchData(
       ApiUrl.updatePost(postId),
