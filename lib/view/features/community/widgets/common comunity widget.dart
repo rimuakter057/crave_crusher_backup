@@ -97,7 +97,7 @@ class _CommonCommunityWidgetState extends State<CommonCommunityWidget> {
             ],
           ),
 
-          Gap(16.h),
+         // Gap(4.h),
 
           /// Image Section
       GestureDetector(
@@ -109,7 +109,7 @@ class _CommonCommunityWidgetState extends State<CommonCommunityWidget> {
             ),
 
 
-          Gap(24.h),
+          Gap(4.h),
 
           /// Text Section
           CustomText(

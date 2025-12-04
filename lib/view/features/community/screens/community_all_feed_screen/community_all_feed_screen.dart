@@ -40,7 +40,7 @@ class CommunityAllFeedScreen extends StatelessWidget {
       }
     });
 
-    // final postId = postController.allPostList.map((e) => e.id??'').toString();
+
 
     // Load posts and votes once
     if (postController.allPostList.isEmpty) {
@@ -103,27 +103,27 @@ class CommunityAllFeedScreen extends StatelessWidget {
                                 final isLiked = communityController
                                     .userVotedPosts
                                     .contains(postId);
+                                final totalLikes =
+                                    communityController
+                                        .votesNumberPerPost[postId] ??
+                                        post.totalVotes ??
+                                        000;
+
                                 return CommonCommunityWidget(
                                   profileTitle: post.author?.fullName ?? '...',
                                   profileSubtitle: DateConverter.formattedTime(
                                     post.createdAt ?? DateTime.now(),
                                   ),
-                                  profileImage: AppConstants.unknown,
                                   postImages: post.postImages ?? [],
                                   postText: post.content ?? "",
-                                  onTapProfile:
-                                      () => Get.to(() => ProfileScreen()),
-                                  onTapImageShow:
-                                      () => Get.to(
-                                        () => CommunityImageShowScreen(),
-                                      ),
+                                  commentsText: "${post.totalComments ?? 0}",
                                   favouriteWidget: Row(
                                     children: [
                                       IconButton(
                                         onPressed:
                                             () => communityController.addVote(
-                                              postId,
-                                            ),
+                                          postId,
+                                        ),
                                         icon: Icon(
                                           isLiked
                                               ? Icons.favorite
@@ -134,17 +134,25 @@ class CommunityAllFeedScreen extends StatelessWidget {
                                       ),
                                       SizedBox(width: 4.w),
                                       CustomText(
-                                        text: "${post.totalVotes ?? 0}",
+                                        text: "$totalLikes",
                                       ),
                                     ],
                                   ),
+                                  profileImage: AppConstants.unknown,
+                                  onTapProfile:
+                                      () => Get.to(() => ProfileScreen()),
+                                  onTapImageShow:
+                                      () => Get.to(
+                                        () => CommunityImageShowScreen(),
+                                      ),
+
                                   onTapComment:
                                       () => Get.to(
                                         () => CommentScreen(
                                           postId: post.id ?? '',
                                         ),
                                       ),
-                                  commentsText: "${post.totalComments ?? 0}",
+
                                   myPost: false,
                                   index: index,
                                 );
@@ -159,7 +167,7 @@ class CommunityAllFeedScreen extends StatelessWidget {
                   if (tabController.communityTabIndex.value == 1) ...[
                     if (postController.isLoadingPost.value)
                       const PostShimmerLoader()
-                    else if (postController.myPostList.isEmpty)
+                    else if (postController.getMyPostList.isEmpty)
                       Center(
                         child: Padding(
                           padding: EdgeInsets.symmetric(vertical: 50.h),
@@ -171,14 +179,14 @@ class CommunityAllFeedScreen extends StatelessWidget {
                         physics: const BouncingScrollPhysics(),
                         scrollDirection: Axis.vertical,
                         shrinkWrap: true,
-                        itemCount: postController.myPostList.length,
+                        itemCount: postController.getMyPostList.length,
                         itemBuilder: (context, index) {
-                          final myPost = postController.myPostList[index];
+                          final myPost = postController.getMyPostList[index];
 
                           return Column(
                             children: [
                              Obx((){
-                               final postId = myPost.id;
+                               final postId = myPost.id??'';
                                final isLiked = communityController
                                    .userVotedPosts
                                    .contains(postId);
@@ -189,51 +197,36 @@ class CommunityAllFeedScreen extends StatelessWidget {
                                        myPost.totalVotes ??
                                        000;
 
-                               return                             CommonCommunityWidget(
-                                 profileTitle: myPost.totalVotes.toString(),
+                               return   CommonCommunityWidget(
+                                 profileTitle: myPost.author?.fullName ?? '...',
                                  profileSubtitle: DateConverter.formattedTime(
-                                   DateTime.now(),
+                                   myPost.createdAt ?? DateTime.now(),
                                  ),
                                  profileImage: AppConstants.unknown,
                                  postImages: myPost.postImages ?? [],
-                                 postText: myPost.content.toString(),
-                                 favouriteWidget:
-
-
-                                   Row(
-                                     children: [
-                                       IconButton(
-                                         onPressed: () {
-                                           communityController.addVote(
-                                             myPost.id.toString(),
-                                           );
-                                         },
-                                         icon: Icon(
-                                           isLiked
-                                               ? Icons.favorite
-                                               : Icons.favorite_border,
-                                           color: AppColors.red,
-                                           size: 20.w,
-                                         ),
+                                 postText: myPost.content ?? "",
+                                 commentsText: "${myPost.totalComments ?? 0}",
+                                 favouriteWidget: Row(
+                                   children: [
+                                     IconButton(
+                                       onPressed:
+                                           () => communityController.addVote(
+                                         postId,
                                        ),
-                                       SizedBox(width: 4.w),
-                                       CustomText(text: totalLikes.toString()),
-                                     ],
-                                   ),
-
-
-
-
-
-
-
-
-
-
-
-
-
-                                 commentsText: myPost.totalComments.toString(),
+                                       icon: Icon(
+                                         isLiked
+                                             ? Icons.favorite
+                                             : Icons.favorite_border,
+                                         color: AppColors.red,
+                                         size: 20.w,
+                                       ),
+                                     ),
+                                     SizedBox(width: 4.w),
+                                     CustomText(
+                                       text: "$totalLikes",
+                                     ),
+                                   ],
+                                 ),
                                  myPost: true,
                                  index: index,
 

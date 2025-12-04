@@ -148,27 +148,72 @@ class PostController extends GetxController {
 
 
   ///get my post==================================================================================Get Method====================
-  Rx<Status> myPostStatus = Status.loading.obs;
+  // Rx<Status> myPostStatus = Status.loading.obs;
+  // var isLoadingPost = false.obs;
+  // RxList<MyPostModel> myPostList = <MyPostModel>[].obs;
+  //
+  // Future<void> fetchMyPost() async {
+  //   isLoadingPost.value = true;
+  //   final response = await ApiClient.getData(ApiUrl.getMyPost);
+  //   isLoadingPost.value = false;
+  //   if (response.statusCode == 200 || response.statusCode == 201) {
+  //     myPostList.value =
+  //         (response.body['data'] as List)
+  //             .map((x) => MyPostModel.fromJson(x))
+  //             .toList();
+  //
+  //     myPostStatus(Status.completed);
+  //   } else {
+  //     myPostList.clear();
+  //     myPostStatus(Status.error);
+  //     ApiChecker.checkApi(response);
+  //   }
+  // }
+
+
+
+
+
+
+
+  /// get all post ==============================================================================Get Method====================
+  RxList<PostModel> getMyPostList = <PostModel>[].obs;
   var isLoadingPost = false.obs;
-  RxList<MyPostModel> myPostList = <MyPostModel>[].obs;
+
 
   Future<void> fetchMyPost() async {
-    isLoadingPost.value = true;
-    final response = await ApiClient.getData(ApiUrl.getMyPost);
-    isLoadingPost.value = false;
-    if (response.statusCode == 200 || response.statusCode == 201) {
-      myPostList.value =
-          (response.body['data'] as List)
-              .map((x) => MyPostModel.fromJson(x))
-              .toList();
+    try {
+      isLoadingPost.value = true;
 
-      myPostStatus(Status.completed);
-    } else {
-      myPostList.clear();
-      myPostStatus(Status.error);
-      ApiChecker.checkApi(response);
+      final response = await ApiClient.getData(ApiUrl.getMyPost);
+
+
+      if (response.statusCode == 200 && response.body['data'] != null) {
+        var myPostList = (response.body['data'] as List)
+            .map((e) => PostModel.fromJson(e))
+            .toList();
+        getMyPostList.value = myPostList;
+      } else {
+        getMyPostList.clear();
+      }
+    } catch (e) {
+      getMyPostList.clear();
+      Logger().e("Fetch posts error: $e");
+    } finally {
+      isLoadingPost.value = false;
     }
   }
+
+
+// allPostList= getMyPostList
+
+  // postList= myPostList
+  // fetchAllPosts    =fetchMyPost
+// isLoadingAllPost =    isLoadingPost
+
+
+
+
 
   ///update post==================================================================Patch Methode=======================================
   Rx<Status> updatePostStatus = Status.loading.obs;

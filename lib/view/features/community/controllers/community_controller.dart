@@ -3,6 +3,7 @@ import 'package:crave_crusher/service/api_check.dart';
 import 'package:crave_crusher/service/api_client.dart';
 import 'package:crave_crusher/service/api_url.dart';
 import 'package:crave_crusher/utils/app_const/app_const.dart';
+import 'package:crave_crusher/view/features/community/controllers/post_controller.dart';
 import 'package:crave_crusher/view/features/community/models/vote_model.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -12,7 +13,7 @@ import 'package:logger/logger.dart';
 import '../models/comment_model.dart';
 
 class CommunityController extends GetxController {
-
+  final PostController postController = Get.find<PostController>();
   ///create comment section=============================================Post Method============================================
   var commentText = ''.obs;
   var isLoadingSend = false.obs;
@@ -45,7 +46,9 @@ class CommunityController extends GetxController {
   }
 
   /// Create a comment and update list instantly=======================================================================
-  Future<bool> createComment(String postId) async {
+
+
+  Future<bool> createComment(String postId,{required bool allFeed}) async {
     if (!validateComment()) return false;
 
     isLoadingSend.value = true;
@@ -72,8 +75,15 @@ class CommunityController extends GetxController {
         );
         commentList.insert(0, model);
         commentText.value = '';
-        Get.snackbar("Success", "Comment posted successfully");
+
+       // Get.snackbar("Success", "Comment posted successfully");
+        if (allFeed) {
+          postController.fetchAllPosts();
+        } else {
+          postController.fetchMyPost();
+        }
         return true;
+
       } else {
         Get.snackbar(
           "Error",

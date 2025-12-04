@@ -8,6 +8,7 @@ import 'package:crave_crusher/view/components/custom_image/custom_image.dart';
 import 'package:crave_crusher/view/components/custom_text/custom_text.dart';
 import 'package:crave_crusher/view/components/custom_text_field/custom_text_field.dart';
 import 'package:crave_crusher/view/features/community/controllers/community_controller.dart';
+import 'package:crave_crusher/view/features/community/controllers/community_tab_controller.dart';
 import 'package:crave_crusher/view/features/community/screens/comment_screen/widgets/comment_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -25,7 +26,7 @@ class CommentScreen extends StatefulWidget {
 class _CommentScreenState extends State<CommentScreen> {
   final CommunityController commentController = Get.find<CommunityController>();
   final TextEditingController _controller = TextEditingController();
-
+final CommunityTabController tabController =Get.find<CommunityTabController>();
   @override
   void initState() {
     super.initState();
@@ -99,7 +100,6 @@ class _CommentScreenState extends State<CommentScreen> {
                                   heightA: 35.h,
                                   widthA: 35.w,
                                 ),
-
                                 CustomText(text: "@ Sheena", fontSize: 18),
                               ],
                             ),
@@ -132,8 +132,12 @@ class _CommentScreenState extends State<CommentScreen> {
                                 );
                                 return;
                               }
+                              bool isAllFeed = tabController.communityTabIndex.value == 0 ? true : false;
                               await commentController.createComment(
-                                  widget.postId);
+                                  widget.postId,
+                                  allFeed: isAllFeed
+                              );
+
                               _controller.clear();
                             },
                             child: commentController.isLoadingSend.value
