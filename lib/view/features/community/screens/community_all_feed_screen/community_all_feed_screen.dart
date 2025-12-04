@@ -138,12 +138,12 @@ class CommunityAllFeedScreen extends StatelessWidget {
                                       ),
                                     ],
                                   ),
-                                  profileImage: AppConstants.unknown,
+                                  profileImage: post.author?.profileImage??AppConstants.unknown,
                                   onTapProfile:
                                       () => Get.to(() => ProfileScreen()),
                                   onTapImageShow:
                                       () => Get.to(
-                                        () => CommunityImageShowScreen(),
+                                        () => CommunityImageShowScreen(images:post.postImages ?? []),
                                       ),
 
                                   onTapComment:
@@ -202,7 +202,7 @@ class CommunityAllFeedScreen extends StatelessWidget {
                                  profileSubtitle: DateConverter.formattedTime(
                                    myPost.createdAt ?? DateTime.now(),
                                  ),
-                                 profileImage: AppConstants.unknown,
+                                 profileImage:myPost.author?.profileImage?? AppConstants.unknown,
                                  postImages: myPost.postImages ?? [],
                                  postText: myPost.content ?? "",
                                  commentsText: "${myPost.totalComments ?? 0}",
@@ -251,7 +251,7 @@ class CommunityAllFeedScreen extends StatelessWidget {
                                    }
                                  },
                                  onTapImageShow: () {
-                                   Get.to(() => CommunityImageShowScreen());
+                                   Get.to(() => CommunityImageShowScreen(images:myPost.postImages ?? []),);
                                  },
                                  onTapProfile: () {
                                    Get.to(() => ProfileScreen());

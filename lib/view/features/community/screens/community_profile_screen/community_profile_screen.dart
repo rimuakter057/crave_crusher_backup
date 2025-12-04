@@ -83,7 +83,7 @@ class CommunityProfileScreen extends StatelessWidget {
                   Get.to(() => UpdatePostScreen);
                 },
                 onTapImageShow: () {
-                  Get.to(() => CommunityImageShowScreen());
+                 // Get.to(() => CommunityImageShowScreen(images: [],));
                 },
                 onTapProfile: () {
                   Get.to(() => ProfileScreen());
@@ -128,7 +128,7 @@ class CommunityProfileScreen extends StatelessWidget {
                   Get.to(() => UpdatePostScreen);
                 },
                 onTapImageShow: () {
-                  Get.to(() => CommunityImageShowScreen());
+                  //Get.to(() => CommunityImageShowScreen());
                 },
                 onTapProfile: () {
                   Get.to(() => ProfileScreen());
