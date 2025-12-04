@@ -5,11 +5,7 @@ class CreatePostModel {
   int? totalVotes;
   int? totalComments;
   bool? isDeleted;
-  String? postId;         // post _id
-
-
-
-
+  String? postId;
 
   CreatePostModel({
     this.authorId,

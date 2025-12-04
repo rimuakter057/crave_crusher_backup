@@ -199,7 +199,7 @@ class _UpdatePostScreenState extends State<UpdatePostScreen> {
   }
 
   Widget _buildImageItem(String img, double size) {
-    // Backend image path usually relative, new picked image is local file
+
     final bool isLocalFile = File(img).existsSync();
 
     return Stack(
@@ -223,7 +223,7 @@ class _UpdatePostScreenState extends State<UpdatePostScreen> {
           right: 6,
           top: 6,
           child: GestureDetector(
-            onTap: () => postController.removeImage(img),
+            onTap: () =>  postController.currentImagePaths,
             child: Container(
               width: 24.w,
               height: 24.h,

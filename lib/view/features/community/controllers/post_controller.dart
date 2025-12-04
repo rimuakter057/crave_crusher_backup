@@ -179,17 +179,15 @@ class PostController extends GetxController {
   ///update post==================================================================Patch Methode=======================================
   Rx<Status> updatePostStatus = Status.loading.obs;
   var isLoadingUpdate = false.obs;
-  var currentImagePaths = <String>[].obs; // multiple image support
-   RxList<String> deleteImages = <String>[].obs;
+  var currentImagePaths = <String>[].obs;
+ //  RxList<String> deleteImages = <String>[].obs;
+ //
+ //  void removeCurrentImage(String path) {
+ //    currentImagePaths.remove(path); // UI theke remove
+ //    deleteImages.add(path);
+ //  }
 
-  // Future<void> pickImagesUpdate() async {
-  //   final ImagePicker picker = ImagePicker();
-  //   final List<XFile> pickedFiles = await picker.pickMultiImage();
-  //
-  //   if (pickedFiles.isNotEmpty) {
-  //     currentImagePaths.addAll(pickedFiles.map((e) => e.path).toList());
-  //   }
-  // }
+
 
   void pickImagesUpdate() async {
     final ImagePicker picker = ImagePicker();
@@ -202,8 +200,10 @@ class PostController extends GetxController {
 
   Future<void> updatePost(String postId, String content) async {
     isLoadingUpdate(true);
-    final body = {"content": content, //"deleted_images" : deleteImages,
 
+    final body = {
+      "content": content,
+      //"deleted_images": deleteImages.toList(), // send deleted images to backend
     };
 
     final response = await ApiClient.patchData(
@@ -211,18 +211,18 @@ class PostController extends GetxController {
       body,
       isJson: true,
     );
+
     isLoadingUpdate(false);
+
     if (response.statusCode == 200 || response.statusCode == 201) {
-      showCustomSnackBar("Post updated successfully", isError:  false);
-
+      showCustomSnackBar("Post updated successfully", isError: false);
       fetchMyPost();
-
       Get.back();
-
-     // return true;
     } else {
-     ApiChecker.checkApi(response);
-    //  return false;
+      ApiChecker.checkApi(response);
     }
   }
+
+
+
 }
