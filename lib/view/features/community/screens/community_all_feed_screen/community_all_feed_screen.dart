@@ -2,6 +2,7 @@ import 'package:crave_crusher/utils/app_colors/app_colors.dart';
 import 'package:crave_crusher/utils/app_const/app_const.dart';
 import 'package:crave_crusher/view/components/custom_text/custom_text.dart';
 import 'package:crave_crusher/view/features/community/controllers/community_controller.dart';
+import 'package:crave_crusher/view/features/community/models/post_update_model.dart';
 import 'package:crave_crusher/view/features/community/screens/comment_screen/comment_screen.dart';
 import 'package:crave_crusher/view/features/community/screens/community_image_show_screen/community_image_show_screen.dart';
 import 'package:crave_crusher/view/features/community/screens/create_post_screen/create_post_screen.dart';
@@ -242,7 +243,7 @@ class CommunityAllFeedScreen extends StatelessWidget {
                                    final postId = myPost.id;
                                    if (postId != null && content != null) {  
                                      PostUpdateModel model = PostUpdateModel(postId: postId, content: content,
-                                        // images: myPost.postImages ?? []
+                                        images: myPost.postImages ?? []
                                      );
                                      
                                      Get.to(

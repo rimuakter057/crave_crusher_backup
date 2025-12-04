@@ -1,14 +1,16 @@
+import 'dart:io';
+
 import 'package:crave_crusher/utils/app_colors/app_colors.dart';
 import 'package:crave_crusher/utils/app_icons/app_icons.dart';
 import 'package:crave_crusher/utils/app_images/app_images.dart';
 import 'package:crave_crusher/view/components/custom_container/custom_container.dart';
 import 'package:crave_crusher/view/components/custom_image/custom_image.dart';
 import 'package:crave_crusher/view/components/custom_loader/custom_loader.dart';
+import 'package:crave_crusher/view/components/custom_netwrok_image/custom_network_image.dart';
 import 'package:crave_crusher/view/components/custom_text/custom_text.dart';
 import 'package:crave_crusher/view/components/custom_text_field/custom_text_field.dart';
-import 'package:crave_crusher/view/features/community/controllers/community_controller.dart';
 import 'package:crave_crusher/view/features/community/controllers/post_controller.dart';
-import 'package:crave_crusher/view/features/community/screens/community_all_feed_screen/community_all_feed_screen.dart';
+import 'package:crave_crusher/view/features/community/models/post_update_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:gap/gap.dart';
@@ -20,8 +22,7 @@ class UpdatePostScreen extends StatefulWidget {
     super.key,
     required this.updatePostData,
   });
-  // final String postId;
-  // final String content;
+
 
   final PostUpdateModel updatePostData;
   @override
@@ -29,26 +30,22 @@ class UpdatePostScreen extends StatefulWidget {
 }
 
 class _UpdatePostScreenState extends State<UpdatePostScreen> {
-  /// dummy image list (you can replace with real data)
-  final List<String> images = [
-    AppImages.imageOne,
-    AppImages.imageOne,
-    AppImages.imageOne,
-    AppImages.imageOne,
-    AppImages.imageOne,
-  ];
+
 
   final contentController = TextEditingController();
-  final PostController communityController = Get.find<PostController>();
+  final PostController postController = Get.find<PostController>();
   @override
   void initState() {
     super.initState();
-    debugPrint("postId==================================${widget.updatePostData.postId}");
+
     contentController.text = widget.updatePostData.content;
 
-
-    //debugPrint("images==================================${widget.updatePostData.images}");
+    // Existing images set kora
+    postController.currentImagePaths.value = widget.updatePostData.images.isNotEmpty
+        ? List<String>.from(widget.updatePostData.images)
+        : [];
   }
+
 
   @override
   Widget build(BuildContext context) {
@@ -116,64 +113,84 @@ class _UpdatePostScreenState extends State<UpdatePostScreen> {
                 fontWeight: FontWeight.w500,
               ),
               Gap(16.h),
+         //========================================
 
-              /// ---- Image Grid (3-column fixed) ----
-              Wrap(
-                spacing: 8.w,
-                runSpacing: 8.h,
-                children: List.generate(
-                  images.length,
-                  (index) => _buildImageItem(images[index], itemWidth),
-                ),
-              ),
 
-              Gap(16.h),
 
-              /// add button
-              CustomContainer(
-                borderColor: AppColors.primary,
-                width: double.infinity,
-                height: 120.h,
-                backgroundColor: AppColors.subPrimary.withOpacity(.5),
-                child: Center(child: CustomImage(imageSrc: AppIcons.addImage)),
-              ),
+              Obx(() {
+                final images = postController.currentImagePaths;
 
+                return Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+
+                    /// --- AUTO HEIGHT WRAP GRID ---
+                    if (images.isNotEmpty)
+                      Wrap(
+                        spacing: 8.w,
+                        runSpacing: 8.h,
+                        children: List.generate(
+                          images.length,
+                              (index) => _buildImageItem(
+                            images[index],
+                            (Get.width - 48.w) / 3,   // 3 items per row (responsive)
+                          ),
+                        ),
+                      ),
+
+                    SizedBox(height: 12.h),
+
+                    /// --- FULL WIDTH ADD BUTTON ---
+                    GestureDetector(
+                      onTap: () => postController.pickImagesUpdate(),
+                      child: CustomContainer(
+                        width: double.infinity,
+                        height: 120.h,
+                        borderColor: AppColors.primary,
+                        backgroundColor: AppColors.subPrimary.withOpacity(.5),
+                        child: Center(
+                          child: CustomImage(imageSrc: AppIcons.addImage),
+                        ),
+                      ),
+                    ),
+                  ],
+                );
+              }),
               Gap(16.h),
 
               /// post button
               Obx(() {
-                return GestureDetector(
+                return InkWell(
                   onTap: () async {
                     if (contentController.text.isEmpty) {
                       Get.snackbar("Error", "Content cannot be empty!");
                       return;
                     }
-                    final isUpdated = await communityController.updatePost(
+
+                    // শুধুই content পাঠাবে
+                    await postController.updatePost(
                       widget.updatePostData.postId,
                       contentController.text,
                     );
-                    // if (isUpdated) {
-                    //   Get.to(()=>CommunityAllFeedScreen());
-                    // }
                   },
-                  child:
-                      communityController.isLoadingUpdate.value
-                          ? CustomLoader()
-                          : CustomContainer(
-                            backgroundColor: AppColors.primary,
-                            padding: 4,
-                            height: 45.h,
-                            width: 140.w,
-                            child: Center(
-                              child: CustomText(
-                                text: "Update Post",
-                                color: AppColors.white,
-                                fontSize: 18,
-                              ),
-                            ),
-                          ),
+                  child: postController.isLoadingUpdate.value
+                      ? CustomLoader()
+                      : CustomContainer(
+                    backgroundColor: AppColors.primary,
+                    padding: 4,
+                    height: 45.h,
+                    width: 140.w,
+                    child: Center(
+                      child: CustomText(
+                        text: "Update Post",
+                        color: AppColors.white,
+                        fontSize: 18,
+                      ),
+                    ),
+                  ),
                 );
               }),
+
             ],
           ),
         ),
@@ -181,43 +198,51 @@ class _UpdatePostScreenState extends State<UpdatePostScreen> {
     );
   }
 
-  /// ---------------- BUILD IMAGE ITEM ----------------
   Widget _buildImageItem(String img, double size) {
+    // Backend image path usually relative, new picked image is local file
+    final bool isLocalFile = File(img).existsSync();
+
     return Stack(
       children: [
         ClipRRect(
           borderRadius: BorderRadius.circular(12),
-          child: CustomImage(imageSrc: img, height: size, width: size),
+          child: isLocalFile
+              ? Image.file(
+            File(img),
+            height: size,
+            width: size,
+            fit: BoxFit.cover,
+          )
+              : CustomNetworkImage(
+            imageUrl: img.startsWith("http") ? img : "http://10.10.20.45:5555/$img",
+            height: size,
+            width: size,
+          ),
         ),
-
         Positioned(
           right: 6,
           top: 6,
-          child: Container(
-            width: 24.w,
-            height: 24.h,
-            alignment: Alignment.center,
-            decoration: BoxDecoration(
-              color: AppColors.white,
-              shape: BoxShape.circle,
-              border: Border.all(color: AppColors.subPrimary),
+          child: GestureDetector(
+            onTap: () => postController.removeImage(img),
+            child: Container(
+              width: 24.w,
+              height: 24.h,
+              alignment: Alignment.center,
+              decoration: BoxDecoration(
+                color: AppColors.white,
+                shape: BoxShape.circle,
+                border: Border.all(color: AppColors.subPrimary),
+              ),
+              child: Icon(Icons.close, size: 16),
             ),
-            child: Icon(Icons.close, size: 16),
           ),
         ),
       ],
     );
   }
+
+
+
 }
 
-class PostUpdateModel {
-  final String postId;
-  final String content;
-  //final List<String> images;
 
-  PostUpdateModel({
-    required this.postId,
-    required this.content,
-    //required this.images,
-  });
-}

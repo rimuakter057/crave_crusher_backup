@@ -13,7 +13,6 @@ import 'package:logger/logger.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class PostController extends GetxController {
-
   /// get all post ==============================================================================Get Method====================
   RxList<PostModel> allPostList = <PostModel>[].obs;
   var isLoadingAllPost = false.obs;
@@ -39,6 +38,34 @@ class PostController extends GetxController {
       Logger().e("Fetch posts error: $e");
     } finally {
       isLoadingAllPost.value = false;
+    }
+  }
+
+  /// get all post ==============================================================================Get Method====================
+  RxList<PostModel> getMyPostList = <PostModel>[].obs;
+  var isLoadingPost = false.obs;
+
+
+  Future<void> fetchMyPost() async {
+    try {
+      isLoadingPost.value = true;
+
+      final response = await ApiClient.getData(ApiUrl.getMyPost);
+
+
+      if (response.statusCode == 200 && response.body['data'] != null) {
+        var myPostList = (response.body['data'] as List)
+            .map((e) => PostModel.fromJson(e))
+            .toList();
+        getMyPostList.value = myPostList;
+      } else {
+        getMyPostList.clear();
+      }
+    } catch (e) {
+      getMyPostList.clear();
+      Logger().e("Fetch posts error: $e");
+    } finally {
+      isLoadingPost.value = false;
     }
   }
 
@@ -149,47 +176,29 @@ class PostController extends GetxController {
 
 
 
-
-
-
-  /// get all post ==============================================================================Get Method====================
-  RxList<PostModel> getMyPostList = <PostModel>[].obs;
-  var isLoadingPost = false.obs;
-
-
-  Future<void> fetchMyPost() async {
-    try {
-      isLoadingPost.value = true;
-
-      final response = await ApiClient.getData(ApiUrl.getMyPost);
-
-
-      if (response.statusCode == 200 && response.body['data'] != null) {
-        var myPostList = (response.body['data'] as List)
-            .map((e) => PostModel.fromJson(e))
-            .toList();
-        getMyPostList.value = myPostList;
-      } else {
-        getMyPostList.clear();
-      }
-    } catch (e) {
-      getMyPostList.clear();
-      Logger().e("Fetch posts error: $e");
-    } finally {
-      isLoadingPost.value = false;
-    }
-  }
-
-
-
-
   ///update post==================================================================Patch Methode=======================================
   Rx<Status> updatePostStatus = Status.loading.obs;
   var isLoadingUpdate = false.obs;
+  var currentImagePaths = <String>[].obs; // multiple image support
+   RxList<String> deleteImages = <String>[].obs;
 
- // RxList<String> deleteImages = <String>[].obs;
+  // Future<void> pickImagesUpdate() async {
+  //   final ImagePicker picker = ImagePicker();
+  //   final List<XFile> pickedFiles = await picker.pickMultiImage();
+  //
+  //   if (pickedFiles.isNotEmpty) {
+  //     currentImagePaths.addAll(pickedFiles.map((e) => e.path).toList());
+  //   }
+  // }
 
+  void pickImagesUpdate() async {
+    final ImagePicker picker = ImagePicker();
+    final List<XFile> pickedFiles = await picker.pickMultiImage(); // image picker
+    if (pickedFiles.isNotEmpty) {
 
+      currentImagePaths.addAll(pickedFiles.map((file) => file.path));
+    }
+  }
 
   Future<void> updatePost(String postId, String content) async {
     isLoadingUpdate(true);
