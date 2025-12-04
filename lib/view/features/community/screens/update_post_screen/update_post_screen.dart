@@ -1,14 +1,16 @@
+import 'dart:io';
+
 import 'package:crave_crusher/utils/app_colors/app_colors.dart';
 import 'package:crave_crusher/utils/app_icons/app_icons.dart';
 import 'package:crave_crusher/utils/app_images/app_images.dart';
 import 'package:crave_crusher/view/components/custom_container/custom_container.dart';
 import 'package:crave_crusher/view/components/custom_image/custom_image.dart';
 import 'package:crave_crusher/view/components/custom_loader/custom_loader.dart';
+import 'package:crave_crusher/view/components/custom_netwrok_image/custom_network_image.dart';
 import 'package:crave_crusher/view/components/custom_text/custom_text.dart';
 import 'package:crave_crusher/view/components/custom_text_field/custom_text_field.dart';
-import 'package:crave_crusher/view/features/community/controllers/community_controller.dart';
 import 'package:crave_crusher/view/features/community/controllers/post_controller.dart';
-import 'package:crave_crusher/view/features/community/screens/community_all_feed_screen/community_all_feed_screen.dart';
+import 'package:crave_crusher/view/features/community/models/post_update_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:gap/gap.dart';
@@ -16,38 +18,40 @@ import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class UpdatePostScreen extends StatefulWidget {
-  const UpdatePostScreen({super.key, required this.postId, required this.content});
-final String postId;
-final String content;
+  const UpdatePostScreen({
+    super.key,
+    required this.updatePostData,
+  });
+
+
+  final PostUpdateModel updatePostData;
   @override
   State<UpdatePostScreen> createState() => _UpdatePostScreenState();
 }
 
 class _UpdatePostScreenState extends State<UpdatePostScreen> {
-  /// dummy image list (you can replace with real data)
-  final List<String> images = [
-    AppImages.imageOne,
-    AppImages.imageOne,
-    AppImages.imageOne,
-    AppImages.imageOne,
-    AppImages.imageOne,
-  ];
+
 
   final contentController = TextEditingController();
-  final PostController communityController = Get.find<PostController>();
+  final PostController postController = Get.find<PostController>();
   @override
   void initState() {
     super.initState();
-    debugPrint("postId==================================${widget.postId}");
-    contentController.text =widget.content;
+
+    contentController.text = widget.updatePostData.content;
+
+    // Existing images set kora
+    postController.currentImagePaths.value = widget.updatePostData.images.isNotEmpty
+        ? List<String>.from(widget.updatePostData.images)
+        : [];
   }
 
 
   @override
   Widget build(BuildContext context) {
-
     double screenWidth = MediaQuery.of(context).size.width;
-    double itemWidth = (screenWidth - 16.w - 16.w - 8.w * 2) / 3; // 3 item fixed
+    double itemWidth =
+        (screenWidth - 16.w - 16.w - 8.w * 2) / 3; // 3 item fixed
 
     return Scaffold(
       appBar: AppBar(
@@ -80,7 +84,6 @@ class _UpdatePostScreenState extends State<UpdatePostScreen> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-
               /// write comment
               CustomText(
                 text: "What’s on your mind today?",
@@ -89,19 +92,17 @@ class _UpdatePostScreenState extends State<UpdatePostScreen> {
               ),
               Gap(8.h),
 
-
               CustomTextField(
                 cursorColor: AppColors.black,
                 maxLines: 4,
                 textEditingController: contentController,
                 hintText: "Share your progress, thoughts, or a victory moment…",
-                  hintStyle: GoogleFonts.syne(
-                    color: AppColors.black.withOpacity(0.5),
-                           fontSize: 14.sp,
-                  ),
+                hintStyle: GoogleFonts.syne(
+                  color: AppColors.black.withOpacity(0.5),
+                  fontSize: 14.sp,
+                ),
                 fillColor: AppColors.subPrimary.withOpacity(.5),
               ),
-
 
               Gap(24.h),
 
@@ -112,50 +113,67 @@ class _UpdatePostScreenState extends State<UpdatePostScreen> {
                 fontWeight: FontWeight.w500,
               ),
               Gap(16.h),
+         //========================================
 
-              /// ---- Image Grid (3-column fixed) ----
-              Wrap(
-                spacing: 8.w,
-                runSpacing: 8.h,
-                children: List.generate(
-                  images.length,
-                      (index) => _buildImageItem(images[index], itemWidth),
-                ),
-              ),
 
-              Gap(16.h),
 
-              /// add button
-              CustomContainer(
-                borderColor: AppColors.primary,
-                width: double.infinity,
-                height: 120.h,
-                backgroundColor: AppColors.subPrimary.withOpacity(.5),
-                child: Center(
-                    child: CustomImage(imageSrc: AppIcons.addImage)),
-              ),
+              Obx(() {
+                final images = postController.currentImagePaths;
 
+                return Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+
+                    /// --- AUTO HEIGHT WRAP GRID ---
+                    if (images.isNotEmpty)
+                      Wrap(
+                        spacing: 8.w,
+                        runSpacing: 8.h,
+                        children: List.generate(
+                          images.length,
+                              (index) => _buildImageItem(
+                            images[index],
+                            (Get.width - 48.w) / 3,   // 3 items per row (responsive)
+                          ),
+                        ),
+                      ),
+
+                    SizedBox(height: 12.h),
+
+                    /// --- FULL WIDTH ADD BUTTON ---
+                    GestureDetector(
+                      onTap: () => postController.pickImagesUpdate(),
+                      child: CustomContainer(
+                        width: double.infinity,
+                        height: 120.h,
+                        borderColor: AppColors.primary,
+                        backgroundColor: AppColors.subPrimary.withOpacity(.5),
+                        child: Center(
+                          child: CustomImage(imageSrc: AppIcons.addImage),
+                        ),
+                      ),
+                    ),
+                  ],
+                );
+              }),
               Gap(16.h),
 
               /// post button
-
-
-              Obx((){
-                return GestureDetector(
+              Obx(() {
+                return InkWell(
                   onTap: () async {
                     if (contentController.text.isEmpty) {
                       Get.snackbar("Error", "Content cannot be empty!");
                       return;
                     }
-                    final isUpdated = await communityController.updatePost(
-                      widget.postId,
-                     contentController.text,
+
+                    // শুধুই content পাঠাবে
+                    await postController.updatePost(
+                      widget.updatePostData.postId,
+                      contentController.text,
                     );
-                    // if (isUpdated) {
-                    //   Get.to(()=>CommunityAllFeedScreen());
-                    // }
                   },
-                  child:communityController.isLoadingUpdate.value
+                  child: postController.isLoadingUpdate.value
                       ? CustomLoader()
                       : CustomContainer(
                     backgroundColor: AppColors.primary,
@@ -171,10 +189,7 @@ class _UpdatePostScreenState extends State<UpdatePostScreen> {
                     ),
                   ),
                 );
-              })
-
-
-
+              }),
 
             ],
           ),
@@ -183,35 +198,51 @@ class _UpdatePostScreenState extends State<UpdatePostScreen> {
     );
   }
 
-  /// ---------------- BUILD IMAGE ITEM ----------------
   Widget _buildImageItem(String img, double size) {
+
+    final bool isLocalFile = File(img).existsSync();
+
     return Stack(
       children: [
         ClipRRect(
           borderRadius: BorderRadius.circular(12),
-          child: CustomImage(
-            imageSrc: img,
+          child: isLocalFile
+              ? Image.file(
+            File(img),
+            height: size,
+            width: size,
+            fit: BoxFit.cover,
+          )
+              : CustomNetworkImage(
+            imageUrl: img.startsWith("http") ? img : "http://10.10.20.45:5555/$img",
             height: size,
             width: size,
           ),
         ),
-
         Positioned(
           right: 6,
           top: 6,
-          child: Container(
-            width: 24.w,
-            height: 24.h,
-            alignment: Alignment.center,
-            decoration: BoxDecoration(
-              color: AppColors.white,
-              shape: BoxShape.circle,
-              border: Border.all(color: AppColors.subPrimary),
+          child: GestureDetector(
+            onTap: () =>  postController.currentImagePaths,
+            child: Container(
+              width: 24.w,
+              height: 24.h,
+              alignment: Alignment.center,
+              decoration: BoxDecoration(
+                color: AppColors.white,
+                shape: BoxShape.circle,
+                border: Border.all(color: AppColors.subPrimary),
+              ),
+              child: Icon(Icons.close, size: 16),
             ),
-            child: Icon(Icons.close, size: 16),
           ),
         ),
       ],
     );
   }
+
+
+
 }
+
+

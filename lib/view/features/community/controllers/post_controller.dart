@@ -13,7 +13,6 @@ import 'package:logger/logger.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class PostController extends GetxController {
-
   /// get all post ==============================================================================Get Method====================
   RxList<PostModel> allPostList = <PostModel>[].obs;
   var isLoadingAllPost = false.obs;
@@ -39,6 +38,34 @@ class PostController extends GetxController {
       Logger().e("Fetch posts error: $e");
     } finally {
       isLoadingAllPost.value = false;
+    }
+  }
+
+  /// get all post ==============================================================================Get Method====================
+  RxList<PostModel> getMyPostList = <PostModel>[].obs;
+  var isLoadingPost = false.obs;
+
+
+  Future<void> fetchMyPost() async {
+    try {
+      isLoadingPost.value = true;
+
+      final response = await ApiClient.getData(ApiUrl.getMyPost);
+
+
+      if (response.statusCode == 200 && response.body['data'] != null) {
+        var myPostList = (response.body['data'] as List)
+            .map((e) => PostModel.fromJson(e))
+            .toList();
+        getMyPostList.value = myPostList;
+      } else {
+        getMyPostList.clear();
+      }
+    } catch (e) {
+      getMyPostList.clear();
+      Logger().e("Fetch posts error: $e");
+    } finally {
+      isLoadingPost.value = false;
     }
   }
 
@@ -109,11 +136,11 @@ class PostController extends GetxController {
       'authorId': userID.value,
     };
 
-    List<MultipartBodyPost> multipartFiles = [];
+    List<MultipartBody> multipartFiles = [];
 
     // Attach Multiple Images
     for (var path in imagePaths) {
-      multipartFiles.add(MultipartBodyPost('post_images', File(path)));
+      multipartFiles.add(MultipartBody('post_images', File(path)));
     }
 
     final response = await ApiClient.postMultipartData(
@@ -147,54 +174,55 @@ class PostController extends GetxController {
   }
 
 
-  ///get my post==================================================================================Get Method====================
-  Rx<Status> myPostStatus = Status.loading.obs;
-  var isLoadingPost = false.obs;
-  RxList<MyPostModel> myPostList = <MyPostModel>[].obs;
 
-  Future<void> fetchMyPost() async {
-    isLoadingPost.value = true;
-    final response = await ApiClient.getData(ApiUrl.getMyPost);
-    isLoadingPost.value = false;
-    if (response.statusCode == 200 || response.statusCode == 201) {
-      myPostList.value =
-          (response.body['data'] as List)
-              .map((x) => MyPostModel.fromJson(x))
-              .toList();
-
-      myPostStatus(Status.completed);
-    } else {
-      myPostList.clear();
-      myPostStatus(Status.error);
-      ApiChecker.checkApi(response);
-    }
-  }
 
   ///update post==================================================================Patch Methode=======================================
   Rx<Status> updatePostStatus = Status.loading.obs;
   var isLoadingUpdate = false.obs;
+  var currentImagePaths = <String>[].obs;
+ //  RxList<String> deleteImages = <String>[].obs;
+ //
+ //  void removeCurrentImage(String path) {
+ //    currentImagePaths.remove(path); // UI theke remove
+ //    deleteImages.add(path);
+ //  }
+
+
+
+  void pickImagesUpdate() async {
+    final ImagePicker picker = ImagePicker();
+    final List<XFile> pickedFiles = await picker.pickMultiImage(); // image picker
+    if (pickedFiles.isNotEmpty) {
+
+      currentImagePaths.addAll(pickedFiles.map((file) => file.path));
+    }
+  }
 
   Future<void> updatePost(String postId, String content) async {
     isLoadingUpdate(true);
-    final body = {"content": content};
+
+    final body = {
+      "content": content,
+      //"deleted_images": deleteImages.toList(), // send deleted images to backend
+    };
 
     final response = await ApiClient.patchData(
       ApiUrl.updatePost(postId),
       body,
       isJson: true,
     );
+
     isLoadingUpdate(false);
+
     if (response.statusCode == 200 || response.statusCode == 201) {
-      showCustomSnackBar("Post updated successfully", isError:  false);
-
+      showCustomSnackBar("Post updated successfully", isError: false);
       fetchMyPost();
-
       Get.back();
-
-     // return true;
     } else {
-     ApiChecker.checkApi(response);
-    //  return false;
+      ApiChecker.checkApi(response);
     }
   }
+
+
+
 }

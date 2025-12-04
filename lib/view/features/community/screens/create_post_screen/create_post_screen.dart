@@ -19,8 +19,7 @@ class CreatePostScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // Set initial text for controller
-    //textController.text = controller.postText.value;
+
 
     return Scaffold(
       appBar: AppBar(
@@ -122,13 +121,16 @@ class CreatePostScreen extends StatelessWidget {
                             top: 5,
                             child: GestureDetector(
                               onTap: () => controller.removeImage(path),
-                              child: Container(
-                                padding: const EdgeInsets.all(4),
+                              child:  Container(
+                                width: 24.w,
+                                height: 24.h,
+                                alignment: Alignment.center,
                                 decoration: BoxDecoration(
-                                  color: Colors.black54,
+                                  color: AppColors.white,
                                   shape: BoxShape.circle,
+                                  border: Border.all(color: AppColors.subPrimary),
                                 ),
-                                child: Icon(Icons.close, color: Colors.white, size: 18),
+                                child: Icon(Icons.close, size: 16),
                               ),
                             ),
                           ),
