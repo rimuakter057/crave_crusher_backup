@@ -1,5 +1,6 @@
 
 
+import 'package:crave_crusher/view/features/community/controllers/community_controller.dart';
 import 'package:crave_crusher/view/features/community/controllers/community_tab_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -19,7 +20,7 @@ class CommunityTabSelector extends StatefulWidget {
 
 class _CommunityTabSelectorState extends State<CommunityTabSelector> {
   final List<String> _tabs = ["All Feed", "My Posts"];
-  final CommunityTabController controller=Get.find<CommunityTabController>();
+  final CommunityController controller=Get.find<CommunityController>();
   int _selectedIndex = 0;
 
   @override

@@ -1,6 +1,4 @@
 import 'package:crave_crusher/utils/app_colors/app_colors.dart';
-import 'package:crave_crusher/utils/app_const/app_const.dart';
-import 'package:crave_crusher/utils/app_images/app_images.dart';
 import 'package:crave_crusher/view/components/common_profile/avater_widget.dart';
 import 'package:crave_crusher/view/components/custom_container/custom_container.dart';
 import 'package:crave_crusher/view/components/custom_leadin_title_appbar.dart';

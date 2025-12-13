@@ -48,7 +48,7 @@ class ActiveBattleCard extends StatelessWidget {
         return Colors.red;
       case 'completed':
         return Colors.blue;
-      case 'pending':
+      case 'active':
         return AppColors.primary;
       default:
         return Colors.grey;
@@ -61,8 +61,8 @@ class ActiveBattleCard extends StatelessWidget {
         return "Canceled";
       case 'completed':
         return "Completed";
-      case 'pending':
-        return "Pending";
+      case 'active':
+        return "active";
       default:
         return "Unknown";
     }

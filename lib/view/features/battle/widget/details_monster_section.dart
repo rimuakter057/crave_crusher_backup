@@ -24,6 +24,7 @@ class DetailsMonsterSection extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -35,14 +36,7 @@ class DetailsMonsterSection extends StatelessWidget {
             decoration: BoxDecoration(
               color: AppColors.white,
               borderRadius: BorderRadius.circular(12),
-              // boxShadow: [
-              //   BoxShadow(
-              //     color: AppColors.black.withOpacity(0.05),
-              //     spreadRadius: 1,
-              //     blurRadius: 5,
-              //     offset: const Offset(0, 3),
-              //   ),
-              // ],
+
             ),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -79,7 +73,7 @@ class DetailsMonsterSection extends StatelessWidget {
                           bottom: 0,
                           top: 0,
                         ),
-                        //SizedBox(height: 4.h),
+
                         SizedBox(
                           width: 180.w, // Constrain width for description
                           child: CustomText(
@@ -99,7 +93,7 @@ class DetailsMonsterSection extends StatelessWidget {
                 ),
                 // Status Badge
                 Container(
-                  padding: EdgeInsets.symmetric(horizontal: 8.w, vertical: 4.h),
+                  padding: EdgeInsets.symmetric(horizontal: 4.w, vertical: 4.h),
                   decoration: BoxDecoration(
                     color: AppColors.subPrimary.withOpacity(
                       0.3,
@@ -116,6 +110,7 @@ class DetailsMonsterSection extends StatelessWidget {
                     top: 0,
                   ),
                 ),
+
               ],
             ),
           ),

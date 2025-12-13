@@ -24,8 +24,7 @@ import '../../widgets/community_tab_selector.dart';
 class CommunityAllFeedScreen extends StatelessWidget {
   CommunityAllFeedScreen({super.key});
 
-  final CommunityTabController tabController =
-      Get.find<CommunityTabController>();
+
   final PostController postController = Get.find<PostController>();
   final CommunityController communityController =
       Get.find<CommunityController>();
@@ -33,7 +32,7 @@ class CommunityAllFeedScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     /// TAB CHANGE HOILE API AUTO CALL HOBE
-    tabController.communityTabIndex.listen((index) {
+    communityController.communityTabIndex.listen((index) {
       if (index == 0) {
         postController.fetchAllPosts();
       } else if (index == 1) {
@@ -60,9 +59,9 @@ class CommunityAllFeedScreen extends StatelessWidget {
       ),
       body: RefreshIndicator(
         onRefresh: () async {
-          if (tabController.communityTabIndex.value == 0) {
+          if (communityController.communityTabIndex.value == 0) {
             await postController.fetchAllPosts();
-          } else if (tabController.communityTabIndex.value == 1) {
+          } else if (communityController.communityTabIndex.value == 1) {
             await postController.fetchMyPost();
           }
           // await postController.fetchMyPost();
@@ -79,7 +78,7 @@ class CommunityAllFeedScreen extends StatelessWidget {
                   CommunityTabSelector(),
                   Gap(24.h),
 
-                  if (tabController.communityTabIndex.value == 0) ...[
+                  if (communityController.communityTabIndex.value == 0) ...[
                     if (postController.isLoadingAllPost.value)
                       const PostShimmerLoader()
                     else if (postController.allPostList.isEmpty)
@@ -165,7 +164,7 @@ class CommunityAllFeedScreen extends StatelessWidget {
                       ),
                   ],
 
-                  if (tabController.communityTabIndex.value == 1) ...[
+                  if (communityController.communityTabIndex.value == 1) ...[
                     if (postController.isLoadingPost.value)
                       const PostShimmerLoader()
                     else if (postController.getMyPostList.isEmpty)

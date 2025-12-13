@@ -16,7 +16,7 @@ class AppRoutes {
   static const String splashScreen = "/SplashScreen";
   static const String loginScreen = "/LoginScreen";
   static const String homeScreen = "/HomeScreen";
-  static const String battleDetailsScreen = "/BattleDetailsScreen";
+
   static const String battleLogScreen = "/BattleLogScreen";
   static const String createBattleScreen = "/CreateBattleScreen";
   static const String onBoardingOneScreen = "/OnBoardingOne";
@@ -30,8 +30,7 @@ class AppRoutes {
     GetPage(name: onBoardingOneScreen, page: ()=>OnBoardingOneScreen()),
     GetPage(name: loginScreen, page: () => LoginScreen()),
     GetPage(name: homeScreen, page: () => HomeScreen()),
-    GetPage(name: battleDetailsScreen, page: () => BattleDetailsScreen()),
-    GetPage(name: battleLogScreen, page: () => BattleLogScreen()),
+
     GetPage(name: createBattleScreen, page: () => CreateBattleScreen()),
     GetPage(name: emptyHome, page: () => EmptyHomeScreen()),
     GetPage(name: updateBattle, page: () => UpdateBattleScreen()),

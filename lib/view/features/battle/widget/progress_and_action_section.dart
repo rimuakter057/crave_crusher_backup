@@ -73,14 +73,7 @@ class ProgressAndActionSection extends StatelessWidget {
       decoration: BoxDecoration(
         color: AppColors.white,
         borderRadius: BorderRadius.circular(12),
-        // boxShadow: [
-        //   BoxShadow(
-        //     color: AppColors.black.withOpacity(0.05),
-        //     spreadRadius: 1,
-        //     blurRadius: 5,
-        //     offset: const Offset(0, 3),
-        //   ),
-        // ],
+
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,

@@ -1,22 +1,14 @@
-// ignore_for_file: deprecated_member_use
-
 import 'package:crave_crusher/utils/app_colors/app_colors.dart';
 import 'package:crave_crusher/utils/app_icons/app_icons.dart';
 import 'package:crave_crusher/view/components/custom_app_bar/custom_app_bar.dart';
 import 'package:crave_crusher/view/components/custom_image/custom_image.dart';
 import 'package:crave_crusher/view/components/custom_text/custom_text.dart';
+import 'package:crave_crusher/view/features/battle/battle_screen.dart';
+import 'package:crave_crusher/view/features/battle/controller/battle_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
-
-// class CreateBattleScreen extends StatelessWidget {
-//   const CreateBattleScreen({super.key});
-
-//   @override
-//   Widget build(BuildContext context) {
-//     return Scaffold();
-//   }
-// }
 
 class CreateBattleScreen extends StatefulWidget {
   const CreateBattleScreen({super.key});
@@ -26,11 +18,7 @@ class CreateBattleScreen extends StatefulWidget {
 }
 
 class _StartNewBattleScreenState extends State<CreateBattleScreen> {
-  String? _selectedType;
-  String? _selectedLevel;
-  final TextEditingController _daysController = TextEditingController();
-  final TextEditingController _reasonController = TextEditingController();
-  bool? _sendReminder = true; // Default to Yes
+  final BattleController controller = Get.find<BattleController>();
 
   @override
   Widget build(BuildContext context) {
@@ -42,41 +30,35 @@ class _StartNewBattleScreenState extends State<CreateBattleScreen> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            // 1. Addiction Type Dropdown
+            /// 1. Addiction Type Dropdown=========================================================================
             _CustomDropdownField(
               label: "Addiction Type",
               hint: "Select an addiction to battle",
-              items: addictionTypes,
-              selectedValue: _selectedType,
-              onChanged: (newValue) {
-                setState(() {
-                  _selectedType = newValue;
-                });
-              },
+              items: controller.addictionTypes,
+              selectedValue: controller.selectedType.value,
+              onChanged: (val) => controller.selectedType.value = val,
             ),
 
-            // 2. Addiction Level Dropdown
+            /// 2. Addiction Level Dropdown===============================================================
             _CustomDropdownField(
               label: "Addiction Level",
               hint: "Select an addiction level",
-              items: addictionLevels,
-              selectedValue: _selectedLevel,
-              onChanged: (newValue) {
-                setState(() {
-                  _selectedLevel = newValue;
-                });
-              },
+              items: controller.addictionLevels,
+              selectedValue: controller.selectedLevel.value,
+              onChanged: (val) => controller.selectedLevel.value = val,
             ),
 
-            // 3. Battle Duration Input
+            /// 3. Battle Duration Input=========================================================
             CustomText(
               text: "How Many Days Will This Battle Last?",
               fontWeight: FontWeight.w600,
               fontSize: 16,
               bottom: 8.h,
             ),
+
+            ///day selected================================================================
             TextField(
-              controller: _daysController,
+              controller: controller.daysController,
               keyboardType: TextInputType.number,
               decoration: InputDecoration(
                 hintText: "Enter number of days (e.g., 7, 14, 30)",
@@ -104,19 +86,18 @@ class _StartNewBattleScreenState extends State<CreateBattleScreen> {
                 ),
               ),
             ),
+
             SizedBox(height: 24.h),
 
-            // 4. Send Reminder Radio Group
-            _ReminderRadioGroup(
-              selectedValue: _sendReminder,
-              onChanged: (newValue) {
-                setState(() {
-                  _sendReminder = newValue;
-                });
-              },
-            ),
+            /// 4. Send Reminder Radio Group
+            Obx(() {
+              return _ReminderRadioGroup(
+                selectedValue: controller.sendReminder.value,
+                onChanged: (val) => controller.sendReminder.value = val!,
+              );
+            }),
 
-            // 5. Reason Text Area
+            /// 5. Reason Text Area==============================================================
             CustomText(
               text: "Why Are You Starting This Battle?",
               fontWeight: FontWeight.w600,
@@ -124,8 +105,7 @@ class _StartNewBattleScreenState extends State<CreateBattleScreen> {
               bottom: 8.h,
             ),
             TextField(
-              controller: _reasonController,
-              maxLines: 4,
+              controller: controller.reasonController,
               decoration: InputDecoration(
                 hintText: "I want to feel healthier and more focused.",
                 hintStyle: GoogleFonts.syne(
@@ -150,72 +130,53 @@ class _StartNewBattleScreenState extends State<CreateBattleScreen> {
               ),
             ),
             SizedBox(height: 40.h),
-            GestureDetector(
-              onTap: () {},
-              child: Container(
-                height: 40.h,
-                width: 140.w,
-                decoration: BoxDecoration(
-                  color: AppColors.primary,
-                  borderRadius: BorderRadius.circular(8.r),
-                ),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    CustomImage(
-                      imageSrc: AppIcons.battle,
-                      imageColor: AppColors.white,
-                    ),
 
-                    CustomText(
-                      text: "Start Battle",
-                      fontSize: 12.w,
-                      fontWeight: FontWeight.w600,
-                      color: AppColors.white,
-                      bottom: 0,
-                      top: 0,
-                    ),
-                  ],
-                ),
-              ),
-            ),
-            // 6. Start Battle Button
-            // ElevatedButton(
-            //   onPressed: () {
-            //     // To Do: Handle the creation of the new battle
-            //     debugPrint(
-            //       'Type: $_selectedType, Level: $_selectedLevel, Days: ${_daysController.text}, Reminder: $_sendReminder, Reason: ${_reasonController.text}',
-            //     );
-            //   },
-            //   style: ElevatedButton.styleFrom(
-            //     minimumSize: Size(double.infinity, 56.h),
-            //     backgroundColor: AppColors.primary,
-            //     shape: RoundedRectangleBorder(
-            //       borderRadius: BorderRadius.circular(10.r),
-            //     ),
-            //     elevation: 3,
-            //   ),
-            //   child: Row(
-            //     mainAxisAlignment: MainAxisAlignment.center,
-            //     children: [
-            //       CustomImage(
-            //         imageSrc: AppIcons.battle,
-            //         height: 24.h,
-            //         width: 24.w,
-            //       ),
-            //       SizedBox(width: 8.w),
-            //       CustomText(
-            //         text: "Start Battle",
-            //         fontSize: 18.sp,
-            //         fontWeight: FontWeight.w700,
-            //         color: AppColors.white,
-            //         bottom: 0,
-            //         top: 0,
-            //       ),
-            //     ],
-            //   ),
-            // ),
+            ///button section======================================
+            Obx(() {
+              return GestureDetector(
+                onTap:
+                    controller.isLoading.value
+                        ? null
+                        : () async {
+                          final success = await controller.createBattle();
+                          if (success){
+                            Get.to(BattleScreen());
+                            controller.fetchAllBattle("active");
+                          }
+                        },
+                child:
+                    controller.isLoading.value
+                        ? CircularProgressIndicator()
+                        : Container(
+                          height: 40.h,
+                          width: 140.w,
+                          decoration: BoxDecoration(
+                            color: AppColors.primary,
+                            borderRadius: BorderRadius.circular(8.r),
+                          ),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            children: [
+                              CustomImage(
+                                imageSrc: AppIcons.battle,
+                                imageColor: AppColors.white,
+                              ),
+
+                              CustomText(
+                                text: "Start Battle",
+                                fontSize: 12.w,
+                                fontWeight: FontWeight.w600,
+                                color: AppColors.white,
+                                bottom: 0,
+                                top: 0,
+                              ),
+                            ],
+                          ),
+                        ),
+              );
+            }),
+
             SizedBox(height: 20.h),
           ],
         ),
@@ -223,26 +184,6 @@ class _StartNewBattleScreenState extends State<CreateBattleScreen> {
     );
   }
 }
-
-// --- DYNAMIC DATA LISTS ---
-const List<String> addictionTypes = [
-  'Smoking Detox',
-  'Saving Money Battle',
-  'Social Media Detox',
-  'Toxic Relationship Battle',
-  'Shopping Detox',
-  'Junk Food Battle',
-];
-
-const List<String> addictionLevels = [
-  'Very Low',
-  'Low',
-  'Medium',
-  'High',
-  'Very High',
-];
-
-// --- CUSTOM WIDGETS ---
 
 /// Custom Dropdown Field
 class _CustomDropdownField extends StatelessWidget {
@@ -355,7 +296,7 @@ class _ReminderRadioGroup extends StatelessWidget {
                 groupValue: selectedValue,
                 onChanged: onChanged,
                 activeColor: AppColors.primary,
-                fillColor: MaterialStateProperty.all(
+                fillColor: WidgetStateProperty.all(
                   isSelected ? AppColors.primary : AppColors.softWhite,
                 ),
               ),

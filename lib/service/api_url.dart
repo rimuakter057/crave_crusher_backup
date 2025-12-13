@@ -30,7 +30,6 @@ class ApiUrl {
     return "/community-comment/comment/$userId";
   }
 
- // static const String createComment="/community-comment/comment/6925890de1d7dae96182e1df";
   static const String editComment="/community-comment/comment/6925b7bca0423a01b0dcf43b";
   static const String deleteComment="/community-comment/comment/6925b7bca0423a01b0dcf43b";
   static String getAllComment(String postId) {
@@ -47,6 +46,12 @@ class ApiUrl {
   static const String termsCondition="/manage-web/get-terms-conditions";
   static const String privacyPolicy="/manage-web/get-privacy-policy";
   static const String help="/manage-web/get-faq";
+///battle=======================================================================
 
+static const String createBattle="/battle/battles";
 
+  static String myBattle(String status) {
+    return "/battle/battles?status=$status";
+  }
+  static  String singleBattle(String battleId){return "/battle/battles/$battleId";}
 }

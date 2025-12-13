@@ -2,50 +2,34 @@ import 'package:crave_crusher/core/routes/app_routes.dart';
 import 'package:crave_crusher/utils/app_colors/app_colors.dart';
 import 'package:crave_crusher/utils/app_icons/app_icons.dart';
 import 'package:crave_crusher/view/components/custom_app_bar/custom_app_bar.dart';
+import 'package:crave_crusher/view/features/battle/controller/battle_controller.dart';
+import 'package:crave_crusher/view/features/battle/inner_screen/battle_log_screen.dart';
 import 'package:crave_crusher/view/features/battle/widget/details_monster_section.dart';
 import 'package:crave_crusher/view/features/battle/widget/progress_and_action_section.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 
-// class BattleDetailsScreen extends StatelessWidget {
-//   const BattleDetailsScreen({super.key});
+class BattleDetailsScreen extends StatefulWidget {
 
-//   @override
-//   Widget build(BuildContext context) {
-//     return Scaffold(
-//       appBar: CustomAppBar(
-//         title: 'Battle Details',
-//         actionIcon: AppIcons.edit,
-//         onActionPressed: () {},
-//       ),
 
-//       body: Padding(
-//         padding: EdgeInsets.symmetric(horizontal: 16.0.w),
-//         child: Column(
-//           children: [
+  const BattleDetailsScreen({super.key, required this.battleId});
+  final String battleId;
 
-//           ],
-//         ),
-//       ),
-//     );
-//   }
-// }
-class BattleDetailsScreen extends StatelessWidget {
-  // Assuming this screen receives the battle ID or details
-  //final String battleId;
 
-  const BattleDetailsScreen({super.key});
+  @override
+  State<BattleDetailsScreen> createState() => _BattleDetailsScreenState();
+}
 
-  // Sample data (Replace with actual data fetching logic)
-  static const String battleTitle = "Smoking Detox";
-  static const String battleDescription =
-      "I want to quit smoking to be healthier for my family.";
-  static const String status = "Pending";
-  static const String monsterStatusMessage =
-      "Your Monster Is Losing Power — Keep It Up!";
-  static const double progress = 0.75;
-  static const String dayCount = "Day 12 of 30";
+class _BattleDetailsScreenState extends State<BattleDetailsScreen> {
+  final BattleController controller = Get.find<BattleController>();
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    controller.fetchSingleBattle(widget.battleId);
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -60,36 +44,56 @@ class BattleDetailsScreen extends StatelessWidget {
       ),
       body: SingleChildScrollView(
         padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 12.h),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            // Monster Section (Header + Monster Image + Status Banner)
-            DetailsMonsterSection(
-              battleTitle: battleTitle,
-              battleDescription: battleDescription,
-              status: status,
-              monsterStatusMessage: monsterStatusMessage,
+        child: Obx(() {
+          if (controller.isLoadingSingleBattle.value) {
+            return const Center(child: CircularProgressIndicator());
+          }
+
+          final battle = controller.battleDetails.value.battle;
+          if (battle == null) {
+            return const Center(child: Text("No battle found"));
+          }
+
+          return SingleChildScrollView(
+            padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 12.h),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                // Monster Section (Header + Monster Image + Status Banner)
+                DetailsMonsterSection(
+                  battleTitle: battle.addictionType ?? '',
+                  battleDescription: battle.battleReason ?? '',
+                  status: battle.battleStatus ?? '',
+                  monsterStatusMessage:
+                      "Your Monster Is Losing Power — Keep It Up!",
+                ),
+
+                SizedBox(height: 24.h),
+
+                // Progress & Action Section (Progress Bar + Buttons)
+                ProgressAndActionSection(
+                  progress: (battle.battleProgress ?? 0) / 100,
+                  dayCount:
+                      "Day ${battle.day ?? 0} of ${battle.battleLength ?? 0}",
+                  title: battle.battleReason ?? '',
+                  onBattleLogPressed: () {
+                    // Navigate to Battle Log screen with battleId
+                    Get.to(BattleLogScreen(battleId: widget.battleId,));
+                   // Get.to(BattleLogScreen());
+
+                  },
+                  onBattleNowPressed: () {
+                    // Keep your Battle Now button functionality here
+                  },
+                ),
+
+                SizedBox(height: 30.h),
+              ],
             ),
+          );
+        }),
 
-            SizedBox(height: 24.h),
 
-            // Progress & Action Section (Progress Bar + Buttons)
-            ProgressAndActionSection(
-              progress: progress,
-              dayCount: dayCount,
-              title: battleTitle,
-              onBattleLogPressed: () {
-                Get.toNamed(AppRoutes.battleLogScreen);
-                // To Do: Implement Battle Log navigation
-              },
-              onBattleNowPressed: () {
-                // To Do: Implement Battle Now action
-              },
-            ),
-
-            SizedBox(height: 30.h),
-          ],
-        ),
       ),
     );
   }

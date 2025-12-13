@@ -26,7 +26,7 @@ class CommentScreen extends StatefulWidget {
 class _CommentScreenState extends State<CommentScreen> {
   final CommunityController commentController = Get.find<CommunityController>();
   final TextEditingController _controller = TextEditingController();
-final CommunityTabController tabController =Get.find<CommunityTabController>();
+
   @override
   void initState() {
     super.initState();
@@ -132,7 +132,7 @@ final CommunityTabController tabController =Get.find<CommunityTabController>();
                                 );
                                 return;
                               }
-                              bool isAllFeed = tabController.communityTabIndex.value == 0 ? true : false;
+                              bool isAllFeed = commentController.communityTabIndex.value == 0 ? true : false;
                               await commentController.createComment(
                                   widget.postId,
                                   allFeed: isAllFeed
