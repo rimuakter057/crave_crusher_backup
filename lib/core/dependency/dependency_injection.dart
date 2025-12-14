@@ -61,8 +61,8 @@ class DependencyInjection extends Bindings {
        ///privacy terms faq
 
     Get.lazyPut(() => AccountSettingController(), fenix: true);
-
-    //   Get.lazyPut(() => SettingsController(), fenix: true);
+                ///reward controller==========
+      Get.lazyPut(() => RewardsController(), fenix: true);
     //   Get.lazyPut(() => WifiSettingsController(), fenix: true);
     //   Get.lazyPut(() => LanguageController(), fenix: true);
     //   Get.put(NavController(), permanent: true);

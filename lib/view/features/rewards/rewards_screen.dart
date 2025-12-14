@@ -4,20 +4,37 @@ import 'package:crave_crusher/view/components/custom_container/custom_container.
 import 'package:crave_crusher/view/components/custom_image/custom_image.dart';
 import 'package:crave_crusher/view/components/custom_leadin_title_appbar.dart';
 import 'package:crave_crusher/view/components/custom_nav_bar/navbar.dart';
+import 'package:crave_crusher/view/components/custom_netwrok_image/custom_network_image.dart';
 import 'package:crave_crusher/view/components/custom_text/custom_text.dart';
 import 'package:crave_crusher/view/features/rewards/widgets/custom_circular_indicator.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:gap/gap.dart';
+import '../../../helper/imges_handler/image_handler.dart';
 import 'controller/reward_controller.dart';
 import 'data/battle_category_item_list.dart';
 import 'data/battle_item_details_list.dart';
 import 'package:get/get.dart';
 
 
-class RewardsScreen extends StatelessWidget {
-  RewardsScreen({super.key});
-  final RewardsController controller = Get.put(RewardsController());
+class RewardsScreen extends StatefulWidget {
+  const RewardsScreen({super.key});
+
+  @override
+  State<RewardsScreen> createState() => _RewardsScreenState();
+}
+
+class _RewardsScreenState extends State<RewardsScreen> {
+  final RewardsController controller = Get.find<RewardsController>();
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    controller.getBadgeProgress();
+    controller.getAllBadges();
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -31,12 +48,14 @@ class RewardsScreen extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               ///show progress
-              // 70%
+
               Center(
-                child: CustomCircularIndicator(
-                  percentText: '70%',
-                  percent: 0.7,
-                ),
+                child: Obx(() {
+                  return CustomCircularIndicator(
+                    percentText: "${controller.currentProgress.value}%",
+                    percent: controller.currentProgress.value / 100,
+                  );
+                }),
               ),
               _buildGainedBadgeText(title: "Ongoing Progress "),
               CustomContainer(
@@ -127,73 +146,87 @@ class RewardsScreen extends StatelessWidget {
               ),
 
               ///gain badge details section====================================================================
-              _buildGainedBadgeText(title: "Gained Badges"),
+              _buildGainedBadgeText(title: "All Badges"),
 
-              ListView.separated(
-                shrinkWrap: true,
-                physics: NeverScrollableScrollPhysics(),
-                itemCount: battleDetailItems.length,
-                separatorBuilder: (_, __) => SizedBox(height: 8.h),
-                itemBuilder: (context, index) {
-                  final itemDetails = battleDetailItems[index];
-                  return CustomContainer(
-                    borderColor: AppColors.subPrimary,
-                    width: double.infinity,
-                    padding: 12,
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        ///focus fighter text
-                        Expanded(
-                          child: Row(
-                            children: [
-                              Container(
-                                height: 30.h,
-                                width: 30.w,
-                                alignment: Alignment.center,
-                                decoration: BoxDecoration(
-                                  color: itemDetails.backgroundColor,
-                                  border: Border.all(
-                                    color: itemDetails.borderColor,
+              Obx((){
+                var badge=controller.allBadgeList;
+
+                return  ListView.separated(
+                  shrinkWrap: true,
+                  physics: NeverScrollableScrollPhysics(),
+                 itemCount: badge.length,
+
+                  separatorBuilder: (_, __) => SizedBox(height: 8.h),
+                  itemBuilder: (context, index) {
+
+                    final itemDetails= badge[index];
+                    return CustomContainer(
+                      borderColor: AppColors.subPrimary,
+                      width: double.infinity,
+                      padding: 12,
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          ///focus fighter text
+                          Expanded(
+                            child: Row(
+                              children: [
+                                Container(
+                                  height: 30.h,
+                                  width: 30.w,
+                                  alignment: Alignment.center,
+                                  decoration: BoxDecoration(
+                                    color: Colors.grey.shade100,
+                                    border: Border.all(
+                                      color: Colors.red,
+                                    ),
+                                    borderRadius: BorderRadius.circular(3),
                                   ),
-                                  borderRadius: BorderRadius.circular(3),
+
+                                  child: CustomNetworkImage(
+
+                                      imageUrl: ImageHandler.imagesHandle(itemDetails.badgeImage),
+                                      height: 20.h, width: 20.w),
+
+
                                 ),
-                                child: CustomImage(
-                                  imageSrc: itemDetails.icon,
-                                  height: 22.h,
-                                  width: 22.w,
+                                Gap(12.w),
+                                CustomText(
+                                  text: itemDetails.name,
+                                  fontSize: 14,
+                                  fontWeight: FontWeight.w500,
                                 ),
+                              ],
+                            ),
+                          ),
+                          Row(
+                            children: [
+                              Icon(
+                                Icons.lock_outline,
+                                size: 14,
+                                color: Color(0xFFA1A1AA),
                               ),
-                              Gap(12.w),
+                              Gap(4.w),
                               CustomText(
-                                text: itemDetails.title,
-                                fontSize: 14,
+                                text: itemDetails.name,
+                                fontSize: 12,
                                 fontWeight: FontWeight.w500,
+                                color: Color(0xFFA1A1AA),
                               ),
                             ],
                           ),
-                        ),
-                        Row(
-                          children: [
-                            Icon(
-                              Icons.lock_outline,
-                              size: 14,
-                              color: Color(0xFFA1A1AA),
-                            ),
-                            Gap(4.w),
-                            CustomText(
-                              text: itemDetails.subTitle,
-                              fontSize: 12,
-                              fontWeight: FontWeight.w500,
-                              color: Color(0xFFA1A1AA),
-                            ),
-                          ],
-                        ),
-                      ],
-                    ),
-                  );
-                },
-              ),
+                        ],
+                      ),
+                    );
+
+
+                  },
+                );
+              }),
+
+
+
+
             ],
           ),
         ),

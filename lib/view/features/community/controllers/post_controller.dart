@@ -41,7 +41,7 @@ class PostController extends GetxController {
     }
   }
 
-  /// get all post ==============================================================================Get Method====================
+  /// get my post ==============================================================================Get Method====================
   RxList<PostModel> getMyPostList = <PostModel>[].obs;
   var isLoadingPost = false.obs;
 

@@ -1,0 +1,85 @@
+     //
+              // /// ---- Image Grid (3-column fixed) ----
+              // Wrap(
+              //   spacing: 8.w,
+              //   runSpacing: 8.h,
+              //   children: List.generate(
+              //     images.length,
+              //     (index) => _buildImageItem(images[index], itemWidth),
+              //   ),
+              // ),
+              //
+              // Gap(16.h),
+
+              // /// add button
+              // Column(
+              //   crossAxisAlignment: CrossAxisAlignment.start,
+              //   children: [
+              //
+              //     /// --- Images Show Section ---
+              //     Obx(() {
+              //       if (postController.imagePaths.isEmpty) {
+              //         return SizedBox(); // no image section
+              //       }
+              //
+              //       return SizedBox(
+              //         height: 120.h,
+              //         child: ListView.separated(
+              //           scrollDirection: Axis.horizontal,
+              //           itemCount: postController.imagePaths.length,
+              //           separatorBuilder: (_, __) => SizedBox(width: 10),
+              //           itemBuilder: (context, index) {
+              //             final path = postController.imagePaths[index];
+              //
+              //             return Stack(
+              //               children: [
+              //                 ClipRRect(
+              //                   borderRadius: BorderRadius.circular(12),
+              //                   child: Image.file(
+              //                     File(path),
+              //                     width: 120.w,
+              //                     height: 120.h,
+              //                     fit: BoxFit.cover,
+              //                   ),
+              //                 ),
+              //
+              //                 Positioned(
+              //                   right: 5,
+              //                   top: 5,
+              //                   child: GestureDetector(
+              //                     onTap: () => postController.removeImage(path),
+              //                     child: Container(
+              //                       padding: const EdgeInsets.all(4),
+              //                       decoration: BoxDecoration(
+              //                         color: Colors.black54,
+              //                         shape: BoxShape.circle,
+              //                       ),
+              //                       child: Icon(Icons.close, color: Colors.white, size: 18),
+              //                     ),
+              //                   ),
+              //                 ),
+              //               ],
+              //             );
+              //           },
+              //         ),
+              //       );
+              //     }),
+              //
+              //     SizedBox(height: 12),
+              //
+              //     /// --- Full Width Add Button ---
+              //     GestureDetector(
+              //       onTap: () => postController.pickImages(),
+              //       child: CustomContainer(
+              //         width: double.infinity,
+              //         borderColor: AppColors.primary,
+              //         height: 120.h,
+              //         backgroundColor: AppColors.subPrimary.withOpacity(.5),
+              //         child: Center(
+              //           child: CustomImage(imageSrc: AppIcons.addImage),
+              //         ),
+              //       ),
+              //     ),
+              //   ],
+              // ),
+              //

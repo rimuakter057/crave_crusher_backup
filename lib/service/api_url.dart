@@ -46,6 +46,7 @@ class ApiUrl {
   static const String termsCondition="/manage-web/get-terms-conditions";
   static const String privacyPolicy="/manage-web/get-privacy-policy";
   static const String help="/manage-web/get-faq";
+
 ///battle=======================================================================
 
 static const String createBattle="/battle/battles";
@@ -54,4 +55,14 @@ static const String createBattle="/battle/battles";
     return "/battle/battles?status=$status";
   }
   static  String singleBattle(String battleId){return "/battle/battles/$battleId";}
+  static  String completeBattleDay(String battleId){return "/battle/battles/$battleId/status";}
+  static  String cancelBattle(String battleId){return "/battle/battles/$battleId/cancel";}
+
+
+  ///badges========================================================================
+
+  static const String getAllBadge="/badge/badges";
+  static const String getProgress="/badge/badge-progress";
+
+
 }

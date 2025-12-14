@@ -3,24 +3,21 @@
 import 'package:crave_crusher/utils/app_colors/app_colors.dart';
 import 'package:crave_crusher/utils/app_icons/app_icons.dart';
 import 'package:crave_crusher/view/components/custom_app_bar/custom_app_bar.dart';
+import 'package:crave_crusher/view/components/custom_button/custom_button.dart';
 import 'package:crave_crusher/view/components/custom_image/custom_image.dart';
 import 'package:crave_crusher/view/components/custom_text/custom_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:gap/gap.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:get/get.dart';
+import '../battle_screen.dart';
+import '../controller/battle_controller.dart';
 
-// class CreateBattleScreen extends StatelessWidget {
-//   const CreateBattleScreen({super.key});
-
-//   @override
-//   Widget build(BuildContext context) {
-//     return Scaffold();
-//   }
-// }
 
 class UpdateBattleScreen extends StatefulWidget {
-  const UpdateBattleScreen({super.key});
-
+  const UpdateBattleScreen({super.key, required this.battleId});
+final String battleId;
   @override
   State<UpdateBattleScreen> createState() => _StartNewBattleScreenState();
 }
@@ -31,7 +28,7 @@ class _StartNewBattleScreenState extends State<UpdateBattleScreen> {
   final TextEditingController _daysController = TextEditingController();
   final TextEditingController _reasonController = TextEditingController();
   bool? _sendReminder = true; // Default to Yes
-
+  final BattleController controller = Get.find<BattleController>();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -39,44 +36,38 @@ class _StartNewBattleScreenState extends State<UpdateBattleScreen> {
       appBar: CustomAppBar(title: 'Update Battle', actions: []),
       body: SingleChildScrollView(
         padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 16.h),
-        child: Column(
+        child:Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            // 1. Addiction Type Dropdown
+            /// 1. Addiction Type Dropdown=========================================================================
             _CustomDropdownField(
               label: "Addiction Type",
               hint: "Select an addiction to battle",
-              items: addictionTypes,
-              selectedValue: _selectedType,
-              onChanged: (newValue) {
-                setState(() {
-                  _selectedType = newValue;
-                });
-              },
+              items: controller.addictionTypes,
+              selectedValue: controller.selectedType.value,
+              onChanged: (val) => controller.selectedType.value = val,
             ),
 
-            // 2. Addiction Level Dropdown
+            /// 2. Addiction Level Dropdown===============================================================
             _CustomDropdownField(
               label: "Addiction Level",
               hint: "Select an addiction level",
-              items: addictionLevels,
-              selectedValue: _selectedLevel,
-              onChanged: (newValue) {
-                setState(() {
-                  _selectedLevel = newValue;
-                });
-              },
+              items: controller.addictionLevels,
+              selectedValue: controller.selectedLevel.value,
+              onChanged: (val) => controller.selectedLevel.value = val,
             ),
 
-            // 3. Battle Duration Input
+            /// 3. Battle Duration Input=========================================================
             CustomText(
               text: "How Many Days Will This Battle Last?",
               fontWeight: FontWeight.w600,
               fontSize: 16,
               bottom: 8.h,
             ),
+
+            ///day selected================================================================
             TextField(
-              controller: _daysController,
+              controller: controller.daysController,
               keyboardType: TextInputType.number,
               decoration: InputDecoration(
                 hintText: "Enter number of days (e.g., 7, 14, 30)",
@@ -104,19 +95,18 @@ class _StartNewBattleScreenState extends State<UpdateBattleScreen> {
                 ),
               ),
             ),
+
             SizedBox(height: 24.h),
 
-            // 4. Send Reminder Radio Group
-            _ReminderRadioGroup(
-              selectedValue: _sendReminder,
-              onChanged: (newValue) {
-                setState(() {
-                  _sendReminder = newValue;
-                });
-              },
-            ),
+            /// 4. Send Reminder Radio Group
+            Obx(() {
+              return _ReminderRadioGroup(
+                selectedValue: controller.sendReminder.value,
+                onChanged: (val) => controller.sendReminder.value = val!,
+              );
+            }),
 
-            // 5. Reason Text Area
+            /// 5. Reason Text Area==============================================================
             CustomText(
               text: "Why Are You Starting This Battle?",
               fontWeight: FontWeight.w600,
@@ -124,8 +114,7 @@ class _StartNewBattleScreenState extends State<UpdateBattleScreen> {
               bottom: 8.h,
             ),
             TextField(
-              controller: _reasonController,
-              maxLines: 4,
+              controller: controller.reasonController,
               decoration: InputDecoration(
                 hintText: "I want to feel healthier and more focused.",
                 hintStyle: GoogleFonts.syne(
@@ -150,78 +139,258 @@ class _StartNewBattleScreenState extends State<UpdateBattleScreen> {
               ),
             ),
             SizedBox(height: 40.h),
-            GestureDetector(
-              onTap: () {},
-              child: Container(
-                height: 40.h,
-                width: 140.w,
-                decoration: BoxDecoration(
-                  color: AppColors.primary,
-                  borderRadius: BorderRadius.circular(8.r),
-                ),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    CustomImage(
-                      imageSrc: AppIcons.battle,
-                      imageColor: AppColors.white,
-                    ),
 
-                    CustomText(
-                      text: "Start Battle",
-                      fontSize: 12.w,
-                      fontWeight: FontWeight.w600,
-                      color: AppColors.white,
-                      bottom: 0,
-                      top: 0,
-                    ),
-                  ],
-                ),
-              ),
-            ),
-            // 6. Start Battle Button
-            // ElevatedButton(
-            //   onPressed: () {
-            //     // To Do: Handle the creation of the new battle
-            //     debugPrint(
-            //       'Type: $_selectedType, Level: $_selectedLevel, Days: ${_daysController.text}, Reminder: $_sendReminder, Reason: ${_reasonController.text}',
-            //     );
-            //   },
-            //   style: ElevatedButton.styleFrom(
-            //     minimumSize: Size(double.infinity, 56.h),
-            //     backgroundColor: AppColors.primary,
-            //     shape: RoundedRectangleBorder(
-            //       borderRadius: BorderRadius.circular(10.r),
-            //     ),
-            //     elevation: 3,
-            //   ),
-            //   child: Row(
-            //     mainAxisAlignment: MainAxisAlignment.center,
-            //     children: [
-            //       CustomImage(
-            //         imageSrc: AppIcons.battle,
-            //         height: 24.h,
-            //         width: 24.w,
-            //       ),
-            //       SizedBox(width: 8.w),
-            //       CustomText(
-            //         text: "Start Battle",
-            //         fontSize: 18.sp,
-            //         fontWeight: FontWeight.w700,
-            //         color: AppColors.white,
-            //         bottom: 0,
-            //         top: 0,
-            //       ),
-            //     ],
-            //   ),
-            // ),
+            ///button section======================================
+            Obx(() {
+              return GestureDetector(
+                onTap:
+                controller.isLoading.value
+                    ? null
+                    : () async {
+                  final success = await controller.cancelBattle(widget.battleId);
+                  if (success){
+                    Get.to(BattleScreen());
+                    controller.fetchAllBattle("active");
+                  }
+                },
+                child:
+                controller.isLoading.value
+                    ? CircularProgressIndicator()
+                    : _buildButtonContainer(
+                              bgColor: AppColors.red100,
+                              text: "Cancel Battle",
+                              icon: AppIcons.battle, textColor: AppColors.red500, iconColor: AppColors.red500,
+                            ),
+              );
+
+
+
+
+              //     //update battle
+              //     Row(
+              //       children: [
+              //         GestureDetector(
+              //           onTap: () {
+              //             print("Start Battle tapped!");
+              //           },
+              //           child: _buildButtonContainer(
+              //             bgColor: AppColors.primary,
+              //             text: "Update Battle",
+              //             icon: AppIcons.battle,
+              //             textColor: AppColors.white, iconColor: AppColors.white,
+              //           ),
+              //         ),
+              //
+              //            Gap(12.w),        //cancel button
+              //         GestureDetector(
+              //           onTap: () {
+              //             print("Start Battle tapped!");
+              //           },
+              //           child: _buildButtonContainer(
+              //             bgColor: AppColors.red100,
+              //             text: "Cancel Battle",
+              //             icon: AppIcons.battle, textColor: AppColors.red500, iconColor: AppColors.red500,
+              //           ),
+              //         ),
+              //       ],
+              //     ),
+
+
+            }),
+
             SizedBox(height: 20.h),
           ],
         ),
+
+
+
+        // Column(
+        //   crossAxisAlignment: CrossAxisAlignment.start,
+        //   children: [
+        //     // 1. Addiction Type Dropdown
+        //     _CustomDropdownField(
+        //       label: "Addiction Type",
+        //       hint: "Select an addiction to battle",
+        //       items: addictionTypes,
+        //       selectedValue: _selectedType,
+        //       onChanged: (newValue) {
+        //         setState(() {
+        //           _selectedType = newValue;
+        //         });
+        //       },
+        //     ),
+        //
+        //     // 2. Addiction Level Dropdown
+        //     _CustomDropdownField(
+        //       label: "Addiction Level",
+        //       hint: "Select an addiction level",
+        //       items: addictionLevels,
+        //       selectedValue: _selectedLevel,
+        //       onChanged: (newValue) {
+        //         setState(() {
+        //           _selectedLevel = newValue;
+        //         });
+        //       },
+        //     ),
+        //
+        //     // 3. Battle Duration Input
+        //     CustomText(
+        //       text: "How Many Days Will This Battle Last?",
+        //       fontWeight: FontWeight.w600,
+        //       fontSize: 16,
+        //       bottom: 8.h,
+        //     ),
+        //     TextField(
+        //       controller: _daysController,
+        //       keyboardType: TextInputType.number,
+        //       decoration: InputDecoration(
+        //         hintText: "Enter number of days (e.g., 7, 14, 30)",
+        //         hintStyle: GoogleFonts.syne(
+        //           color: AppColors.softWhite,
+        //           fontSize: 14.sp,
+        //         ),
+        //         contentPadding: EdgeInsets.symmetric(
+        //           horizontal: 16.w,
+        //           vertical: 12.h,
+        //         ),
+        //         filled: true,
+        //         fillColor: AppColors.subPrimary.withOpacity(0.4),
+        //         border: OutlineInputBorder(
+        //           borderRadius: BorderRadius.circular(10.r),
+        //           borderSide: BorderSide.none,
+        //         ),
+        //         enabledBorder: OutlineInputBorder(
+        //           borderRadius: BorderRadius.circular(10.r),
+        //           borderSide: BorderSide.none,
+        //         ),
+        //         focusedBorder: OutlineInputBorder(
+        //           borderRadius: BorderRadius.circular(10.r),
+        //           borderSide: BorderSide(color: AppColors.primary, width: 2.w),
+        //         ),
+        //       ),
+        //     ),
+        //     SizedBox(height: 24.h),
+        //
+        //     // 4. Send Reminder Radio Group
+        //     _ReminderRadioGroup(
+        //       selectedValue: _sendReminder,
+        //       onChanged: (newValue) {
+        //         setState(() {
+        //           _sendReminder = newValue;
+        //         });
+        //       },
+        //     ),
+        //
+        //     // 5. Reason Text Area
+        //     CustomText(
+        //       text: "Why Are You Starting This Battle?",
+        //       fontWeight: FontWeight.w600,
+        //       fontSize: 16,
+        //       bottom: 8.h,
+        //     ),
+        //     TextField(
+        //       controller: _reasonController,
+        //       maxLines: 4,
+        //       decoration: InputDecoration(
+        //         hintText: "I want to feel healthier and more focused.",
+        //         hintStyle: GoogleFonts.syne(
+        //           color: AppColors.softWhite,
+        //           fontSize: 14.sp,
+        //         ),
+        //         contentPadding: EdgeInsets.all(16.w),
+        //         filled: true,
+        //         fillColor: AppColors.subPrimary.withOpacity(0.4),
+        //         border: OutlineInputBorder(
+        //           borderRadius: BorderRadius.circular(10.r),
+        //           borderSide: BorderSide.none,
+        //         ),
+        //         enabledBorder: OutlineInputBorder(
+        //           borderRadius: BorderRadius.circular(10.r),
+        //           borderSide: BorderSide.none,
+        //         ),
+        //         focusedBorder: OutlineInputBorder(
+        //           borderRadius: BorderRadius.circular(10.r),
+        //           borderSide: BorderSide(color: AppColors.primary, width: 2.w),
+        //         ),
+        //       ),
+        //     ),
+        //     SizedBox(height: 40.h),
+        //     //update battle
+        //     Row(
+        //       children: [
+        //         GestureDetector(
+        //           onTap: () {
+        //             print("Start Battle tapped!");
+        //           },
+        //           child: _buildButtonContainer(
+        //             bgColor: AppColors.primary,
+        //             text: "Update Battle",
+        //             icon: AppIcons.battle,
+        //             textColor: AppColors.white, iconColor: AppColors.white,
+        //           ),
+        //         ),
+        //
+        //            Gap(12.w),        //cancel button
+        //         GestureDetector(
+        //           onTap: () {
+        //             print("Start Battle tapped!");
+        //           },
+        //           child: _buildButtonContainer(
+        //             bgColor: AppColors.red100,
+        //             text: "Cancel Battle",
+        //             icon: AppIcons.battle, textColor: AppColors.red500, iconColor: AppColors.red500,
+        //           ),
+        //         ),
+        //       ],
+        //     ),
+        //
+        //
+        //
+        //     SizedBox(height: 20.h),
+        //   ],
+        // ),
+
+
+
       ),
     );
   }
+
+  Container _buildButtonContainer({
+    required Color bgColor,
+    required String text,
+    required String icon,
+    required Color textColor,
+    required Color iconColor,
+  }) {
+    return Container(
+      height: 40.h,
+      width: 140.w,
+      decoration: BoxDecoration(
+        color: bgColor,
+        borderRadius: BorderRadius.circular(8.r),
+      ),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          CustomImage(
+            imageSrc: icon,
+            imageColor: iconColor,
+          ),
+          CustomText(
+            text: text,
+            fontSize: 12.w,
+            fontWeight: FontWeight.w600,
+            color:textColor,
+            bottom: 0,
+            top: 0,
+          ),
+        ],
+      ),
+    );
+  }
+
 }
 
 // --- DYNAMIC DATA LISTS ---

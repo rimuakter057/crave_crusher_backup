@@ -32,7 +32,7 @@ class DetailsMonsterSection extends StatelessWidget {
         Padding(
           padding: EdgeInsets.only(bottom: 16.h),
           child: Container(
-            padding: EdgeInsets.all(12.w),
+            padding: EdgeInsets.all(8.w),
             decoration: BoxDecoration(
               color: AppColors.white,
               borderRadius: BorderRadius.circular(12),
@@ -46,8 +46,8 @@ class DetailsMonsterSection extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Container(
-                      height: 44.h,
-                      width: 44.w,
+                      height: 40.h,
+                      width: 40.w,
                       alignment: Alignment.center,
                       decoration: BoxDecoration(
                         color: AppColors.subPrimary.withOpacity(.3),
@@ -60,15 +60,17 @@ class DetailsMonsterSection extends StatelessWidget {
                         width: 36.w,
                       ),
                     ),
-                    SizedBox(width: 10.w),
+                    SizedBox(width: 8.w),
                     Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         CustomText(
+                          maxLines: 1,
+                          overflow: TextOverflow.ellipsis,
                           textAlign: TextAlign.start,
                           text: battleTitle,
                           fontWeight: FontWeight.w600,
-                          fontSize: 16.sp,
+                          fontSize: 14.sp,
                           color: AppColors.appTitle,
                           bottom: 0,
                           top: 0,
@@ -93,7 +95,7 @@ class DetailsMonsterSection extends StatelessWidget {
                 ),
                 // Status Badge
                 Container(
-                  padding: EdgeInsets.symmetric(horizontal: 4.w, vertical: 4.h),
+                  padding: EdgeInsets.symmetric(horizontal: 2.w, vertical: 2.h),
                   decoration: BoxDecoration(
                     color: AppColors.subPrimary.withOpacity(
                       0.3,
@@ -103,7 +105,7 @@ class DetailsMonsterSection extends StatelessWidget {
                   ),
                   child: CustomText(
                     text: "• $status",
-                    fontSize: 12.w,
+                    fontSize: 11.w,
                     fontWeight: FontWeight.w500,
                     color: AppColors.primary,
                     bottom: 0,

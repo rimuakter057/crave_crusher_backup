@@ -33,7 +33,15 @@ class AppRoutes {
 
     GetPage(name: createBattleScreen, page: () => CreateBattleScreen()),
     GetPage(name: emptyHome, page: () => EmptyHomeScreen()),
-    GetPage(name: updateBattle, page: () => UpdateBattleScreen()),
+    GetPage(
+      name: updateBattle,
+      page: () {
+        // Get.arguments থেকে value নাও
+        final battleId = Get.arguments as String;
+        return UpdateBattleScreen(battleId: battleId);
+      },
+    ),
+
     GetPage(name: postScreen, page: () => PostScreen()),
   ];
 }

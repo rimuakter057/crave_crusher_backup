@@ -48,7 +48,7 @@ class AppIcons {
       "$basePath/todayTipsBackgroundImage.svg";
   static const String alarm = "$basePath/alarm.svg";
   static const String music = "$basePath/music.png";
-
+  static const String caved = "$basePath/caved.svg";
   ///reward icon
   static const String starSpark = "$basePath/starter_spark.png";
   static const String monsterMaster = "$basePath/monster_master.png";

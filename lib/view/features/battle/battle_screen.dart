@@ -10,7 +10,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 
 class BattleScreen extends StatefulWidget {
-  const BattleScreen({super.key, });
+  const BattleScreen({super.key});
 
   @override
   State<BattleScreen> createState() => _BattleScreenState();
@@ -69,118 +69,139 @@ class _BattleScreenState extends State<BattleScreen> {
 
               if (controller.battleTabIndex.value == 0) ...[
                 Expanded(
-                  child:
-                      controller.isLoadingAllBattle.value
-                          ? const Center(child: CircularProgressIndicator())
-                          : controller.allBattleList.isEmpty
-                          ? const Center(
-                            child: Text(
-                              "No active battles found",
-                              style: TextStyle(
-                                fontSize: 16,
-                                fontWeight: FontWeight.w500,
+                  child: RefreshIndicator(
+                    onRefresh: () async {
+                      _fetchBattleByTab(controller.battleTabIndex.value);
+                    },
+                    child:
+                        controller.isLoadingAllBattle.value
+                            ? const Center(child: CircularProgressIndicator())
+                            : controller.allBattleList.isEmpty
+                            ? const Center(
+                              child: Text(
+                                "No active battles found",
+                                style: TextStyle(
+                                  fontSize: 16,
+                                  fontWeight: FontWeight.w500,
+                                ),
                               ),
-                            ),
-                          )
-                          : ListView.builder(
-                            itemCount: controller.allBattleList.length,
-                            physics: const AlwaysScrollableScrollPhysics(),
-                            itemBuilder: (context, index) {
-                              final battle = controller.allBattleList[index];
+                            )
+                            : ListView.builder(
+                              physics: const AlwaysScrollableScrollPhysics(),
+                              itemCount: controller.allBattleList.length,
+                              itemBuilder: (context, index) {
+                                final battle = controller.allBattleList[index];
 
-                              return ActiveBattleCard(
-                                detoxType: DetoxType.smoke,
-                                title: battle.addictionType.toString(),
-                                percentText: "${battle.battleProgress}%",
-                                progress: 0.58,
-                                status: battle.battleStatus.toString(),
-                                dayCount: "Day ${battle.day} of 30",
-                                onBattlePressed: () {
-                                  Get.to(
-                                      BattleDetailsScreen(battleId: battle.id.toString())
-                                  );
-                                },
-                              );
-                            },
-                          ),
+                                return ActiveBattleCard(
+                                  detoxType: DetoxType.smoke,
+                                  title: battle.addictionType.toString(),
+                                  percentText: "${battle.battleProgress}%",
+                                  progress: 0.58,
+                                  status: battle.battleStatus.toString(),
+                                  dayCount: "Day ${battle.day} of 30",
+                                  onBattlePressed: () {
+                                    Get.to(
+                                      BattleDetailsScreen(
+                                        battleId: battle.id.toString(),
+                                      ),
+                                    );
+                                  },
+                                );
+                              },
+                            ),
+                  ),
                 ),
               ],
 
               if (controller.battleTabIndex.value == 1) ...[
                 Expanded(
-                  child:
-                      controller.isLoadingAllBattle.value
-                          ? const Center(child: CircularProgressIndicator())
-                          : controller.allBattleList.isEmpty
-                          ? const Center(
-                            child: Text(
-                              "No completed battles found",
-                              style: TextStyle(
-                                fontSize: 16,
-                                fontWeight: FontWeight.w500,
+                  child: RefreshIndicator(
+                    onRefresh: () async {
+                      _fetchBattleByTab(controller.battleTabIndex.value);
+                    },
+                    child:
+                        controller.isLoadingAllBattle.value
+                            ? const Center(child: CircularProgressIndicator())
+                            : controller.allBattleList.isEmpty
+                            ? const Center(
+                              child: Text(
+                                "No completed battles found",
+                                style: TextStyle(
+                                  fontSize: 16,
+                                  fontWeight: FontWeight.w500,
+                                ),
                               ),
-                            ),
-                          )
-                          : ListView.builder(
-                            itemCount: controller.allBattleList.length,
-                            physics: const AlwaysScrollableScrollPhysics(),
-                            itemBuilder: (context, index) {
-                              final battle = controller.allBattleList[index];
+                            )
+                            : ListView.builder(
+                              physics: const AlwaysScrollableScrollPhysics(),
+                              itemCount: controller.allBattleList.length,
+                              itemBuilder: (context, index) {
+                                final battle = controller.allBattleList[index];
 
-                              return ActiveBattleCard(
-                                detoxType: DetoxType.smoke,
-                                title: battle.addictionType ?? "",
-                                percentText: "${battle.battleProgress}%",
-                                progress: (battle.battleProgress ?? 0) / 100,
-                                status: "Completed",
-                                dayCount: "Day ${battle.day} of 30",
-                                onBattlePressed: () {
-                                  Get.to(
-                                      BattleDetailsScreen(battleId: battle.id.toString())
-                                  );
-                                },
-                              );
-                            },
-                          ),
+                                return ActiveBattleCard(
+                                  detoxType: DetoxType.smoke,
+                                  title: battle.addictionType ?? "",
+                                  percentText: "${battle.battleProgress}%",
+                                  progress: (battle.battleProgress ?? 0) / 100,
+                                  status: "Completed",
+                                  dayCount: "Day ${battle.day} of 30",
+                                  onBattlePressed: () {
+                                    Get.to(
+                                      BattleDetailsScreen(
+                                        battleId: battle.id.toString(),
+                                      ),
+                                    );
+                                  },
+                                );
+                              },
+                            ),
+                  ),
                 ),
               ],
 
               if (controller.battleTabIndex.value == 2) ...[
                 Expanded(
-                  child:
-                      controller.isLoadingAllBattle.value
-                          ? const Center(child: CircularProgressIndicator())
-                          : controller.allBattleList.isEmpty
-                          ? const Center(
-                            child: Text(
-                              "No canceled battles found",
-                              style: TextStyle(
-                                fontSize: 16,
-                                fontWeight: FontWeight.w500,
+                  child: RefreshIndicator(
+                    onRefresh: () async {
+                      _fetchBattleByTab(controller.battleTabIndex.value);
+                    },
+                    child:
+                        controller.isLoadingAllBattle.value
+                            ? const Center(child: CircularProgressIndicator())
+                            : controller.allBattleList.isEmpty
+                            ? const Center(
+                              child: Text(
+                                "No canceled battles found",
+                                style: TextStyle(
+                                  fontSize: 16,
+                                  fontWeight: FontWeight.w500,
+                                ),
                               ),
-                            ),
-                          )
-                          : ListView.builder(
-                            itemCount: controller.allBattleList.length,
-                            physics: const AlwaysScrollableScrollPhysics(),
-                            itemBuilder: (context, index) {
-                              final battle = controller.allBattleList[index];
+                            )
+                            : ListView.builder(
+                              physics: const AlwaysScrollableScrollPhysics(),
+                              itemCount: controller.allBattleList.length,
+                              itemBuilder: (context, index) {
+                                final battle = controller.allBattleList[index];
 
-                              return ActiveBattleCard(
-                                detoxType: DetoxType.smoke,
-                                title: battle.addictionType.toString(),
-                                percentText: "${battle.battleProgress}%",
-                                progress: 0.58,
-                                status: "Canceled",
-                                dayCount: "Day ${battle.day} of 30",
-                                onBattlePressed: () {
-                                  Get.to(
-                                    BattleDetailsScreen(battleId: battle.id.toString())
-                                  );
-                                },
-                              );
-                            },
-                          ),
+                                return ActiveBattleCard(
+                                  detoxType: DetoxType.smoke,
+                                  title: battle.addictionType.toString(),
+                                  percentText: "${battle.battleProgress}%",
+                                  progress: 0.58,
+                                  status: "Canceled",
+                                  dayCount: "Day ${battle.day} of 30",
+                                  onBattlePressed: () {
+                                    Get.to(
+                                      BattleDetailsScreen(
+                                        battleId: battle.id.toString(),
+                                      ),
+                                    );
+                                  },
+                                );
+                              },
+                            ),
+                  ),
                 ),
               ],
             ],

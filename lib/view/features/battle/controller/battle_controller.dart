@@ -47,19 +47,18 @@ class BattleController extends GetxController{
 
     isLoading.value = true;
 
-    final model = BattleModel(
-      addictionType: selectedType.value,
-      addictionLevel: selectedLevel.value,
-      battleLength: int.tryParse(daysController.text),
-      sendReminder: sendReminder.value,
-      battleReason: reasonController.text,
-    );
-
-
+    // Directly create body as Map<String, dynamic> instead of using a model
+    final body = {
+      "addictionType": selectedType.value,
+      "addictionLevel": selectedLevel.value,
+      "battleLength": int.tryParse(daysController.text),
+      "sendReminder": sendReminder.value,
+      "battleReason": reasonController.text,
+    };
 
     final response = await ApiClient.postData(
       ApiUrl.createBattle,
-      model.toJson(),
+      body,
     );
 
     isLoading.value = false;
@@ -67,12 +66,12 @@ class BattleController extends GetxController{
     if (response.statusCode == 200 || response.statusCode == 201) {
       _clearInputs();
       return true;
-
     } else {
       Get.snackbar("Error", response.statusText ?? "Battle create failed");
       return false;
     }
   }
+
 
   // Input validation
   bool _validateInputs() {
@@ -102,6 +101,67 @@ class BattleController extends GetxController{
     daysController.clear();
     reasonController.clear();
   }
+
+
+  ///cancel battle=================================================================================
+
+  var isLoadingCancelBattle = false.obs;
+
+  Future<bool> cancelBattle(String battleId,) async {
+    isLoadingCancelBattle.value = true;
+    final body = {
+      "addictionType": selectedType.value,
+      "addictionLevel": selectedLevel.value,
+      "battleLength": int.tryParse(daysController.text),
+      "sendReminder": sendReminder.value,
+      "battleReason": reasonController.text,
+    };
+
+
+    final response = await ApiClient.patchData(
+      ApiUrl.cancelBattle(battleId),
+      body,
+    );
+
+    isLoadingCancelBattle.value = false;
+
+    if (response.statusCode == 200 || response.statusCode == 201) {
+      return true;
+    }
+
+    return false;
+  }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
   /// get all battle ============================================================================== Get Method =====================map to lis==============
@@ -158,6 +218,29 @@ class BattleController extends GetxController{
   }
 
 
+///complete battle day==============================================================================================
+  var isLoadingCompleteBattle = false.obs;
+
+  Future<bool> completeBattleDay(String battleId,final String status) async {
+    isLoadingCompleteBattle.value = true;
+
+    final body = {
+      "status": status, // or whatever backend expects
+    };
+
+    final response = await ApiClient.patchData(
+      ApiUrl.completeBattleDay(battleId),
+      body,
+    );
+
+    isLoadingCompleteBattle.value = false;
+
+    if (response.statusCode == 200 || response.statusCode == 201) {
+      return true;
+    }
+
+    return false;
+  }
 
 
 
