@@ -60,6 +60,6 @@ class AppIcons {
   static const String milestoneAchiever = "$basePath/milestone_achiever.png";
   static const String positivePowerHouse = "$basePath/positive_power.png";
 
-
+  static const String claim = "$basePath/claim.png";
 
 }

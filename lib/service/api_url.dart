@@ -63,6 +63,6 @@ static const String createBattle="/battle/battles";
 
   static const String getAllBadge="/badge/badges";
   static const String getProgress="/badge/badge-progress";
-
-
+  static const String getAchieveBadge="/user-badge/completed-badges";
+  static  String claim(String badgeId){return "/user-badge/claim-badge/$badgeId";}
 }

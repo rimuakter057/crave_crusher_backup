@@ -180,14 +180,6 @@ class PostController extends GetxController {
   Rx<Status> updatePostStatus = Status.loading.obs;
   var isLoadingUpdate = false.obs;
   var currentImagePaths = <String>[].obs;
- //  RxList<String> deleteImages = <String>[].obs;
- //
- //  void removeCurrentImage(String path) {
- //    currentImagePaths.remove(path); // UI theke remove
- //    deleteImages.add(path);
- //  }
-
-
 
   void pickImagesUpdate() async {
     final ImagePicker picker = ImagePicker();
@@ -203,7 +195,6 @@ class PostController extends GetxController {
 
     final body = {
       "content": content,
-      //"deleted_images": deleteImages.toList(), // send deleted images to backend
     };
 
     final response = await ApiClient.patchData(

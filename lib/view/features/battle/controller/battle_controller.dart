@@ -41,7 +41,7 @@ class BattleController extends GetxController{
     'Very Low', 'Low', 'Medium', 'High', 'Very High'
   ];
 
-  // Create Battle API call
+  /// Create Battle API call=====================================================
   Future<bool> createBattle() async {
     if (!_validateInputs()) return false;
 
@@ -134,36 +134,6 @@ class BattleController extends GetxController{
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
   /// get all battle ============================================================================== Get Method =====================map to lis==============
 
   RxList<BattleModel> allBattleList = <BattleModel>[].obs;
@@ -218,7 +188,7 @@ class BattleController extends GetxController{
   }
 
 
-///complete battle day==============================================================================================
+///complete battle day=====================================================Patch=========================================
   var isLoadingCompleteBattle = false.obs;
 
   Future<bool> completeBattleDay(String battleId,final String status) async {
