@@ -59,92 +59,92 @@ class _RewardsScreenState extends State<RewardsScreen> {
               ),
 
               _buildGainedBadgeText(title: "Ongoing Progress "),
-              CustomContainer(
-                borderColor: AppColors.subPrimary,
-                width: double.infinity,
-                padding: 12,
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    ///focus fighter text
-                    Row(
-                      children: [
-                        Container(
-                          height: 30.h,
-                          width: 30.w,
-                          alignment: Alignment.center,
-                          decoration: BoxDecoration(
-                            color: Color(0xFFF7FEE7),
-                            border: Border.all(color: Color(0xFF84CC16)),
-                            borderRadius: BorderRadius.circular(3),
-                          ),
-                          child:Obx((){
-                            return    CustomNetworkImage(
 
-                              imageUrl:  ImageHandler.imagesHandle(controller.currentBadge.value?.badgeImage),
+
+              Obx(() {
+                final currentBadge = controller.currentBadge.value;
+                final craveCount = controller.craveCount.value;
+                final isLoading = controller.isLoadingProgress.value; // create this in your controller
+
+                if (isLoading) {
+                  return CustomContainer(
+                    borderColor: AppColors.subPrimary,
+                    width: double.infinity,
+                    padding: 12,
+                    child: Center(
+                      child: CircularProgressIndicator(),
+                    ),
+                  );
+                }
+
+                if (currentBadge == null) {
+                  return _buildEmptyWidget( "No badge available");
+                }
+
+                // Data available
+                final badgeImageUrl = ImageHandler.imagesHandle(currentBadge.badgeImage);
+                final badgeName = currentBadge.name ?? "Loading...";
+                final orderNumber = currentBadge.orderNumber.toString() ?? "00";
+
+                return CustomContainer(
+                  borderColor: AppColors.subPrimary,
+                  width: double.infinity,
+                  padding: 12,
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      // Left side: badge
+                      Row(
+                        children: [
+                          Container(
+                            height: 30.h,
+                            width: 30.w,
+                            alignment: Alignment.center,
+                            decoration: BoxDecoration(
+                              color: Color(0xFFF7FEE7),
+                              border: Border.all(color: Color(0xFF84CC16)),
+                              borderRadius: BorderRadius.circular(3),
+                            ),
+                            child: CustomNetworkImage(
+                              imageUrl: badgeImageUrl,
                               height: 20.h,
                               width: 20.w,
-                            );
-                          }),
-
-
-
-
-                         // child:  CustomImage(
-                         //    imageSrc: AppIcons.battlePng,
-                         //    height: 22.h,
-                         //    width: 22.w,
-                         //  ),
-                        ),
-                        Gap(8.w),
-
-
-                        Obx(() {
-                          final data = controller.currentBadge.value;
-
-                          return CustomText(
-                            text: data?.name ?? "Loading...",
+                            ),
+                          ),
+                          Gap(8.w),
+                          CustomText(
+                            text: badgeName,
                             fontWeight: FontWeight.w500,
                             fontSize: 14.sp,
-                          );
-                        }),
+                          ),
+                        ],
+                      ),
 
-                      ],
-                    ),
-
-
-                    Row(
-                      children: [
-                        CustomImage(
-                          imageSrc: AppIcons.alarm,
-                          height: 12.h,
-                          width: 12.w,
-                        ),
-                        Gap(8.w),
-                        Obx(() {
-                          final data = controller.currentBadge.value;
-                          final orderNumber = data != null ? data.orderNumber.toString() : "00";
-
-                          return CustomText(
-
-                             text: "Day  ${controller.craveCount.value}  of $orderNumber",
+                      // Right side: day / order
+                      Row(
+                        children: [
+                          CustomImage(
+                            imageSrc: AppIcons.alarm,
+                            height: 12.h,
+                            width: 12.w,
+                          ),
+                          Gap(8.w),
+                          CustomText(
+                            text: "Day $craveCount of $orderNumber",
                             fontWeight: FontWeight.w500,
                             fontSize: 14.sp,
-                          );
-                        })
+                          ),
+                        ],
+                      ),
+                    ],
+                  ),
+                );
+              }),
 
 
-                      ],
-                    ),
 
 
 
-
-
-
-                  ],
-                ),
-              ),
               _buildGainedBadgeText(title: "Achieve Badges"),
               /// achieve badges section=================================================================================
               Obx(() {
@@ -156,9 +156,11 @@ class _RewardsScreenState extends State<RewardsScreen> {
 
                 if (achieve.isEmpty) {
                   return Center(
-                    child: CustomText(text: "achieve badges empty"),
+                    child: CustomText(text: "achieve badges empty",fontSize: 14,),
                   );
                 }
+
+
 
                 return ListView.separated(
                   shrinkWrap: true,
@@ -295,7 +297,7 @@ class _RewardsScreenState extends State<RewardsScreen> {
                 var claim = controller.allClaimList;
 
                 if(claim.isEmpty) {
-                  return Center(child: CustomText(text: "claim badges empty"));
+                  return _buildEmptyWidget( "claim badges empty");
                 }
 
                 return SizedBox(
@@ -418,6 +420,21 @@ class _RewardsScreenState extends State<RewardsScreen> {
         ),
       ),
     );
+  }
+
+  CustomContainer _buildEmptyWidget(final String title) {
+    return CustomContainer(
+                  borderColor: AppColors.subPrimary,
+                  width: double.infinity,
+                  padding: 12,
+                  child: Center(
+                    child: CustomText(
+                      text:title,
+                      fontSize: 14.sp,
+                      fontWeight: FontWeight.w500,
+                    ),
+                  ),
+                );
   }
 
   /// GainedBadgeText
