@@ -7,9 +7,11 @@ import 'package:crave_crusher/view/components/custom_nav_bar/navbar.dart';
 import 'package:crave_crusher/view/components/custom_netwrok_image/custom_network_image.dart';
 import 'package:crave_crusher/view/components/custom_text/custom_text.dart';
 import 'package:crave_crusher/view/features/rewards/widgets/custom_circular_indicator.dart';
+import 'package:crave_crusher/view/features/rewards/widgets/shimmer_reward.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:gap/gap.dart';
+import 'package:shimmer/shimmer.dart';
 import '../../../helper/imges_handler/image_handler.dart';
 import 'controller/reward_controller.dart';
 import 'data/battle_category_item_list.dart';
@@ -76,25 +78,37 @@ class _RewardsScreenState extends State<RewardsScreen> {
                             border: Border.all(color: Color(0xFF84CC16)),
                             borderRadius: BorderRadius.circular(3),
                           ),
-                         //  child: CustomNetworkImage(
-                         //
-                         // imageUrl:  ImageHandler.imagesHandle(controller.currentBadge.value!.badgeImage),
-                         //    height: 20.h,
-                         //    width: 20.w,
+                          child:Obx((){
+                            return    CustomNetworkImage(
+
+                              imageUrl:  ImageHandler.imagesHandle(controller.currentBadge.value?.badgeImage),
+                              height: 20.h,
+                              width: 20.w,
+                            );
+                          }),
+
+
+
+
+                         // child:  CustomImage(
+                         //    imageSrc: AppIcons.battlePng,
+                         //    height: 22.h,
+                         //    width: 22.w,
                          //  ),
-                         child:  CustomImage(
-                            imageSrc: AppIcons.battlePng,
-                            height: 22.h,
-                            width: 22.w,
-                          ),
                         ),
                         Gap(8.w),
-                        CustomText(
-                          text: "current badge",
-                       //  text:controller.currentBadge.value.name,
-                          fontSize: 14,
-                          fontWeight: FontWeight.w500,
-                        ),
+
+
+                        Obx(() {
+                          final data = controller.currentBadge.value;
+
+                          return CustomText(
+                            text: data?.name ?? "Loading...",
+                            fontWeight: FontWeight.w500,
+                            fontSize: 14.sp,
+                          );
+                        }),
+
                       ],
                     ),
 
@@ -107,12 +121,19 @@ class _RewardsScreenState extends State<RewardsScreen> {
                           width: 12.w,
                         ),
                         Gap(8.w),
-                        CustomText(
-                          text: "Day 3 of 10",
-                          fontSize: 14,
-                          fontWeight: FontWeight.w500,
-                          color: Color(0xFFA1A1AA),
-                        ),
+                        Obx(() {
+                          final data = controller.currentBadge.value;
+                          final orderNumber = data != null ? data.orderNumber.toString() : "00";
+
+                          return CustomText(
+
+                             text: "Day  ${controller.craveCount.value}  of $orderNumber",
+                            fontWeight: FontWeight.w500,
+                            fontSize: 14.sp,
+                          );
+                        })
+
+
                       ],
                     ),
 
@@ -128,9 +149,7 @@ class _RewardsScreenState extends State<RewardsScreen> {
               /// achieve badges section=================================================================================
               Obx(() {
                 if (controller.isLoadingAchieveBadge.value) {
-                  return Center(
-                    child: CircularProgressIndicator(),
-                  );
+                  return RewardShimmerLoader();
                 }
 
                 var achieve = controller.allAchieveList;
@@ -253,61 +272,74 @@ class _RewardsScreenState extends State<RewardsScreen> {
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
               ///gain badge category section
               _buildGainedBadgeText(title: "Gained Badges"),
 
-              SizedBox(
-                height: 82.h,
-                child: ListView.separated(
-                  scrollDirection: Axis.horizontal,
-                  itemCount: battleCategoryItems.length,
-                  separatorBuilder: (_, __) => SizedBox(width: 12.w),
-                  itemBuilder: (context, index) {
-                    final item = battleCategoryItems[index];
-                    return CustomContainer(
+              Obx(() {
+                if(controller.isLoadingClaimBadge.value) {
+                  return Center(child:Shimmer.fromColors(
+                    baseColor: Colors.grey[300]!,
+                    highlightColor: Colors.grey[100]!,
+                    child:Container(
                       width: 104.w,
                       height: 82.h,
-                      backgroundColor: item.backgroundColor,
-                      borderColor: item.borderColor,
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        children: [
-                          CustomImage(
-                            imageSrc: item.icon,
-                            height: 32.h,
-                            width: 32.w,
-                          ),
-                          Gap(4.h),
-                          CustomText(text: item.title, fontSize: 10),
-                        ],
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(6.r),
+                        color: Colors.white,
+
                       ),
-                    );
-                  },
-                ),
-              ),
+                    ),
+                  ),);
+                }
+
+                var claim = controller.allClaimList;
+
+                if(claim.isEmpty) {
+                  return Center(child: CustomText(text: "claim badges empty"));
+                }
+
+                return SizedBox(
+                  height: 82.h,
+                  child: ListView.separated(
+                    scrollDirection: Axis.horizontal,
+                    itemCount: claim.length,
+                    separatorBuilder: (_, __) => SizedBox(width: 12.w),
+                    itemBuilder: (context, index) {
+                      return CustomContainer(
+                        width: 104.w,
+                        height: 82.h,
+                        backgroundColor: Colors.grey.shade100,
+                        borderColor: AppColors.red,
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            CustomNetworkImage(
+                              imageUrl: ImageHandler.imagesHandle(claim[index].badgeImage),
+                              height: 32.h,
+                              width: 32.w,
+                            ),
+                            Gap(4.h),
+                            CustomText(
+                              text: claim[index].name ?? "",
+                              fontSize: 10,
+                            ),
+                          ],
+                        ),
+                      );
+                    },
+                  ),
+                );
+              }),
+
+
+
 
               ///gain badge details section====================================================================
               _buildGainedBadgeText(title: "All Badges"),
                /// all badges section=======================================================================================
               Obx(() {
                 if (controller.isLoadingAllBadge.value) {
-                  return Center(
-                    child: CircularProgressIndicator(),
-                  );
+                  return RewardShimmerLoader();
                 }
 
                 var badge = controller.allBadgeList;
@@ -368,7 +400,7 @@ class _RewardsScreenState extends State<RewardsScreen> {
                               ),
                               Gap(4.w),
                               CustomText(
-                                text: itemDetails.name,
+                                text: "Day ${itemDetails.day}",
                                 fontSize: 12,
                                 fontWeight: FontWeight.w500,
                                 color: Color(0xFFA1A1AA),
@@ -381,11 +413,6 @@ class _RewardsScreenState extends State<RewardsScreen> {
                   },
                 );
               }),
-
-
-
-
-
             ],
           ),
         ),

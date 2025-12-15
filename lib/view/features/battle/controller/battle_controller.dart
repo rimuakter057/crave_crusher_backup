@@ -1,6 +1,7 @@
 import 'package:crave_crusher/service/api_check.dart';
 import 'package:crave_crusher/service/api_client.dart';
 import 'package:crave_crusher/service/api_url.dart';
+import 'package:crave_crusher/utils/app_strings/app_strings.dart';
 import 'package:crave_crusher/view/features/battle/models/battle_details_model.dart';
 import 'package:get/get.dart';
 import 'package:flutter/material.dart';
@@ -10,6 +11,13 @@ class BattleController extends GetxController{
 
 
   RxInt battleTabIndex = 0.obs;
+
+  // @override
+  // void onInit() {
+  //   // TODO: implement onInit
+  //   super.onInit();
+  //   fetchAllBattle('active');
+  // }
 
 
   ///create battle section=============================================Post Method============================================
@@ -28,18 +36,11 @@ class BattleController extends GetxController{
   final TextEditingController reasonController = TextEditingController();
 
   // Static dropdown values
-  final List<String> addictionTypes = [
-    'Smoking Detox',
-    'Saving Money Battle',
-    'Social Media Detox',
-    'Toxic Relationship Battle',
-    'Shopping Detox',
-    'Junk Food Battle'
-  ];
 
-  final List<String> addictionLevels = [
-    'Very Low', 'Low', 'Medium', 'High', 'Very High'
-  ];
+  final List<String> addictionTypes =AppStrings.addictionTypes;
+
+
+  final List<String> addictionLevels =AppStrings.addictionLevels;
 
   /// Create Battle API call=====================================================
   Future<bool> createBattle() async {

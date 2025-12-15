@@ -2,6 +2,7 @@
 
 import 'package:crave_crusher/utils/app_colors/app_colors.dart';
 import 'package:crave_crusher/utils/app_icons/app_icons.dart';
+import 'package:crave_crusher/utils/app_strings/app_strings.dart';
 import 'package:crave_crusher/view/components/custom_image/custom_image.dart';
 import 'package:crave_crusher/view/components/custom_text/custom_text.dart';
 import 'package:flutter/material.dart';
@@ -41,6 +42,30 @@ class ActiveBattleCard extends StatelessWidget {
         return AppIcons.socialMedia;
     }
   }
+
+
+  // String getIcon() {
+  //   switch (title.toLowerCase()) {
+  //     case 'smoke':
+  //       return AppIcons.smoke;
+  //     case 'love':
+  //       return AppIcons.toxicRelationshipe;
+  //     case 'savingmoney':
+  //       return AppIcons.savingsMoney;
+  //     case 'junkfood':
+  //       return AppIcons.junkFood;
+  //     case 'shopping':
+  //       return AppIcons.shopping;
+  //     case 'socialmedia':
+  //       return AppIcons.socialMedia;
+  //     default:
+  //       return AppIcons.claim;
+  //   }
+  // }
+
+
+
+
 
   Color getStatusColor(String status) {
     switch (status.toLowerCase()) {
@@ -221,7 +246,29 @@ class ActiveBattleCard extends StatelessWidget {
   }
 }
 
+//enum DetoxType { smoke, love, savingMoney, junkFood, shopping, socialMedia }
+
 enum DetoxType { smoke, love, savingMoney, junkFood, shopping, socialMedia }
+
+extension DetoxTypeExtension on DetoxType {
+  String get displayName {
+    switch (this) {
+      case DetoxType.smoke:
+        return AppStrings.smokingDetox;
+      case DetoxType.love:
+        return AppStrings.toxicRelationship;
+      case DetoxType.savingMoney:
+        return AppStrings.savingMoney;
+      case DetoxType.junkFood:
+        return AppStrings.junkFoodBattle;
+      case DetoxType.shopping:
+        return AppStrings.shoppingDetox;
+      case DetoxType.socialMedia:
+        return AppStrings.socialMediaDetox;
+    }
+  }
+}
+
 
 // DottedProgressBar widget
 class DottedProgressBar extends StatelessWidget {

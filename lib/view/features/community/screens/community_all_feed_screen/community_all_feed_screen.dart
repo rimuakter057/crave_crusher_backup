@@ -15,8 +15,8 @@ import 'package:gap/gap.dart';
 import 'package:get/get.dart';
 import '../../../../../helper/time_converter/date_converter.dart';
 import '../../../../components/custom_app_bar/custom_app_bar.dart';
+
 import '../../../../components/custom_nav_bar/navbar.dart';
-import '../../controllers/community_tab_controller.dart';
 import '../../controllers/post_controller.dart';
 import '../../widgets/common comunity widget.dart';
 import '../../widgets/community_tab_selector.dart';

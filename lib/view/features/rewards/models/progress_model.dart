@@ -38,11 +38,13 @@ class CurrentBadge {
   final String name;
   final String badgeImage;
   final int day;
+  final int orderNumber;
 
-  CurrentBadge({
+  CurrentBadge( {
     required this.name,
     required this.badgeImage,
     required this.day,
+    required this.orderNumber,
   });
 
   factory CurrentBadge.fromJson(Map<String, dynamic> json) {
@@ -50,10 +52,11 @@ class CurrentBadge {
       name: json['name'] ?? '',
       badgeImage: json['badge_image'] ?? '',
       day: json['day'] ?? 0,
+      orderNumber: json['orderNumber'] ?? 0,
     );
   }
 
   Map<String, dynamic> toJson() {
-    return {'name': name, 'badge_image': badgeImage, 'day': day};
+    return {'name': name, 'badge_image': badgeImage, 'day': day,"orderNumber":orderNumber};
   }
 }

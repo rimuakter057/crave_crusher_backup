@@ -1,3 +1,4 @@
+import 'package:crave_crusher/utils/app_colors/app_colors.dart';
 import 'package:flutter/material.dart';
 import 'package:pin_code_fields/pin_code_fields.dart';
 
@@ -31,12 +32,12 @@ class OtpFieldWidget extends StatelessWidget {
         borderRadius: BorderRadius.circular(8),
         fieldHeight: 50,
         fieldWidth: 50,
-        activeColor: const Color(0xFFEEF2FF),
-        inactiveColor: const Color(0xFFEEF2FF),
-        selectedColor: const Color(0xFFEEF2FF),
-        activeFillColor: const Color(0xFFEEF2FF),
-        selectedFillColor: const Color(0xFFEEF2FF),
-        inactiveFillColor: const Color(0xFFEEF2FF),
+        activeColor: AppColors.naveBordar,
+        inactiveColor: AppColors.naveBordar,
+        selectedColor: AppColors.naveBordar,
+        activeFillColor: AppColors.naveBordar,
+        selectedFillColor: AppColors.naveBordar,
+        inactiveFillColor: AppColors.naveBordar,
       ),
 
       onChanged: (value) {},

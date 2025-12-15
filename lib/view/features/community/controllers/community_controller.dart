@@ -14,16 +14,6 @@ import '../models/comment_model.dart';
 class CommunityController extends GetxController {
   RxInt communityTabIndex = 0.obs;
 
-
-
-
-
-
-
-
-
-
-
   final PostController postController = Get.find<PostController>();
 
   ///create comment section=============================================Post Method============================================

@@ -15,6 +15,7 @@ class RewardsController extends GetxController {
     getBadgeProgress();
     getAchieveBadges();
     getAllBadges();
+    getClaimBadges();
   }
 
   ///get all badges controller=================================================================================
@@ -39,11 +40,12 @@ if(response.statusCode==200 && response.body['data']!=null){
 isLoadingAllBadge.value = false;
 }
 
-///get progress controller==========================================without model get request===========================================
+///get progress controller=====================================================================================
 
 
   var currentProgress = 0.obs;
   var currentBadge = Rx<CurrentBadge?>(null);
+  var craveCount = 0.obs;
   var isLoadingProgress = false.obs;
 
   Future<void> getBadgeProgress() async {
@@ -54,7 +56,8 @@ isLoadingAllBadge.value = false;
     if (response.statusCode == 200 && response.body['data'] != null) {
       // Use model
       final progressModel = BadgeProgressModel.fromJson(response.body['data']);
-      currentProgress.value = progressModel.currentProgress;
+      currentProgress.value = progressModel.currentProgress??00;
+      craveCount.value = progressModel.craveCount??00;
       currentBadge.value = progressModel.currentBadge;
     } else {
       ApiChecker.checkApi(response);
@@ -112,8 +115,8 @@ isLoadingAllBadge.value = false;
     isLoadingClaim.value = false;
 
     if (response.statusCode == 200 || response.statusCode == 201) {
-      getAchieveBadges();
       badgeStatus[badgeId] = true; // update local status
+      getAchieveBadges();
       return true;
     }
 
@@ -121,6 +124,28 @@ isLoadingAllBadge.value = false;
   }
 
 
+  /// get claim badges =========================================================
+
+  RxList<BadgeModel> allClaimList = <BadgeModel>[].obs;
+  var isLoadingClaimBadge = false.obs;
+
+  Future<void> getClaimBadges() async {
+    isLoadingClaimBadge.value = true;
+
+    final response = await ApiClient.getData(ApiUrl.getClaimBadge);
+
+    if (response.statusCode == 200 && response.body['data'] != null) {
+      final List claimList = response.body['data'];
+
+      allClaimList.value = claimList
+          .map((e) => BadgeModel.fromJson(e))
+          .toList();
+    } else {
+      ApiChecker.checkApi(response);
+    }
+
+    isLoadingClaimBadge.value = false;
+  }
 
 
 }

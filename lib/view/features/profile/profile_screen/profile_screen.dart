@@ -18,9 +18,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:gap/gap.dart';
 import 'package:get/get.dart';
-class ProfileScreen extends StatelessWidget {
-  const ProfileScreen({super.key});
 
+import '../controllers/profile_controller.dart';
+class ProfileScreen extends StatelessWidget {
+   ProfileScreen({super.key});
+  final ProfileController profileController = Get.find<ProfileController>();
   @override
   Widget build(BuildContext context) {
     final stackHeight = 180.h; // height of the top stack
@@ -30,7 +32,7 @@ class ProfileScreen extends StatelessWidget {
       body: SingleChildScrollView(
         child: Column(
           children: [
-            // Top Stack
+          // Top Stack
             SizedBox(
               height: stackHeight,
               child: Stack(
@@ -79,22 +81,37 @@ class ProfileScreen extends StatelessWidget {
                     ),
                   ),
 
-                  // Profile image overlapping bottom
+                  // Profile image (SAFE)
                   Positioned(
-                    bottom: -50, // overlaps below stack
-                    child: ProfileAvatarWidget(
-                      imagePath: AppConstants.unknown,
-                      heightA: 100.h,
-                      widthA: 100.w,
-                    ),
+                    bottom: -50,
+                    child: Obx(() {
+                      final profile = profileController.myProfile.value;
+
+                      return ProfileAvatarWidget(
+                        imagePath: profile?.profileImage ??
+                            AppConstants.unknown,
+                      );
+                    }),
                   ),
                 ],
               ),
             ),
 
-          Gap(62.h),
+            Gap(62.h),
 
-            CustomText(text: "Sheena DuBois",fontWeight: FontWeight.w600,fontSize: 18.sp,),
+            /// Profile Name (SAFE)
+            Obx(() {
+              final profile = profileController.myProfile.value;
+
+              return CustomText(
+                text: profile?.fullName ?? "Loading...",
+                fontWeight: FontWeight.w600,
+                fontSize: 18.sp,
+              );
+            }),
+
+
+
             Gap(24.h),
 
 
@@ -163,7 +180,7 @@ class ProfileScreen extends StatelessWidget {
                   CustomProfileMenu(text: 'Log Out', icon: Icon(Icons.logout_outlined),
                       onTap: () async {
                         await Get.find<AuthController>().clearUserData();
-                        Get.offAllNamed(AppRoutes.onBoardingOneScreen);
+                        Get.offAllNamed(AppRoutes.loginScreen);
                       }
 
                   ),

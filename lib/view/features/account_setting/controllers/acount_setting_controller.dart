@@ -1,11 +1,14 @@
 
+import 'package:crave_crusher/core/routes/app_routes.dart';
 import 'package:crave_crusher/service/api_check.dart';
 import 'package:crave_crusher/service/api_client.dart';
 import 'package:crave_crusher/service/api_url.dart';
 import 'package:crave_crusher/utils/app_const/app_const.dart';
 import 'package:crave_crusher/view/features/help_support/models/help_support_model.dart';
 import 'package:get/get.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
+import '../../auth/controllers/auth_controller.dart';
 import '../../terms_condition/models/terms_condition_model.dart' show TermsModel;
 
 class AccountSettingController extends GetxController{
@@ -13,6 +16,7 @@ class AccountSettingController extends GetxController{
   var isLoadingPrivacy = false.obs;
   Rx<Status> privacyStatus = Status.loading.obs;
   Rx<TermsModel?> privacy = Rx<TermsModel?>(null);
+
 
   Future<void> getPrivacy() async {
 
@@ -95,6 +99,29 @@ class AccountSettingController extends GetxController{
 
   }
 
+/// delete account==========================================================================================
 
 
+
+  var isLoadingDeleteAccount = false.obs;
+
+
+
+  Future<void> deleteAccount() async {
+
+    isLoadingDeleteAccount.value = true;
+
+    final response = await ApiClient.deleteData(ApiUrl.deleteProfile);
+
+
+    isLoadingDeleteAccount.value = false;
+
+    if (response.statusCode == 200) {
+      await Get.find<AuthController>().clearUserData();
+      Get.offAllNamed(AppRoutes.loginScreen);
+      Get.snackbar("Success", "Account deleted successfully");
+    } else {
+      Get.snackbar("Error", "Failed to delete account");
+    }
+  }
 }

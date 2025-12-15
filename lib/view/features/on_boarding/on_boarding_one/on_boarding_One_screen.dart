@@ -22,7 +22,9 @@ class _OnBoardingOneScreenState extends State<OnBoardingOneScreen> {
         actions: [
           Padding(
             padding: const EdgeInsets.only(right: 8.0),
-            child: TextButton(onPressed: (){}, child: CustomText(text: "Skip",color: AppColors.primary,)),
+            child: TextButton(onPressed: (){
+
+            }, child: CustomText(text: "Skip",color: AppColors.primary,)),
           )
         ],
       ),
@@ -31,7 +33,6 @@ class _OnBoardingOneScreenState extends State<OnBoardingOneScreen> {
           context,
           MaterialPageRoute(builder: (context) => OnBoardingTwoScreen()),
         );
-
       },),
     );
   }

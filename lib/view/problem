@@ -1,0 +1,38 @@
+
+===============================
+
+onboarding skip  and next korle kon screen a jabe
+
+====================
+remember me and agree ar kaj ta kivabe hobe
+===================================================================
+otp time set
+====================================================================
+refresh token use                  and change password a token related kaj
+=============================================================
+1.home screen==============
+
+akhane image ta today ar but active battle a onek title thake ,,detoxtype ta kotha theke asbe???
+
+1 dine koyta batle create kora jabe
+
+
+battle log ar time formate api ar
+
+2.....reward screen=====================
+
+reward screen a refresh indicator a kon api call korbo akhane onek api,,,,,,,,,
+
+badge ar container a bacjground color and border color kivabe asteche
+
+claim korle loading hocche sob api All Badges soho
+
+3....init====================
+
+screen a initState call korbo naki controller onInit call korbo,,konta hole leading time kom nibe app crash korbe na
+
+4..
+net na thakle page ta kivabe dekhabo? no internet ar
+
+
+

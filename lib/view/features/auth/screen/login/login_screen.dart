@@ -31,17 +31,9 @@ class LoginScreen extends StatefulWidget {
 
 class _LoginScreenState extends State<LoginScreen> {
 
-  bool _rememberMe = false;
+  final bool _rememberMe = false;
  final TextEditingController _emailController=TextEditingController();
   final TextEditingController _passwordController=TextEditingController();
-  void _handleRememberMeChange(bool? newValue) {
-    setState(() {
-      _rememberMe = newValue ?? false;
-    });
-    // Add logic here to save state (e.g., using SharedPreferences)
-    print('Remember Me is now: $_rememberMe');
-  }
-
 
 
   GlobalKey<FormState>  _key = GlobalKey<FormState>();
@@ -100,7 +92,7 @@ final ForgetPasswordController forgetPasswordController =Get.find<ForgetPassword
                     ///remember and forgot section
                     RememberMeAndForgotPassword(
                       isChecked: _rememberMe,
-                      onRememberMeChanged: _handleRememberMeChange,
+                      onRememberMeChanged: (bool? newValue){},
                     child:  GetBuilder<ForgetPasswordController>(
                       builder: (controller) {
                         return Visibility(

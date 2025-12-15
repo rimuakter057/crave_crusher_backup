@@ -17,7 +17,7 @@ class MyProfileScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    profileController.fetchMyProfile();
+
 
     return Scaffold(
       appBar: CustomLeadingTitleAppbar(title: "My Profile"),

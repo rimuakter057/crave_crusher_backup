@@ -23,7 +23,7 @@ class SignUpScreen extends StatefulWidget {
 }
 
 class _SignUpScreenState extends State<SignUpScreen> {
-  final bool _rememberMe = false;
+  final bool _termsAgree = false;
 
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   final TextEditingController _fullNameController = TextEditingController();
@@ -117,7 +117,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                   Row(
                     children: [
                       Checkbox(
-                        value: _rememberMe,
+                        value: _termsAgree,
                         onChanged: (value) {},
                       ),
                       Expanded(

@@ -8,6 +8,7 @@ class AppColors {
   static const Color indigoColor = Color(0xffC7D2FE);
 
   static const Color naveBordar = Color(0xffEEF2FF);
+
   static const Color naveWhite = Color(0xffFAFAFF); //#FAFAFF99//#FAFAFF99
   static const Color black = Color(0xff000000);
   static const Color appTitle = Color(0xff2C3A54);
