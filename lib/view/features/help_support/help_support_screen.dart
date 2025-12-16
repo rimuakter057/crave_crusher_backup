@@ -47,44 +47,60 @@ class HelpSupportScreen extends StatelessWidget {
               ...helpData.map((faq) => Column(
                 children: [
                   CustomContainer(
-                    backgroundColor: Color(0xFFEEF2FF),
+                    backgroundColor: const Color(0xFFEEF2FF),
+                    padding: 12,
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
+                        /// Question + Icon Row
                         Row(
                           children: [
                             Expanded(
                               child: CustomText(
+                                textAlign: TextAlign.start,
                                 text: faq.question ?? "",
                                 fontSize: 14,
                                 fontWeight: FontWeight.w500,
                               ),
                             ),
-                            Icon(
-                              Icons.keyboard_arrow_down_outlined,
-                              color: AppColors.primary,
-                              size: 28,
-                            )
+                            GestureDetector(
+                              onTap: () {
+                                faq.isExpanded = !faq.isExpanded;
+                                helpController.helpList.refresh();
+                              },
+                              child: Icon(
+                                faq.isExpanded
+                                    ? Icons.keyboard_arrow_down_outlined
+                                    : Icons.keyboard_arrow_right,
+                                color: AppColors.primary,
+                                size: 28,
+                              ),
+                            ),
                           ],
                         ),
-                        Divider(
-                          color: Colors.grey,
-                          thickness: 1.2,
-                        ),
-                        CustomText(
-                          text: faq.answer ?? "",
-                          fontWeight: FontWeight.w400,
-                          fontSize: 14,
-                          color: Color(0xFFA1A1AA),
-                          maxLines: 8,
-                          textAlign: TextAlign.start,
-                        ),
+
+                        /// Answer (only when expanded)
+                        if (faq.isExpanded) ...[
+                          const Divider(
+                            color: Colors.grey,
+                            thickness: 1.2,
+                          ),
+                          CustomText(
+                            text: faq.answer ?? "",
+                            fontWeight: FontWeight.w400,
+                            fontSize: 14,
+                            color: const Color(0xFFA1A1AA),
+                            maxLines: 10,
+                            textAlign: TextAlign.start,
+                          ),
+                        ],
                       ],
                     ),
                   ),
                   Gap(12.h),
                 ],
               )),
+
 
               /// Need More Help section (UI same as before)
               CustomText(

@@ -3,18 +3,16 @@ class FaqModel {
   String? sId;
   String? question;
   String? answer;
-  String? createdAt;
-  String? updatedAt;
-  int? v;
+
+  bool isExpanded;
 
   FaqModel({
     this.id,
     this.sId,
     this.question,
     this.answer,
-    this.createdAt,
-    this.updatedAt,
-    this.v,
+
+    this.isExpanded = false,
   });
 
   factory FaqModel.fromJson(Map<String, dynamic> json) {
@@ -23,9 +21,8 @@ class FaqModel {
       sId: json['_id'],
       question: json['question'],
       answer: json['answer'],
-      createdAt: json['createdAt'],
-      updatedAt: json['updatedAt'],
-      v: json['__v'],
+
+
     );
   }
 
@@ -35,9 +32,7 @@ class FaqModel {
       "_id": sId,
       "question": question,
       "answer": answer,
-      "createdAt": createdAt,
-      "updatedAt": updatedAt,
-      "__v": v,
+
     };
   }
 }
