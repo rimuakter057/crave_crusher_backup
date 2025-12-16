@@ -9,6 +9,7 @@ import 'package:crave_crusher/view/components/custom_text/custom_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:gap/gap.dart';
+import 'package:readmore/readmore.dart';
 
 class CommonCommunityWidget extends StatefulWidget {
   final bool myPost; // Controls the edit button visibility
@@ -112,13 +113,45 @@ class _CommonCommunityWidgetState extends State<CommonCommunityWidget> {
           Gap(4.h),
 
           /// Text Section
-          CustomText(
-            fontWeight: FontWeight.w500,
-            textAlign: TextAlign.start,
-            maxLines: 3,
-            text: widget.postText,
+          ReadMoreText(widget.postText,
+
+    trimMode: TrimMode.Line,
+    trimLines: 3,
+    textAlign: TextAlign.justify,
+    lessStyle: TextStyle(color: AppColors.primary),
+    moreStyle: TextStyle(color: AppColors.primary,fontSize: 16.sp,fontWeight: FontWeight.bold),
+     style: TextStyle(
+       fontSize: 13.sp,
+       color: Color(0xFF1E293B),
+       fontWeight: FontWeight.w500
+     ),
+    colorClickableText: Colors.pink,
+    trimCollapsedText: 'See more',
+    trimExpandedText: 'See less',
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
           ),
-          CustomText(text: "see more", color: AppColors.primary),
+          // CustomText(
+          //   fontWeight: FontWeight.w500,
+          //   textAlign: TextAlign.start,
+          //   maxLines: 3,
+          //   text: widget.postText,
+          // ),
+         //CustomText(text: "see more", color: AppColors.primary),
 
           Gap(24.h),
 
@@ -145,6 +178,7 @@ class _CommonCommunityWidgetState extends State<CommonCommunityWidget> {
               ),
             ],
           ),
+
         ],
       ),
     );

@@ -25,7 +25,7 @@ class ApiUrl {
   static  String updatePost(String postId){return "/community-post/update-post/$postId";}
   static const String deletePost="/community-post/post/6925890de1d7dae96182e1df";
   static  String addVote(String postId){return "/community-vote/vote/$postId";}
-  static  String getAllVote(String postId){return "/community-vote/votes/$postId";}
+  static  String getVote(String postId){return "/community-vote/votes/$postId";}
   static String createComment(String userId) {
     return "/community-comment/comment/$userId";
   }

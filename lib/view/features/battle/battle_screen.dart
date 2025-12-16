@@ -110,6 +110,7 @@ class _BattleScreenState extends State<BattleScreen> {
                                         Get.to(
                                           BattleDetailsScreen(
                                             battleId: battle.id.toString(),
+                                            showBattleNowButton: true,
                                           ),
                                         );
                                       },

@@ -4,9 +4,7 @@ import 'package:crave_crusher/utils/app_images/app_images.dart';
 import 'package:crave_crusher/view/components/common_profile/avater_widget.dart';
 import 'package:crave_crusher/view/components/custom_nav_bar/navbar.dart';
 import 'package:crave_crusher/view/components/custom_text/custom_text.dart';
-import 'package:crave_crusher/view/features/community/screens/comment_screen/comment_screen.dart';
-import 'package:crave_crusher/view/features/community/screens/community_image_show_screen/community_image_show_screen.dart';
-import 'package:crave_crusher/view/features/community/screens/community_profile_screen/widgets/profile_status_container.dart';
+import 'package:crave_crusher/view/features/community/screens/community_user_profile_screen/widgets/profile_status_container.dart';
 import 'package:crave_crusher/view/features/community/screens/update_post_screen/update_post_screen.dart';
 import 'package:crave_crusher/view/features/community/widgets/common%20comunity%20widget.dart';
 import 'package:crave_crusher/view/features/profile/profile_screen/profile_screen.dart';
@@ -14,7 +12,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:gap/gap.dart';
 import 'package:get/get.dart';
-import 'package:get/get_core/src/get_main.dart';
 
 class CommunityProfileScreen extends StatelessWidget {
   const CommunityProfileScreen({super.key});
@@ -106,7 +103,7 @@ class CommunityProfileScreen extends StatelessWidget {
                 profileTitle: "@Sheena S",
                 profileSubtitle: "27 Aug 2020 06:20 AM",
                 profileImage:
-                    AppImages.profileManImage, // replace with your image path
+                    AppConstants.unknown, // replace with your image path
                 postText:
                     "Day 10 of my Smoking Battle! 🚭\nIt’s honestly been one of the toughest things I’ve done, "
                     "but waking up without that morning cough feels incredible. "
@@ -137,7 +134,7 @@ class CommunityProfileScreen extends StatelessWidget {
                 profileTitle: "@Sheena S",
                 profileSubtitle: "27 Aug 2020 06:20 AM",
                 profileImage:
-                    AppImages.profileManImage, // replace with your image path
+                AppConstants.unknown, // replace with your image path
                 postText:
                     "Day 10 of my Smoking Battle! 🚭\nIt’s honestly been one of the toughest things I’ve done, "
                     "but waking up without that morning cough feels incredible. "

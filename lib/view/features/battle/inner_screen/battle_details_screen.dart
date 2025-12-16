@@ -16,9 +16,13 @@ import 'package:gap/gap.dart';
 import 'package:get/get.dart';
 
 class BattleDetailsScreen extends StatefulWidget {
-  const BattleDetailsScreen({super.key, required this.battleId});
+  const BattleDetailsScreen({
+    super.key,
+    required this.battleId,
+    this.showBattleNowButton = true,
+  });
   final String battleId;
-
+  final bool showBattleNowButton;
   @override
   State<BattleDetailsScreen> createState() => _BattleDetailsScreenState();
 }
@@ -42,9 +46,7 @@ class _BattleDetailsScreenState extends State<BattleDetailsScreen> {
         title: 'Battle Details',
         actionIcon: AppIcons.edit,
         onActionPressed: () {
-          Get.toNamed(AppRoutes.updateBattle,
-            arguments: widget.battleId,
-          );
+          Get.toNamed(AppRoutes.updateBattle, arguments: widget.battleId);
         },
       ),
       body: SingleChildScrollView(
@@ -56,7 +58,7 @@ class _BattleDetailsScreenState extends State<BattleDetailsScreen> {
 
           final battle = controller.battleDetails.value.battle;
           if (battle == null) {
-            return const Center(child: Text("No battle found"));
+            return const Center(child: Text("Empty Battle Details"));
           }
 
           return SingleChildScrollView(
@@ -64,7 +66,6 @@ class _BattleDetailsScreenState extends State<BattleDetailsScreen> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                // Monster Section (Header + Monster Image + Status Banner)
                 DetailsMonsterSection(
                   battleTitle: battle.addictionType ?? '',
                   battleDescription: battle.battleReason ?? '',
@@ -75,133 +76,23 @@ class _BattleDetailsScreenState extends State<BattleDetailsScreen> {
 
                 SizedBox(height: 24.h),
 
-                // Progress & Action Section (Progress Bar + Buttons)
                 ProgressAndActionSection(
                   progress: (battle.battleProgress ?? 0) / 100,
-                  dayCount:
-                      "Day ${battle.day ?? 0} of ${battle.battleLength ?? 0}",
-                  title: battle.battleReason ?? '',
+                  dayCount: "Day ${battle.day ?? 0} of ${battle.battleLength ?? 0}",
+                  title: battle.addictionType ?? '',
                   onBattleLogPressed: () {
                     final id = widget.battleId;
-                    print("-----------------------------id--------------${id}");
-                    Get.to(BattleLogScreen(battleId:id));
-                    // Get.to(BattleLogScreen());
+                    Get.to(BattleLogScreen(battleId: id));
                   },
-                  onBattleNowPressed: () {
-                    final id = widget.battleId;
-                    print("-----------------------------id--------------${id}");
+                  onBattleNowPressed:(){
                     showDialog(
                       context: context,
-                      barrierDismissible: false, // accidental close prevent
-                      builder: (_) {
-                        return Obx(() {
-                          return Center(
-                            child: Card(
-                              shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(12),
-                              ),
-                              child: SizedBox(
-                                height: 170.h,
-                                width: 320.w,
-                                child: Padding(
-                                  padding: EdgeInsets.all(12.w),
-                                  child: controller.isLoadingCompleteBattle.value
-                                      ? const Center(child: CircularProgressIndicator())
-                                      : Row(
-                                    mainAxisAlignment: MainAxisAlignment.spaceAround,
-                                    children: [
-                                      // 🔹 Caved
-                                      InkWell(
-                                        onTap: () async {
-                                          if (controller.isLoadingCompleteBattle.value) return;
-
-                                          // API call
-                                      final success = await controller.completeBattleDay(
-                                           id,
-                                            "caved",
-                                          );
-
-                                          if (success) {
-                                            // Close dialog
-                                            Get.back();
-
-                                            // Optional success message
-                                            Get.snackbar("Success", "Status updated to Caved");
-                                         // Immediately refresh the same screen
-                                            await controller.fetchSingleBattle(id);
-                                          }
-                                        },
-                                        child: _buildDialogContainer("Caved", AppIcons.smallMonster),
-                                      ),
-
-                                      // 🔹 Craved
-                                      InkWell(
-                                        onTap: () async {
-                                          if (controller.isLoadingCompleteBattle.value) return;
-
-                                          // API call
-                                          final success = await controller.completeBattleDay(
-                                            id,
-                                            "craved",
-                                          );
-
-                                          if (success) {
-                                            // Close dialog
-                                            Get.back();
-
-                                            // Optional success message
-                                            Get.snackbar("Success", "Status updated to Craved");
-                                          // Immediately refresh the same screen
-                                            await controller.fetchSingleBattle(id);
-                                          }
-                                        },
-                                        child: _buildDialogContainer("Craved", AppIcons.battlePng),
-                                      ),
-                                    ],
-                                  ),
-                                ),
-                              ),
-                            ),
-                          );
-                        });
-                      },
+                      builder: (context) => Center(child: _buildShowDialog(widget.battleId)),
                     );
-                  },
-
-
-
-
-
-
-                  // onBattleNowPressed: () {
-                  //   showDialog(
-                  //     context: context,
-                  //     barrierDismissible: true,
-                  //     builder: (_) {
-                  //       return Center(
-                  //         child: Card(
-                  //           shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
-                  //           child: SizedBox(
-                  //             height: 170.h,
-                  //             width: 320.w,
-                  //             child: Padding(
-                  //               padding: EdgeInsets.all(12.w),
-                  //               child: Row(
-                  //                 mainAxisAlignment: MainAxisAlignment.spaceAround,
-                  //                 children: [
-                  //                   _buildDialogContainer("Caved", AppIcons.smallMonster),
-                  //                   _buildDialogContainer("craved", AppIcons.battlePng),
-                  //                 ],
-                  //               ),
-                  //             ),
-                  //           ),
-                  //         ),
-                  //       );
-                  //     },
-                  //   );
-                  // },
-
+                  }
                 ),
+
+
 
                 SizedBox(height: 30.h),
               ],
@@ -212,6 +103,98 @@ class _BattleDetailsScreenState extends State<BattleDetailsScreen> {
     );
   }
 
+  /// show dialog==============================================================================================
+  Card _buildShowDialog(String id) {
+    return Card(
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+      child: SizedBox(
+        height: 170.h,
+        width: 320.w,
+        child: Padding(
+          padding: EdgeInsets.all(12.w),
+          child:
+              controller.isLoadingCompleteBattle.value
+                  ? const Center(child: CircularProgressIndicator())
+                  : Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceAround,
+                    children: [
+                      // 🔹 Caved
+                      InkWell(
+                        onTap: () async {
+                          if (controller.isLoadingCompleteBattle.value) return;
+
+                          // API call
+                          final success = await controller.completeBattleDay(
+                            id,
+                            "caved",
+                          );
+
+                          // Close the dialog in both cases
+                          Get.back();
+
+                          if (success) {
+                            // Success message
+
+                            Get.snackbar("Success", "Status updated to Caved");
+
+                            // Refresh the same screen
+                            await controller.fetchSingleBattle(id);
+                          } else {
+                            // Failure message
+                            Get.snackbar(
+                              "Error",
+                              "Status update failed",
+
+                              backgroundColor: AppColors.red100,
+                            );
+                          }
+                        },
+                        child: _buildDialogContainer(
+                          "Caved",
+                          AppIcons.smallMonster,
+                        ),
+                      ),
+
+                      // 🔹 Craved
+                      InkWell(
+                        onTap: () async {
+                          if (controller.isLoadingCompleteBattle.value) return;
+
+                          // API call
+                          final success = await controller.completeBattleDay(
+                            id,
+                            "craved",
+                          );
+
+                          // Close dialog in both cases
+                          Get.back();
+
+                          if (success) {
+                            // Success snackbar
+                            Get.snackbar("Success", "Status updated to Craved");
+
+                            await controller.fetchSingleBattle(id);
+                          } else {
+                            // Failure snackbar
+                            Get.snackbar(
+                              "Error",
+                              "Status update failed",
+
+                              backgroundColor: AppColors.red100,
+                            );
+                          }
+                        },
+                        child: _buildDialogContainer(
+                          "Craved",
+                          AppIcons.battlePng,
+                        ),
+                      ),
+                    ],
+                  ),
+        ),
+      ),
+    );
+  }
 
   ///build dialog container
   Container _buildDialogContainer(final String text, final String image) {

@@ -20,6 +20,7 @@ import '../../../../components/custom_nav_bar/navbar.dart';
 import '../../controllers/post_controller.dart';
 import '../../widgets/common comunity widget.dart';
 import '../../widgets/community_tab_selector.dart';
+import '../community_user_profile_screen/community_profile_screen.dart';
 
 class CommunityAllFeedScreen extends StatelessWidget {
   CommunityAllFeedScreen({super.key});
@@ -103,27 +104,26 @@ class CommunityAllFeedScreen extends StatelessWidget {
                                 final isLiked = communityController
                                     .userVotedPosts
                                     .contains(postId);
-                                final totalLikes =
-                                    communityController
-                                        .votesNumberPerPost[postId] ??
-                                        post.totalVotes ??
-                                        000;
+
 
                                 return CommonCommunityWidget(
-                                  profileTitle: post.author?.fullName ?? '...',
+                                  profileTitle: post.author?.fullName ?? 'Unknown',
                                   profileSubtitle: DateConverter.formattedTime(
                                     post.createdAt ?? DateTime.now(),
                                   ),
                                   postImages: post.postImages ?? [],
                                   postText: post.content ?? "",
-                                  commentsText: "${post.totalComments ?? 0}",
+                             commentsText: "${post.totalComments ?? 0}",
                                   favouriteWidget: Row(
                                     children: [
                                       IconButton(
-                                        onPressed:
-                                            () => communityController.addVote(
-                                          postId,
-                                        ),
+                                        onPressed:()async{
+                                          communityController.addVote(
+                                            postId,
+                                          );
+                                await postController.fetchMyPost();
+                                },
+
                                         icon: Icon(
                                           isLiked
                                               ? Icons.favorite
@@ -134,7 +134,7 @@ class CommunityAllFeedScreen extends StatelessWidget {
                                       ),
                                       SizedBox(width: 4.w),
                                       CustomText(
-                                        text: "$totalLikes",
+                                        text:"${post.totalVotes ?? 0}",
                                       ),
                                     ],
                                   ),
@@ -191,11 +191,8 @@ class CommunityAllFeedScreen extends StatelessWidget {
                                    .userVotedPosts
                                    .contains(postId);
 
-                               final totalLikes =
-                                   communityController
-                                       .votesNumberPerPost[postId] ??
-                                       myPost.totalVotes ??
-                                       000;
+
+
 
                                return   CommonCommunityWidget(
                                  profileTitle: myPost.author?.fullName ?? '...',
@@ -223,7 +220,7 @@ class CommunityAllFeedScreen extends StatelessWidget {
                                      ),
                                      SizedBox(width: 4.w),
                                      CustomText(
-                                       text: "$totalLikes",
+                                       text:"${myPost.totalVotes ?? 0}",
                                      ),
                                    ],
                                  ),
@@ -258,7 +255,7 @@ class CommunityAllFeedScreen extends StatelessWidget {
                                    Get.to(() => CommunityImageShowScreen(images:myPost.postImages ?? []),);
                                  },
                                  onTapProfile: () {
-                                   Get.to(() => ProfileScreen());
+                                   Get.to(() => CommunityProfileScreen());
                                  },
                                );
 

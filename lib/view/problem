@@ -1,13 +1,14 @@
 
-===============================
+*** on boarding screen===============================
 
 onboarding skip  and next korle kon screen a jabe
 
-====================
+*****login sign up screen ====================
 remember me and agree ar kaj ta kivabe hobe
-===================================================================
+
+****otp verify screen ===================================================================
 otp time set
-====================================================================
+*****change password screen====================================================================
 refresh token use                  and change password a token related kaj
 =============================================================
 1.home screen==============
@@ -35,5 +36,32 @@ screen a initState call korbo naki controller onInit call korbo,,konta hole lead
 net na thakle page ta kivabe dekhabo? no internet ar
 
 
-=================================
+*** reward screen =================================
 reward screen a sob empty thakle onek gulo empty error dey screen a asar sathei
+
+********comment screen =======================================================================
+
+comment gulo j show hocche sekhane user nam kotha theke pabo list ar ,,,,,
+
+r comment likhar box a j nam ta seta kotha tyheke get korbo ,my profile api theke??????
+
+********community single profile screen============================================================================================
+
+akhane my post a akbar sob nijer post dekhacche abar single profile a same?????????????????????
+
+and      total posts votes asob kivabe pabo akta user ar???????????????????
+
+*********community all feed screen============================================
+
+total vote refressh na dile change hoy na,,,,,,,,,,,,,1st ar ta vote add korle 3 theke 2 count hy kintu baki gulo thik ache,,,,,,
+
+************battle create screen============================================
+
+send reminder ar kaj kivabe korbo
+
+******************battle details==================================================
+battle now korle figmay ui animate hocchilo
+
+battle log dine koyta create kora jabe???ami create ar smy length 2 dilam akdinei tw 2 ta log create kroa jacche,,complete dekhacche,battle log bujhini,,
+
+battle details screen a edit button keno thakbe akhaneto edit hocche na just cancel hocche tahole cancel ar akta buuton rakhlei hoye jeto,,,,,,,,,,,,,,,,,,

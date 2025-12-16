@@ -122,30 +122,17 @@ class CommunityController extends GetxController {
     }
   }
 
-  ///add vote =====================================================Post Method================================
 
-  // Votes============================================
 
-  RxList<VoteModel> voteList = <VoteModel>[].obs;
-  RxInt totalVotes = 0.obs; // total votes
 
-  Future<void> fetchVotesForPost(String postId) async {
-    final response = await ApiClient.getData(ApiUrl.getAllVote(postId));
 
-    if (response.statusCode == 200 || response.statusCode == 201) {
-      final data = response.body['data'] as List;
-      voteList.value = data.map((e) => VoteModel.fromJson(e)).toList();
 
-      totalVotes.value = voteList.length; // total vote count
-    } else {
-      ApiChecker.checkApi(response);
-    }
-  }
+  /// Add or remove vote=====================================================================================
 
-  RxMap<String, int> votesNumberPerPost = <String, int>{}.obs;
+
   RxList<String> userVotedPosts = <String>[].obs;
 
-  // Add or remove vote
+
   Future<bool> addVote(String postId) async {
     if (userID.value.isEmpty) return false;
     final body = {'userId': userID.value};
@@ -158,10 +145,11 @@ class CommunityController extends GetxController {
       // Toggle UI logic
       if (userVotedPosts.contains(postId)) {
         userVotedPosts.remove(postId);
-        votesNumberPerPost[postId] = (votesNumberPerPost[postId] ?? 1) - 1;
+
+
       } else {
         userVotedPosts.add(postId);
-        votesNumberPerPost[postId] = (votesNumberPerPost[postId] ?? 0) + 1;
+
       }
       return true;
     } else {
@@ -169,4 +157,34 @@ class CommunityController extends GetxController {
       return false;
     }
   }
+
+
+
+
+
+
+
+  //
+  // Future<bool> addVote(String postId) async {
+  //   if (userID.value.isEmpty) return false;
+  //
+  //   final response = await ApiClient.postData(
+  //     ApiUrl.addVote(postId),
+  //     {'userId': userID.value},
+  //     isJson: true,
+  //   );
+  //
+  //   if (response.statusCode == 200 || response.statusCode == 201) {
+  //     return true; // success
+  //   }
+  //
+  //   ApiChecker.checkApi(response);
+  //   return false; // fail
+  // }
+
+
+
+
+
+
 }

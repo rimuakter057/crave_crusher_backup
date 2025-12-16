@@ -23,7 +23,7 @@ class BattleLogScreen extends StatelessWidget {
           final battleLogs = controller.battleDetails.value.battleLogs;
 
           if (battleLogs == null || battleLogs.isEmpty) {
-            return const Center(child: Text("No battle logs found"));
+            return const Center(child: Text("Battle History Empty"));
           }
 
           return Column(
