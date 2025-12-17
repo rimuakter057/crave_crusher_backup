@@ -41,6 +41,7 @@ class AppIcons {
   static const String tipsCircular = "$basePath/tipsCircular.svg";
   static const String tipsPng = "$basePath/tipsPng.png";
   static const String smallMonster = "$basePath/smallMonster.png";
+  static const String cavedComplete = "$basePath/small_monoster.png";
   static const String smoke = "$basePath/smoke.png";
   static const String tipsBackground = "$basePath/tipsBackground.png";
   static const String battlePng = "$basePath/battlePng.png";
@@ -61,5 +62,6 @@ class AppIcons {
   static const String positivePowerHouse = "$basePath/positive_power.png";
 
   static const String claim = "$basePath/claim.png";
+  static const String missed = "$basePath/missed.png";
 
 }

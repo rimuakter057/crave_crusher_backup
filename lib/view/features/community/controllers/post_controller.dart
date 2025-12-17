@@ -24,11 +24,11 @@ class PostController extends GetxController {
 
       final response = await ApiClient.getData(ApiUrl.getAllPost);
 
-
       if (response.statusCode == 200 && response.body['data'] != null) {
-        var postList = (response.body['data'] as List)
-            .map((e) => PostModel.fromJson(e))
-            .toList();
+        var postList =
+            (response.body['data'] as List)
+                .map((e) => PostModel.fromJson(e))
+                .toList();
         allPostList.value = postList;
       } else {
         allPostList.clear();
@@ -45,18 +45,17 @@ class PostController extends GetxController {
   RxList<PostModel> getMyPostList = <PostModel>[].obs;
   var isLoadingPost = false.obs;
 
-
   Future<void> fetchMyPost() async {
     try {
       isLoadingPost.value = true;
 
       final response = await ApiClient.getData(ApiUrl.getMyPost);
 
-
       if (response.statusCode == 200 && response.body['data'] != null) {
-        var myPostList = (response.body['data'] as List)
-            .map((e) => PostModel.fromJson(e))
-            .toList();
+        var myPostList =
+            (response.body['data'] as List)
+                .map((e) => PostModel.fromJson(e))
+                .toList();
         getMyPostList.value = myPostList;
       } else {
         getMyPostList.clear();
@@ -68,10 +67,6 @@ class PostController extends GetxController {
       isLoadingPost.value = false;
     }
   }
-
-
-
-
 
   ///create post==============================================================Post Method================================================
   // ======================== VARIABLES ============================
@@ -94,7 +89,7 @@ class PostController extends GetxController {
     userID.value = sharedPreferences.getString(AppConstants.userId) ?? '';
   }
 
-  // ========================= IMAGE PICKER =========================
+  /// ========================= IMAGE PICKER =========================
   Future<void> pickImages() async {
     final ImagePicker picker = ImagePicker();
     final List<XFile> pickedFiles = await picker.pickMultiImage();
@@ -125,7 +120,7 @@ class PostController extends GetxController {
     return true;
   }
 
-  // ========================= CREATE POST =========================
+  /// ========================= CREATE POST =========================post multipart================================================
   Future<bool> createPost() async {
     if (!validatePost()) return false;
 
@@ -173,9 +168,6 @@ class PostController extends GetxController {
     }
   }
 
-
-
-
   ///update post==================================================================Patch Methode=======================================
   Rx<Status> updatePostStatus = Status.loading.obs;
   var isLoadingUpdate = false.obs;
@@ -183,9 +175,9 @@ class PostController extends GetxController {
 
   void pickImagesUpdate() async {
     final ImagePicker picker = ImagePicker();
-    final List<XFile> pickedFiles = await picker.pickMultiImage(); // image picker
+    final List<XFile> pickedFiles =
+        await picker.pickMultiImage(); // image picker
     if (pickedFiles.isNotEmpty) {
-
       currentImagePaths.addAll(pickedFiles.map((file) => file.path));
     }
   }
@@ -193,9 +185,7 @@ class PostController extends GetxController {
   Future<void> updatePost(String postId, String content) async {
     isLoadingUpdate(true);
 
-    final body = {
-      "content": content,
-    };
+    final body = {"content": content};
 
     final response = await ApiClient.patchData(
       ApiUrl.updatePost(postId),

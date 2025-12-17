@@ -15,7 +15,7 @@ class CommonCommunityWidget extends StatefulWidget {
   final bool myPost; // Controls the edit button visibility
   final int index; // Determines image layout
   final String profileTitle; // Required profile name
-  final String profileSubtitle; // Required subtitle (like date/time)
+  final String time; // Required subtitle (like date/time)
   final String profileImage; // Required profile image
   final String postText; // Required post text
   final void Function() onTapComment;
@@ -31,7 +31,7 @@ class CommonCommunityWidget extends StatefulWidget {
     this.myPost = false,
     this.index = 2,
     required this.profileTitle,
-    required this.profileSubtitle,
+    required this.time,
    required this.profileImage,
     required this.postText,
 
@@ -76,7 +76,7 @@ class _CommonCommunityWidgetState extends State<CommonCommunityWidget> {
                 child: CommonProfileWidget(
                   onTap: widget.onTapProfile,
                   title: widget.profileTitle,
-                  subTitle: widget.profileSubtitle,
+                  subTitle: widget.time,
                   profileImage: widget.profileImage,
                 ),
               ),
@@ -128,30 +128,7 @@ class _CommonCommunityWidgetState extends State<CommonCommunityWidget> {
     colorClickableText: Colors.pink,
     trimCollapsedText: 'See more',
     trimExpandedText: 'See less',
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
           ),
-          // CustomText(
-          //   fontWeight: FontWeight.w500,
-          //   textAlign: TextAlign.start,
-          //   maxLines: 3,
-          //   text: widget.postText,
-          // ),
-         //CustomText(text: "see more", color: AppColors.primary),
 
           Gap(24.h),
 
@@ -256,16 +233,28 @@ class _CommonCommunityWidgetState extends State<CommonCommunityWidget> {
           ),
 
 
-            if(images.length > 2)...[
+            if(images.length > 3)...[
               Gap(4.h),
               CustomNetworkImage(
                 imageUrl: ImageHandler.imagesHandle( images[2]),
                 height: 90.h,
                 width: 85.w,
-                borderRadius: BorderRadius.circular(6), 
+                borderRadius: BorderRadius.circular(6),
                 child: images.length > 3?
-                Center(
-                  child: CustomText(text: '+${images.length - 3}'),
+                Center
+                  (
+                  child: Container(
+                      height: 90.h,
+                      width: 85.w,
+                      alignment: Alignment.center,
+                      decoration: BoxDecoration(
+                        color: AppColors.white.withAlpha(99) ,
+                        borderRadius: BorderRadius.circular(6),
+
+                       ),
+                      child: CustomText(text: '+${images.length - 3}',
+                      fontSize: 24.sp,
+                      )),
                 ) : SizedBox(),
 
               ),

@@ -31,6 +31,7 @@ class ProgressAndActionSection extends StatelessWidget {
     required VoidCallback onTap,
     bool isPrimary = false,
   }) {
+
     return GestureDetector(
       onTap: onTap,
       child: Container(
@@ -68,6 +69,7 @@ class ProgressAndActionSection extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final width= MediaQuery.sizeOf(context).width;
     return Container(
       padding: EdgeInsets.all(16.w),
       decoration: BoxDecoration(
@@ -108,13 +110,19 @@ class ProgressAndActionSection extends StatelessWidget {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      CustomText(
-                        text: "${(progress * 100).toInt()}% to complete",
-                        fontSize: 16.sp,
-                        fontWeight: FontWeight.w600,
-                        color: AppColors.black,
-                        bottom: 0,
-                        top: 0,
+                      SizedBox(
+                       width:width>440? 200.w:170.w,
+                        child: CustomText(
+                         text: "${(progress * 100).toInt()}% to complete",
+
+                          maxLines: 1,
+                          overflow: TextOverflow.ellipsis,
+                          fontSize: 14.sp,
+                          fontWeight: FontWeight.w600,
+                          color: AppColors.black,
+                          bottom: 0,
+                          top: 0,
+                        ),
                       ),
                       Row(
                         children: [
@@ -123,14 +131,19 @@ class ProgressAndActionSection extends StatelessWidget {
                             size: 14.w,
                             color: AppColors.softWhite,
                           ),
-                          SizedBox(width: 4.w),
-                          CustomText(
-                            text: dayCount, // e.g., Day 12 of 30
-                            fontSize: 14.sp,
-                            fontWeight: FontWeight.w400,
-                            color: AppColors.softWhite,
-                            bottom: 0,
-                            top: 0,
+                          SizedBox(width: 2.w),
+                          SizedBox(
+                            width:width>440? 100.w:90.w,
+                            child: CustomText(
+                               overflow: TextOverflow.ellipsis,
+                              maxLines: 1,
+                              text: dayCount, // e.g., Day 12 of 30
+                              fontSize: 12.sp,
+                              fontWeight: FontWeight.w400,
+                              color: AppColors.softWhite,
+                              bottom: 0,
+                              top: 0,
+                            ),
                           ),
                         ],
                       ),

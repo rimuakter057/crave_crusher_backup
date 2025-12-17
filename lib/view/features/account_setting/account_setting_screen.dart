@@ -58,11 +58,12 @@ class AccountSettingScreen extends StatelessWidget {
               onTap: controller.isLoadingDeleteAccount.value
                   ? () {} // disabled tap, do nothing
                   : () {
-                // Wrap async call inside sync
+
                 () async {
                   // Optional: confirm deletion
                   bool? confirm = await Get.dialog<bool>(
                       AlertDialog(
+                        backgroundColor: AppColors.white,
                         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
                         title: Text(
                           "Confirm",

@@ -31,11 +31,7 @@ class ProfileAvatarWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // final double avatarHeight = heightA ?? 60.h;
-    // final double avatarWidth = widthA ?? 60.w;
-    //
-    // final double imageHeight = avatarHeight * 0.8;
-    // final double imageWidth = avatarWidth * 0.8;
+
 
     final double avatarHeight =  80.h;
     final double avatarWidth = 80.w;
@@ -44,8 +40,8 @@ class ProfileAvatarWidget extends StatelessWidget {
     final double imageWidth = 80.w;
 
     return SizedBox(
-      height: avatarHeight,
-      width: avatarWidth,
+      height:heightA?? avatarHeight,
+      width:widthA?? avatarWidth,
       child: Stack(
         clipBehavior: Clip.none,
         children: [

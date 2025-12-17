@@ -18,6 +18,10 @@ class AppStrings {
   static const String shoppingDetox = 'Shopping Detox';
   static const String junkFoodBattle = 'Junk Food Battle';
 
+  static const String caved="Caved";
+  static const String craved="Craved";
+  static const String missed="Missed";
+
   static const List<String> addictionTypes = [
     smokingDetox,
     savingMoney,

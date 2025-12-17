@@ -5,6 +5,7 @@ import 'package:crave_crusher/utils/app_images/app_images.dart';
 import 'package:crave_crusher/view/components/common_profile/avater_widget.dart';
 import 'package:crave_crusher/view/components/custom_container/custom_container.dart';
 import 'package:crave_crusher/view/components/custom_image/custom_image.dart';
+import 'package:crave_crusher/view/components/custom_loader/custom_loader.dart';
 import 'package:crave_crusher/view/components/custom_text/custom_text.dart';
 import 'package:crave_crusher/view/components/custom_text_field/custom_text_field.dart';
 import 'package:crave_crusher/view/features/community/controllers/community_controller.dart';
@@ -14,6 +15,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:gap/gap.dart';
 import 'package:get/get.dart';
+
+import '../../models/comment_model.dart';
 
 class CommentScreen extends StatefulWidget {
   final String postId;
@@ -32,7 +35,7 @@ class _CommentScreenState extends State<CommentScreen> {
     super.initState();
     // Fetch comments after build
     WidgetsBinding.instance.addPostFrameCallback((_) {
-      commentController.fetchCommentList(widget.postId);
+      commentController.fetchCommentList(widget.postId, );
     });
   }
 
@@ -100,6 +103,7 @@ class _CommentScreenState extends State<CommentScreen> {
                                   heightA: 35.h,
                                   widthA: 35.w,
                                 ),
+                                Gap(4.w),
                                 CustomText(text: "@ Sheena", fontSize: 18),
                               ],
                             ),
@@ -141,7 +145,7 @@ class _CommentScreenState extends State<CommentScreen> {
                               _controller.clear();
                             },
                             child: commentController.isLoadingSend.value
-                                ? Center(child: CircularProgressIndicator())
+                                ? CustomLoader()
                                 : CustomContainer(
                               backgroundColor: AppColors.primary,
                               padding: 2,
@@ -167,8 +171,11 @@ class _CommentScreenState extends State<CommentScreen> {
                 );
               } else {
                 // Comments list
-                final comment = commentController.commentList[index - 1];
+                 RxList<CommentModel> commentList =
+                    commentController.commentList.reversed.toList().obs;
+                final comment = commentList[index - 1];
                 return CommentWidget(
+                  userName:"@${comment.authorName ?? "unknown"}",
                   commentText: comment.commentText ?? "no comment",
                 );
               }

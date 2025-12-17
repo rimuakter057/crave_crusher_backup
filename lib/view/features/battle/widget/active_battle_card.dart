@@ -1,6 +1,7 @@
 // ignore_for_file: deprecated_member_use, unused_local_variable
 
 import 'package:crave_crusher/utils/app_colors/app_colors.dart';
+import 'package:crave_crusher/utils/app_const/app_const.dart';
 import 'package:crave_crusher/utils/app_icons/app_icons.dart';
 import 'package:crave_crusher/utils/app_strings/app_strings.dart';
 import 'package:crave_crusher/view/components/custom_image/custom_image.dart';
@@ -26,7 +27,7 @@ class ActiveBattleCard extends StatelessWidget {
     this.onBattlePressed, required this.percentText,
   });
 
-  String getIcon() {
+  String getIcon( DetoxType detoxType) {
     switch (detoxType) {
       case DetoxType.smoke:
         return AppIcons.smoke;
@@ -43,25 +44,6 @@ class ActiveBattleCard extends StatelessWidget {
     }
   }
 
-
-  // String getIcon() {
-  //   switch (title.toLowerCase()) {
-  //     case 'smoke':
-  //       return AppIcons.smoke;
-  //     case 'love':
-  //       return AppIcons.toxicRelationshipe;
-  //     case 'savingmoney':
-  //       return AppIcons.savingsMoney;
-  //     case 'junkfood':
-  //       return AppIcons.junkFood;
-  //     case 'shopping':
-  //       return AppIcons.shopping;
-  //     case 'socialmedia':
-  //       return AppIcons.socialMedia;
-  //     default:
-  //       return AppIcons.claim;
-  //   }
-  // }
 
 
 
@@ -131,7 +113,7 @@ class ActiveBattleCard extends StatelessWidget {
                       borderRadius: BorderRadius.circular(3),
                     ),
                     child: CustomImage(
-                      imageSrc: getIcon(),
+                      imageSrc: getIcon( detoxType),
                       height: 22.h,
                       width: 22.w,
                     ),
@@ -246,28 +228,11 @@ class ActiveBattleCard extends StatelessWidget {
   }
 }
 
-//enum DetoxType { smoke, love, savingMoney, junkFood, shopping, socialMedia }
+
 
 enum DetoxType { smoke, love, savingMoney, junkFood, shopping, socialMedia }
 
-extension DetoxTypeExtension on DetoxType {
-  String get displayName {
-    switch (this) {
-      case DetoxType.smoke:
-        return AppStrings.smokingDetox;
-      case DetoxType.love:
-        return AppStrings.toxicRelationship;
-      case DetoxType.savingMoney:
-        return AppStrings.savingMoney;
-      case DetoxType.junkFood:
-        return AppStrings.junkFoodBattle;
-      case DetoxType.shopping:
-        return AppStrings.shoppingDetox;
-      case DetoxType.socialMedia:
-        return AppStrings.socialMediaDetox;
-    }
-  }
-}
+//
 
 
 // DottedProgressBar widget

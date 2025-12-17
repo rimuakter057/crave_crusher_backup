@@ -1,4 +1,5 @@
 import 'package:crave_crusher/view/components/custom_leadin_title_appbar.dart';
+import 'package:crave_crusher/view/components/custom_loader/custom_loader.dart';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -22,13 +23,13 @@ class TermsConditionScreen extends StatelessWidget {
         padding: EdgeInsets.all(16),
         child:Obx((){
           if(termsConditionController.isLoadingTerms.value){
-            return Center(child: CircularProgressIndicator());
+            return Center(child: CustomLoader());
           }
 
           final termsData = termsConditionController.termsList.value;
 
           if (termsData == null) {
-            return Center(child: Text("No profile data"));
+            return Center(child: Text("Terms & Conditions are currently unavailable"));
           }
           return  RichText(
             text: TextSpan(

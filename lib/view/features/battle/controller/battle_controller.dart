@@ -42,7 +42,7 @@ class BattleController extends GetxController{
 
   final List<String> addictionLevels =AppStrings.addictionLevels;
 
-  /// Create Battle API call=====================================================
+  /// Create Battle API call==========================================Post method===========
   Future<bool> createBattle() async {
     if (!_validateInputs()) return false;
 
@@ -104,7 +104,7 @@ class BattleController extends GetxController{
   }
 
 
-  ///cancel battle=================================================================================
+  ///cancel battle==========================================Patch methode=======================================
 
   var isLoadingCancelBattle = false.obs;
 

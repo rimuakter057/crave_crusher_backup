@@ -28,7 +28,7 @@ class PrivacyPolicyScreen extends StatelessWidget {
           final privacyData = privacyController.privacy.value;
 
           if (privacyData == null) {
-            return Center(child: Text("No profile data"));
+            return Center(child: Text("Privacy Policy is currently unavailable"));
           }
 
           return   RichText(

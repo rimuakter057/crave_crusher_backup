@@ -101,7 +101,7 @@ class CommunityProfileScreen extends StatelessWidget {
                   ],
                 ),
                 profileTitle: "@Sheena S",
-                profileSubtitle: "27 Aug 2020 06:20 AM",
+                time: "27 Aug 2020 06:20 AM",
                 profileImage:
                     AppConstants.unknown, // replace with your image path
                 postText:
@@ -132,7 +132,7 @@ class CommunityProfileScreen extends StatelessWidget {
                 },
 
                 profileTitle: "@Sheena S",
-                profileSubtitle: "27 Aug 2020 06:20 AM",
+                time: "27 Aug 2020 06:20 AM",
                 profileImage:
                 AppConstants.unknown, // replace with your image path
                 postText:

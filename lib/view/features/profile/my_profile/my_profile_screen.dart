@@ -2,6 +2,7 @@ import 'package:crave_crusher/utils/app_colors/app_colors.dart';
 import 'package:crave_crusher/view/components/common_profile/avater_widget.dart';
 import 'package:crave_crusher/view/components/custom_container/custom_container.dart';
 import 'package:crave_crusher/view/components/custom_leadin_title_appbar.dart';
+import 'package:crave_crusher/view/components/custom_loader/custom_loader.dart';
 import 'package:crave_crusher/view/components/custom_text/custom_text.dart';
 import 'package:crave_crusher/view/features/profile/controllers/profile_controller.dart';
 import 'package:crave_crusher/view/features/profile/edit_profile/edit_profile_screens.dart';
@@ -27,7 +28,7 @@ class MyProfileScreen extends StatelessWidget {
           child: Obx(() {
             // loading check
             if (profileController.isLoadingMyProfile.value) {
-              return Center(child: CircularProgressIndicator());
+              return Center(child: CustomLoader());
             }
 
             final profile = profileController.myProfile.value;

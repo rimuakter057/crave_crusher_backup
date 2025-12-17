@@ -8,9 +8,9 @@ import 'package:gap/gap.dart';
 
 class CommentWidget extends StatelessWidget {
 final String commentText;
-
+final String userName;
   const CommentWidget({
-    super.key, required this.commentText,
+    super.key, required this.commentText, required this.userName,
 
   });
 
@@ -25,7 +25,7 @@ final String commentText;
           /// Profile avatar
           ProfileAvatarWidget(    imagePath: AppConstants.unknown,heightA: 40.h,widthA: 40.w,),
 
-          Gap(8.w),
+           Gap(8.w),
 
           /// Column with title and subtitle
           Expanded(
@@ -33,7 +33,7 @@ final String commentText;
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 /// Username / title
-                CustomText(text: "@Habitbreaker"),
+                CustomText(text: userName),
               Gap(12.h),
                 CustomText(
                   fontWeight: FontWeight.w500,

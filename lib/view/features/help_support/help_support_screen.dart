@@ -37,7 +37,7 @@ class HelpSupportScreen extends StatelessWidget {
           final helpData = helpController.helpList;
 
           if (helpData.isEmpty) {
-            return Center(child: Text("No FAQs available"));
+            return Center(child: Text("There are currently no FAQs to display”"));
           }
 
           return Column(

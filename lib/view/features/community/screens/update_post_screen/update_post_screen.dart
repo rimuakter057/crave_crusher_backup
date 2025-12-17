@@ -143,6 +143,7 @@ class _UpdatePostScreenState extends State<UpdatePostScreen> {
                     /// --- FULL WIDTH ADD BUTTON ---
                     GestureDetector(
                       onTap: () => postController.pickImagesUpdate(),
+
                       child: CustomContainer(
                         width: double.infinity,
                         height: 120.h,

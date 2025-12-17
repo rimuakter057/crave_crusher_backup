@@ -47,7 +47,7 @@ class CommunityController extends GetxController {
     return true;
   }
 
-  /// Create a comment and update list instantly=======================================================================
+  /// Create a comment =====================================================================
 
   Future<bool> createComment(String postId, {required bool allFeed}) async {
     if (!validateComment()) return false;
@@ -67,13 +67,7 @@ class CommunityController extends GetxController {
       isLoadingSend.value = false;
       if (response.statusCode == 200 || response.statusCode == 201) {
         isLoadingSend.value = true;
-        CommentModel model = CommentModel(
-          id: "",
-          commentText: commentText.value,
-          authorId: userID.value,
-          createdAt: DateTime.now(),
-        );
-        commentList.insert(0, model);
+
         commentText.value = '';
 
         if (allFeed) {
@@ -81,6 +75,8 @@ class CommunityController extends GetxController {
         } else {
           postController.fetchMyPost();
         }
+        await fetchCommentList(postId, callFormCreateComment:  true);
+
         return true;
       } else {
         Get.snackbar(
@@ -102,8 +98,14 @@ class CommunityController extends GetxController {
   var isLoadingComment = false.obs;
   RxList<CommentModel> commentList = <CommentModel>[].obs;
 
-  Future<void> fetchCommentList(String postId) async {
-    isLoadingComment.value = true;
+  Future<void> fetchCommentList(String postId, {bool callFormCreateComment = false}) async {
+
+     if(callFormCreateComment){
+       isLoadingComment.value = false;
+     }else{
+       isLoadingComment.value = true;
+     }
+
     debugPrint(
       'Fetching comments for post:=============================== $postId',
     );
@@ -122,18 +124,15 @@ class CommunityController extends GetxController {
     }
   }
 
-
-
-
-
-
-  /// Add or remove vote=====================================================================================
-
+  /// Add or remove vote==============================================post method==========================================
 
   RxList<String> userVotedPosts = <String>[].obs;
 
-
-  Future<bool> addVote(String postId) async {
+  Future<bool> addVote({
+    required String postId,
+    required int index,
+    required bool isMyPost,
+  }) async {
     if (userID.value.isEmpty) return false;
     final body = {'userId': userID.value};
     final response = await ApiClient.postData(
@@ -146,10 +145,22 @@ class CommunityController extends GetxController {
       if (userVotedPosts.contains(postId)) {
         userVotedPosts.remove(postId);
 
-
+        if (isMyPost) {
+          postController.getMyPostList[index].totalVotes =
+              postController.getMyPostList[index].totalVotes - 1;
+        } else {
+          postController.allPostList[index].totalVotes =
+              postController.allPostList[index].totalVotes - 1;
+        }
       } else {
         userVotedPosts.add(postId);
-
+        if (isMyPost) {
+          postController.getMyPostList[index].totalVotes =
+              postController.getMyPostList[index].totalVotes + 1;
+        } else {
+          postController.allPostList[index].totalVotes =
+              postController.allPostList[index].totalVotes + 1;
+        }
       }
       return true;
     } else {
@@ -157,12 +168,6 @@ class CommunityController extends GetxController {
       return false;
     }
   }
-
-
-
-
-
-
 
   //
   // Future<bool> addVote(String postId) async {
@@ -181,10 +186,4 @@ class CommunityController extends GetxController {
   //   ApiChecker.checkApi(response);
   //   return false; // fail
   // }
-
-
-
-
-
-
 }

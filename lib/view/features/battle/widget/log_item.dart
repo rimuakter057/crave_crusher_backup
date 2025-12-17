@@ -8,13 +8,27 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 enum LogType {
-  // Successful action/avoided craving (The 'sword/cross' icon in green border)
-  success,
-  // Failed to avoid craving/caved in (The 'monster/devil' icon in red border)
+  craved,
   caved,
+  missed
+}
+
+
+LogType getLogTypeFromStatus(String status) {
+  switch (status.toLowerCase()) {
+    case 'craved':
+      return LogType.craved;
+    case 'caved':
+      return LogType.caved;
+    case 'missed':
+      return LogType.missed;
+    default:
+      return LogType.missed; // fallback
+  }
 }
 
 /// A dynamic component for displaying a single log entry in the Battle Log list.
+
 class LogEntryItem extends StatelessWidget {
   final LogType type;
   final int dayNumber;
@@ -29,25 +43,37 @@ class LogEntryItem extends StatelessWidget {
     required this.timestamp,
   });
 
-  // Dynamic colors and icons based on LogType
   Color get _primaryColor {
-    return type == LogType.success
-        ? AppColors.green.withAlpha(50)
-        : AppColors.red.withAlpha(50);
+    switch (type) {
+      case LogType.craved:
+        return AppColors.green.withAlpha(50);
+      case LogType.caved:
+        return AppColors.red.withAlpha(50);
+      case LogType.missed:
+        return Colors.grey.withAlpha(50);
+    }
   }
 
   Color get _borderColor {
-    return type == LogType.success
-        ? AppColors.green.withAlpha(90)
-        : AppColors.red.withAlpha(90);
+    switch (type) {
+      case LogType.craved:
+        return AppColors.green.withAlpha(90);
+      case LogType.caved:
+        return AppColors.red.withAlpha(90);
+      case LogType.missed:
+        return Colors.grey.withAlpha(90);
+    }
   }
 
   String get icon {
-    // Apnar chobi anujayi icon use kora holo
-    return type == LogType.success
-        ? AppIcons
-            .battle // Swords icon er jonno placeholder
-        : AppIcons.smallMonster; // Monster/Devil icon er jonno placeholder
+    switch (type) {
+      case LogType.craved:
+        return AppIcons.battlePng;
+      case LogType.caved:
+        return AppIcons.smallMonster;
+      case LogType.missed:
+        return AppIcons.missed;
+    }
   }
 
   @override
@@ -60,17 +86,10 @@ class LogEntryItem extends StatelessWidget {
           color: AppColors.white,
           borderRadius: BorderRadius.circular(10.r),
           border: Border.all(color: AppColors.subPrimary, width: 1.w),
-          // boxShadow: [
-          //   BoxShadow(
-          //     color: AppColors.black.withOpacity(0.05),
-          //     blurRadius: 4,
-          //     offset: const Offset(0, 2),
-          //   ),
-          // ],
         ),
         child: Row(
           children: [
-            // --- Icon and Border Container ---
+            // Icon container
             Container(
               width: 48.w,
               height: 48.h,
@@ -81,10 +100,9 @@ class LogEntryItem extends StatelessWidget {
               ),
               child: Center(child: CustomImage(imageSrc: icon)),
             ),
-
             SizedBox(width: 12.w),
 
-            // --- Day and Status Text ---
+            // Day + Status
             Expanded(
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -100,16 +118,16 @@ class LogEntryItem extends StatelessWidget {
                     text: statusText,
                     fontWeight: FontWeight.w500,
                     fontSize: 13,
-                    color: AppColors.softWhite, // Status color depends on type
+                    color: AppColors.softWhite,
                   ),
                 ],
               ),
             ),
 
-            // --- Timestamp ---
+            // Timestamp
             Row(
               children: [
-                Icon(Icons.history, size: 12, color: AppColors.subPrimary),
+                Icon(Icons.history, size: 12, color: AppColors.softWhite),
                 SizedBox(width: 5.w),
                 CustomText(
                   text: timestamp,

@@ -3,6 +3,7 @@ import 'package:crave_crusher/utils/app_icons/app_icons.dart';
 import 'package:crave_crusher/view/components/custom_container/custom_container.dart';
 import 'package:crave_crusher/view/components/custom_image/custom_image.dart';
 import 'package:crave_crusher/view/components/custom_leadin_title_appbar.dart';
+import 'package:crave_crusher/view/components/custom_loader/custom_loader.dart';
 import 'package:crave_crusher/view/components/custom_nav_bar/navbar.dart';
 import 'package:crave_crusher/view/components/custom_netwrok_image/custom_network_image.dart';
 import 'package:crave_crusher/view/components/custom_text/custom_text.dart';
@@ -48,7 +49,7 @@ class _RewardsScreenState extends State<RewardsScreen> {
               Center(
                 child: Obx(() {
                   if (controller.isLoadingProgress.value) {
-                    return CircularProgressIndicator();
+                    return  CustomLoader();
                   }
 
                   return CustomCircularIndicator(
@@ -67,14 +68,7 @@ class _RewardsScreenState extends State<RewardsScreen> {
                 final isLoading = controller.isLoadingProgress.value; // create this in your controller
 
                 if (isLoading) {
-                  return CustomContainer(
-                    borderColor: AppColors.subPrimary,
-                    width: double.infinity,
-                    padding: 12,
-                    child: Center(
-                      child: CircularProgressIndicator(),
-                    ),
-                  );
+                  return Center(child: CustomLoader(),);
                 }
 
                 if (currentBadge == null) {
@@ -96,20 +90,10 @@ class _RewardsScreenState extends State<RewardsScreen> {
                       // Left side: badge
                       Row(
                         children: [
-                          Container(
+                          CustomNetworkImage(
+                            imageUrl: badgeImageUrl,
                             height: 30.h,
                             width: 30.w,
-                            alignment: Alignment.center,
-                            decoration: BoxDecoration(
-                              color: Color(0xFFF7FEE7),
-                              border: Border.all(color: Color(0xFF84CC16)),
-                              borderRadius: BorderRadius.circular(3),
-                            ),
-                            child: CustomNetworkImage(
-                              imageUrl: badgeImageUrl,
-                              height: 20.h,
-                              width: 20.w,
-                            ),
                           ),
                           Gap(8.w),
                           CustomText(
@@ -369,20 +353,10 @@ class _RewardsScreenState extends State<RewardsScreen> {
                           Expanded(
                             child: Row(
                               children: [
-                                Container(
+                                CustomNetworkImage(
+                                  imageUrl: ImageHandler.imagesHandle(itemDetails.badgeImage),
                                   height: 30.h,
                                   width: 30.w,
-                                  alignment: Alignment.center,
-                                  decoration: BoxDecoration(
-                                    color: Colors.grey.shade100,
-                                    border: Border.all(color: Colors.red),
-                                    borderRadius: BorderRadius.circular(3),
-                                  ),
-                                  child: CustomNetworkImage(
-                                    imageUrl: ImageHandler.imagesHandle(itemDetails.badgeImage),
-                                    height: 20.h,
-                                    width: 20.w,
-                                  ),
                                 ),
                                 Gap(12.w),
                                 CustomText(

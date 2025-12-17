@@ -4,9 +4,17 @@
 import 'package:intl/intl.dart';
 
 class DateConverter {
+  String dateYearTime(String createdAt) {
+    if (createdAt.isEmpty) return '';
+    DateTime dateTime = DateTime.parse(createdAt); // JSON timestamp ke DateTime e
+    return DateFormat('dd MMM yyyy hh:mm a').format(dateTime); // Example: 27 Aug 2020 02:48 AM
+  }
+
+
   static String estimatedDate(DateTime dateTime) {
     return DateFormat('dd MMM yyyy').format(dateTime);
   }
+
 
   static String formattedTime(DateTime dateTime) {
     return DateFormat('hh:mm a').format(dateTime);

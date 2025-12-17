@@ -4,6 +4,7 @@ import 'package:crave_crusher/utils/app_colors/app_colors.dart';
 import 'package:crave_crusher/utils/app_icons/app_icons.dart';
 import 'package:crave_crusher/view/components/custom_image/custom_image.dart';
 import 'package:crave_crusher/view/components/custom_text/custom_text.dart';
+import 'package:crave_crusher/view/features/battle/widget/active_battle_card.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
@@ -13,14 +14,33 @@ class DetailsMonsterSection extends StatelessWidget {
   final String battleDescription;
   final String status;
   final String monsterStatusMessage;
-
+ final DetoxType detoxType;
   const DetailsMonsterSection({
     super.key,
     required this.battleTitle,
     required this.battleDescription,
     required this.status,
     required this.monsterStatusMessage,
+    required this.detoxType,
   });
+
+
+  String getIcon( DetoxType detoxType) {
+    switch (detoxType) {
+      case DetoxType.smoke:
+        return AppIcons.smoke;
+      case DetoxType.love:
+        return AppIcons.toxicRelationshipe;
+      case DetoxType.savingMoney:
+        return AppIcons.savingsMoney;
+      case DetoxType.junkFood:
+        return AppIcons.junkFood;
+      case DetoxType.shopping:
+        return AppIcons.shopping;
+      case DetoxType.socialMedia:
+        return AppIcons.socialMedia;
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -55,7 +75,7 @@ class DetailsMonsterSection extends StatelessWidget {
                         border: Border.all(color: AppColors.subPrimary),
                       ),
                       child: CustomImage(
-                        imageSrc: AppIcons.smoke, // Small monster avatar
+                        imageSrc: getIcon(detoxType), // Small monster avatar
                         height: 36.h,
                         width: 36.w,
                       ),

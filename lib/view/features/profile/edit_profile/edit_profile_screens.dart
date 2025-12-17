@@ -34,7 +34,6 @@ class _EditProfileScreensState extends State<EditProfileScreens> {
   @override
   void initState() {
     super.initState();
-
     nameController.text = widget.name;
     emailController.text = widget.email;
   }

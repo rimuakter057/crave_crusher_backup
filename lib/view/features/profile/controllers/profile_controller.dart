@@ -34,7 +34,7 @@ class ProfileController extends GetxController {
     }
   }
 
-  ///update profile==================================================================Patch Methode=======================================
+  ///update profile==================================================================Patch multipart Methode=======================================
   Rx<Status> updateProfileStatus = Status.loading.obs;
   var isLoadingUpdateProfile = false.obs;
 

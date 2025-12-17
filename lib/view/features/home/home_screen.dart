@@ -4,10 +4,12 @@ import 'package:crave_crusher/utils/app_colors/app_colors.dart';
 import 'package:crave_crusher/utils/app_icons/app_icons.dart';
 import 'package:crave_crusher/utils/app_images/app_images.dart';
 import 'package:crave_crusher/view/components/custom_image/custom_image.dart';
+import 'package:crave_crusher/view/components/custom_loader/custom_loader.dart';
 import 'package:crave_crusher/view/components/custom_nav_bar/navbar.dart';
 import 'package:crave_crusher/view/components/custom_text/custom_text.dart';
 import 'package:crave_crusher/view/features/battle/controller/battle_controller.dart';
 import 'package:crave_crusher/view/features/battle/widget/active_battle_card.dart';
+import 'package:crave_crusher/view/features/battle/widget/detox_type.dart';
 import 'package:crave_crusher/view/features/home/widget/home_appbar.dart';
 import 'package:crave_crusher/view/features/home/widget/monster_section.dart';
 import 'package:crave_crusher/view/features/home/widget/today_tips.dart';
@@ -95,7 +97,7 @@ class _HomeScreenState extends State<HomeScreen> {
 
               Obx(() {
                 if (controller.isLoadingAllBattle.value) {
-                  return const Center(child: CircularProgressIndicator());
+                  return const Center(child: CustomLoader());
                 } else if (controller.allBattleList.isEmpty) {
                   return   Center(
                     child: Column(
@@ -129,7 +131,7 @@ class _HomeScreenState extends State<HomeScreen> {
                       return Column(
                         children: [
                           ActiveBattleCard(
-                            detoxType: DetoxType.smoke,
+                            detoxType: checkDetoxType(battle.addictionType??''),
                             title: battle.addictionType.toString(),
                             percentText: "${battle.battleProgress}%",
                             progress: 0.58,

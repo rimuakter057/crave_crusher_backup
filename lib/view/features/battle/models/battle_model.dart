@@ -8,7 +8,9 @@ class BattleModel {
   final int?  battleProgress;
   final String? battleStatus;
   final int? day;
+  final String?status; //next added
 
+ final String?currentDayStatus;
   BattleModel({
     this.id,
     this.addictionType,
@@ -19,6 +21,8 @@ class BattleModel {
     this.battleProgress,
     this.battleStatus,
     this.day,
+    this.currentDayStatus,
+    this.status, //next added
   });
 
   factory BattleModel.fromJson(Map<String, dynamic> json) =>
@@ -32,6 +36,8 @@ class BattleModel {
         battleProgress: json["battleProgress"],
         battleStatus: json["battleStatus"],
         day: json["day"],
+        currentDayStatus:json["currentDayStatus"],
+        status:json["status"] //next added
       );
 
   Map<String, dynamic> toJson() => {
@@ -43,6 +49,8 @@ class BattleModel {
     "battleReason": battleReason,
     "battleProgress": battleProgress,
     "battleStatus": battleStatus,
-    "day":day
+    "day":day,
+    "currentDayStatus":currentDayStatus,
+    "status":status
   };
 }

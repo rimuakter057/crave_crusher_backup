@@ -10,6 +10,8 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 
+import '../../../components/custom_loader/custom_loader.dart';
+
 class CreateBattleScreen extends StatefulWidget {
   const CreateBattleScreen({super.key});
 
@@ -146,7 +148,7 @@ class _StartNewBattleScreenState extends State<CreateBattleScreen> {
                         },
                 child:
                     controller.isLoading.value
-                        ? CircularProgressIndicator()
+                        ? CustomLoader()
                         : Container(
                           height: 40.h,
                           width: 140.w,
