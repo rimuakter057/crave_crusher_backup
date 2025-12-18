@@ -34,26 +34,21 @@ class HomeAppbar extends StatelessWidget implements PreferredSizeWidget {
               Obx(() {
                 final profile = profileController.myProfile.value;
 
-                return CustomText(
-                  text: "Hello ${profile?.fullName ?? "Loading..."}",
-                  fontWeight: FontWeight.w600,
-                  fontSize: 18.w,
-                  color: AppColors.black_02,
+                return SizedBox(
+                  width: 200.w,
+                  child: CustomText(
+                    textAlign: TextAlign.start,
+                    maxLines: 1,
+                    overflow: TextOverflow.ellipsis,
+                    text: "Hello ${profile?.fullName ?? "Empty Name"}",
+                    fontWeight: FontWeight.w600,
+                    fontSize: 18.w,
+                    color: AppColors.black_02,
+                  ),
                 );
-                //   CustomText(
-                //   text: profile?.fullName ?? "Loading...",
-                //   fontWeight: FontWeight.w600,
-                //   fontSize: 18.sp,
-                // );
+
               }),
 
-
-              // CustomText(
-              //   text: "Hello ${title ?? "Sheena"}",
-              //   fontWeight: FontWeight.w600,
-              //   fontSize: 18.w,
-              //   color: AppColors.black_02,
-              // ),
               CustomText(
                 text: "Welcome to Crave Crusher",
                 fontWeight: FontWeight.w400,

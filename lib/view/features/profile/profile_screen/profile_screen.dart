@@ -1,4 +1,5 @@
 import 'package:crave_crusher/core/routes/app_routes.dart';
+import 'package:crave_crusher/helper/imges_handler/image_handler.dart';
 import 'package:crave_crusher/utils/app_colors/app_colors.dart';
 import 'package:crave_crusher/utils/app_const/app_const.dart';
 import 'package:crave_crusher/utils/app_images/app_images.dart';
@@ -88,8 +89,11 @@ class ProfileScreen extends StatelessWidget {
                       final profile = profileController.myProfile.value;
 
                       return ProfileAvatarWidget(
-                        imagePath: profile?.profileImage ??
-                            AppConstants.unknown,
+                        imagePath: ImageHandler.imagesHandle(
+                          profile?.profileImage,
+                          isProfile: true,
+                        ),
+
                       );
                     }),
                   ),
@@ -104,7 +108,7 @@ class ProfileScreen extends StatelessWidget {
               final profile = profileController.myProfile.value;
 
               return CustomText(
-                text: profile?.fullName ?? "Loading...",
+                text: profile?.fullName ?? "Empty Name",
                 fontWeight: FontWeight.w600,
                 fontSize: 18.sp,
               );

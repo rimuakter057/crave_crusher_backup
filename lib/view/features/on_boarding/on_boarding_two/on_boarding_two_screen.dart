@@ -1,9 +1,12 @@
 import 'package:crave_crusher/utils/app_colors/app_colors.dart';
 import 'package:crave_crusher/utils/app_images/app_images.dart';
 import 'package:crave_crusher/view/components/custom_text/custom_text.dart';
+import 'package:crave_crusher/view/features/auth/screen/login/login_screen.dart';
 import 'package:crave_crusher/view/features/on_boarding/on_boarding_three/on_boarding_three_screen.dart';
 import 'package:crave_crusher/view/features/on_boarding/widgets/on_boarding_body_widget.dart';
+import 'package:crave_crusher/view/features/on_boarding/widgets/skip_button_widget.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 class OnBoardingTwoScreen extends StatefulWidget {
   const OnBoardingTwoScreen({super.key});
@@ -21,10 +24,7 @@ class _OnBoardingTwoScreenState extends State<OnBoardingTwoScreen> {
         actions: [
           Padding(
             padding: const EdgeInsets.only(right: 8.0),
-            child: TextButton(
-              onPressed: () {},
-              child: CustomText(text: "Skip", color: AppColors.primary),
-            ),
+            child: SkipButtonWidget(),
           ),
         ],
       ),
@@ -34,13 +34,12 @@ class _OnBoardingTwoScreenState extends State<OnBoardingTwoScreen> {
         subTitle:
             'See your streak grow, money saved, and milestones achieved as you progress.',
         onTap: () {
-          Navigator.push(
-            context,
-            MaterialPageRoute(builder: (context) => OnBoardingThreeScreen()),
-          );
+          Get.to(() => OnBoardingThreeScreen());
 
         },
       ),
     );
   }
 }
+
+

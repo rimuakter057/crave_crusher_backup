@@ -239,14 +239,12 @@ class _BattleDetailsScreenState extends State<BattleDetailsScreen> {
                     Get.back();
 
                     if (success) {
-                      // Success message
 
-                      Get.snackbar("Success", "Status updated to Caved");
-
-                      // Refresh the same screen
                       await controller.fetchSingleBattle(id);
                     } else {
                       // Failure message
+
+
                       Get.snackbar(
                         "Error",
                         "Status update failed",

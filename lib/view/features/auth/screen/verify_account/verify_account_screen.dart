@@ -19,7 +19,7 @@ import 'package:get/get.dart';
 
 class VerifyAccountScreen extends StatefulWidget {
   const VerifyAccountScreen({super.key, required this.email});
-final String email;
+  final String email;
 
   @override
   State<VerifyAccountScreen> createState() => _VerifyAccountScreenState();
@@ -27,11 +27,23 @@ final String email;
 
 class _VerifyAccountScreenState extends State<VerifyAccountScreen> {
 
-  final TextEditingController _otpController=TextEditingController();
+  final TextEditingController _controller=TextEditingController();
 
   final VerifyAccountOtpController verifyOtpController = Get.find<VerifyAccountOtpController>();
-  final UserResendOtpController userResendOtpController= Get.find<UserResendOtpController>();
+  final UserResendOtpController resendOtpController= Get.find<UserResendOtpController>();
 
+  @override
+  void initState() {
+    super.initState();
+
+    resendOtpController.startCountdown(seconds: 60);
+  }
+
+  @override
+  void dispose() {
+    _controller.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -39,90 +51,115 @@ class _VerifyAccountScreenState extends State<VerifyAccountScreen> {
 
 
       body:  Center(
-          child: SingleChildScrollView(
-            child: Padding(
-              padding:  EdgeInsets.symmetric(horizontal:16.w),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Gap(8.h),
-                  ///reset  text
-                  CustomText(
-                    textAlign: TextAlign.start,
-                    text: "Verify Your Account",fontSize: 28.sp,fontWeight: FontWeight.w500,),
-                  CustomText(
-                    maxLines: 2,
-                    textAlign: TextAlign.start,
-                    text: "Verify it’s you — check your email for the 6-digit code:ne***************@gmail.com",fontSize: 14.sp,fontWeight: FontWeight.w400,
-                    color: Color(0xFF555555),
-                  ),
-                  Gap(16.h),
-                  ///otp field
-                  OtpFieldWidget(
-                    controller: _otpController,
-                    onCompleted: (value) {
-                      print("OTP Completed: $value");
-                    },
-                  ),
+        child: SingleChildScrollView(
+          child: Padding(
+            padding:  EdgeInsets.symmetric(horizontal:16.w),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Gap(8.h),
+                ///reset  text
+                CustomText(
+                  textAlign: TextAlign.start,
+                  text: "Verify Your Account",fontSize: 28.sp,fontWeight: FontWeight.w500,),
+                CustomText(
+                  maxLines: 2,
+                  textAlign: TextAlign.start,
+                  text: "Verify it’s you — check your email for the 6-digit code:ne***************@gmail.com",fontSize: 14.sp,fontWeight: FontWeight.w400,
+                  color: Color(0xFF555555),
+                ),
+                Gap(16.h),
+                ///otp field
+                OtpFieldWidget(
+                  controller: _controller,
+                  onCompleted: (value) {
+                    print("OTP Completed: $value");
+                  },
+                ),
 
-                  Gap(16.h),
-                  ///action promot
+                Gap(16.h),
+                ///action promot
 
 
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    children: [
-                      Flexible(
-                        child: CustomText(text: "'Didn’t receive the code?'",
-                          fontSize: 14,
-                          fontWeight: FontWeight.w400,
-                          color: Color(0xFF555555),
-                        ),
-
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: [
+                    Flexible(
+                      child: CustomText(text: "'Didn’t receive the code?'",
+                        fontSize: 14,
+                        fontWeight: FontWeight.w400,
+                        color: Color(0xFF555555),
                       ),
-                      ///resend button
-                      GetBuilder<UserResendOtpController>(
-                          builder: (controller) {
-                            return Visibility(
-                              visible: controller.inProgress==false,
-                              replacement: Center(child: CircularProgressIndicator(),),
-                              child: GestureDetector(
-                                onTap: _resendOtpButton,
-                                child: Padding(
-                                  padding: const EdgeInsets.only(left: 4.0),
-                                  child: CustomText(text: 'Resend OTP (30s)',
-                                    fontSize: 14,
-                                    fontWeight: FontWeight.w500,
-                                    color: AppColors.primary,
-                                  ),
+
+                    ),
+                    ///resend button
+                    // GetBuilder<UserResendOtpController>(
+                    //     builder: (controller) {
+                    //       return Visibility(
+                    //         visible: controller.inProgress==false,
+                    //         replacement: Center(child: CircularProgressIndicator(),),
+                    //         child: GestureDetector(
+                    //           onTap: _resendOtpButton,
+                    //           child: Padding(
+                    //             padding: const EdgeInsets.only(left: 4.0),
+                    //             child: CustomText(text: 'Resend OTP (30s)',
+                    //               fontSize: 14,
+                    //               fontWeight: FontWeight.w500,
+                    //               color: AppColors.primary,
+                    //             ),
+                    //
+                    //
+                    //           ),
+                    //         ),
+                    //       );
+                    //     }
+                    // ),
 
 
-                                ),
-                              ),
-                            );
-                          }
-                      ),
-                    ],
-                  ),
+                    GetBuilder<UserResendOtpController>(
+                      builder: (controller) {
+                        return GestureDetector(
+                          onTap: (controller.countdown == 0 && !controller.inProgress)
+                              ? _resendOtpButton
+                              : null,
+                          child: Padding(
+                            padding: const EdgeInsets.only(left: 4.0),
+                            child: CustomText(
+                              text: controller.countdown > 0
+                                  ? 'Resend OTP (${controller.countdownText})'
+                                  : 'Resend OTP',
+                              fontSize: 14,
+                              fontWeight: FontWeight.w500,
+                              color: (controller.countdown > 0 || controller.inProgress)
+                                  ? AppColors.primary
+                                  : AppColors.primary,
+                            ),
+                          ),
+                        );
+                      },
+                    ),
+
+                  ],
+                ),
 
 
 
 
 
 
-                  // ActionPromptWidget(prefixText: 'Didn’t receive the code?', actionText: 'Resend OTP (30s)', onActionTapped: () {
-                  //   Navigator.push(
-                  //     context,
-                  //     MaterialPageRoute(builder: (context) => LoginScreen()),
-                  //   );
-                  // },),
+                // ActionPromptWidget(prefixText: 'Didn’t receive the code?', actionText: 'Resend OTP (30s)', onActionTapped: () {
+                //   Navigator.push(
+                //     context,
+                //     MaterialPageRoute(builder: (context) => LoginScreen()),
+                //   );
+                // },),
 
 
-                  ///reset button
-                  Gap(16.h),
+                ///reset button
+                Gap(16.h),
 
 
-                  GetBuilder<VerifyAccountOtpController>(
+                GetBuilder<VerifyAccountOtpController>(
                     builder: (controller) {
                       return Visibility(
                         visible: controller.inProgress==false,
@@ -130,20 +167,20 @@ class _VerifyAccountScreenState extends State<VerifyAccountScreen> {
                         child: CustomButton(
                             title: "Verify OTP",
                             onTap: _verifyOtpButton
-                            ),
+                        ),
                       );
                     }
-                  )
+                )
 
 
 
 
 
-                ],
-              ),
+              ],
             ),
           ),
         ),
+      ),
 
 
     );
@@ -152,7 +189,7 @@ class _VerifyAccountScreenState extends State<VerifyAccountScreen> {
 
   ///verify_otp button
   Future<void> _verifyOtpButton() async {
-    if (_otpController.text.isEmpty || _otpController.text.length != 6) {
+    if (_controller.text.isEmpty || _controller.text.length != 6) {
       showSnackBarMessage(context, "Please enter a 6-digit OTP", true);
       return;
     }
@@ -160,12 +197,15 @@ class _VerifyAccountScreenState extends State<VerifyAccountScreen> {
     // Pass the text as string
     VerifyAccountOtpModel verifyOtpModel = VerifyAccountOtpModel(
       email: widget.email,
-      verifyCode: _otpController.text, // ✅ string
+      verifyCode: _controller.text, // ✅ string
     );
 
     final bool isSuccess = await Get.find<VerifyAccountOtpController>().verifyOtp(verifyOtpModel);
 
     if (isSuccess) {
+      _controller.clear(); // clear OTP field
+      // Start countdown after Verify OTP
+      resendOtpController.startCountdown(seconds: 60);
       Get.to(() => LoginScreen()); // pass instance
     } else {
       showSnackBarMessage(context, verifyOtpController.errorMessage ?? "Something went wrong", true);
@@ -183,12 +223,12 @@ class _VerifyAccountScreenState extends State<VerifyAccountScreen> {
       return;
     }
 
-    final bool isSuccess = await userResendOtpController.resendOtp(widget.email);
+    final bool isSuccess = await resendOtpController.resendOtp(widget.email);
 
     if (isSuccess) {
       Get.snackbar("Success", "A new OTP has been sent to your email.");
     } else {
-      Get.snackbar("Error", userResendOtpController.errorMessage ?? "Something went wrong.");
+      Get.snackbar("Error", resendOtpController.errorMessage ?? "Something went wrong.");
     }
   }
 
@@ -196,9 +236,3 @@ class _VerifyAccountScreenState extends State<VerifyAccountScreen> {
 
 
 }
-
-
-
-
-
-

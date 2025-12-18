@@ -60,12 +60,17 @@ class _EditProfileScreensState extends State<EditProfileScreens> {
             Center(
               child: Obx(
                 () => ProfileAvatarWidget(
+
+
                   imagePath:
                       controller.profileImageFile.value == null
-                          ? controller.myProfile.value?.profileImage ?? ''
+                          ?        ImageHandler.imagesHandle(
+                        controller.myProfile.value?.profileImage,
+                        isProfile: true,
+                      )
                           : controller.profileImageFile.value?.path ?? '',
-                  heightA: 100.h,
-                  widthA: 100.w,
+                  heightA: 85.h,
+                  widthA: 85.w,
                   enableEdit: true,
                   onEdit: controller.pickImageFromGallery,
                   isFile: controller.profileImageFile.value == null? false:true,

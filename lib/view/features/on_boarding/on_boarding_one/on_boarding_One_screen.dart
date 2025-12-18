@@ -1,9 +1,12 @@
 import 'package:crave_crusher/utils/app_colors/app_colors.dart';
 import 'package:crave_crusher/utils/app_images/app_images.dart';
 import 'package:crave_crusher/view/components/custom_text/custom_text.dart';
+import 'package:crave_crusher/view/features/auth/screen/login/login_screen.dart';
 import 'package:crave_crusher/view/features/on_boarding/on_boarding_two/on_boarding_two_screen.dart';
 import 'package:crave_crusher/view/features/on_boarding/widgets/on_boarding_body_widget.dart';
+import 'package:crave_crusher/view/features/on_boarding/widgets/skip_button_widget.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 
 class OnBoardingOneScreen extends StatefulWidget {
@@ -22,17 +25,13 @@ class _OnBoardingOneScreenState extends State<OnBoardingOneScreen> {
         actions: [
           Padding(
             padding: const EdgeInsets.only(right: 8.0),
-            child: TextButton(onPressed: (){
+            child:SkipButtonWidget(),
+            ),
 
-            }, child: CustomText(text: "Skip",color: AppColors.primary,)),
-          )
         ],
       ),
       body: OnBoardingBodyWidget(imagePath: AppImages.onBoardingOne, title: "Face Your Monster", subTitle: 'Spot your addictions and get ready to battle them — one step at a time.', onTap: () {
-        Navigator.push(
-          context,
-          MaterialPageRoute(builder: (context) => OnBoardingTwoScreen()),
-        );
+        Get.to(() => OnBoardingTwoScreen());
       },),
     );
   }

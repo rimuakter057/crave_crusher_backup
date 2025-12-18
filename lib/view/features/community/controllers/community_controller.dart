@@ -106,9 +106,6 @@ class CommunityController extends GetxController {
        isLoadingComment.value = true;
      }
 
-    debugPrint(
-      'Fetching comments for post:=============================== $postId',
-    );
     final response = await ApiClient.getData(ApiUrl.getAllComment(postId));
     isLoadingComment.value = false;
     if (response.statusCode == 200 || response.statusCode == 201) {
@@ -132,6 +129,7 @@ class CommunityController extends GetxController {
     required String postId,
     required int index,
     required bool isMyPost,
+    required bool hasVoted,
   }) async {
     if (userID.value.isEmpty) return false;
     final body = {'userId': userID.value};
@@ -142,26 +140,57 @@ class CommunityController extends GetxController {
     );
     if (response.statusCode == 200 || response.statusCode == 201) {
       // Toggle UI logic
-      if (userVotedPosts.contains(postId)) {
-        userVotedPosts.remove(postId);
 
-        if (isMyPost) {
-          postController.getMyPostList[index].totalVotes =
-              postController.getMyPostList[index].totalVotes - 1;
-        } else {
-          postController.allPostList[index].totalVotes =
-              postController.allPostList[index].totalVotes - 1;
-        }
-      } else {
-        userVotedPosts.add(postId);
-        if (isMyPost) {
-          postController.getMyPostList[index].totalVotes =
-              postController.getMyPostList[index].totalVotes + 1;
-        } else {
-          postController.allPostList[index].totalVotes =
-              postController.allPostList[index].totalVotes + 1;
-        }
+      debugPrint("===========================>>>  hasVoted: $hasVoted");
+      debugPrint("===========================>>>  index: $index");
+      debugPrint("===========================>>>  isMyPost: $isMyPost");
+
+    if(isMyPost){
+      if(hasVoted) {
+        postController.getMyPostList.reversed.toList()[index].totalVotes =
+            postController.getMyPostList.reversed.toList()[index].totalVotes - 1;
+        postController.getMyPostList.reversed.toList()[index].hasVoted.value = false;
+      }else{
+        postController.getMyPostList.reversed.toList()[index].totalVotes =
+            postController.getMyPostList.reversed.toList()[index].totalVotes + 1;
+        postController.getMyPostList.reversed.toList()[index].hasVoted.value = true;
+
       }
+
+    }else{
+      if(hasVoted) {
+        postController.allPostList.reversed.toList()[index].totalVotes =
+            postController.allPostList.reversed.toList()[index].totalVotes - 1;
+        postController.allPostList.reversed.toList()[index].hasVoted.value = false;
+      }else{
+        postController.allPostList.reversed.toList()[index].totalVotes =
+            postController.allPostList.reversed.toList()[index
+            ].totalVotes + 1;
+        postController.allPostList.reversed.toList()[index].hasVoted.value = true;
+
+      }}
+
+
+      // if (userVotedPosts.contains(postId)) {
+      //   userVotedPosts.remove(postId);
+      //
+      //   if (isMyPost) {
+      //     postController.getMyPostList[index].totalVotes =
+      //         postController.getMyPostList[index].totalVotes - 1;
+      //   } else {
+      //     postController.allPostList[index].totalVotes =
+      //         postController.allPostList[index].totalVotes - 1;
+      //   }
+      // } else {
+      //   userVotedPosts.add(postId);
+      //   if (isMyPost) {
+      //     postController.getMyPostList[index].totalVotes =
+      //         postController.getMyPostList[index].totalVotes + 1;
+      //   } else {
+      //     postController.allPostList[index].totalVotes =
+      //         postController.allPostList[index].totalVotes + 1;
+      //   }
+      // }
       return true;
     } else {
       ApiChecker.checkApi(response);

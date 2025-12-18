@@ -1,5 +1,6 @@
 import 'package:crave_crusher/core/routes/app_routes.dart';
 import 'package:crave_crusher/utils/app_strings/app_strings.dart';
+import 'package:crave_crusher/view/components/common_empty/common_empty_widget.dart';
 import 'package:crave_crusher/view/components/custom_app_bar/custom_app_bar.dart';
 import 'package:crave_crusher/view/components/custom_nav_bar/navbar.dart';
 import 'package:crave_crusher/view/components/custom_text/custom_text.dart';
@@ -12,6 +13,8 @@ import 'package:crave_crusher/view/features/battle/widget/shimmer_battle.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+
+import 'models/battle_model.dart';
 
 class BattleScreen extends StatefulWidget {
   const BattleScreen({super.key});
@@ -79,49 +82,46 @@ class _BattleScreenState extends State<BattleScreen> {
                       _fetchBattleByTab(controller.battleTabIndex.value);
                     },
                     child:
-                        controller.isLoadingAllBattle.value
-                            ? const BattleShimmerLoader()
-                            : controller.allBattleList.isEmpty
-                            ? const Center(
-                              child: CustomText(
-                                maxLines: 2,
-                                textAlign: TextAlign.center,
-                                text:
-                                    "You don’t have any active battles right now.",
-                              ),
-                            )
-                            : ListView.builder(
-                              physics: const AlwaysScrollableScrollPhysics(),
-                              itemCount: controller.allBattleList.length,
-                              itemBuilder: (context, index) {
-                                final battle = controller.allBattleList[index];
+                    controller.isLoadingAllBattle.value
+                        ? const BattleShimmerLoader()
+                        : controller.allBattleList.isEmpty
+                        ? const Center(
+                      child: EmptyWidget(
+                        title: "You don’t have any active battles right now.",),
 
-                                return Column(
-                                  children: [
-                                    ActiveBattleCard(
-                                      detoxType: checkDetoxType(
-                                        battle.addictionType ?? '',
-                                      ),
-                                      title: battle.addictionType.toString(),
-                                      percentText: "${battle.battleProgress}%",
-                                      progress: 0.58,
-                                      status: battle.status.toString(),
-                                      dayCount:
-                                          "Day ${battle.day} of ${battle.battleLength}",
-                                      onBattlePressed: () {
-                                        Get.to(
-                                          BattleDetailsScreen(
-                                            battleId: battle.id.toString(),
-                                            showBattleNowButton: true,
-                                          ),
-                                        );
-                                      },
-                                    ),
-                                    SizedBox(height: 4.h),
-                                  ],
+                    )
+                        : ListView.builder(
+                      physics: const AlwaysScrollableScrollPhysics(),
+                      itemCount: controller.allBattleList.length,
+                      itemBuilder: (context, index) {
+                        final battle = controller.allBattleList[index];
+
+                        return Column(
+                          children: [
+                            ActiveBattleCard(
+                              detoxType: checkDetoxType(
+                                battle.addictionType ?? '',
+                              ),
+                              title: battle.addictionType.toString(),
+                              percentText: "${battle.battleProgress}%",
+                              progress: 0.58,
+                              status: battle.todayStatus?.toString()??'',
+                              dayCount: "Day ${battle.day} of ${battle
+                                  .battleLength}",
+                              onBattlePressed: () {
+                                Get.to(
+                                  BattleDetailsScreen(
+                                    battleId: battle.id.toString(),
+                                    showBattleNowButton: true,
+                                  ),
                                 );
                               },
                             ),
+                            SizedBox(height: 4.h),
+                          ],
+                        );
+                      },
+                    ),
                   ),
                 ),
               ],
@@ -133,49 +133,49 @@ class _BattleScreenState extends State<BattleScreen> {
                       _fetchBattleByTab(controller.battleTabIndex.value);
                     },
                     child:
-                        controller.isLoadingAllBattle.value
-                            ? const BattleShimmerLoader()
-                            : controller.allBattleList.isEmpty
-                            ? const Center(
-                              child: CustomText(
-                                maxLines: 2,
-                                textAlign: TextAlign.center,
-                                text:
-                                    "You don’t have any completed battles right now.",
-                              ),
-                            )
-                            : ListView.builder(
-                              physics: const AlwaysScrollableScrollPhysics(),
-                              itemCount: controller.allBattleList.length,
-                              itemBuilder: (context, index) {
-                                final battle = controller.allBattleList[index];
+                    controller.isLoadingAllBattle.value
+                        ? const BattleShimmerLoader()
+                        : controller.allBattleList.isEmpty
+                        ? const Center(
+                      child: CustomText(
+                        maxLines: 2,
+                        textAlign: TextAlign.center,
+                        text:
+                        "You don’t have any completed battles right now.",
+                      ),
+                    )
+                        : ListView.builder(
+                      physics: const AlwaysScrollableScrollPhysics(),
+                      itemCount: controller.allBattleList.length,
+                      itemBuilder: (context, index) {
+                        final battle = controller.allBattleList[index];
 
-                                return Column(
-                                  children: [
-                                    ActiveBattleCard(
-                                      detoxType: checkDetoxType(
-                                        battle.addictionType ?? '',
-                                      ),
-                                      title: battle.addictionType ?? "",
-                                      percentText: "${battle.battleProgress}%",
-                                      progress:
-                                          (battle.battleProgress ?? 0) / 100,
-                                      status: "Completed",
-                                      dayCount:
-                                          "Day ${battle.day} of ${battle.battleLength} ",
-                                      onBattlePressed: () {
-                                        Get.to(
-                                          BattleDetailsScreen(
-                                            battleId: battle.id.toString(),
-                                          ),
-                                        );
-                                      },
-                                    ),
-                                    SizedBox(height: 4.h),
-                                  ],
+                        return Column(
+                          children: [
+                            ActiveBattleCard(
+                              detoxType: checkDetoxType(
+                                battle.addictionType ?? '',
+                              ),
+                              title: battle.addictionType ?? "",
+                              percentText: "${battle.battleProgress}%",
+                              progress:
+                              (battle.battleProgress ?? 0) / 100,
+                              status: battle.battleStatus.toString(),
+                              dayCount:
+                              "Day ${battle.day} of ${battle.battleLength} ",
+                              onBattlePressed: () {
+                                Get.to(
+                                  BattleDetailsScreen(
+                                    battleId: battle.id.toString(),
+                                  ),
                                 );
                               },
                             ),
+                            SizedBox(height: 4.h),
+                          ],
+                        );
+                      },
+                    ),
                   ),
                 ),
               ],
@@ -187,48 +187,48 @@ class _BattleScreenState extends State<BattleScreen> {
                       _fetchBattleByTab(controller.battleTabIndex.value);
                     },
                     child:
-                        controller.isLoadingAllBattle.value
-                            ? const BattleShimmerLoader()
-                            : controller.allBattleList.isEmpty
-                            ? const Center(
-                              child: CustomText(
-                                maxLines: 2,
-                                textAlign: TextAlign.center,
-                                text:
-                                    "You don’t have any canceled battles right now.",
-                              ),
-                            )
-                            : ListView.builder(
-                              physics: const AlwaysScrollableScrollPhysics(),
-                              itemCount: controller.allBattleList.length,
-                              itemBuilder: (context, index) {
-                                final battle = controller.allBattleList[index];
+                    controller.isLoadingAllBattle.value
+                        ? const BattleShimmerLoader()
+                        : controller.allBattleList.isEmpty
+                        ? const Center(
+                      child: CustomText(
+                        maxLines: 2,
+                        textAlign: TextAlign.center,
+                        text:
+                        "You don’t have any canceled battles right now.",
+                      ),
+                    )
+                        : ListView.builder(
+                      physics: const AlwaysScrollableScrollPhysics(),
+                      itemCount: controller.allBattleList.length,
+                      itemBuilder: (context, index) {
+                        final battle = controller.allBattleList[index];
 
-                                return Column(
-                                  children: [
-                                    ActiveBattleCard(
-                                      detoxType: checkDetoxType(
-                                        battle.addictionType ?? '',
-                                      ),
-                                      title: battle.addictionType.toString(),
-                                      percentText: "${battle.battleProgress}%",
-                                      progress: 0.58,
-                                      status: "Canceled",
-                                      dayCount:
-                                          "Day ${battle.day} of ${battle.battleLength}",
-                                      onBattlePressed: () {
-                                        Get.to(
-                                          BattleDetailsScreen(
-                                            battleId: battle.id.toString(),
-                                          ),
-                                        );
-                                      },
-                                    ),
-                                    SizedBox(height: 4.h),
-                                  ],
+                        return Column(
+                          children: [
+                            ActiveBattleCard(
+                              detoxType: checkDetoxType(
+                                battle.addictionType ?? '',
+                              ),
+                              title: battle.addictionType.toString(),
+                              percentText: "${battle.battleProgress}%",
+                              progress: 0.58,
+                              status: battle.battleStatus.toString(),
+                              dayCount:
+                              "Day ${battle.day} of ${battle.battleLength}",
+                              onBattlePressed: () {
+                                Get.to(
+                                  BattleDetailsScreen(
+                                    battleId: battle.id.toString(),
+                                  ),
                                 );
                               },
                             ),
+                            SizedBox(height: 4.h),
+                          ],
+                        );
+                      },
+                    ),
                   ),
                 ),
               ],
@@ -240,4 +240,13 @@ class _BattleScreenState extends State<BattleScreen> {
       bottomNavigationBar: NavBar(currentIndex: 1),
     );
   }
+
+
 }
+
+
+
+
+
+
+

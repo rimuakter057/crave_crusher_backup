@@ -31,7 +31,6 @@ class CommunityAllFeedScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    /// TAB CHANGE HOILE API AUTO CALL HOBE
     communityController.communityTabIndex.listen((index) {
       if (index == 0) {
         postController.fetchAllPosts();
@@ -93,8 +92,9 @@ class CommunityAllFeedScreen extends StatelessWidget {
                         shrinkWrap: true,
                         itemCount: postController.allPostList.length,
                         itemBuilder: (context, index) {
-                          final  postList = postController.allPostList.reversed.toList();
-                          final post =postList[index];
+                          final postList =
+                              postController.allPostList.reversed.toList();
+                          final post = postList[index];
                           return Column(
                             children: [
                               Obx(() {
@@ -120,13 +120,14 @@ class CommunityAllFeedScreen extends StatelessWidget {
                                             postId: postId,
                                             index: index,
                                             isMyPost: false,
+                                            hasVoted: post.hasVoted.value ?? false,
                                           );
                                           await postController.fetchMyPost();
                                         },
 
                                         icon: Icon(
-                                          isLiked
-                                              ? Icons.favorite
+                                          post.hasVoted.value ?? false ?
+                                               Icons.favorite
                                               : Icons.favorite_border,
                                           color: AppColors.red,
                                           size: 20.w,
@@ -134,7 +135,7 @@ class CommunityAllFeedScreen extends StatelessWidget {
                                       ),
                                       SizedBox(width: 4.w),
                                       CustomText(
-                                        text: "${post.totalVotes?.value ?? 0}",
+                                        text: "${post.totalVotes.value ?? 0}",
                                       ),
                                     ],
                                   ),
@@ -185,7 +186,8 @@ class CommunityAllFeedScreen extends StatelessWidget {
                         shrinkWrap: true,
                         itemCount: postController.getMyPostList.length,
                         itemBuilder: (context, index) {
-                          final myPost = postController.getMyPostList[index];
+
+                          final myPost = postController.getMyPostList.reversed.toList()[index];
 
                           return Column(
                             children: [
@@ -214,10 +216,11 @@ class CommunityAllFeedScreen extends StatelessWidget {
                                             () => communityController.addVote(
                                               postId: postId,
                                               index: index,
-                                              isMyPost: true
+                                              isMyPost: true,
+                                              hasVoted: myPost.hasVoted.value ?? false,
                                             ),
                                         icon: Icon(
-                                          isLiked
+                                          myPost.hasVoted.value ?? false
                                               ? Icons.favorite
                                               : Icons.favorite_border,
                                           color: AppColors.red,
@@ -226,7 +229,8 @@ class CommunityAllFeedScreen extends StatelessWidget {
                                       ),
                                       SizedBox(width: 4.w),
                                       CustomText(
-                                        text: "${myPost.totalVotes?.value ?? 0}",
+                                        text:
+                                            "${myPost.totalVotes?.value ?? 0}",
                                       ),
                                     ],
                                   ),

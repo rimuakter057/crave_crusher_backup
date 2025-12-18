@@ -23,7 +23,7 @@ class PostModel {
   final bool? isDeleted;
   final DateTime? createdAt;
   final DateTime? updatedAt;
-  final bool? hasVoted;
+  RxBool hasVoted;
   final Author? author;
 
   PostModel({
@@ -35,10 +35,12 @@ class PostModel {
     this.isDeleted,
     this.createdAt,
     this.updatedAt,
-    this.hasVoted,
+    RxBool? hasVoted,
     this.author,
   })  : postImages = postImages ?? [],
-        totalVotes = totalVotes ?? 0.obs;
+        totalVotes = totalVotes ?? 0.obs,
+        hasVoted = hasVoted ?? false.obs;
+
 
   factory PostModel.fromJson(Map<String, dynamic> json) {
     return PostModel(
@@ -56,7 +58,7 @@ class PostModel {
       updatedAt: json["updatedAt"] == null
           ? null
           : DateTime.parse(json["updatedAt"]),
-      hasVoted: json["hasVoted"],
+      hasVoted: RxBool(json["hasVoted"]??false),
       author: json["author"] == null
           ? null
           : Author.fromJson(json["author"]),
@@ -72,7 +74,7 @@ class PostModel {
     "isDeleted": isDeleted,
     "createdAt": createdAt?.toIso8601String(),
     "updatedAt": updatedAt?.toIso8601String(),
-    "hasVoted": hasVoted,
+    "hasVoted": hasVoted.value,
     "author": author?.toJson(),
   };
 }

@@ -52,4 +52,45 @@ class AuthController extends GetxController {
     token = null;
     user = null;
   }
+
+
+
+
+  // remember me keys
+  final String _rememberMeKey = "remember_me";
+  final String _rememberEmailKey = "remember_email";
+  final String _rememberPasswordKey = "remember_password";
+
+
+
+  /// ================= REMEMBER ME =================
+  Future<void> saveRememberMe({
+    required bool rememberMe,
+    required String email,
+    required String password,
+  }) async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+
+    if (rememberMe) {
+      await prefs.setBool(_rememberMeKey, true);
+      await prefs.setString(_rememberEmailKey, email);
+      await prefs.setString(_rememberPasswordKey, password);
+    } else {
+      await prefs.remove(_rememberMeKey);
+      await prefs.remove(_rememberEmailKey);
+      await prefs.remove(_rememberPasswordKey);
+    }
+  }
+
+  Future<Map<String, dynamic>> getRememberMeData() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+
+    return {
+      "rememberMe": prefs.getBool(_rememberMeKey) ?? false,
+      "email": prefs.getString(_rememberEmailKey) ?? "",
+      "password": prefs.getString(_rememberPasswordKey) ?? "",
+    };
+  }
+
+
 }

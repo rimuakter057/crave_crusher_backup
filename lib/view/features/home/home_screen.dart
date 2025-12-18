@@ -3,6 +3,7 @@
 import 'package:crave_crusher/utils/app_colors/app_colors.dart';
 import 'package:crave_crusher/utils/app_icons/app_icons.dart';
 import 'package:crave_crusher/utils/app_images/app_images.dart';
+import 'package:crave_crusher/view/components/common_empty/common_empty_widget.dart';
 import 'package:crave_crusher/view/components/custom_image/custom_image.dart';
 import 'package:crave_crusher/view/components/custom_loader/custom_loader.dart';
 import 'package:crave_crusher/view/components/custom_nav_bar/navbar.dart';
@@ -100,25 +101,8 @@ class _HomeScreenState extends State<HomeScreen> {
                   return const Center(child: CustomLoader());
                 } else if (controller.allBattleList.isEmpty) {
                   return   Center(
-                    child: Column(
-                      children: [
-                        CustomImage(
-                          imageSrc: AppIcons.emptyHome,
-                          height: 41.h,
-                          width: 64.w,
-                          boxFit: BoxFit.cover,
-                        ),
-                        SizedBox(height: 24.h),
-                        SizedBox(
-                          width: 272.w,
-                          child: CustomText(
-                            text: "Add your first battle to get started.",
-                            maxLines: 2,
-                            fontSize: 16.sp,
-                            fontWeight: FontWeight.w400,
-                          ),
-                        ),
-                      ],
+                    child: EmptyWidget(
+                      title: "Add your first battle to get started.",
                     ),
                   );
                 } else {
@@ -179,6 +163,10 @@ class _HomeScreenState extends State<HomeScreen> {
     );
   }
 }
+
+
+
+
 
 // SOLID Principle (SRP): Ei widget-ti shudhu Tip o Monster UI render korar kaaj korche.
 

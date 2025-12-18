@@ -5,6 +5,7 @@ import 'package:crave_crusher/view/components/custom_text/custom_text.dart';
 import 'package:crave_crusher/view/components/input_field_with_title/input_field_with_title.dart';
 import 'package:crave_crusher/view/components/input_password_field_widget/input_password_field_widget.dart';
 import 'package:crave_crusher/view/components/show_snakbar/show_snakbar.dart';
+import 'package:crave_crusher/view/features/auth/controllers/auth_controller.dart';
 import 'package:crave_crusher/view/features/auth/controllers/forget_password_controller.dart';
 import 'package:crave_crusher/view/features/auth/controllers/login_controller.dart';
 import 'package:crave_crusher/view/features/auth/models/login_model.dart';
@@ -22,7 +23,6 @@ import 'package:get/get.dart';
 
 import '../../models/user_model.dart';
 
-
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
 
@@ -31,15 +31,41 @@ class LoginScreen extends StatefulWidget {
 }
 
 class _LoginScreenState extends State<LoginScreen> {
+  bool _rememberMe = false;
 
-  final bool _rememberMe = false;
- final TextEditingController _emailController=TextEditingController(text: kDebugMode ?"rimuakter334@gmail.com":'' );
-  final TextEditingController _passwordController=TextEditingController( text: kDebugMode? "111111": '');
+  final TextEditingController _emailController = TextEditingController(
+   // text: kDebugMode ? "rimuakter334@gmail.com" : '',
+  );
+  final TextEditingController _passwordController = TextEditingController(
+   // text: kDebugMode ? "111111" : '',
+  );
+
+  final GlobalKey<FormState> _key = GlobalKey<FormState>();
+  final LogInController logInController = Get.find<LogInController>();
+  final AuthController authController = Get.find<AuthController>();
+  final ForgetPasswordController forgetPasswordController =
+      Get.find<ForgetPasswordController>();
 
 
-  GlobalKey<FormState>  _key = GlobalKey<FormState>();
- final LogInController logInController = Get.find<LogInController>();
-final ForgetPasswordController forgetPasswordController =Get.find<ForgetPasswordController>();
+
+  @override
+  void initState() {
+    super.initState();
+    loadRememberData();
+  }
+
+  Future<void> loadRememberData() async {
+    final data = await authController.getRememberMeData();
+
+    if (data["rememberMe"] == true) {
+      _emailController.text = data["email"];
+      _passwordController.text = data["password"];
+      _rememberMe = true;
+      setState(() {});
+    }
+  }
+
+
 
   @override
   Widget build(BuildContext context) {
@@ -48,7 +74,7 @@ final ForgetPasswordController forgetPasswordController =Get.find<ForgetPassword
         child: Center(
           child: SingleChildScrollView(
             child: Padding(
-              padding:  EdgeInsets.symmetric(horizontal: 16.w),
+              padding: EdgeInsets.symmetric(horizontal: 16.w),
               child: Form(
                 key: _key,
                 child: Column(
@@ -57,68 +83,93 @@ final ForgetPasswordController forgetPasswordController =Get.find<ForgetPassword
                   children: [
                     ///login text
                     CustomText(
-            
                       textAlign: TextAlign.start,
-                      text: "Welcome Back",fontSize: 30.sp,fontWeight: FontWeight.w500,),
+                      text: "Welcome Back",
+                      fontSize: 30.sp,
+                      fontWeight: FontWeight.w500,
+                    ),
                     CustomText(
                       maxLines: 2,
                       textAlign: TextAlign.start,
-                      text: "Let’s continue your journey to crush those cravings!",fontSize: 14.sp,fontWeight: FontWeight.w400,
-                    color: Color(0xFF555555),
+                      text:
+                          "Let’s continue your journey to crush those cravings!",
+                      fontSize: 14.sp,
+                      fontWeight: FontWeight.w400,
+                      color: Color(0xFF555555),
                     ),
                     Gap(24.h),
+
                     ///input field
-                     InputFieldWithTitleWidget(title: "Email Address", hintText: "Enter your email",
-                     controller: _emailController,
-                         validator: (String? value) {
-                           if (value?.trim().isEmpty ?? true) {
-                             return "Enter Your Email";
-                           }
-                           return null;
-                         },
-                     ),
-            
-            
-                    Gap(16.h),
-                    InputPasswordFieldWidget(title: "Password",
-                    controller: _passwordController,
+                    InputFieldWithTitleWidget(
+                      title: "Email Address",
+                      hintText: "Enter your email",
+                      controller: _emailController,
                       validator: (String? value) {
-                        if (value?.isEmpty ?? true && _passwordController.text.length<6) {
+                        if (value?.trim().isEmpty ?? true) {
+                          return "Enter Your Email";
+                        }
+                        return null;
+                      },
+                    ),
+
+                    Gap(16.h),
+                    InputPasswordFieldWidget(
+                      title: "Password",
+                      controller: _passwordController,
+                      validator: (String? value) {
+                        if (value?.isEmpty ??
+                            true && _passwordController.text.length < 6) {
                           return "Enter Your password minimum length 6";
                         }
                         return null;
                       },
                     ),
-            
+
                     ///remember and forgot section
                     RememberMeAndForgotPassword(
                       isChecked: _rememberMe,
-                      onRememberMeChanged: (bool? newValue){},
-                    child:  GetBuilder<ForgetPasswordController>(
-                      builder: (controller) {
-                        return Visibility(
-                          visible: controller.inProgress==false,
-                          replacement: Center(child: CircularProgressIndicator(),),
-                          child: TextButton(
-                            onPressed: _forgetButtonTap,
-                            child: CustomText(text:"Forget Password?",fontWeight: FontWeight.w600,fontSize: 12,color: AppColors.primary,),
+                      onRememberMeChanged: (bool? newValue) {
+                        setState(() {
+                          _rememberMe = newValue ?? false;
+                        });
+                      },
 
-                          ),
-                        );
-                      }
-                    ),
+                      child: GetBuilder<ForgetPasswordController>(
+                        builder: (controller) {
+                          return Visibility(
+                            visible: controller.inProgress == false,
+                            replacement: Center(
+                              child: CircularProgressIndicator(),
+                            ),
+                            child: TextButton(
+                              onPressed: _forgetButtonTap,
+                              child: CustomText(
+                                text: "Forget Password?",
+                                fontWeight: FontWeight.w600,
+                                fontSize: 12,
+                                color: AppColors.primary,
+                              ),
+                            ),
+                          );
+                        },
+                      ),
                     ),
                     OrDivider(),
                     Gap(24.h),
-                    ActionPromptWidget(prefixText: 'Don’t have an account?', actionText: 'Sign Up Now', onActionTapped: () {
-
-
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(builder: (context) => SignUpScreen()),
-                      );
-                    },),
+                    ActionPromptWidget(
+                      prefixText: 'Don’t have an account?',
+                      actionText: 'Sign Up Now',
+                      onActionTapped: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => SignUpScreen(),
+                          ),
+                        );
+                      },
+                    ),
                     Gap(24.h),
+
                     ///login button
 
                     /// Sign Up Button with loader
@@ -126,16 +177,17 @@ final ForgetPasswordController forgetPasswordController =Get.find<ForgetPassword
                       builder: (controller) {
                         return Visibility(
                           visible: controller.inProgress == false,
-                          replacement: Center(child: CircularProgressIndicator()),
+                          replacement: Center(
+                            child: CircularProgressIndicator(),
+                          ),
                           child: CustomButton(
                             title: "Log In",
-                            onTap: _signInButtonTap, // <-- calls separate method
+                            onTap:
+                                _signInButtonTap, // <-- calls separate method
                           ),
                         );
                       },
                     ),
-
-
                   ],
                 ),
               ),
@@ -143,43 +195,43 @@ final ForgetPasswordController forgetPasswordController =Get.find<ForgetPassword
           ),
         ),
       ),
-    
     );
   }
 
-///sign in button
-  Future <void> _signInButtonTap()async{
-    if (_key.currentState!.validate()){
+  ///sign in button
+  Future<void> _signInButtonTap() async {
+    if (_key.currentState!.validate()) {
+      LogInModel logInModel = LogInModel(
+        email: _emailController.text,
+        password: _passwordController.text,
+      );
+      final bool isSuccess = await logInController.logIn(logInModel);
 
-      LogInModel logInModel = LogInModel(email: _emailController.text, password: _passwordController.text);
-      final bool isSuccess =await logInController.logIn(logInModel);
-
-      if(isSuccess){
-
+      if (isSuccess) {
+        await authController.saveRememberMe(
+          rememberMe: _rememberMe,
+          email: _emailController.text,
+          password: _passwordController.text,
+        );
         Get.offNamed(AppRoutes.homeScreen);
-      }else{
+      } else {
         showSnackBarMessage(context, logInController.errorMessage!, true);
       }
-
     }
   }
 
-
   ///forget button
-  Future <void> _forgetButtonTap()async{
+  Future<void> _forgetButtonTap() async {
+    final bool isSuccess = await forgetPasswordController.forgetPassword(
+      _emailController.text,
+    );
 
-
-    final bool isSuccess=  await forgetPasswordController.forgetPassword(_emailController.text);
-
-     if(isSuccess && _emailController.text.isNotEmpty){
-       Get.to(VerifyIdentityScreen(email: _emailController.text));
-     }else {
-       Get.snackbar("Error", "Please Enter Your Email");
-     }
-
-
+    if (isSuccess && _emailController.text.isNotEmpty) {
+      Get.to(VerifyIdentityScreen(email: _emailController.text));
+    } else {
+      Get.snackbar("Error", "Please Enter Your Email");
+    }
   }
-
 
   @override
   void dispose() {
@@ -187,6 +239,4 @@ final ForgetPasswordController forgetPasswordController =Get.find<ForgetPassword
     _passwordController.dispose();
     super.dispose();
   }
-
-
 }

@@ -1,3 +1,4 @@
+import 'package:crave_crusher/helper/imges_handler/image_handler.dart';
 import 'package:crave_crusher/utils/app_colors/app_colors.dart';
 import 'package:crave_crusher/utils/app_const/app_const.dart';
 import 'package:crave_crusher/utils/app_icons/app_icons.dart';
@@ -11,6 +12,7 @@ import 'package:crave_crusher/view/components/custom_text_field/custom_text_fiel
 import 'package:crave_crusher/view/features/community/controllers/community_controller.dart';
 
 import 'package:crave_crusher/view/features/community/screens/comment_screen/widgets/comment_widget.dart';
+import 'package:crave_crusher/view/features/profile/controllers/profile_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:gap/gap.dart';
@@ -29,7 +31,7 @@ class CommentScreen extends StatefulWidget {
 class _CommentScreenState extends State<CommentScreen> {
   final CommunityController commentController = Get.find<CommunityController>();
   final TextEditingController _controller = TextEditingController();
-
+  final ProfileController profileController = Get.find<ProfileController>();
   @override
   void initState() {
     super.initState();
@@ -93,21 +95,30 @@ class _CommentScreenState extends State<CommentScreen> {
 
                         children: [
                           // Profile row
-                          SizedBox(
-                            height:38.h,
-                            child: Row(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                ProfileAvatarWidget(
-                                  imagePath: AppConstants.unknown,
-                                  heightA: 35.h,
-                                  widthA: 35.w,
-                                ),
-                                Gap(4.w),
-                                CustomText(text: "@ Sheena", fontSize: 18),
-                              ],
+
+                          Obx((){
+                            final profile = profileController.myProfile.value;
+                            return   SizedBox(
+                              height:38.h,
+                              child: Row(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                              ProfileAvatarWidget(
+                                heightA: 35.h,
+                                widthA: 35.w,
+                              imagePath: ImageHandler.imagesHandle(
+                              profile?.profileImage,
+                                isProfile: true,
+                              ),
+
                             ),
-                          ),
+                                  Gap(4.w),
+                                  CustomText( text: profile?.fullName ?? "Empty Name",fontSize: 18),
+                                ],
+                              ),
+                            );
+                          }),
+
                           // Comment input
                           TextField(
                             maxLines: 2,

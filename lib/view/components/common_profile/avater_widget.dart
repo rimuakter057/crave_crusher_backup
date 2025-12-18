@@ -36,8 +36,7 @@ class ProfileAvatarWidget extends StatelessWidget {
     final double avatarHeight =  80.h;
     final double avatarWidth = 80.w;
 
-    final double imageHeight = 80.h;
-    final double imageWidth = 80.w;
+
 
     return SizedBox(
       height:heightA?? avatarHeight,
@@ -54,7 +53,7 @@ class ProfileAvatarWidget extends StatelessWidget {
               shape: BoxShape.circle,
               border: Border.all(
                 color: borderColor ?? AppColors.subPrimary,
-                width: 1,
+                width: 2,
               ),
               color: Colors.white,
             ),
@@ -62,14 +61,14 @@ class ProfileAvatarWidget extends StatelessWidget {
               child:  !isFile!
                   ? CachedNetworkImage(
                 imageUrl: ImageHandler.imagesHandle(imagePath),
-                width: imageWidth,
-                height: imageHeight,
+               width: avatarHeight,
+                height: avatarWidth,
                 fit: BoxFit.cover,
               )
                   : Image.file(
                 File(imagePath),
-                width: imageWidth,
-                height: imageHeight,
+                width: avatarHeight,
+                height: avatarWidth,
                 fit: BoxFit.cover,
               ),
             ),
@@ -85,8 +84,8 @@ class ProfileAvatarWidget extends StatelessWidget {
                 height: 24.h,
                 width: 24.w,
                 child: IconButton(
-                    padding: EdgeInsets.zero, // default padding কমাবে
-                    constraints: BoxConstraints(), // default constraints রিমুভ
+                    padding: EdgeInsets.zero,
+                    constraints: BoxConstraints(),
                     onPressed: onEdit,
                     style: IconButton.styleFrom(
                       shape: CircleBorder(),

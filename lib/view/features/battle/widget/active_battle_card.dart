@@ -6,8 +6,10 @@ import 'package:crave_crusher/utils/app_icons/app_icons.dart';
 import 'package:crave_crusher/utils/app_strings/app_strings.dart';
 import 'package:crave_crusher/view/components/custom_image/custom_image.dart';
 import 'package:crave_crusher/view/components/custom_text/custom_text.dart';
+import 'package:crave_crusher/view/features/battle/controller/battle_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:get/get.dart';
 
 class ActiveBattleCard extends StatelessWidget {
   final String title;
@@ -44,16 +46,11 @@ class ActiveBattleCard extends StatelessWidget {
     }
   }
 
-
-
-
-
-
   Color getStatusColor(String status) {
     switch (status.toLowerCase()) {
-      case 'canceled':
+      case 'cancel':
         return Colors.red;
-      case 'completed':
+      case 'complete':
         return Colors.blue;
       case 'active':
         return AppColors.primary;
@@ -62,18 +59,18 @@ class ActiveBattleCard extends StatelessWidget {
     }
   }
 
-  String getStatusText(String status) {
-    switch (status.toLowerCase()) {
-      case 'canceled':
-        return "Canceled";
-      case 'completed':
-        return "Completed";
-      case 'active':
-        return "active";
-      default:
-        return "Unknown";
-    }
-  }
+  // String getStatusText(String status) {
+  //   switch (status.toLowerCase()) {
+  //     case 'cancel':
+  //       return "Canceled";
+  //     case 'complete':
+  //       return 'Completed';
+  //     case 'active':
+  //       return 'act';
+  //     default:
+  //       return "Unknown";
+  //   }
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -146,7 +143,7 @@ class ActiveBattleCard extends StatelessWidget {
                   border: Border.all(color: getStatusColor(status)),
                 ),
                 child: CustomText(
-                  text: "* ${getStatusText(status)}",
+                  text: "*${status}",
                   fontSize: 12.w,
                   fontWeight: FontWeight.w500,
                   color: getStatusColor(status),
@@ -227,8 +224,6 @@ class ActiveBattleCard extends StatelessWidget {
     );
   }
 }
-
-
 
 enum DetoxType { smoke, love, savingMoney, junkFood, shopping, socialMedia }
 

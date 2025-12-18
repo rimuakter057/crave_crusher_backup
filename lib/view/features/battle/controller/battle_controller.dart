@@ -162,6 +162,25 @@ class BattleController extends GetxController{
   }
 
 
+  /// Helper to get display status for a battle
+  String getDisplayStatus(BattleModel battle) {
+    final status = battle.battleStatus?.toLowerCase();
+    if (status == 'active') {
+      // Active battle → show todayStatus if available
+      return battle.todayStatus ?? 'Active';
+    } else if (status == 'complete') {
+      return 'Completed';
+    } else if (status == 'cancel') {
+      return 'Canceled';
+    } else {
+      return 'Unknown';
+    }
+  }
+
+
+
+
+
 
 
 
@@ -207,15 +226,12 @@ class BattleController extends GetxController{
     isLoadingCompleteBattle.value = false;
 
     if (response.statusCode == 200 || response.statusCode == 201) {
+      Get.snackbar("Success", "Status updated to Caved");
       return true;
     }
-
+    ApiChecker.checkApi(response);
     return false;
   }
-
-
-
-
 }
 
 

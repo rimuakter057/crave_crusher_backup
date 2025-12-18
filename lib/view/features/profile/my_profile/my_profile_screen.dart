@@ -1,3 +1,4 @@
+import 'package:crave_crusher/helper/imges_handler/image_handler.dart';
 import 'package:crave_crusher/utils/app_colors/app_colors.dart';
 import 'package:crave_crusher/view/components/common_profile/avater_widget.dart';
 import 'package:crave_crusher/view/components/custom_container/custom_container.dart';
@@ -18,8 +19,6 @@ class MyProfileScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-
-
     return Scaffold(
       appBar: CustomLeadingTitleAppbar(title: "My Profile"),
       body: SingleChildScrollView(
@@ -42,7 +41,13 @@ class MyProfileScreen extends StatelessWidget {
               children: [
                 Gap(8.h),
                 Center(
-                  child: ProfileAvatarWidget(imagePath: profile.profileImage??''),
+                  child: ProfileAvatarWidget(
+                    imagePath: ImageHandler.imagesHandle(
+                      profile.profileImage,
+                      isProfile: true,
+                    ),
+
+                  ),
                 ),
                 Gap(24.h),
                 // Name
@@ -56,7 +61,11 @@ class MyProfileScreen extends StatelessWidget {
                     Navigator.push(
                       context,
                       MaterialPageRoute(
-                        builder: (context) => EditProfileScreens(name: profile.fullName, email:  profile.email,),
+                        builder:
+                            (context) => EditProfileScreens(
+                              name: profile.fullName,
+                              email: profile.email,
+                            ),
                       ),
                     );
                   },

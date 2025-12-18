@@ -8,40 +8,29 @@ import '../models/progress_model.dart';
 
 class RewardsController extends GetxController {
 
-
-  @override
-  void onInit() {
-    super.onInit();
-    getBadgeProgress();
-    getAchieveBadges();
-    getAllBadges();
-    getClaimBadges();
-  }
-
   ///get all badges controller=================================================================================
 
-  RxList <BadgeModel> allBadgeList= <BadgeModel>[].obs;
-  var isLoadingAllBadge= false.obs;
+  RxList<BadgeModel> allBadgeList = <BadgeModel>[].obs;
+  var isLoadingAllBadge = false.obs;
 
-Future <void> getAllBadges()async{
-isLoadingAllBadge.value=true;
-final response = await ApiClient.getData(ApiUrl.getAllBadge);
+  Future<void> getAllBadges() async {
+    isLoadingAllBadge.value = true;
+    final response = await ApiClient.getData(ApiUrl.getAllBadge);
 
-if(response.statusCode==200 && response.body['data']!=null){
-  var badgeList=(response.body['data']as List).map((e)=>BadgeModel.fromJson(e)).toList();
+    if (response.statusCode == 200 && response.body['data'] != null) {
+      var badgeList =
+          (response.body['data'] as List)
+              .map((e) => BadgeModel.fromJson(e))
+              .toList();
 
-  allBadgeList.value=badgeList;
+      allBadgeList.value = badgeList;
+    } else {
+      ApiChecker.checkApi(response);
+    }
+    isLoadingAllBadge.value = false;
+  }
 
-}else{
-  ApiChecker.checkApi(response);
-
-
-}
-isLoadingAllBadge.value = false;
-}
-
-///get progress controller=====================================================================================
-
+  ///get progress controller=====================================================================================
 
   var currentProgress = 0.obs;
   var currentBadge = Rx<CurrentBadge?>(null);
@@ -56,8 +45,8 @@ isLoadingAllBadge.value = false;
     if (response.statusCode == 200 && response.body['data'] != null) {
       // Use model
       final progressModel = BadgeProgressModel.fromJson(response.body['data']);
-      currentProgress.value = progressModel.currentProgress??00;
-      craveCount.value = progressModel.craveCount??00;
+      currentProgress.value = progressModel.currentProgress ?? 00;
+      craveCount.value = progressModel.craveCount ?? 00;
       currentBadge.value = progressModel.currentBadge;
     } else {
       ApiChecker.checkApi(response);
@@ -66,39 +55,29 @@ isLoadingAllBadge.value = false;
     isLoadingProgress.value = false;
   }
 
+  ///get achieve badges===================================================================================
 
+  RxList<BadgeModel> allAchieveList = <BadgeModel>[].obs;
+  var isLoadingAchieveBadge = false.obs;
 
-
-
-
-
-
-
-///get achieve badges===================================================================================
-
-
-  RxList <BadgeModel> allAchieveList= <BadgeModel>[].obs;
-  var isLoadingAchieveBadge= false.obs;
-
-  Future <void> getAchieveBadges()async{
-    isLoadingAchieveBadge.value=true;
+  Future<void> getAchieveBadges() async {
+    isLoadingAchieveBadge.value = true;
     final response = await ApiClient.getData(ApiUrl.getAchieveBadge);
 
-    if(response.statusCode==200 && response.body['data']!=null){
-      var achieveList=(response.body['data']as List).map((e)=>BadgeModel.fromJson(e)).toList();
+    if (response.statusCode == 200 && response.body['data'] != null) {
+      var achieveList =
+          (response.body['data'] as List)
+              .map((e) => BadgeModel.fromJson(e))
+              .toList();
 
-      allAchieveList.value=achieveList;
-
-    }else{
+      allAchieveList.value = achieveList;
+    } else {
       ApiChecker.checkApi(response);
-
-
     }
     isLoadingAchieveBadge.value = false;
   }
 
-
-///claim=============================================patch==============================
+  ///claim=============================================patch==============================
 
   var isLoadingClaim = false.obs;
   var badgeStatus = <String, bool>{}.obs;
@@ -123,7 +102,6 @@ isLoadingAllBadge.value = false;
     return false;
   }
 
-
   /// get claim badges =========================================================
 
   RxList<BadgeModel> allClaimList = <BadgeModel>[].obs;
@@ -137,21 +115,12 @@ isLoadingAllBadge.value = false;
     if (response.statusCode == 200 && response.body['data'] != null) {
       final List claimList = response.body['data'];
 
-      allClaimList.value = claimList
-          .map((e) => BadgeModel.fromJson(e))
-          .toList();
+      allClaimList.value =
+          claimList.map((e) => BadgeModel.fromJson(e)).toList();
     } else {
       ApiChecker.checkApi(response);
     }
 
     isLoadingClaimBadge.value = false;
   }
-
-
 }
-
-
-
-
-
-
