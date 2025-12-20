@@ -1,3 +1,4 @@
+import 'package:crave_crusher/view/components/common_empty/common_empty_widget.dart';
 import 'package:crave_crusher/view/components/custom_leadin_title_appbar.dart';
 import 'package:crave_crusher/view/components/custom_loader/custom_loader.dart';
 
@@ -6,53 +7,55 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-import '../account_setting/controllers/acount_setting_controller.dart';
+import '../account_setting/controllers/account_setting_controller.dart';
 
 class TermsConditionScreen extends StatelessWidget {
-   TermsConditionScreen({super.key});
+  TermsConditionScreen({super.key});
 
- final AccountSettingController termsConditionController =AccountSettingController();
+  final AccountSettingController termsConditionController =
+      AccountSettingController();
 
   @override
   Widget build(BuildContext context) {
     termsConditionController.getTerms();
     return Scaffold(
-      appBar:  CustomLeadingTitleAppbar(title: "Terms & Condition"),
+      appBar: CustomLeadingTitleAppbar(title: "Terms & Condition"),
 
       body: SingleChildScrollView(
         padding: EdgeInsets.all(16),
-        child:Obx((){
-          if(termsConditionController.isLoadingTerms.value){
+        child: Obx(() {
+          if (termsConditionController.isLoadingTerms.value) {
             return Center(child: CustomLoader());
           }
 
           final termsData = termsConditionController.termsList.value;
 
           if (termsData == null) {
-            return Center(child: Text("Terms & Conditions are currently unavailable"));
+            return EmptyWidget(
+              title: "Terms & Conditions are currently unavailable",
+            );
           }
-          return  RichText(
+          return RichText(
             text: TextSpan(
               style: TextStyle(
-                  color: Colors.black,
-                  fontSize: 12,
-                  height: 1.5,
-                  fontWeight: FontWeight.w400
+                color: Colors.black,
+                fontSize: 12,
+                height: 1.5,
+                fontWeight: FontWeight.w400,
               ),
               children: [
                 TextSpan(
                   text: termsData.description,
-                  style:GoogleFonts.syne(fontSize: 18.sp, fontWeight: FontWeight.w600,),
+                  style: GoogleFonts.syne(
+                    fontSize: 18.sp,
+                    fontWeight: FontWeight.w600,
+                  ),
                 ),
               ],
             ),
           );
         }),
       ),
-
-
-
-
     );
   }
 }

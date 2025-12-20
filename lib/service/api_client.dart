@@ -31,6 +31,7 @@ class ApiClient extends GetxService {
     return await Connectivity().checkConnectivity() != ConnectivityResult.none;
   }
 
+
   //============================= GET REQUEST ================================
   static Future<Response> getData(
       String uri, {

@@ -24,7 +24,7 @@ class RewardsController extends GetxController {
               .toList();
 
       allBadgeList.value = badgeList;
-    } else {
+    }  else if (response.statusCode != 404) {
       ApiChecker.checkApi(response);
     }
     isLoadingAllBadge.value = false;
@@ -48,7 +48,7 @@ class RewardsController extends GetxController {
       currentProgress.value = progressModel.currentProgress ?? 00;
       craveCount.value = progressModel.craveCount ?? 00;
       currentBadge.value = progressModel.currentBadge;
-    } else {
+    }  else if (response.statusCode != 404) {
       ApiChecker.checkApi(response);
     }
 
@@ -71,7 +71,7 @@ class RewardsController extends GetxController {
               .toList();
 
       allAchieveList.value = achieveList;
-    } else {
+    }  else if (response.statusCode != 404) {
       ApiChecker.checkApi(response);
     }
     isLoadingAchieveBadge.value = false;
@@ -97,6 +97,8 @@ class RewardsController extends GetxController {
       badgeStatus[badgeId] = true; // update local status
       getAchieveBadges();
       return true;
+    } else if (response.statusCode != 404) {
+      ApiChecker.checkApi(response);
     }
 
     return false;
@@ -117,7 +119,7 @@ class RewardsController extends GetxController {
 
       allClaimList.value =
           claimList.map((e) => BadgeModel.fromJson(e)).toList();
-    } else {
+    }  else if (response.statusCode != 404) {
       ApiChecker.checkApi(response);
     }
 

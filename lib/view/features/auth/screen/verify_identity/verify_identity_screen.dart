@@ -5,16 +5,16 @@ import 'package:gap/gap.dart';
 import 'package:get/get.dart';
 import 'package:crave_crusher/view/components/custom_button/custom_button.dart';
 import 'package:crave_crusher/view/components/custom_text/custom_text.dart';
-import 'package:crave_crusher/view/components/show_snakbar/show_snakbar.dart';
+import 'package:crave_crusher/view/components/show_snack_bar/show_snack_bar.dart';
 import 'package:crave_crusher/view/features/auth/controllers/verify_identity_otp_controller.dart';
-import 'package:crave_crusher/view/features/auth/models/verify_indentity_otp_model.dart';
+import 'package:crave_crusher/view/features/auth/models/verify_identity_otp_model.dart';
 import 'package:crave_crusher/view/features/auth/screen/reset_password/reset_password_screen.dart';
 import 'package:crave_crusher/view/features/auth/screen/widgets/otp_field_widget.dart';
 import 'package:crave_crusher/utils/app_colors/app_colors.dart';
 
 class VerifyIdentityScreen extends StatefulWidget {
   final String email;
-  const VerifyIdentityScreen({Key? key, required this.email}) : super(key: key);
+  const VerifyIdentityScreen({super.key, required this.email});
 
   @override
   State<VerifyIdentityScreen> createState() => _VerifyIdentityScreenState();
@@ -22,8 +22,11 @@ class VerifyIdentityScreen extends StatefulWidget {
 
 class _VerifyIdentityScreenState extends State<VerifyIdentityScreen> {
   final TextEditingController _controller = TextEditingController();
-  final VerifyIdentityOtpController verifyOtpController = Get.find<VerifyIdentityOtpController>();
-  final ResendOtpController resendOtpController = Get.put(ResendOtpController());
+  final VerifyIdentityOtpController verifyOtpController =
+      Get.find<VerifyIdentityOtpController>();
+  final ResendOtpController resendOtpController = Get.put(
+    ResendOtpController(),
+  );
 
   @override
   void initState() {
@@ -59,7 +62,7 @@ class _VerifyIdentityScreenState extends State<VerifyIdentityScreen> {
                   maxLines: 2,
                   textAlign: TextAlign.start,
                   text:
-                  "We’ve sent a 6-digit verification code to ${widget.email}",
+                      "We’ve sent a 6-digit verification code to ${widget.email}",
                   fontSize: 14.sp,
                   fontWeight: FontWeight.w400,
                   color: Color(0xFF555555),
@@ -72,36 +75,41 @@ class _VerifyIdentityScreenState extends State<VerifyIdentityScreen> {
                 Gap(16.h),
 
                 /// Resend OTP Button
-
                 Row(
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: [
                     Flexible(
-                      child: CustomText(text: "'Didn’t receive the code?",
+                      child: CustomText(
+                        text: "'Didn’t receive the code?",
                         fontSize: 14,
                         fontWeight: FontWeight.w400,
                         color: Color(0xFF555555),
                       ),
-
                     ),
+
                     ///resend button
                     GetBuilder<ResendOtpController>(
                       builder: (controller) {
                         return GestureDetector(
-                          onTap: (controller.countdown == 0 && !controller.inProgress)
-                              ? _resendOtpButton
-                              : null,
+                          onTap:
+                              (controller.countdown == 0 &&
+                                      !controller.inProgress)
+                                  ? _resendOtpButton
+                                  : null,
                           child: Padding(
                             padding: const EdgeInsets.only(left: 4.0),
                             child: CustomText(
-                              text: controller.countdown > 0
-                                  ? 'Resend OTP (${controller.countdownText})'
-                                  : 'Resend OTP',
+                              text:
+                                  controller.countdown > 0
+                                      ? 'Resend OTP (${controller.countdownText})'
+                                      : 'Resend OTP',
                               fontSize: 14,
                               fontWeight: FontWeight.w500,
-                              color: (controller.countdown > 0 || controller.inProgress)
-                                  ? AppColors.primary
-                                  : AppColors.primary,
+                              color:
+                                  (controller.countdown > 0 ||
+                                          controller.inProgress)
+                                      ? AppColors.primary
+                                      : AppColors.primary,
                             ),
                           ),
                         );
@@ -109,10 +117,6 @@ class _VerifyIdentityScreenState extends State<VerifyIdentityScreen> {
                     ),
                   ],
                 ),
-
-
-
-
 
                 Gap(16.h),
 
@@ -149,8 +153,9 @@ class _VerifyIdentityScreenState extends State<VerifyIdentityScreen> {
       resetCode: _controller.text,
     );
 
-    final bool isSuccess =
-    await verifyOtpController.verifyIdentityOtp(verifyModel);
+    final bool isSuccess = await verifyOtpController.verifyIdentityOtp(
+      verifyModel,
+    );
 
     if (isSuccess) {
       _controller.clear(); // clear OTP field
@@ -173,7 +178,9 @@ class _VerifyIdentityScreenState extends State<VerifyIdentityScreen> {
       return;
     }
 
-    final bool isSuccess = await resendOtpController.resendOtp(widget.email); //  static const String resendResetOtp="$baseUrl/auth/resend-reset-code";
+    final bool isSuccess = await resendOtpController.resendOtp(
+      widget.email,
+    ); //  static const String resendResetOtp="$baseUrl/auth/resend-reset-code";
 
     if (isSuccess) {
       _controller.clear();

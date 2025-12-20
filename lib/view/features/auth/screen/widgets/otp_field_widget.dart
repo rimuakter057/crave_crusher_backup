@@ -5,11 +5,12 @@ import 'package:pin_code_fields/pin_code_fields.dart';
 class OtpFieldWidget extends StatelessWidget {
   final int length;
   final ValueChanged<String>? onCompleted;
- final TextEditingController? controller;
+  final TextEditingController? controller;
   const OtpFieldWidget({
     super.key,
     this.length = 6,
-    this.onCompleted, this.controller,
+    this.onCompleted,
+    this.controller,
   });
 
   @override
@@ -41,7 +42,7 @@ class OtpFieldWidget extends StatelessWidget {
       ),
 
       onChanged: (value) {},
-       controller:controller ,
+      controller: controller,
       onCompleted: (value) {
         onCompleted?.call(value);
       },

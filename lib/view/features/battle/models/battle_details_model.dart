@@ -1,27 +1,33 @@
 class BattleDetailsModel {
   Battle? battle;
   List<BattleLogs>? battleLogs;
+  final Monster? monster;
 
-  BattleDetailsModel({this.battle, this.battleLogs});
+  BattleDetailsModel({this.battle, this.battleLogs, this.monster});
 
-  BattleDetailsModel.fromJson(Map<String, dynamic> json) {
-    battle =
-    json['battle'] != null ? new Battle.fromJson(json['battle']) : null;
+  BattleDetailsModel.fromJson(Map<String, dynamic> json)
+    : monster =
+          json["monster"] != null ? Monster.fromJson(json["monster"]) : null {
+    battle = json['battle'] != null ? Battle.fromJson(json['battle']) : null;
+
     if (json['battleLogs'] != null) {
       battleLogs = <BattleLogs>[];
       json['battleLogs'].forEach((v) {
-        battleLogs!.add(new BattleLogs.fromJson(v));
+        battleLogs!.add(BattleLogs.fromJson(v));
       });
     }
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    if (this.battle != null) {
-      data['battle'] = this.battle!.toJson();
+    final Map<String, dynamic> data = <String, dynamic>{};
+    if (battle != null) {
+      data['battle'] = battle!.toJson();
     }
-    if (this.battleLogs != null) {
-      data['battleLogs'] = this.battleLogs!.map((v) => v.toJson()).toList();
+    if (battleLogs != null) {
+      data['battleLogs'] = battleLogs!.map((v) => v.toJson()).toList();
+    }
+    if (monster != null) {
+      data['monster'] = monster!.toJson();
     }
     return data;
   }
@@ -44,22 +50,23 @@ class Battle {
   String? updatedAt;
   int? iV;
 
-  Battle(
-      {this.id,
-        this.userId,
-        this.addictionType,
-        this.addictionLevel,
-        this.battleLength,
-        this.day,
-        this.sendReminder,
-        this.battleReason,
-        this.battleProgress,
-        this.battleStatus,
-        this.totalCrave,
-        this.isDeleted,
-        this.createdAt,
-        this.updatedAt,
-        this.iV});
+  Battle({
+    this.id,
+    this.userId,
+    this.addictionType,
+    this.addictionLevel,
+    this.battleLength,
+    this.day,
+    this.sendReminder,
+    this.battleReason,
+    this.battleProgress,
+    this.battleStatus,
+    this.totalCrave,
+    this.isDeleted,
+    this.createdAt,
+    this.updatedAt,
+    this.iV,
+  });
 
   Battle.fromJson(Map<String, dynamic> json) {
     id = json['_id'];
@@ -80,22 +87,22 @@ class Battle {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['_id'] = this.id;
-    data['userId'] = this.userId;
-    data['addictionType'] = this.addictionType;
-    data['addictionLevel'] = this.addictionLevel;
-    data['battleLength'] = this.battleLength;
-    data['day'] = this.day;
-    data['sendReminder'] = this.sendReminder;
-    data['battleReason'] = this.battleReason;
-    data['battleProgress'] = this.battleProgress;
-    data['battleStatus'] = this.battleStatus;
-    data['totalCrave'] = this.totalCrave;
-    data['isDeleted'] = this.isDeleted;
-    data['createdAt'] = this.createdAt;
-    data['updatedAt'] = this.updatedAt;
-    data['__v'] = this.iV;
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['_id'] = id;
+    data['userId'] = userId;
+    data['addictionType'] = addictionType;
+    data['addictionLevel'] = addictionLevel;
+    data['battleLength'] = battleLength;
+    data['day'] = day;
+    data['sendReminder'] = sendReminder;
+    data['battleReason'] = battleReason;
+    data['battleProgress'] = battleProgress;
+    data['battleStatus'] = battleStatus;
+    data['totalCrave'] = totalCrave;
+    data['isDeleted'] = isDeleted;
+    data['createdAt'] = createdAt;
+    data['updatedAt'] = updatedAt;
+    data['__v'] = iV;
     return data;
   }
 }
@@ -109,14 +116,15 @@ class BattleLogs {
   String? createdAt;
   String? updatedAt;
 
-  BattleLogs(
-      {this.sId,
-        this.battleId,
-        this.day,
-        this.status,
-        this.iV,
-        this.createdAt,
-        this.updatedAt});
+  BattleLogs({
+    this.sId,
+    this.battleId,
+    this.day,
+    this.status,
+    this.iV,
+    this.createdAt,
+    this.updatedAt,
+  });
 
   BattleLogs.fromJson(Map<String, dynamic> json) {
     sId = json['_id'];
@@ -129,14 +137,26 @@ class BattleLogs {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['_id'] = this.sId;
-    data['battleId'] = this.battleId;
-    data['day'] = this.day;
-    data['status'] = this.status;
-    data['__v'] = this.iV;
-    data['createdAt'] = this.createdAt;
-    data['updatedAt'] = this.updatedAt;
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['_id'] = sId;
+    data['battleId'] = battleId;
+    data['day'] = day;
+    data['status'] = status;
+    data['__v'] = iV;
+    data['createdAt'] = createdAt;
+    data['updatedAt'] = updatedAt;
     return data;
   }
+}
+
+class Monster {
+  final String? monsterImage;
+
+  Monster({this.monsterImage});
+
+  factory Monster.fromJson(Map<String, dynamic> json) {
+    return Monster(monsterImage: json["monster_image"]);
+  }
+
+  Map<String, dynamic> toJson() => {"monster_image": monsterImage};
 }

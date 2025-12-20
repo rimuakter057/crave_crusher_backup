@@ -10,25 +10,29 @@ class EmptyWidget extends StatelessWidget {
   final String title;
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        CustomImage(
-          imageSrc: AppIcons.emptyHome,
-          height: 41.h,
-          width: 64.w,
-          boxFit: BoxFit.cover,
-        ),
-        SizedBox(height: 24.h),
-        SizedBox(
-          width: 272.w,
-          child: CustomText(
-            text: title,
-            maxLines: 2,
-            fontSize: 16.sp,
-            fontWeight: FontWeight.w400,
+    return Center(
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.center,
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          CustomImage(
+            imageSrc: AppIcons.emptyHome,
+            height: 41.h,
+            width: 64.w,
+            boxFit: BoxFit.cover,
           ),
-        ),
-      ],
+          SizedBox(height: 24.h),
+          SizedBox(
+            width: 272.w,
+            child: CustomText(
+              text: title,
+              maxLines: 2,
+              fontSize: 16.sp,
+              fontWeight: FontWeight.w400,
+            ),
+          ),
+        ],
+      ),
     );
   }
 }

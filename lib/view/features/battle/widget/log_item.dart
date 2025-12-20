@@ -7,12 +7,7 @@ import 'package:crave_crusher/view/components/custom_text/custom_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-enum LogType {
-  craved,
-  caved,
-  missed
-}
-
+enum LogType { craved, caved, missed }
 
 LogType getLogTypeFromStatus(String status) {
   switch (status.toLowerCase()) {

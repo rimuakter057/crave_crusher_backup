@@ -4,7 +4,7 @@ import 'package:crave_crusher/view/components/custom_button/custom_button.dart';
 import 'package:crave_crusher/view/components/custom_text/custom_text.dart';
 import 'package:crave_crusher/view/components/input_field_with_title/input_field_with_title.dart';
 import 'package:crave_crusher/view/components/input_password_field_widget/input_password_field_widget.dart';
-import 'package:crave_crusher/view/components/show_snakbar/show_snakbar.dart';
+import 'package:crave_crusher/view/components/show_snack_bar/show_snack_bar.dart';
 import 'package:crave_crusher/view/features/auth/controllers/auth_controller.dart';
 import 'package:crave_crusher/view/features/auth/controllers/forget_password_controller.dart';
 import 'package:crave_crusher/view/features/auth/controllers/login_controller.dart';
@@ -15,13 +15,10 @@ import 'package:crave_crusher/view/features/auth/screen/verify_identity/verify_i
 import 'package:crave_crusher/view/features/auth/screen/widgets/action_promote_widget.dart';
 import 'package:crave_crusher/view/features/auth/screen/widgets/or_divider_widget.dart';
 import 'package:crave_crusher/view/features/auth/screen/widgets/remember_me_widget.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:gap/gap.dart';
 import 'package:get/get.dart';
-
-import '../../models/user_model.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
@@ -33,20 +30,14 @@ class LoginScreen extends StatefulWidget {
 class _LoginScreenState extends State<LoginScreen> {
   bool _rememberMe = false;
 
-  final TextEditingController _emailController = TextEditingController(
-   // text: kDebugMode ? "rimuakter334@gmail.com" : '',
-  );
-  final TextEditingController _passwordController = TextEditingController(
-   // text: kDebugMode ? "111111" : '',
-  );
+  final TextEditingController _emailController = TextEditingController();
+  final TextEditingController _passwordController = TextEditingController();
 
   final GlobalKey<FormState> _key = GlobalKey<FormState>();
   final LogInController logInController = Get.find<LogInController>();
   final AuthController authController = Get.find<AuthController>();
   final ForgetPasswordController forgetPasswordController =
       Get.find<ForgetPasswordController>();
-
-
 
   @override
   void initState() {
@@ -64,8 +55,6 @@ class _LoginScreenState extends State<LoginScreen> {
       setState(() {});
     }
   }
-
-
 
   @override
   Widget build(BuildContext context) {
@@ -182,8 +171,7 @@ class _LoginScreenState extends State<LoginScreen> {
                           ),
                           child: CustomButton(
                             title: "Log In",
-                            onTap:
-                                _signInButtonTap, // <-- calls separate method
+                            onTap: _signInButtonTap,
                           ),
                         );
                       },
@@ -205,17 +193,30 @@ class _LoginScreenState extends State<LoginScreen> {
         email: _emailController.text,
         password: _passwordController.text,
       );
+
       final bool isSuccess = await logInController.logIn(logInModel);
 
       if (isSuccess) {
-        await authController.saveRememberMe(
-          rememberMe: _rememberMe,
-          email: _emailController.text,
-          password: _passwordController.text,
-        );
-        Get.offNamed(AppRoutes.homeScreen);
+        /// 🔹 Email not verified → OTP
+        if (logInController.emailNotVerified) {
+          Get.to(() => VerifyAccountScreen(email: _emailController.text));
+        }
+        /// 🔹 Login success → Home
+        else {
+          await authController.saveRememberMe(
+            rememberMe: _rememberMe,
+            email: _emailController.text,
+            password: _passwordController.text,
+          );
+
+          Get.offAllNamed(AppRoutes.homeScreen);
+        }
       } else {
-        showSnackBarMessage(context, logInController.errorMessage!, true);
+        showSnackBarMessage(
+          context,
+          logInController.errorMessage ?? "Something went wrong",
+          true,
+        );
       }
     }
   }

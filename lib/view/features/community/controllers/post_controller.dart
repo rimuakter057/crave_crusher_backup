@@ -43,30 +43,41 @@ class PostController extends GetxController {
 
   /// get my post ==============================================================================Get Method====================
   RxList<PostModel> getMyPostList = <PostModel>[].obs;
-  var isLoadingPost = false.obs;
+  RxBool isLoadingPost = false.obs;
+
+  RxInt totalReaction = 0.obs;
+  RxInt totalBadge = 0.obs;
+  RxInt totalPost = 0.obs;
 
   Future<void> fetchMyPost() async {
-    try {
-      isLoadingPost.value = true;
+    isLoadingPost.value = true;
 
-      final response = await ApiClient.getData(ApiUrl.getMyPost);
+    final response = await ApiClient.getData(ApiUrl.getMyPost);
 
-      if (response.statusCode == 200 && response.body['data'] != null) {
-        var myPostList =
-            (response.body['data'] as List)
-                .map((e) => PostModel.fromJson(e))
-                .toList();
-        getMyPostList.value = myPostList;
-      } else {
-        getMyPostList.clear();
-      }
-    } catch (e) {
+    if (response.statusCode == 200 && response.body['data'] != null) {
+      final data = response.body['data'];
+
+      /// posts
+      final List posts = data['posts'] ?? [];
+      getMyPostList.assignAll(
+        posts.map((e) => PostModel.fromJson(e)).toList(),
+      );
+
+      /// numbers
+      totalReaction.value = data['totalReaction'] ?? 0;
+      totalBadge.value = data['totalBadge'] ?? 0;
+      totalPost.value = data['totalPost'] ?? 0;
+    } else {
       getMyPostList.clear();
-      Logger().e("Fetch posts error: $e");
-    } finally {
-      isLoadingPost.value = false;
+      totalReaction.value = 0;
+      totalBadge.value = 0;
+      totalPost.value = 0;
     }
+
+    isLoadingPost.value = false;
   }
+
+
 
   ///create post==============================================================Post Method================================================
   // ======================== VARIABLES ============================

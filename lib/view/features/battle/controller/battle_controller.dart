@@ -7,9 +7,8 @@ import 'package:get/get.dart';
 import 'package:flutter/material.dart';
 import 'package:logger/logger.dart';
 import '../models/battle_model.dart';
-class BattleController extends GetxController{
 
-
+class BattleController extends GetxController {
   RxInt battleTabIndex = 0.obs;
 
   // @override
@@ -19,11 +18,9 @@ class BattleController extends GetxController{
   //   fetchAllBattle('active');
   // }
 
-
   ///create battle section=============================================Post Method============================================
 
-
-// Loading
+  // Loading
   var isLoading = false.obs;
 
   // User selections
@@ -37,10 +34,9 @@ class BattleController extends GetxController{
 
   // Static dropdown values
 
-  final List<String> addictionTypes =AppStrings.addictionTypes;
+  final List<String> addictionTypes = AppStrings.addictionTypes;
 
-
-  final List<String> addictionLevels =AppStrings.addictionLevels;
+  final List<String> addictionLevels = AppStrings.addictionLevels;
 
   /// Create Battle API call==========================================Post method===========
   Future<bool> createBattle() async {
@@ -57,10 +53,7 @@ class BattleController extends GetxController{
       "battleReason": reasonController.text,
     };
 
-    final response = await ApiClient.postData(
-      ApiUrl.createBattle,
-      body,
-    );
+    final response = await ApiClient.postData(ApiUrl.createBattle, body);
 
     isLoading.value = false;
 
@@ -72,7 +65,6 @@ class BattleController extends GetxController{
       return false;
     }
   }
-
 
   // Input validation
   bool _validateInputs() {
@@ -103,12 +95,11 @@ class BattleController extends GetxController{
     reasonController.clear();
   }
 
-
   ///cancel battle==========================================Patch methode=======================================
 
   var isLoadingCancelBattle = false.obs;
 
-  Future<bool> cancelBattle(String battleId,) async {
+  Future<bool> cancelBattle(String battleId) async {
     isLoadingCancelBattle.value = true;
     final body = {
       "addictionType": selectedType.value,
@@ -117,7 +108,6 @@ class BattleController extends GetxController{
       "sendReminder": sendReminder.value,
       "battleReason": reasonController.text,
     };
-
 
     final response = await ApiClient.patchData(
       ApiUrl.cancelBattle(battleId),
@@ -133,8 +123,6 @@ class BattleController extends GetxController{
     return false;
   }
 
-
-
   /// get all battle ============================================================================== Get Method =====================map to lis==============
 
   RxList<BattleModel> allBattleList = <BattleModel>[].obs;
@@ -146,21 +134,18 @@ class BattleController extends GetxController{
 
     final response = await ApiClient.getData(ApiUrl.myBattle(status));
 
-
     if (response.statusCode == 200 &&
         response.body != null &&
         response.body['data'] != null) {
       final List data = response.body['data'];
 
-      allBattleList.value =
-          data.map((e) => BattleModel.fromJson(e)).toList();
+      allBattleList.value = data.map((e) => BattleModel.fromJson(e)).toList();
     } else {
       allBattleList.clear();
       ApiChecker.checkApi(response);
     }
     isLoadingAllBattle.value = false;
   }
-
 
   /// Helper to get display status for a battle
   String getDisplayStatus(BattleModel battle) {
@@ -177,20 +162,10 @@ class BattleController extends GetxController{
     }
   }
 
-
-
-
-
-
-
-
   /// get single battle ==================================================map to map============================ Get Method =====================
-
 
   var battleDetails = BattleDetailsModel().obs;
   var isLoadingSingleBattle = false.obs;
-
-
 
   Future<void> fetchSingleBattle(String battleId) async {
     isLoadingSingleBattle.value = true;
@@ -207,11 +182,10 @@ class BattleController extends GetxController{
     isLoadingSingleBattle.value = false;
   }
 
-
-///complete battle day=====================================================Patch=========================================
+  ///complete battle day=====================================================Patch=========================================
   var isLoadingCompleteBattle = false.obs;
 
-  Future<bool> completeBattleDay(String battleId,final String status) async {
+  Future<bool> completeBattleDay(String battleId, final String status) async {
     isLoadingCompleteBattle.value = true;
 
     final body = {
@@ -233,6 +207,3 @@ class BattleController extends GetxController{
     return false;
   }
 }
-
-
-

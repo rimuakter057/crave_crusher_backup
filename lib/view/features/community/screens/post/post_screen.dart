@@ -1,3 +1,4 @@
+import 'package:crave_crusher/view/components/common_empty/common_empty_widget.dart';
 import 'package:crave_crusher/view/components/custom_loader/custom_loader.dart';
 import 'package:crave_crusher/view/components/custom_nav_bar/navbar.dart';
 import 'package:flutter/material.dart';
@@ -21,7 +22,7 @@ class PostScreen extends StatelessWidget {
       appBar: AppBar(title: Text("Posts")),
       body: Obx(() {
         if (postController.isLoadingAllPost.value) return const Center(child: CustomLoader());
-        if (postController.allPostList.isEmpty) return const Center(child: Text("No posts found"));
+        if (postController.allPostList.isEmpty) return EmptyWidget(title: "Posts are not available at the moment");
         return ListView.builder(
           itemCount: postController.allPostList.length,
           itemBuilder: (context, index) {

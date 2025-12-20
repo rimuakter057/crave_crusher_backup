@@ -18,6 +18,4 @@ class AppImages {
   static const String homeLock = "$basePath/home_lock.png";
   static const String homeSleep = "$basePath/home_sleep.png";
   static const String homeZap = "$basePath/home_zap.png";
-
-
 }

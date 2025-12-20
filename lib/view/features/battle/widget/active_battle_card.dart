@@ -1,15 +1,12 @@
 // ignore_for_file: deprecated_member_use, unused_local_variable
 
 import 'package:crave_crusher/utils/app_colors/app_colors.dart';
-import 'package:crave_crusher/utils/app_const/app_const.dart';
 import 'package:crave_crusher/utils/app_icons/app_icons.dart';
-import 'package:crave_crusher/utils/app_strings/app_strings.dart';
 import 'package:crave_crusher/view/components/custom_image/custom_image.dart';
 import 'package:crave_crusher/view/components/custom_text/custom_text.dart';
-import 'package:crave_crusher/view/features/battle/controller/battle_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:get/get.dart';
+
 
 class ActiveBattleCard extends StatelessWidget {
   final String title;
@@ -34,7 +31,7 @@ class ActiveBattleCard extends StatelessWidget {
       case DetoxType.smoke:
         return AppIcons.smoke;
       case DetoxType.love:
-        return AppIcons.toxicRelationshipe;
+        return AppIcons.toxicRelationship;
       case DetoxType.savingMoney:
         return AppIcons.savingsMoney;
       case DetoxType.junkFood:
@@ -55,22 +52,11 @@ class ActiveBattleCard extends StatelessWidget {
       case 'active':
         return AppColors.primary;
       default:
-        return Colors.grey;
+        return AppColors.primary;
     }
   }
 
-  // String getStatusText(String status) {
-  //   switch (status.toLowerCase()) {
-  //     case 'cancel':
-  //       return "Canceled";
-  //     case 'complete':
-  //       return 'Completed';
-  //     case 'active':
-  //       return 'act';
-  //     default:
-  //       return "Unknown";
-  //   }
-  // }
+
 
   @override
   Widget build(BuildContext context) {

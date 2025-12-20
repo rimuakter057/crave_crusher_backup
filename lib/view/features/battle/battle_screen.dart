@@ -1,9 +1,7 @@
 import 'package:crave_crusher/core/routes/app_routes.dart';
-import 'package:crave_crusher/utils/app_strings/app_strings.dart';
 import 'package:crave_crusher/view/components/common_empty/common_empty_widget.dart';
 import 'package:crave_crusher/view/components/custom_app_bar/custom_app_bar.dart';
 import 'package:crave_crusher/view/components/custom_nav_bar/navbar.dart';
-import 'package:crave_crusher/view/components/custom_text/custom_text.dart';
 import 'package:crave_crusher/view/features/battle/controller/battle_controller.dart';
 import 'package:crave_crusher/view/features/battle/inner_screen/battle_details_screen.dart';
 import 'package:crave_crusher/view/features/battle/widget/battle_tab_selector.dart';
@@ -85,11 +83,8 @@ class _BattleScreenState extends State<BattleScreen> {
                     controller.isLoadingAllBattle.value
                         ? const BattleShimmerLoader()
                         : controller.allBattleList.isEmpty
-                        ? const Center(
-                      child: EmptyWidget(
-                        title: "You don’t have any active battles right now.",),
-
-                    )
+                        ? EmptyWidget(
+                          title: "You don’t have any active battles right now.",)
                         : ListView.builder(
                       physics: const AlwaysScrollableScrollPhysics(),
                       itemCount: controller.allBattleList.length,
@@ -136,14 +131,8 @@ class _BattleScreenState extends State<BattleScreen> {
                     controller.isLoadingAllBattle.value
                         ? const BattleShimmerLoader()
                         : controller.allBattleList.isEmpty
-                        ? const Center(
-                      child: CustomText(
-                        maxLines: 2,
-                        textAlign: TextAlign.center,
-                        text:
-                        "You don’t have any completed battles right now.",
-                      ),
-                    )
+                        ? EmptyWidget(
+                            title: "You don’t have any completed battles right now.",)
                         : ListView.builder(
                       physics: const AlwaysScrollableScrollPhysics(),
                       itemCount: controller.allBattleList.length,
@@ -190,14 +179,8 @@ class _BattleScreenState extends State<BattleScreen> {
                     controller.isLoadingAllBattle.value
                         ? const BattleShimmerLoader()
                         : controller.allBattleList.isEmpty
-                        ? const Center(
-                      child: CustomText(
-                        maxLines: 2,
-                        textAlign: TextAlign.center,
-                        text:
-                        "You don’t have any canceled battles right now.",
-                      ),
-                    )
+                        ? EmptyWidget(
+                          title: "You don’t have any canceled battles right now.",)
                         : ListView.builder(
                       physics: const AlwaysScrollableScrollPhysics(),
                       itemCount: controller.allBattleList.length,

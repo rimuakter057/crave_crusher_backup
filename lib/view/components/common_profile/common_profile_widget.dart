@@ -3,7 +3,7 @@ import 'package:crave_crusher/view/components/custom_text/custom_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-import 'avater_widget.dart';
+import 'avatar_widget.dart';
 
 class CommonProfileWidget extends StatelessWidget {
   const CommonProfileWidget({super.key, required this.title, required this.subTitle, required this.profileImage, this.onTap});

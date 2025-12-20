@@ -15,11 +15,9 @@ class BattleTabSelector extends StatefulWidget {
 }
 
 class _BattleTabSelectorState extends State<BattleTabSelector> {
-
   final BattleController controller = Get.find<BattleController>();
 
   final List<String> _tabs = ["Active Battles", "Completed", "Canceled"];
-
 
   int _selectedIndex = 0;
 
@@ -37,9 +35,7 @@ class _BattleTabSelectorState extends State<BattleTabSelector> {
               setState(() {
                 _selectedIndex = index;
                 controller.battleTabIndex.value = index;
-
               });
-
             },
             child: AnimatedContainer(
               duration: const Duration(milliseconds: 200),
@@ -59,7 +55,7 @@ class _BattleTabSelectorState extends State<BattleTabSelector> {
                         : Border.all(
                           color: AppColors.subPrimary.withOpacity(0.5),
                           width: 1.w,
-                        ), // Unselected tab-e halka border
+                        ),
               ),
               child: CustomText(
                 text: tabTitle,

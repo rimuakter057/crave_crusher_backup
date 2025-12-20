@@ -10,12 +10,16 @@ PostModel postModelFromJson(String str) => PostModel.fromJson(json.decode(str));
 
 String postModelToJson(PostModel data) => json.encode(data.toJson());
 
-
+// "totalReaction": 1,
+// "totalBadge": 2,
+// "totalPost": 3
 class PostModel {
   final String? id;
   final String? content;
   final List<String> postImages;
-
+ final String? totalReaction;
+  final String? totalBadge;
+  final String? totalPost;
 
    RxInt totalVotes;
 
@@ -27,6 +31,9 @@ class PostModel {
   final Author? author;
 
   PostModel({
+    this.totalBadge,
+    this.totalPost,
+    this.totalReaction,
     this.id,
     this.content,
     List<String>? postImages,
@@ -44,6 +51,9 @@ class PostModel {
 
   factory PostModel.fromJson(Map<String, dynamic> json) {
     return PostModel(
+      totalBadge: json["totalBadge"],
+      totalPost: json["totalPost"],
+      totalReaction: json["totalReaction"],
       id: json["_id"],
       content: json["content"],
       postImages: json["post_images"] == null
@@ -66,6 +76,9 @@ class PostModel {
   }
 
   Map<String, dynamic> toJson() => {
+    "totalBadge": totalBadge,
+    "totalPost": totalPost,
+    "totalReaction": totalReaction,
     "_id": id,
     "content": content,
     "post_images": postImages,

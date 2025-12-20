@@ -1,5 +1,6 @@
 import 'package:crave_crusher/utils/app_colors/app_colors.dart';
 import 'package:crave_crusher/utils/app_const/app_const.dart';
+import 'package:crave_crusher/view/components/common_empty/common_empty_widget.dart';
 import 'package:crave_crusher/view/components/custom_text/custom_text.dart';
 import 'package:crave_crusher/view/features/community/controllers/community_controller.dart';
 import 'package:crave_crusher/view/features/community/models/post_update_model.dart';
@@ -61,7 +62,7 @@ class CommunityAllFeedScreen extends StatelessWidget {
           } else if (communityController.communityTabIndex.value == 1) {
             await postController.fetchMyPost();
           }
-          // await postController.fetchMyPost();
+
         },
         child: SingleChildScrollView(
           child: Padding(
@@ -106,9 +107,8 @@ class CommunityAllFeedScreen extends StatelessWidget {
                                 return CommonCommunityWidget(
                                   profileTitle:
                                       post.author?.fullName ?? 'Unknown',
-                                  time: DateConverter.formattedTime(
-                                    post.createdAt ?? DateTime.now(),
-                                  ),
+                                  time:  DateConverter.dateYearTimeUtc(post.createdAt.toString()),
+
                                   postImages: post.postImages ?? [],
                                   postText: post.content ?? "",
                                   commentsText: "${post.totalComments ?? 0}",
@@ -174,10 +174,8 @@ class CommunityAllFeedScreen extends StatelessWidget {
                       const PostShimmerLoader()
                     else if (postController.getMyPostList.isEmpty)
                       Center(
-                        child: Padding(
-                          padding: EdgeInsets.symmetric(vertical: 50.h),
-                          child: CustomText(text: "No posts available"),
-                        ),
+                        child: EmptyWidget(
+                          title: "No post available yet.",),
                       )
                     else
                       ListView.builder(
@@ -193,16 +191,18 @@ class CommunityAllFeedScreen extends StatelessWidget {
                             children: [
                               Obx(() {
                                 final postId = myPost.id ?? '';
-                                final isLiked = communityController
-                                    .userVotedPosts
-                                    .contains(postId);
+
 
                                 return CommonCommunityWidget(
                                   profileTitle:
                                       myPost.author?.fullName ?? '...',
-                                  time: DateConverter.formattedTime(
-                                    myPost.createdAt ?? DateTime.now(),
-                                  ),
+                                  // time: DateConverter.formattedTime(
+                                  //   myPost.createdAt ?? DateTime.now(),
+                                  // ),
+
+
+                                 time:  DateConverter.dateYearTimeUtc(myPost.createdAt.toString()),
+
                                   profileImage:
                                       myPost.author?.profileImage ??
                                       AppConstants.unknown,

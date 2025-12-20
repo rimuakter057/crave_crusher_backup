@@ -4,7 +4,7 @@ import 'package:crave_crusher/utils/app_icons/app_icons.dart';
 import 'package:crave_crusher/utils/app_images/app_images.dart';
 import 'package:crave_crusher/view/components/common_profile/common_profile_widget.dart';
 import 'package:crave_crusher/view/components/custom_image/custom_image.dart';
-import 'package:crave_crusher/view/components/custom_netwrok_image/custom_network_image.dart';
+import 'package:crave_crusher/view/components/custom_network_image/custom_network_image.dart';
 import 'package:crave_crusher/view/components/custom_text/custom_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -41,7 +41,8 @@ class CommonCommunityWidget extends StatefulWidget {
      this.onTapUpdate,
     required this.onTapImageShow,
     required this.onTapProfile,
-    required this.favouriteWidget, required this.postImages,
+    required this.favouriteWidget,
+    required this.postImages,
   });
 
   @override
@@ -98,7 +99,7 @@ class _CommonCommunityWidgetState extends State<CommonCommunityWidget> {
             ],
           ),
 
-         // Gap(4.h),
+          Gap(8.h),
 
           /// Image Section
       GestureDetector(
@@ -110,7 +111,7 @@ class _CommonCommunityWidgetState extends State<CommonCommunityWidget> {
             ),
 
 
-          Gap(4.h),
+          Gap(8.h),
 
           /// Text Section
           ReadMoreText(widget.postText,
@@ -127,10 +128,10 @@ class _CommonCommunityWidgetState extends State<CommonCommunityWidget> {
      ),
     colorClickableText: Colors.pink,
     trimCollapsedText: 'See more',
-    trimExpandedText: 'See less',
+    trimExpandedText: ' See less',
           ),
 
-          Gap(24.h),
+          Gap(8.h),
 
           /// Bottom Like & Comment Section
           Row(

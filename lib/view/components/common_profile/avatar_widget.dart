@@ -1,11 +1,9 @@
 import 'dart:io';
 import 'package:crave_crusher/helper/imges_handler/image_handler.dart';
-import 'package:crave_crusher/utils/app_const/app_const.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:cached_network_image/cached_network_image.dart';
-import 'package:image_picker/image_picker.dart';
+
 import 'package:crave_crusher/utils/app_colors/app_colors.dart';
 
 class ProfileAvatarWidget extends StatelessWidget {

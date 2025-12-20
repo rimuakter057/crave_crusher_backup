@@ -4,10 +4,10 @@ import 'package:crave_crusher/service/network_caller.dart';
 import 'package:crave_crusher/service/api_url.dart';
 
 class ResendOtpController extends GetxController {
-  bool inProgress = false; // API call loader
+  bool inProgress = false;
   String? errorMessage;
 
-  int countdown = 60; // start from 60
+  int countdown = 60;
   Timer? _timer;
 
   String get countdownText => countdown > 0 ? '$countdown s' : '';

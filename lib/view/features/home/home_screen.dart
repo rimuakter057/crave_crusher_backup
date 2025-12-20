@@ -56,7 +56,7 @@ class _HomeScreenState extends State<HomeScreen> {
             children: [
               // Tip and Monster Section
               TodayTips(),
-              MonsterSection(image:AppIcons.happyMonstar),
+              MonsterSection(image:AppIcons.happyMonster),
 
               SizedBox(height: 24.h),
 
@@ -100,10 +100,8 @@ class _HomeScreenState extends State<HomeScreen> {
                 if (controller.isLoadingAllBattle.value) {
                   return const Center(child: CustomLoader());
                 } else if (controller.allBattleList.isEmpty) {
-                  return   Center(
-                    child: EmptyWidget(
-                      title: "Add your first battle to get started.",
-                    ),
+                  return   EmptyWidget(
+                    title: "Add your first battle to get started.",
                   );
                 } else {
                   return ListView.builder(
@@ -119,8 +117,9 @@ class _HomeScreenState extends State<HomeScreen> {
                             title: battle.addictionType.toString(),
                             percentText: "${battle.battleProgress}%",
                             progress: 0.58,
-                            status: battle.battleStatus.toString(),
-                            dayCount: "Day ${battle.day} of 30",
+                            status: battle.todayStatus.toString(),
+                            dayCount:"Day ${battle.day} of ${battle
+                                .battleLength}",
                             onBattlePressed: () {
                               Get.to(BattleDetailsScreen(battleId: battle.id.toString()));
                             },

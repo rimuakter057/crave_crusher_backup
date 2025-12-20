@@ -17,7 +17,7 @@ class AppIcons {
   static const String profile = "$basePath/profile.svg";
   static const String reward = "$basePath/reward.svg";
   static const String selectCommunity = "$basePath/selectCommunity.svg";
-  static const String selectedBattale = "$basePath/selectedBattale.svg";
+  static const String selectedBattle = "$basePath/selectedBattle.svg";
   static const String selectHome = "$basePath/selectHome.svg";
   static const String selectReward = "$basePath/selectReward.svg";
   static const String selectProfile = "$basePath/selectProfile.svg";
@@ -29,24 +29,23 @@ class AppIcons {
   static const String heart = "$basePath/heart.svg";
   static const String image = "$basePath/image.svg";
   static const String battlePrimaryColor = "$basePath/battlePrimaryColor.svg";
-  static const String happyMonstar = "$basePath/happyMonstar.png";
+  static const String happyMonster = "$basePath/happyMonster.png";
   static const String junkFood = "$basePath/junkFood.png";
   static const String notification = "$basePath/notification.svg";
   static const String savingsMoney = "$basePath/savingsMoney.png";
   static const String shopping = "$basePath/shopping.png";
   static const String socialMedia = "$basePath/socialMedia.png";
   static const String tipsIcon = "$basePath/tipsIcon.svg";
-  static const String toxicRelationshipe = "$basePath/toxicRelationshipe.png";
+  static const String toxicRelationship = "$basePath/toxicRelationship.png";
   static const String appLogoSmall = "$basePath/appLogoSmall.svg";
   static const String tipsCircular = "$basePath/tipsCircular.svg";
   static const String tipsPng = "$basePath/tipsPng.png";
   static const String smallMonster = "$basePath/smallMonster.png";
-  static const String cavedComplete = "$basePath/small_monoster.png";
+  static const String cavedComplete = "$basePath/small_monster.png";
   static const String smoke = "$basePath/smoke.png";
   static const String tipsBackground = "$basePath/tipsBackground.png";
   static const String battlePng = "$basePath/battlePng.png";
-  static const String todayTipsBackgroundImage =
-      "$basePath/todayTipsBackgroundImage.svg";
+  static const String todayTipsBackgroundImage = "$basePath/todayTipsBackgroundImage.svg";
   static const String alarm = "$basePath/alarm.svg";
   static const String music = "$basePath/music.png";
   static const String caved = "$basePath/caved.svg";

@@ -1,4 +1,3 @@
-
 import 'package:crave_crusher/core/routes/app_routes.dart';
 import 'package:crave_crusher/service/api_check.dart';
 import 'package:crave_crusher/service/api_client.dart';
@@ -6,20 +5,17 @@ import 'package:crave_crusher/service/api_url.dart';
 import 'package:crave_crusher/utils/app_const/app_const.dart';
 import 'package:crave_crusher/view/features/help_support/models/help_support_model.dart';
 import 'package:get/get.dart';
-import 'package:shared_preferences/shared_preferences.dart';
-
 import '../../auth/controllers/auth_controller.dart';
-import '../../terms_condition/models/terms_condition_model.dart' show TermsModel;
+import '../../terms_condition/models/terms_condition_model.dart'
+    show TermsModel;
 
-class AccountSettingController extends GetxController{
-///privacy policy===============================================================================
+class AccountSettingController extends GetxController {
+  ///privacy policy===============================================================================
   var isLoadingPrivacy = false.obs;
   Rx<Status> privacyStatus = Status.loading.obs;
   Rx<TermsModel?> privacy = Rx<TermsModel?>(null);
 
-
   Future<void> getPrivacy() async {
-
     isLoadingPrivacy.value = true;
     privacyStatus(Status.loading);
 
@@ -40,11 +36,9 @@ class AccountSettingController extends GetxController{
       privacyStatus(Status.error);
       ApiChecker.checkApi(response);
     }
-
   }
 
   ///help  support==========================================================================================
-
 
   Rx<Status> helpStatus = Status.loading.obs;
   RxList<FaqModel> helpList = <FaqModel>[].obs;
@@ -54,9 +48,10 @@ class AccountSettingController extends GetxController{
     final response = await ApiClient.getData(ApiUrl.help);
 
     if (response.statusCode == 200 || response.statusCode == 201) {
-      helpList.value = (response.body['data'] as List)
-          .map((x) => FaqModel.fromJson(x))
-          .toList();
+      helpList.value =
+          (response.body['data'] as List)
+              .map((x) => FaqModel.fromJson(x))
+              .toList();
       helpStatus.value = Status.completed;
     } else {
       helpList.clear();
@@ -67,15 +62,11 @@ class AccountSettingController extends GetxController{
 
   /// terms condition==========================================================================================
 
-
-
-
   var isLoadingTerms = false.obs;
   Rx<Status> termsStatus = Status.loading.obs;
   Rx<TermsModel?> termsList = Rx<TermsModel?>(null);
 
   Future<void> getTerms() async {
-
     isLoadingTerms.value = true;
     termsStatus(Status.loading);
 
@@ -96,23 +87,16 @@ class AccountSettingController extends GetxController{
       termsStatus(Status.error);
       ApiChecker.checkApi(response);
     }
-
   }
 
-/// delete account==========================================================================================
-
-
+  /// delete account==========================================================================================
 
   var isLoadingDeleteAccount = false.obs;
 
-
-
   Future<void> deleteAccount() async {
-
     isLoadingDeleteAccount.value = true;
 
     final response = await ApiClient.deleteData(ApiUrl.deleteProfile);
-
 
     isLoadingDeleteAccount.value = false;
 

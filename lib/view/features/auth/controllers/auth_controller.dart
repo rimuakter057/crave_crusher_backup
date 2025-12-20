@@ -1,8 +1,6 @@
 import 'dart:convert';
-import 'package:crave_crusher/helper/shared_prefe/shared_prefe.dart';
 import 'package:crave_crusher/utils/app_const/app_const.dart';
 import 'package:crave_crusher/view/features/auth/models/user_model.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 

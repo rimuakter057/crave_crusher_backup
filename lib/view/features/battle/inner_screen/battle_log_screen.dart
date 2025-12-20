@@ -1,8 +1,8 @@
 import 'package:crave_crusher/helper/time_converter/date_converter.dart';
+import 'package:crave_crusher/view/components/common_empty/common_empty_widget.dart';
 import 'package:crave_crusher/view/components/custom_app_bar/custom_app_bar.dart';
 import 'package:crave_crusher/view/features/battle/controller/battle_controller.dart';
 import 'package:crave_crusher/view/features/battle/widget/log_item.dart';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
@@ -15,8 +15,6 @@ class BattleLogScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-
-
     return Scaffold(
       appBar: CustomAppBar(title: 'Battle Log', actions: []),
       body: Padding(
@@ -25,7 +23,7 @@ class BattleLogScreen extends StatelessWidget {
           final battleLogs = controller.battleDetails.value.battleLogs;
 
           if (battleLogs == null || battleLogs.isEmpty) {
-            return const Center(child: Text("Battle History Empty"));
+            return EmptyWidget(title: "No battle history yet.");
           }
           final dateConverter = DateConverter();
           return Column(
@@ -40,11 +38,13 @@ class BattleLogScreen extends StatelessWidget {
                     final log = battleLogs[index];
                     final type = getLogTypeFromStatus(log.status ?? '');
                     return LogEntryItem(
-
-                     type: type,
+                      type: type,
                       dayNumber: log.day ?? 0,
                       statusText: log.status ?? '',
-                      timestamp:   dateConverter.dateYearTime(log.createdAt ?? ''),
+                      // timestamp:   dateConverter.dateYearTime(log.createdAt ?? ''),
+                      timestamp: DateConverter.dateYearTimeUtc(
+                        log.createdAt ?? '',
+                      ),
                     );
                   },
                 ),
@@ -56,8 +56,3 @@ class BattleLogScreen extends StatelessWidget {
     );
   }
 }
-
-
-
-
-

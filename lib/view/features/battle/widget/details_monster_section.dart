@@ -1,5 +1,6 @@
 // ignore_for_file: deprecated_member_use
 
+import 'package:crave_crusher/helper/imges_handler/image_handler.dart';
 import 'package:crave_crusher/utils/app_colors/app_colors.dart';
 import 'package:crave_crusher/utils/app_icons/app_icons.dart';
 import 'package:crave_crusher/view/components/custom_image/custom_image.dart';
@@ -7,6 +8,7 @@ import 'package:crave_crusher/view/components/custom_text/custom_text.dart';
 import 'package:crave_crusher/view/features/battle/widget/active_battle_card.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import '../../../components/custom_network_image/custom_network_image.dart';
 
 class DetailsMonsterSection extends StatelessWidget {
   // Battle details to display in the header
@@ -15,6 +17,7 @@ class DetailsMonsterSection extends StatelessWidget {
   final String status;
   final String monsterStatusMessage;
  final DetoxType detoxType;
+ final String monster;
   const DetailsMonsterSection({
     super.key,
     required this.battleTitle,
@@ -22,6 +25,7 @@ class DetailsMonsterSection extends StatelessWidget {
     required this.status,
     required this.monsterStatusMessage,
     required this.detoxType,
+    required this.monster,
   });
 
 
@@ -30,7 +34,7 @@ class DetailsMonsterSection extends StatelessWidget {
       case DetoxType.smoke:
         return AppIcons.smoke;
       case DetoxType.love:
-        return AppIcons.toxicRelationshipe;
+        return AppIcons.toxicRelationship;
       case DetoxType.savingMoney:
         return AppIcons.savingsMoney;
       case DetoxType.junkFood:
@@ -140,12 +144,14 @@ class DetailsMonsterSection extends StatelessWidget {
 
         // Monster Image
         Center(
-          child: CustomImage(
-            imageSrc: AppIcons.happyMonstar, // Placeholder Monster PNG
-            height: 250.h,
-            width: 250.w,
-            scale: 1,
+          child:
+
+          CustomNetworkImage(
+            imageUrl: ImageHandler.imagesHandle( monster),
+              height: 250.h,
+              width: 250.w,
           ),
+
         ),
         SizedBox(height: 24.h),
 

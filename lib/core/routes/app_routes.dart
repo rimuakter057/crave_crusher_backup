@@ -1,7 +1,4 @@
 import 'package:crave_crusher/view/features/auth/screen/login/login_screen.dart';
-import 'package:crave_crusher/view/features/battle/inner_screen/battle_details_screen.dart';
-import 'package:crave_crusher/view/features/battle/inner_screen/battle_edit_screen.dart';
-import 'package:crave_crusher/view/features/battle/inner_screen/battle_log_screen.dart';
 import 'package:crave_crusher/view/features/battle/inner_screen/create_battle_screen.dart';
 import 'package:crave_crusher/view/features/community/screens/post/post_screen.dart';
 import 'package:crave_crusher/view/features/home/empty_home_screen.dart';
@@ -33,14 +30,7 @@ class AppRoutes {
 
     GetPage(name: createBattleScreen, page: () => CreateBattleScreen()),
     GetPage(name: emptyHome, page: () => EmptyHomeScreen()),
-    GetPage(
-      name: updateBattle,
-      page: () {
-        // Get.arguments থেকে value নাও
-        final battleId = Get.arguments as String;
-        return UpdateBattleScreen(battleId: battleId);
-      },
-    ),
+
 
     GetPage(name: postScreen, page: () => PostScreen()),
   ];

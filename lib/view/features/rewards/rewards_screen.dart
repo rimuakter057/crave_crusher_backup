@@ -5,7 +5,7 @@ import 'package:crave_crusher/view/components/custom_image/custom_image.dart';
 import 'package:crave_crusher/view/components/custom_leadin_title_appbar.dart';
 import 'package:crave_crusher/view/components/custom_loader/custom_loader.dart';
 import 'package:crave_crusher/view/components/custom_nav_bar/navbar.dart';
-import 'package:crave_crusher/view/components/custom_netwrok_image/custom_network_image.dart';
+import 'package:crave_crusher/view/components/custom_network_image/custom_network_image.dart';
 import 'package:crave_crusher/view/components/custom_text/custom_text.dart';
 import 'package:crave_crusher/view/features/rewards/widgets/custom_circular_indicator.dart';
 import 'package:crave_crusher/view/features/rewards/widgets/shimmer_reward.dart';
@@ -15,8 +15,6 @@ import 'package:gap/gap.dart';
 import 'package:shimmer/shimmer.dart';
 import '../../../helper/imges_handler/image_handler.dart';
 import 'controller/reward_controller.dart';
-import 'data/battle_category_item_list.dart';
-import 'data/battle_item_details_list.dart';
 import 'package:get/get.dart';
 
 class RewardsScreen extends StatefulWidget {

@@ -19,15 +19,11 @@ Future<void> main() async {
 
   DependencyInjection di = DependencyInjection();
   di.dependencies();
+
   /// Load Token Immediately (VERY IMPORTANT)
   final auth = getx.Get.find<AuthController>();
   await auth.getUserData();
-  runApp(
-    DevicePreview(
-      enabled: true,
-      builder: (context) => const MyApp(),
-    ),
-  );
+  runApp(DevicePreview(enabled: true, builder: (context) => const MyApp()));
 }
 
 class MyApp extends StatelessWidget {
@@ -41,7 +37,6 @@ class MyApp extends StatelessWidget {
       splitScreenMode: true,
       builder: (context, child) {
         return GetMaterialApp(
-          title: "InviteeMe",
           theme: CustomTheme.lightTheme,
           debugShowCheckedModeBanner: false,
           defaultTransition: Transition.fadeIn,

@@ -1,11 +1,15 @@
+import 'dart:typed_data'; // ✅ এটা থাকবে
 import 'package:crave_crusher/service/api_check.dart';
 import 'package:crave_crusher/service/api_client.dart';
 import 'package:crave_crusher/service/api_url.dart';
 import 'package:crave_crusher/utils/app_const/app_const.dart';
 import 'package:crave_crusher/view/features/community/controllers/post_controller.dart';
-import 'package:crave_crusher/view/features/community/models/vote_model.dart';
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:http/http.dart' as http;
+import 'package:image_gallery_saver/image_gallery_saver.dart';
+import 'package:permission_handler/permission_handler.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:logger/logger.dart';
 
@@ -170,27 +174,6 @@ class CommunityController extends GetxController {
 
       }}
 
-
-      // if (userVotedPosts.contains(postId)) {
-      //   userVotedPosts.remove(postId);
-      //
-      //   if (isMyPost) {
-      //     postController.getMyPostList[index].totalVotes =
-      //         postController.getMyPostList[index].totalVotes - 1;
-      //   } else {
-      //     postController.allPostList[index].totalVotes =
-      //         postController.allPostList[index].totalVotes - 1;
-      //   }
-      // } else {
-      //   userVotedPosts.add(postId);
-      //   if (isMyPost) {
-      //     postController.getMyPostList[index].totalVotes =
-      //         postController.getMyPostList[index].totalVotes + 1;
-      //   } else {
-      //     postController.allPostList[index].totalVotes =
-      //         postController.allPostList[index].totalVotes + 1;
-      //   }
-      // }
       return true;
     } else {
       ApiChecker.checkApi(response);
@@ -198,21 +181,60 @@ class CommunityController extends GetxController {
     }
   }
 
-  //
-  // Future<bool> addVote(String postId) async {
-  //   if (userID.value.isEmpty) return false;
-  //
-  //   final response = await ApiClient.postData(
-  //     ApiUrl.addVote(postId),
-  //     {'userId': userID.value},
-  //     isJson: true,
-  //   );
-  //
-  //   if (response.statusCode == 200 || response.statusCode == 201) {
-  //     return true; // success
-  //   }
-  //
-  //   ApiChecker.checkApi(response);
-  //   return false; // fail
-  // }
-}
+
+
+
+
+
+
+
+/// download images============================
+
+  var isDownloading = false.obs;
+
+  Future<void> downloadImage(String imageUrl) async {
+    try {
+      var status = await Permission.storage.request();
+      if (!status.isGranted) {
+        Get.snackbar("Permission Denied", "Storage permission is required");
+        return;
+      }
+
+      isDownloading.value = true;
+
+      var response = await http.get(Uri.parse(imageUrl));
+      if (response.statusCode == 200) {
+        Uint8List bytes = response.bodyBytes;
+
+        final result = await ImageGallerySaver.saveImage(
+          bytes,
+          quality: 100,
+          name: "image_${DateTime.now().millisecondsSinceEpoch}",
+        );
+
+        if (result['isSuccess']) {
+          Get.snackbar("Success", "Image saved to gallery");
+        } else {
+          Get.snackbar("Failed", "Failed to save image");
+        }
+      } else {
+        Get.snackbar("Failed", "Failed to download image: ${response.statusCode}");
+      }
+    } catch (e) {
+      Get.snackbar("Error", e.toString());
+      debugPrint("error================================${e.toString()}");
+    } finally {
+      isDownloading.value = false;
+    }
+    }
+  }
+
+
+
+
+
+
+
+
+
+

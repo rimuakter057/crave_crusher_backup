@@ -1,26 +1,18 @@
-import 'package:crave_crusher/utils/app_colors/app_colors.dart';
 import 'package:crave_crusher/view/components/custom_text/custom_text.dart';
 import 'package:flutter/material.dart';
 
 
-//
-// TextButton(
-// onPressed: onForgotPasswordTapped,
-// child: CustomText(text: forgetText??"Forget Password?",fontWeight: FontWeight.w600,fontSize: 12,color: AppColors.primary,),
-//
-// ),
 class RememberMeAndForgotPassword extends StatelessWidget {
-  // Required: The current state of the Checkbox
   final bool isChecked;
   // Required: The function to call when the Checkbox state changes
   final ValueChanged<bool?> onRememberMeChanged;
 
-final Widget child;
+  final Widget child;
   const RememberMeAndForgotPassword({
     super.key,
     required this.isChecked,
     required this.onRememberMeChanged,
-required this.child,
+    required this.child,
   });
 
   @override
@@ -31,16 +23,18 @@ required this.child,
         // 1. Remember Me Checkbox and Text
         Row(
           children: [
-            Checkbox(
-              value: isChecked,
-              onChanged: onRememberMeChanged,
+            Checkbox(value: isChecked, onChanged: onRememberMeChanged),
+            const CustomText(
+              text: "Remember Me",
+              fontWeight: FontWeight.w600,
+              fontSize: 12,
+              color: Color(0xFF555555),
             ),
-            const  CustomText(text: "Remember Me",fontWeight: FontWeight.w600,fontSize: 12,color: Color(0xFF555555)),
           ],
         ),
 
         // 2. Forget Password Text Link
-      child
+        child,
       ],
     );
   }

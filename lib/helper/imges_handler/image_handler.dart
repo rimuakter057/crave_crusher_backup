@@ -9,7 +9,7 @@ class ImageHandler {
       if(isProfile){
         return AppConstants.unknown;
       }
-      return AppConstants.resturentImage;
+      return AppConstants.restaurantImage;
     }
 
     if (url.startsWith('http')) {
