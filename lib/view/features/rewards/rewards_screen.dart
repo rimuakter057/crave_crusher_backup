@@ -1,5 +1,6 @@
 import 'package:crave_crusher/utils/app_colors/app_colors.dart';
 import 'package:crave_crusher/utils/app_icons/app_icons.dart';
+import 'package:crave_crusher/view/components/common_empty/common_empty_widget.dart';
 import 'package:crave_crusher/view/components/custom_container/custom_container.dart';
 import 'package:crave_crusher/view/components/custom_image/custom_image.dart';
 import 'package:crave_crusher/view/components/custom_leadin_title_appbar.dart';
@@ -83,7 +84,7 @@ class _RewardsScreenState extends State<RewardsScreen> {
                 }
 
                 if (currentBadge == null) {
-                  return _buildEmptyWidget("No badge available");
+                  return EmptyWidget(title: "No badge available");
                 }
 
                 // Data available
@@ -103,11 +104,33 @@ class _RewardsScreenState extends State<RewardsScreen> {
                       // Left side: badge
                       Row(
                         children: [
-                          CustomNetworkImage(
-                            imageUrl: badgeImageUrl,
+
+                          Container(
+                            padding: EdgeInsets.all(4.w),
                             height: 30.h,
                             width: 30.w,
+                            alignment: Alignment.center,
+                            decoration: BoxDecoration(
+                              color: Colors.grey.shade100,
+                              border: Border.all(
+                                color: AppColors.red,
+                              ),
+                              borderRadius: BorderRadius.circular(3),
+                            ),
+                            child:  CustomNetworkImage(
+                              imageUrl: badgeImageUrl,
+                              height: 30.h,
+                              width: 30.w,
+                            ),
                           ),
+
+
+
+                          // CustomNetworkImage(
+                          //   imageUrl: badgeImageUrl,
+                          //   height: 30.h,
+                          //   width: 30.w,
+                          // ),
                           Gap(8.w),
                           CustomText(
                             text: badgeName,
@@ -281,8 +304,8 @@ class _RewardsScreenState extends State<RewardsScreen> {
                       baseColor: Colors.grey[300]!,
                       highlightColor: Colors.grey[100]!,
                       child: Container(
-                        width: 104.w,
-                        height: 82.h,
+                        width: double.infinity,
+                        height: 40.h,
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(6.r),
                           color: Colors.white,
@@ -345,7 +368,7 @@ class _RewardsScreenState extends State<RewardsScreen> {
                 var badge = controller.allBadgeList;
 
                 if (badge.isEmpty) {
-                  return Center(child: CustomText(text: "No badges found"));
+                  return EmptyWidget(title: "No badges found yet");
                 }
 
                 return ListView.separated(
@@ -354,7 +377,7 @@ class _RewardsScreenState extends State<RewardsScreen> {
                   itemCount: badge.length,
                   separatorBuilder: (_, __) => SizedBox(height: 8.h),
                   itemBuilder: (context, index) {
-                    final itemDetails = badge[index];
+                    final allBadgeList = badge[index];
                     return CustomContainer(
                       borderColor: AppColors.subPrimary,
                       width: double.infinity,
@@ -365,16 +388,30 @@ class _RewardsScreenState extends State<RewardsScreen> {
                           Expanded(
                             child: Row(
                               children: [
-                                CustomNetworkImage(
-                                  imageUrl: ImageHandler.imagesHandle(
-                                    itemDetails.badgeImage,
-                                  ),
+                                Container(
+                                  padding: EdgeInsets.all(4.w),
                                   height: 30.h,
                                   width: 30.w,
+                                  alignment: Alignment.center,
+                                  decoration: BoxDecoration(
+                                    color: Colors.grey.shade100,
+                                    border: Border.all(
+                                      color: AppColors.red,
+                                    ),
+                                    borderRadius: BorderRadius.circular(3),
+                                  ),
+                                  child:  CustomNetworkImage(
+                                    imageUrl: ImageHandler.imagesHandle(
+                                      allBadgeList.badgeImage,
+                                    ),
+                                    height: 22.h,
+                                    width: 22.w,
+                                  ),
                                 ),
+
                                 Gap(12.w),
                                 CustomText(
-                                  text: itemDetails.name,
+                                  text: allBadgeList.name,
                                   fontSize: 14,
                                   fontWeight: FontWeight.w500,
                                 ),
@@ -390,7 +427,7 @@ class _RewardsScreenState extends State<RewardsScreen> {
                               ),
                               Gap(4.w),
                               CustomText(
-                                text: "Day ${itemDetails.day}",
+                                text: "Day ${allBadgeList.day}",
                                 fontSize: 12,
                                 fontWeight: FontWeight.w500,
                                 color: Color(0xFFA1A1AA),

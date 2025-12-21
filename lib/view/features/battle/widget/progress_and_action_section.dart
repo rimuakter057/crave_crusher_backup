@@ -12,7 +12,12 @@ class ProgressAndActionSection extends StatelessWidget {
   final String title;
   final VoidCallback onBattleLogPressed;
   final VoidCallback onBattleNowPressed;
-
+  final bool isActive;
+  final String?buttonText;
+  final Color? bgColor;
+  final String?iconSrc;
+  final Color?boarderColor;
+final Color?textColor;
   const ProgressAndActionSection({
     super.key,
     required this.progress,
@@ -20,10 +25,18 @@ class ProgressAndActionSection extends StatelessWidget {
     required this.title,
     required this.onBattleLogPressed,
     required this.onBattleNowPressed,
+    required this.isActive,
+     this.buttonText,
+    this.textColor,
+ this.bgColor,
+   this.iconSrc,
+    this.boarderColor
+
   });
 
   // Custom Button factory
   Widget _buildActionButton({
+    required Color boarderColor,
     required String text,
     required String iconSrc,
     required Color bgColor,
@@ -111,9 +124,9 @@ class ProgressAndActionSection extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       SizedBox(
-                       width:width>440? 200.w:170.w,
+                        width:width>440? 200.w:170.w,
                         child: CustomText(
-                         text: "${(progress * 100).toInt()}% to complete",
+                          text: "${(progress * 100).toInt()}% to complete",
 
                           maxLines: 1,
                           overflow: TextOverflow.ellipsis,
@@ -135,7 +148,7 @@ class ProgressAndActionSection extends StatelessWidget {
                           SizedBox(
                             width:width>440? 100.w:90.w,
                             child: CustomText(
-                               overflow: TextOverflow.ellipsis,
+                              overflow: TextOverflow.ellipsis,
                               maxLines: 1,
                               text: dayCount, // e.g., Day 12 of 30
                               fontSize: 12.sp,
@@ -166,6 +179,7 @@ class ProgressAndActionSection extends StatelessWidget {
                     children: [
                       // Battle Log Button
                       _buildActionButton(
+                        boarderColor:AppColors.subPrimary,
                         text: "Battle Log",
                         iconSrc: AppIcons.calender,
                         bgColor: AppColors.subPrimary,
@@ -184,11 +198,14 @@ class ProgressAndActionSection extends StatelessWidget {
           ),
 
           SizedBox(height: 20.h),
+
+          if(isActive)
           _buildActionButton(
-            text: "Battle Now",
-            iconSrc: AppIcons.battle,
-            bgColor: AppColors.primary,
-            textColor: AppColors.white,
+            boarderColor:boarderColor?? AppColors.primary,
+            text:buttonText?? "Battle Now",
+            iconSrc:iconSrc?? AppIcons.battle,
+            bgColor:bgColor?? AppColors.primary,
+            textColor:textColor?? AppColors.white,
             onTap: onBattleNowPressed,
             isPrimary: true,
           ),

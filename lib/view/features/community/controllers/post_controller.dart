@@ -1,3 +1,4 @@
+import 'dart:convert';
 import 'dart:io';
 
 import 'package:crave_crusher/service/api_check.dart';
@@ -7,6 +8,7 @@ import 'package:crave_crusher/utils/ToastMsg/toast_message.dart';
 import 'package:crave_crusher/utils/app_const/app_const.dart';
 import 'package:crave_crusher/view/features/community/models/my_post_model.dart';
 import 'package:crave_crusher/view/features/community/models/all_post_model.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:logger/logger.dart';
@@ -45,9 +47,7 @@ class PostController extends GetxController {
   RxList<PostModel> getMyPostList = <PostModel>[].obs;
   RxBool isLoadingPost = false.obs;
 
-  RxInt totalReaction = 0.obs;
-  RxInt totalBadge = 0.obs;
-  RxInt totalPost = 0.obs;
+
 
   Future<void> fetchMyPost() async {
     isLoadingPost.value = true;
@@ -59,25 +59,17 @@ class PostController extends GetxController {
 
       /// posts
       final List posts = data['posts'] ?? [];
-      getMyPostList.assignAll(
-        posts.map((e) => PostModel.fromJson(e)).toList(),
-      );
+      getMyPostList.assignAll(posts.map((e) => PostModel.fromJson(e)).toList());
 
       /// numbers
-      totalReaction.value = data['totalReaction'] ?? 0;
-      totalBadge.value = data['totalBadge'] ?? 0;
-      totalPost.value = data['totalPost'] ?? 0;
+
     } else {
-      getMyPostList.clear();
-      totalReaction.value = 0;
-      totalBadge.value = 0;
-      totalPost.value = 0;
+       getMyPostList.clear();
+
     }
 
     isLoadingPost.value = false;
   }
-
-
 
   ///create post==============================================================Post Method================================================
   // ======================== VARIABLES ============================
@@ -193,16 +185,59 @@ class PostController extends GetxController {
     }
   }
 
+  RxList<String> deleteNetworkImagePaths = <String>[].obs;
+
+  void deleteImage(String imagePath) {
+    final bool isLocalFile = File(imagePath).existsSync();
+
+    if (isLocalFile) {
+      currentImagePaths.remove(imagePath);
+    } else {
+      deleteNetworkImagePaths.add(imagePath);
+      currentImagePaths.remove(imagePath);
+    }
+
+    debugPrint(
+      "=========is Local Image ==========================>$isLocalFile",
+    );
+    debugPrint(
+      "========= delete network image ==========================>$deleteNetworkImagePaths",
+    );
+    debugPrint(
+      "========= all Images ==========================>$currentImagePaths",
+    );
+  }
+
   Future<void> updatePost(String postId, String content) async {
     isLoadingUpdate(true);
 
-    final body = {"content": content};
+    Map<String, String> body = {
+      "content": content,
+      "deleted_images": jsonEncode(deleteNetworkImagePaths.toList()),
+    };
 
-    final response = await ApiClient.patchData(
-      ApiUrl.updatePost(postId),
-      body,
-      isJson: true,
-    );
+    RxList<MultipartBody> multipartFiles = <MultipartBody>[].obs;
+
+    for (var path in currentImagePaths) {
+      if (File(path).existsSync()) {
+        multipartFiles.add(MultipartBody('post_images', File(path)));
+      }else{
+        continue;
+      }
+    }
+
+    final response =
+        multipartFiles.isEmpty
+            ? await ApiClient.patchData(
+              ApiUrl.updatePost(postId),
+              body,
+              isJson: true,
+            )
+            : await ApiClient.patchMultipartData(
+              ApiUrl.updatePost(postId),
+              body,
+              multipartBody: multipartFiles.value,
+            );
 
     isLoadingUpdate(false);
 
@@ -214,6 +249,54 @@ class PostController extends GetxController {
       ApiChecker.checkApi(response);
     }
   }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  RxList<PostModel> singleUserProfileList = <PostModel>[].obs;
+  RxBool isLoadingSingleUser = false.obs;
+
+  RxInt totalReaction = 0.obs;
+  RxInt totalBadge = 0.obs;
+  RxInt totalPost = 0.obs;
+
+  Future<void> fetchSingleUserProfile(String userId) async {
+    isLoadingSingleUser.value = true;
+
+    final response = await ApiClient.getData(ApiUrl.getSingleUserProfile(userId));
+
+    if (response.statusCode == 200 && response.body['data'] != null) {
+      final data = response.body['data'];
+
+      /// posts
+      final List posts = data['posts'] ?? [];
+      singleUserProfileList.assignAll(posts.map((e) => PostModel.fromJson(e)).toList());
+
+      /// numbers
+      totalReaction.value = data['totalReaction'] ?? 0;
+      totalBadge.value = data['totalBadge'] ?? 0;
+      totalPost.value = data['totalPost'] ?? 0;
+    } else {
+      singleUserProfileList.clear();
+      totalReaction.value = 0;
+      totalBadge.value = 0;
+      totalPost.value = 0;
+    }
+
+    isLoadingSingleUser.value = false;
+  }
+
+
 
 
 

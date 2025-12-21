@@ -11,7 +11,7 @@ class BadgeModel {
     required this.day,
   });
 
-  // JSON থেকে model তৈরি করা
+
   factory BadgeModel.fromJson(Map<String, dynamic> json) {
     return BadgeModel(
       id: json['_id'] as String,

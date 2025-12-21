@@ -17,13 +17,14 @@ import '../../../components/custom_loader/custom_loader.dart';
 import '../widget/detox_type.dart';
 
 class BattleDetailsScreen extends StatefulWidget {
-  const BattleDetailsScreen({
+   BattleDetailsScreen({
     super.key,
     required this.battleId,
-    this.showBattleNowButton = true,
+   required this.isActive,
   });
   final String battleId;
-  final bool showBattleNowButton;
+
+  bool isActive=false;
   @override
   State<BattleDetailsScreen> createState() => _BattleDetailsScreenState();
 }
@@ -34,7 +35,7 @@ class _BattleDetailsScreenState extends State<BattleDetailsScreen> {
   @override
   void initState() {
     // TODO: implement initState
-
+controller.fetchSingleBattle(widget.battleId);
     super.initState();
   }
 
@@ -167,7 +168,7 @@ class _BattleDetailsScreenState extends State<BattleDetailsScreen> {
                   detoxType: checkDetoxType(battle.addictionType ?? ''),
                   battleTitle: battle.addictionType ?? '',
                   battleDescription: battle.battleReason ?? '',
-                  status: battle.battleStatus ?? '',
+                  status: battle.todayStatus ?? '....',
                   monster:
                       controller.battleDetails.value.monster?.monsterImage ??
                       '',
@@ -178,6 +179,39 @@ class _BattleDetailsScreenState extends State<BattleDetailsScreen> {
                 SizedBox(height: 24.h),
 
                 ProgressAndActionSection(
+
+                  buttonText: battle.todayStatus == "caved"
+                      ? "Caved"
+                      : battle.todayStatus == "craved"
+                      ? "Craved"
+                      : "Battle Now",
+
+
+                  bgColor: battle.todayStatus == "caved"
+                      ? AppColors.red100
+                      : battle.todayStatus == "craved"
+                      ? AppColors.softGreen
+                      : AppColors.primary,
+
+
+                  textColor: battle.todayStatus == "caved"
+                      ? AppColors.red
+                      : battle.todayStatus == "craved"
+                      ? AppColors.green
+                      : AppColors.white,
+                  boarderColor: battle.todayStatus == "caved"
+                      ? AppColors.red
+                      : battle.todayStatus == "craved"
+                      ? AppColors.green
+                      : AppColors.primary,
+
+                  iconSrc: battle.todayStatus == "caved"
+                      ? AppIcons.cavedComplete
+                      : battle.todayStatus == "craved"
+                      ? AppIcons.battlePng
+                      : AppIcons.battle,
+
+                  isActive: widget.isActive,
                   progress: (battle.battleProgress ?? 0) / 100,
                   dayCount:
                       "Day ${battle.day ?? 0} of ${battle.battleLength ?? 0}",
@@ -186,9 +220,16 @@ class _BattleDetailsScreenState extends State<BattleDetailsScreen> {
                     final id = widget.battleId;
                     Get.to(() => BattleLogScreen(battleId: id));
                   },
-                  onBattleNowPressed: () {
+
+
+                  onBattleNowPressed: battle.todayStatus == "caved"
+                      ? (){}
+                      : battle.todayStatus == "craved"
+                      ? (){}
+                      : (){
                     _buildShowBattleDialog(widget.battleId);
-                  },
+                  }
+
                 ),
 
                 SizedBox(height: 30.h),

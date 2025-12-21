@@ -12,7 +12,7 @@ class AppStrings {
   static const String noDataFound = "No Data Found";
 
   static const String smokingDetox = 'Smoking Detox';
-  static const String savingMoney = 'Saving Money Battle';
+  static const String drugDetox = 'Saving Money Battle';
   static const String socialMediaDetox = 'Social Media Detox';
   static const String toxicRelationship = 'Toxic Relationship Battle';
   static const String shoppingDetox = 'Shopping Detox';
@@ -24,7 +24,7 @@ class AppStrings {
 
   static const List<String> addictionTypes = [
     smokingDetox,
-    savingMoney,
+    drugDetox,
     socialMediaDetox,
     toxicRelationship,
     shoppingDetox,

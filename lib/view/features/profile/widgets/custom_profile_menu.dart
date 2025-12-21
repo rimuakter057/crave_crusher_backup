@@ -2,6 +2,7 @@ import 'package:crave_crusher/utils/app_colors/app_colors.dart';
 import 'package:crave_crusher/view/components/custom_text/custom_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:gap/gap.dart';
 
 
 
@@ -21,36 +22,44 @@ class CustomProfileMenu extends StatelessWidget {
     return GestureDetector(
       onTap:onTap,
       child: Container(
+        padding: EdgeInsets.all(12.w),
         decoration: BoxDecoration(
           border: Border.all(color: Colors.grey.shade200), // Grey border
           borderRadius: BorderRadius.circular(8), // Rounded corners (optional)
         ),
-        child:ListTile(
 
-          horizontalTitleGap: 4.w,
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+          Row(
+            mainAxisAlignment: MainAxisAlignment.start,
+            children: [
+              IconTheme(
+                  data: IconThemeData(
+                    size: 24, // auto size for any icon
+                    color: iconColor ?? AppColors.primary, // auto color
+                  ),
+                  child: icon,
+                ),
 
+                    Gap(18.w),
 
-
-          iconColor: iconColor ?? AppColors.primary,
-
-          leading: IconTheme(
-            data: IconThemeData(
-              size: 24, // auto size for any icon
-              color: iconColor ?? AppColors.primary, // auto color
-            ),
-            child: icon,
+                    CustomText(
+                text: text,
+                color: textColor ?? AppColors.primary,
+              ),
+            ],
           ),
 
-          title: CustomText(
-            text: text,
-            color: textColor ?? AppColors.primary,
-          ),
 
-          trailing: Icon(
+      Icon(
             Icons.arrow_forward_ios,
             size: 20,
+        color: AppColors.primary,
           ),
-        ),
+
+        ],),
+
 
       ),
     );

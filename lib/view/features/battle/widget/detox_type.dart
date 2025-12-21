@@ -6,8 +6,8 @@ checkDetoxType(String addictionType){
 
   if(addictionType == AppStrings.junkFoodBattle ){
     return DetoxType.junkFood;
-  }else if(addictionType == AppStrings.savingMoney){
-    return DetoxType.savingMoney;
+  }else if(addictionType == AppStrings.drugDetox){
+    return DetoxType.drugDetox;
   }else if(addictionType == AppStrings.socialMediaDetox){
     return DetoxType.socialMedia;
   }else if(addictionType == AppStrings.toxicRelationship){

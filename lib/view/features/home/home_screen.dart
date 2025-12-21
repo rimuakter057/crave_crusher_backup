@@ -121,7 +121,9 @@ class _HomeScreenState extends State<HomeScreen> {
                             dayCount:"Day ${battle.day} of ${battle
                                 .battleLength}",
                             onBattlePressed: () {
-                              Get.to(BattleDetailsScreen(battleId: battle.id.toString()));
+                              Get.to(BattleDetailsScreen(
+                                  isActive: true,
+                                  battleId: battle.id.toString()));
                             },
                           ),
                           SizedBox(height: 4.h,),

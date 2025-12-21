@@ -49,6 +49,11 @@ class ApiUrl {
   static String getAllComment(String postId) {
     return "/community-comment/comment/$postId";
   }
+  static String getSingleUserProfile(String userId) {
+    return "/community-post/get-single-user-posts/$userId";
+  }
+
+
 
   ///profile section==================================================================
   static const String getMyProfile = "/user/get-my-profile";
@@ -97,4 +102,8 @@ class ApiUrl {
   static const String getNotification = "/notification/notifications";
   static String getNotifications({required int page, required int limit}) =>
       "/notification/get-notifications?page=$page&limit=$limit";
+
+  static String deleteNotifications({required String id}) =>
+      "/notification/delete-notification/$id";
+
 }

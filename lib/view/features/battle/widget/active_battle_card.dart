@@ -32,7 +32,7 @@ class ActiveBattleCard extends StatelessWidget {
         return AppIcons.smoke;
       case DetoxType.love:
         return AppIcons.toxicRelationship;
-      case DetoxType.savingMoney:
+      case DetoxType.drugDetox:
         return AppIcons.savingsMoney;
       case DetoxType.junkFood:
         return AppIcons.junkFood;
@@ -211,7 +211,7 @@ class ActiveBattleCard extends StatelessWidget {
   }
 }
 
-enum DetoxType { smoke, love, savingMoney, junkFood, shopping, socialMedia }
+enum DetoxType { smoke, love, drugDetox, junkFood, shopping, socialMedia }
 
 //
 

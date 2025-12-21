@@ -38,10 +38,10 @@ class _CommunityImageShowScreenState extends State<CommunityImageShowScreen> {
         ),
         actionIcon: AppIcons.download,
         onActionPressed: () {
-          if (widget.images.isNotEmpty) {
-            String imageUrl = "http://10.10.20.45:5555/${widget.images[_currentPage]}";
-            controller.downloadImage(imageUrl);
-          }
+          // if (widget.images.isNotEmpty) {
+          //   String imageUrl = "http://10.10.20.45:5555/${widget.images[_currentPage]}";
+          //   controller.downloadImage(imageUrl);
+          // }
         },
       ),
       body: widget.images.isEmpty

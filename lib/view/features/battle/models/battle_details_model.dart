@@ -47,8 +47,7 @@ class Battle {
   int? totalCrave;
   bool? isDeleted;
   String? createdAt;
-  String? updatedAt;
-  int? iV;
+  String? todayStatus;
 
   Battle({
     this.id,
@@ -64,8 +63,7 @@ class Battle {
     this.totalCrave,
     this.isDeleted,
     this.createdAt,
-    this.updatedAt,
-    this.iV,
+    this.todayStatus,
   });
 
   Battle.fromJson(Map<String, dynamic> json) {
@@ -82,8 +80,7 @@ class Battle {
     totalCrave = json['totalCrave'];
     isDeleted = json['isDeleted'];
     createdAt = json['createdAt'];
-    updatedAt = json['updatedAt'];
-    iV = json['__v'];
+    todayStatus=json['todayStatus'];
   }
 
   Map<String, dynamic> toJson() {
@@ -101,8 +98,7 @@ class Battle {
     data['totalCrave'] = totalCrave;
     data['isDeleted'] = isDeleted;
     data['createdAt'] = createdAt;
-    data['updatedAt'] = updatedAt;
-    data['__v'] = iV;
+    data['todayStatus']=todayStatus;
     return data;
   }
 }

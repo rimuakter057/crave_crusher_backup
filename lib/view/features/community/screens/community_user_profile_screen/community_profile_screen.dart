@@ -25,8 +25,9 @@ import 'package:get/get.dart';
 import '../community_image_show_screen/community_image_show_screen.dart';
 
 class CommunityProfileScreen extends StatefulWidget {
-   const CommunityProfileScreen({super.key});
+   const CommunityProfileScreen({super.key, required this.userId});
 
+   final String userId;
   @override
   State<CommunityProfileScreen> createState() => _CommunityProfileScreenState();
 }
@@ -40,7 +41,7 @@ class _CommunityProfileScreenState extends State<CommunityProfileScreen> {
     super.initState();
 
     WidgetsBinding.instance.addPostFrameCallback((_) {
-      postController.fetchMyPost();
+      postController.fetchSingleUserProfile(widget.userId);
     });
   }
 
@@ -129,9 +130,9 @@ class _CommunityProfileScreenState extends State<CommunityProfileScreen> {
 
 
               Obx(() {
-                if (postController.isLoadingPost.value) {
+                if (postController.isLoadingSingleUser.value) {
                   return const PostShimmerLoader();
-                } else if (postController.getMyPostList.isEmpty) {
+                } else if (postController.singleUserProfileList.isEmpty) {
                   return EmptyWidget(title: "Post is not available");
                 } else {
 
@@ -140,10 +141,10 @@ class _CommunityProfileScreenState extends State<CommunityProfileScreen> {
                     physics: const BouncingScrollPhysics(),
                     scrollDirection: Axis.vertical,
                     shrinkWrap: true,
-                    itemCount: postController.getMyPostList.length,
+                    itemCount: postController.singleUserProfileList.length,
                     itemBuilder: (context, index) {
 
-                      final myPost = postController.getMyPostList.reversed.toList()[index];
+                      final myPost = postController.singleUserProfileList.reversed.toList()[index];
                       final CommunityController communityController =
                       Get.find<CommunityController>();
                       final postId = myPost.id ?? '';

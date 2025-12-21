@@ -142,8 +142,11 @@ class CommunityAllFeedScreen extends StatelessWidget {
                                   profileImage:
                                       post.author?.profileImage ??
                                       AppConstants.unknown,
-                                  onTapProfile:
-                                      () => Get.to(() => ProfileScreen()),
+                                  onTapProfile:(){
+                                    Get.to(() => CommunityProfileScreen(
+                                      userId: post.author?.id ?? '',
+                                    ));
+                                  },
                                   onTapImageShow:
                                       () => Get.to(
                                         () => CommunityImageShowScreen(
@@ -271,8 +274,10 @@ class CommunityAllFeedScreen extends StatelessWidget {
                                       ),
                                     );
                                   },
-                                  onTapProfile: () {
-                                    Get.to(() => CommunityProfileScreen());
+                                  onTapProfile:(){
+                                    Get.to(() => CommunityProfileScreen(
+                                      userId: myPost.author?.id ?? '',
+                                    ));
                                   },
                                 );
                               }),

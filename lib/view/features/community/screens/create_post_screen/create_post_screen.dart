@@ -92,8 +92,18 @@ class CreatePostScreen extends StatelessWidget {
                   fontWeight: FontWeight.w500,
                 ),
                 Gap(8.h),
-                ///image add option
-              GestureDetector(
+               ///image add option
+
+
+
+
+
+
+
+
+
+
+                GestureDetector(
                 onTap: () => controller.pickImages(), // multiple image picker
                 child: controller.imagePaths.isNotEmpty
                     ? SizedBox(

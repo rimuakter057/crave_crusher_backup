@@ -6,10 +6,12 @@ import 'package:crave_crusher/utils/app_images/app_images.dart';
 import 'package:crave_crusher/view/components/common_empty/common_empty_widget.dart';
 import 'package:crave_crusher/view/components/custom_image/custom_image.dart';
 import 'package:crave_crusher/view/components/custom_leadin_title_appbar.dart';
+import 'package:crave_crusher/view/components/custom_loader/custom_loader.dart';
 import 'package:crave_crusher/view/components/custom_refresh_indicator/custom_refresh_indicator.dart';
 import 'package:crave_crusher/view/components/custom_text/custom_text.dart';
 import 'package:crave_crusher/view/features/home/controller/home_controller.dart';
 import 'package:crave_crusher/view/features/notification/widgets/notification_tile_widget.dart';
+import 'package:crave_crusher/view/features/rewards/widgets/custom_circular_indicator.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
@@ -57,25 +59,24 @@ class _NotificationScreenState extends State<NotificationScreen> {
 
 
     return Scaffold(
+      backgroundColor: AppColors.backgroundColor,
       appBar: CustomLeadingTitleAppbar(title: "Notification"),
-      body: Obx(() {
-        // Loading state
-        if (controller.isLoadingNotification.value) {
-          return Center(child: CircularProgressIndicator());
-        }
+      body: CustomRefreshIndicator(
+        onRefresh: ()async{
+          controller.currentPage.value = 1;
+          await controller.fetchNotificationList(isRefresh: true);
+        },
+        child: Obx(() {
+          // Loading state
+          if (controller.isLoadingNotification.value) {
+            return CustomLoader();
+          }
 
-        // Empty state
-        if (controller.notificationList.isEmpty) {
-          return Center(
-            child: EmptyWidget(title: "No notification yet")
-          );
-        }
-        return CustomRefreshIndicator(
-          onRefresh: () async {
-            controller.currentPage.value = 1;
-            await controller.fetchNotificationList(isRefresh: true);
-          },
-          child: ListView.separated(
+          // Empty state
+          if (controller.notificationList.isEmpty) {
+            return EmptyWidget(title: "No notification yet");
+          }
+          return ListView.separated(
             controller: scrollController,
             padding: EdgeInsets.symmetric(vertical: 12.h),
             itemCount: controller.notificationList.length + 1,
@@ -102,7 +103,9 @@ class _NotificationScreenState extends State<NotificationScreen> {
                       fit: BoxFit.cover,
                     ),
                   ),
-                  trailing:IconButton(onPressed: (){}, icon: Icon(
+                  trailing:IconButton(onPressed: (){
+                    controller.deleteNotification(notification.id!);
+                  }, icon: Icon(
                     Icons.close,
                     color: AppColors.primary,
                     size: 24,
@@ -127,9 +130,9 @@ class _NotificationScreenState extends State<NotificationScreen> {
                 });
               }
             },
-          ),
-        );
-      }),
+          );
+        }),
+      ),
     );
   }
 }

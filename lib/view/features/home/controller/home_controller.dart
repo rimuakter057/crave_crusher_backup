@@ -14,9 +14,13 @@ class HomeController extends GetxController {
 
   String get progressText => "${(progress.value * 100).toInt()}%";
 
-  ///notification==========================================
+  /// Notifications
   RxList<NotificationModel> notificationList = <NotificationModel>[].obs;
-  var isLoadingNotification = false.obs;
+
+  /// Loading states
+  var isLoadingNotification = false.obs;      // for fetch/pagination
+
+
   Rx<Status> notificationStatus = Status.loading.obs;
   var currentPage = 1.obs;
   var limit = 10.obs;
@@ -31,14 +35,13 @@ class HomeController extends GetxController {
   /// Fetch notification list
   Future<void> fetchNotificationList({bool isRefresh = false}) async {
     if (isRefresh) {
-      // Pull-to-refresh / initial load
       currentPage.value = 1;
       notificationList.clear();
-      isLoadingNotification.value = false; // circular loader handled in UI
     } else {
-      // Scroll bottom pagination
-      isLoadingNotification.value = true; // linear loader
+      // pagination
     }
+
+    isLoadingNotification.value = true;
 
     final response = await ApiClient.getData(
       ApiUrl.getNotifications(page: currentPage.value, limit: limit.value),
@@ -62,7 +65,7 @@ class HomeController extends GetxController {
       notificationStatus.value = Status.completed;
     } else {
       if (currentPage.value == 1) notificationList.clear();
-      notificationStatus(Status.error);
+      notificationStatus.value = Status.error;
       ApiChecker.checkApi(response);
     }
   }
@@ -72,6 +75,30 @@ class HomeController extends GetxController {
     if (currentPage.value < totalPage.value && !isLoadingNotification.value) {
       currentPage.value++;
       fetchNotificationList(); // default isRefresh = false
+    }
+  }
+
+
+
+
+  /// Delete notification by ID
+
+  var isDeletingNotification = false.obs;     // for delete
+
+  Future<void> deleteNotification(String id) async {
+    isDeletingNotification.value = true;
+
+    final response = await ApiClient.deleteData(
+      ApiUrl.deleteNotifications(id: id),
+    );
+
+    isDeletingNotification.value = false;
+
+    if (response.statusCode == 200 || response.statusCode == 201) {
+      notificationList.removeWhere((notification) => notification.id == id);
+      Get.snackbar("Success", "Notification deleted successfully");
+    } else {
+      Get.snackbar("Failed", "Failed to delete notification");
     }
   }
 }
