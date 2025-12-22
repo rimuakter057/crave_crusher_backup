@@ -173,7 +173,7 @@ controller.fetchSingleBattle(widget.battleId);
                       controller.battleDetails.value.monster?.monsterImage ??
                       '',
                   monsterStatusMessage:
-                      "Your Monster Is Losing Power — Keep It Up!",
+                  controller.battleDetails.value.monster?.monsterMessage ?? "Your Monster Is Losing Power — Keep It Up!",
                 ),
 
                 SizedBox(height: 24.h),

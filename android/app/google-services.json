@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "272702700588",
+    "project_id": "cravecrusher-a4be3",
+    "storage_bucket": "cravecrusher-a4be3.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:272702700588:android:0acb7616121b637156a589",
+        "android_client_info": {
+          "package_name": "com.app.cravecrusher"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA0VyJB8tWP1kszirP1zacAf0vBJ7PYsL8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
