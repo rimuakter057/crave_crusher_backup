@@ -147,12 +147,17 @@ class BattleLogs {
 
 class Monster {
   final String? monsterImage;
+  final String?monsterMessage;
 
-  Monster({this.monsterImage});
+  Monster({this.monsterImage,this.monsterMessage});
 
   factory Monster.fromJson(Map<String, dynamic> json) {
-    return Monster(monsterImage: json["monster_image"]);
+    return Monster(monsterImage: json["monster_image"],
+        monsterMessage: json['monster_message']
+    );
   }
 
-  Map<String, dynamic> toJson() => {"monster_image": monsterImage};
+  Map<String, dynamic> toJson() => {"monster_image": monsterImage,
+    "monster_message":monsterMessage
+  };
 }

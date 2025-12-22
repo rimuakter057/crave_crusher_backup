@@ -41,6 +41,7 @@ class _HomeScreenState extends State<HomeScreen> {
   }
   @override
   Widget build(BuildContext context) {
+    final profile = profileController.myProfile.value;
     return Scaffold(
       appBar: HomeAppbar(
 
@@ -56,7 +57,7 @@ class _HomeScreenState extends State<HomeScreen> {
             children: [
               // Tip and Monster Section
               TodayTips(),
-              MonsterSection(image:AppIcons.happyMonster),
+              MonsterSection(image: profile?.monster?.monsterImage??""),
 
               SizedBox(height: 24.h),
 
