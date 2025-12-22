@@ -13,6 +13,7 @@ class AppIcons {
   static const String send = "$basePath/send.svg";
   static const String addImage = "$basePath/add_image.svg";
   static const String battle = "$basePath/battle.svg";
+  static const String battleNow = "$basePath/battleNow.png";
   static const String community = "$basePath/community.svg";
   static const String profile = "$basePath/profile.svg";
   static const String reward = "$basePath/reward.svg";

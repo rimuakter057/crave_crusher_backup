@@ -218,12 +218,12 @@ enum DetoxType { smoke, love, drugDetox, junkFood, shopping, socialMedia }
 
 // DottedProgressBar widget
 class DottedProgressBar extends StatelessWidget {
-  final double progress; // 0.0 theke 1.0
+  final double progress;
   final double height;
   final double borderRadius;
   final Color baseColor;
   final Color progressColor;
-  final int dotCount; // Koyta dot thakbe
+  final int dotCount;
 
   const DottedProgressBar({
     super.key,

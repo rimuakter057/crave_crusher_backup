@@ -101,7 +101,7 @@ class _BattleScreenState extends State<BattleScreen> {
                                       ),
                                       title: battle.addictionType.toString(),
                                       percentText: "${battle.battleProgress}%",
-                                      progress: 0.58,
+                                      progress: (battle.battleProgress ?? 0) / 100,
                                       status:
                                           battle.todayStatus?.toString() ?? '',
                                       dayCount:
@@ -203,7 +203,7 @@ class _BattleScreenState extends State<BattleScreen> {
                                       ),
                                       title: battle.addictionType.toString(),
                                       percentText: "${battle.battleProgress}%",
-                                      progress: 0.58,
+                                      progress: (battle.battleProgress ?? 0) / 100,
                                       status: battle.battleStatus.toString(),
                                       dayCount:
                                           "Day ${battle.day} of ${battle.battleLength}",

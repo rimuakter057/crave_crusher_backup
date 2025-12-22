@@ -116,7 +116,7 @@ class _HomeScreenState extends State<HomeScreen> {
                             detoxType: checkDetoxType(battle.addictionType??''),
                             title: battle.addictionType.toString(),
                             percentText: "${battle.battleProgress}%",
-                            progress: 0.58,
+                            progress: (battle.battleProgress ?? 0) / 100,
                             status: battle.todayStatus.toString(),
                             dayCount:"Day ${battle.day} of ${battle
                                 .battleLength}",

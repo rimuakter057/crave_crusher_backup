@@ -94,7 +94,7 @@ class RewardsController extends GetxController {
     isLoadingClaim.value = false;
 
     if (response.statusCode == 200 || response.statusCode == 201) {
-      badgeStatus[badgeId] = true; // update local status
+      badgeStatus[badgeId] = true;
       getAchieveBadges();
       return true;
     } else if (response.statusCode != 404) {

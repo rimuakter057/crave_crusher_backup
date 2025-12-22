@@ -30,10 +30,11 @@ class _RewardsScreenState extends State<RewardsScreen> {
 
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
 
-    callMethode();
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      callMethode();
+    });
   }
 
   callMethode() {
@@ -104,7 +105,6 @@ class _RewardsScreenState extends State<RewardsScreen> {
                       // Left side: badge
                       Row(
                         children: [
-
                           Container(
                             padding: EdgeInsets.all(4.w),
                             height: 30.h,
@@ -112,25 +112,16 @@ class _RewardsScreenState extends State<RewardsScreen> {
                             alignment: Alignment.center,
                             decoration: BoxDecoration(
                               color: Colors.grey.shade100,
-                              border: Border.all(
-                                color: AppColors.red,
-                              ),
+                              border: Border.all(color: AppColors.red),
                               borderRadius: BorderRadius.circular(3),
                             ),
-                            child:  CustomNetworkImage(
+                            child: CustomNetworkImage(
                               imageUrl: badgeImageUrl,
                               height: 30.h,
                               width: 30.w,
                             ),
                           ),
 
-
-
-                          // CustomNetworkImage(
-                          //   imageUrl: badgeImageUrl,
-                          //   height: 30.h,
-                          //   width: 30.w,
-                          // ),
                           Gap(8.w),
                           CustomText(
                             text: badgeName,
@@ -179,7 +170,7 @@ class _RewardsScreenState extends State<RewardsScreen> {
                     ),
                   );
                 }
-
+                final isLoading = controller.isLoadingClaim.value;
                 return ListView.separated(
                   shrinkWrap: true,
                   physics: NeverScrollableScrollPhysics(),
@@ -229,64 +220,119 @@ class _RewardsScreenState extends State<RewardsScreen> {
                           ///claim button======================================
 
                           // Claim Button
-                          Obx(() {
-                            final isLoading = controller.isLoadingClaim.value;
-
-                            return GestureDetector(
-                              onTap:
-                                  claimed || isLoading
-                                      ? null
-                                      : () async {
-                                        bool success = await controller.claim(
-                                          itemDetails.id,
+                          GestureDetector(
+                            onTap:
+                                claimed || isLoading
+                                    ? null
+                                    : () async {
+                                      bool success = await controller.claim(
+                                        itemDetails.id,
+                                      );
+                                      if (!success) {
+                                        Get.snackbar(
+                                          "Error",
+                                          "Failed to claim badge",
                                         );
-                                        if (!success) {
-                                          Get.snackbar(
-                                            "Error",
-                                            "Failed to claim badge",
-                                          );
-                                        }
-                                      },
-                              child: Container(
-                                height: 28.h,
-                                width: 65.w,
-                                decoration: BoxDecoration(
-                                  color:
-                                      claimed ? Colors.grey : AppColors.primary,
-                                  borderRadius: BorderRadius.circular(4.r),
-                                ),
-                                alignment: Alignment.center,
-                                child:
-                                    isLoading
-                                        ? SizedBox(
-                                          width: 12.w,
-                                          height: 12.h,
-                                          child: CircularProgressIndicator(
-                                            color: AppColors.white,
-                                            strokeWidth: 2,
-                                          ),
-                                        )
-                                        : Row(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.spaceEvenly,
-                                          children: [
-                                            CustomImage(
-                                              imageSrc: AppIcons.claim,
-                                              imageColor: AppColors.white,
-                                              height: 12.h,
-                                              width: 12.w,
-                                            ),
-                                            CustomText(
-                                              text: "Claim",
-                                              fontSize: 10.sp,
-                                              fontWeight: FontWeight.w600,
-                                              color: AppColors.white,
-                                            ),
-                                          ],
-                                        ),
+                                      }
+                                    },
+                            child: Container(
+                              height: 28.h,
+                              width: 65.w,
+                              decoration: BoxDecoration(
+                                color:
+                                    claimed ? Colors.grey : AppColors.primary,
+                                borderRadius: BorderRadius.circular(4.r),
                               ),
-                            );
-                          }),
+                              alignment: Alignment.center,
+                              child:
+                                  isLoading
+                                      ? SizedBox(
+                                        width: 12.w,
+                                        height: 12.h,
+                                        child: CircularProgressIndicator(
+                                          color: AppColors.white,
+                                          strokeWidth: 2,
+                                        ),
+                                      )
+                                      : Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.spaceEvenly,
+                                        children: [
+                                          CustomImage(
+                                            imageSrc: AppIcons.claim,
+                                            imageColor: AppColors.white,
+                                            height: 12.h,
+                                            width: 12.w,
+                                          ),
+                                          CustomText(
+                                            text: "Claim",
+                                            fontSize: 10.sp,
+                                            fontWeight: FontWeight.w600,
+                                            color: AppColors.white,
+                                          ),
+                                        ],
+                                      ),
+                            ),
+                          ),
+
+                          // Obx(() {
+                          //   final isLoading = controller.isLoadingClaim.value;
+                          //
+                          //   return GestureDetector(
+                          //     onTap:
+                          //         claimed || isLoading
+                          //             ? null
+                          //             : () async {
+                          //               bool success = await controller.claim(
+                          //                 itemDetails.id,
+                          //               );
+                          //               if (!success) {
+                          //                 Get.snackbar(
+                          //                   "Error",
+                          //                   "Failed to claim badge",
+                          //                 );
+                          //               }
+                          //             },
+                          //     child: Container(
+                          //       height: 28.h,
+                          //       width: 65.w,
+                          //       decoration: BoxDecoration(
+                          //         color:
+                          //             claimed ? Colors.grey : AppColors.primary,
+                          //         borderRadius: BorderRadius.circular(4.r),
+                          //       ),
+                          //       alignment: Alignment.center,
+                          //       child:
+                          //           isLoading
+                          //               ? SizedBox(
+                          //                 width: 12.w,
+                          //                 height: 12.h,
+                          //                 child: CircularProgressIndicator(
+                          //                   color: AppColors.white,
+                          //                   strokeWidth: 2,
+                          //                 ),
+                          //               )
+                          //               : Row(
+                          //                 mainAxisAlignment:
+                          //                     MainAxisAlignment.spaceEvenly,
+                          //                 children: [
+                          //                   CustomImage(
+                          //                     imageSrc: AppIcons.claim,
+                          //                     imageColor: AppColors.white,
+                          //                     height: 12.h,
+                          //                     width: 12.w,
+                          //                   ),
+                          //                   CustomText(
+                          //                     text: "Claim",
+                          //                     fontSize: 10.sp,
+                          //                     fontWeight: FontWeight.w600,
+                          //                     color: AppColors.white,
+                          //                   ),
+                          //                 ],
+                          //               ),
+                          //     ),
+                          //   );
+                          // }),
                         ],
                       ),
                     );
@@ -395,12 +441,10 @@ class _RewardsScreenState extends State<RewardsScreen> {
                                   alignment: Alignment.center,
                                   decoration: BoxDecoration(
                                     color: Colors.grey.shade100,
-                                    border: Border.all(
-                                      color: AppColors.red,
-                                    ),
+                                    border: Border.all(color: AppColors.red),
                                     borderRadius: BorderRadius.circular(3),
                                   ),
-                                  child:  CustomNetworkImage(
+                                  child: CustomNetworkImage(
                                     imageUrl: ImageHandler.imagesHandle(
                                       allBadgeList.badgeImage,
                                     ),

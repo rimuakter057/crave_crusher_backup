@@ -16,7 +16,7 @@ class ProgressAndActionSection extends StatelessWidget {
   final String?buttonText;
   final Color? bgColor;
   final String?iconSrc;
-  final Color?boarderColor;
+  final Color boarderColor;
 final Color?textColor;
   const ProgressAndActionSection({
     super.key,
@@ -30,11 +30,10 @@ final Color?textColor;
     this.textColor,
  this.bgColor,
    this.iconSrc,
-    this.boarderColor
+   required this.boarderColor
 
   });
 
-  // Custom Button factory
   Widget _buildActionButton({
     required Color boarderColor,
     required String text,
@@ -54,7 +53,7 @@ final Color?textColor;
         decoration: BoxDecoration(
           color: bgColor,
           borderRadius: BorderRadius.circular(8.r),
-          //  border: isPrimary ? null : Border.all(color: AppColors.primary),
+          border: Border.all(color: boarderColor),
         ),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.center,
@@ -62,8 +61,6 @@ final Color?textColor;
             CustomImage(
               imageSrc: iconSrc,
               height: 18.h,
-              width: 18.w,
-              imageColor: isPrimary ? AppColors.white : AppColors.primary,
             ),
             SizedBox(width: 8.w),
             CustomText(
@@ -201,7 +198,7 @@ final Color?textColor;
 
           if(isActive)
           _buildActionButton(
-            boarderColor:boarderColor?? AppColors.primary,
+            boarderColor:boarderColor,
             text:buttonText?? "Battle Now",
             iconSrc:iconSrc?? AppIcons.battle,
             bgColor:bgColor?? AppColors.primary,

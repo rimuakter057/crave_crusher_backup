@@ -41,7 +41,6 @@ class BattleLogScreen extends StatelessWidget {
                       type: type,
                       dayNumber: log.day ?? 0,
                       statusText: log.status ?? '',
-                      // timestamp:   dateConverter.dateYearTime(log.createdAt ?? ''),
                       timestamp: DateConverter.dateYearTimeUtc(
                         log.createdAt ?? '',
                       ),

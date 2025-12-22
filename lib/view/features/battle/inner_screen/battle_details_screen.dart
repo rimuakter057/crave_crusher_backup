@@ -209,7 +209,7 @@ controller.fetchSingleBattle(widget.battleId);
                       ? AppIcons.cavedComplete
                       : battle.todayStatus == "craved"
                       ? AppIcons.battlePng
-                      : AppIcons.battle,
+                      : AppIcons.battleNow,
 
                   isActive: widget.isActive,
                   progress: (battle.battleProgress ?? 0) / 100,
