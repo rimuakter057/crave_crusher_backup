@@ -1,20 +1,31 @@
-// ignore: file_names
-// ignore_for_file: unused_local_variable, unnecessary_null_comparison
+
 
 import 'package:intl/intl.dart';
 
 class DateConverter {
+  /// Converts ISO date string to 'dd MMM yyyy hh:mm a' in UTC
+  static String dateYearTimeUtc(String? createdAt) {
+    if (createdAt == null || createdAt.isEmpty) return '';
+
+    try {
+      final DateTime dateTime = DateTime.parse(createdAt).toUtc();
+      return DateFormat('dd MMM yyyy hh:mm a').format(dateTime);
+      // Example: 27 Aug 2020 02:48 AM (UTC)
+    } catch (e) {
+      return '';
+    }
+  }
+
   static String estimatedDate(DateTime dateTime) {
     return DateFormat('dd MMM yyyy').format(dateTime);
   }
+
 
   static String formattedTime(DateTime dateTime) {
     return DateFormat('hh:mm a').format(dateTime);
   }
 
-  static String timeFormetString(String dateTimeStr) {
-    if (dateTimeStr == null) return "N/A";
-    // Parse the input string to a DateTime object
+  static String timeFormatString(String dateTimeStr) {
     DateTime dateTime = DateTime.parse(dateTimeStr);
 
     // Format the DateTime object
@@ -176,14 +187,12 @@ class DateConverter {
       birthDate.day,
     );
 
-    // Calculate the difference between the current date and the target date
+
     Duration remainingDuration = targetDate.difference(currentDate);
 
     if (remainingDuration.isNegative) {
       return ["0 years", "0 months", "0 weeks", "0 days", "0%"];
     }
-
-    int totalDaysRemaining = remainingDuration.inDays;
 
     // Calculate the total number of days lived so far
     Duration totalLivedDuration = currentDate.difference(birthDate);

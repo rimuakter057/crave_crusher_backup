@@ -1,11 +1,9 @@
 import 'dart:io';
 import 'package:crave_crusher/helper/imges_handler/image_handler.dart';
-import 'package:crave_crusher/utils/app_const/app_const.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:cached_network_image/cached_network_image.dart';
-import 'package:image_picker/image_picker.dart';
+
 import 'package:crave_crusher/utils/app_colors/app_colors.dart';
 
 class ProfileAvatarWidget extends StatelessWidget {
@@ -31,21 +29,16 @@ class ProfileAvatarWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // final double avatarHeight = heightA ?? 60.h;
-    // final double avatarWidth = widthA ?? 60.w;
-    //
-    // final double imageHeight = avatarHeight * 0.8;
-    // final double imageWidth = avatarWidth * 0.8;
+
 
     final double avatarHeight =  80.h;
     final double avatarWidth = 80.w;
 
-    final double imageHeight = 80.h;
-    final double imageWidth = 80.w;
+
 
     return SizedBox(
-      height: avatarHeight,
-      width: avatarWidth,
+      height:heightA?? avatarHeight,
+      width:widthA?? avatarWidth,
       child: Stack(
         clipBehavior: Clip.none,
         children: [
@@ -58,7 +51,7 @@ class ProfileAvatarWidget extends StatelessWidget {
               shape: BoxShape.circle,
               border: Border.all(
                 color: borderColor ?? AppColors.subPrimary,
-                width: 1,
+                width: 2,
               ),
               color: Colors.white,
             ),
@@ -66,14 +59,14 @@ class ProfileAvatarWidget extends StatelessWidget {
               child:  !isFile!
                   ? CachedNetworkImage(
                 imageUrl: ImageHandler.imagesHandle(imagePath),
-                width: imageWidth,
-                height: imageHeight,
+               width: avatarHeight,
+                height: avatarWidth,
                 fit: BoxFit.cover,
               )
                   : Image.file(
                 File(imagePath),
-                width: imageWidth,
-                height: imageHeight,
+                width: avatarHeight,
+                height: avatarWidth,
                 fit: BoxFit.cover,
               ),
             ),
@@ -89,8 +82,8 @@ class ProfileAvatarWidget extends StatelessWidget {
                 height: 24.h,
                 width: 24.w,
                 child: IconButton(
-                    padding: EdgeInsets.zero, // default padding কমাবে
-                    constraints: BoxConstraints(), // default constraints রিমুভ
+                    padding: EdgeInsets.zero,
+                    constraints: BoxConstraints(),
                     onPressed: onEdit,
                     style: IconButton.styleFrom(
                       shape: CircleBorder(),

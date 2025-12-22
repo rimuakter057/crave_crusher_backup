@@ -7,6 +7,7 @@ import 'package:crave_crusher/view/components/custom_text/custom_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
+
 class ActiveBattleCard extends StatelessWidget {
   final String title;
   final double progress;
@@ -25,13 +26,13 @@ class ActiveBattleCard extends StatelessWidget {
     this.onBattlePressed, required this.percentText,
   });
 
-  String getIcon() {
+  String getIcon( DetoxType detoxType) {
     switch (detoxType) {
       case DetoxType.smoke:
         return AppIcons.smoke;
       case DetoxType.love:
-        return AppIcons.toxicRelationshipe;
-      case DetoxType.savingMoney:
+        return AppIcons.toxicRelationship;
+      case DetoxType.drugDetox:
         return AppIcons.savingsMoney;
       case DetoxType.junkFood:
         return AppIcons.junkFood;
@@ -44,29 +45,18 @@ class ActiveBattleCard extends StatelessWidget {
 
   Color getStatusColor(String status) {
     switch (status.toLowerCase()) {
-      case 'canceled':
+      case 'cancel':
         return Colors.red;
-      case 'completed':
+      case 'complete':
         return Colors.blue;
-      case 'pending':
+      case 'active':
         return AppColors.primary;
       default:
-        return Colors.grey;
+        return AppColors.primary;
     }
   }
 
-  String getStatusText(String status) {
-    switch (status.toLowerCase()) {
-      case 'canceled':
-        return "Canceled";
-      case 'completed':
-        return "Completed";
-      case 'pending':
-        return "Pending";
-      default:
-        return "Unknown";
-    }
-  }
+
 
   @override
   Widget build(BuildContext context) {
@@ -106,7 +96,7 @@ class ActiveBattleCard extends StatelessWidget {
                       borderRadius: BorderRadius.circular(3),
                     ),
                     child: CustomImage(
-                      imageSrc: getIcon(),
+                      imageSrc: getIcon( detoxType),
                       height: 22.h,
                       width: 22.w,
                     ),
@@ -139,7 +129,7 @@ class ActiveBattleCard extends StatelessWidget {
                   border: Border.all(color: getStatusColor(status)),
                 ),
                 child: CustomText(
-                  text: "* ${getStatusText(status)}",
+                  text: "*${status}",
                   fontSize: 12.w,
                   fontWeight: FontWeight.w500,
                   color: getStatusColor(status),
@@ -221,16 +211,19 @@ class ActiveBattleCard extends StatelessWidget {
   }
 }
 
-enum DetoxType { smoke, love, savingMoney, junkFood, shopping, socialMedia }
+enum DetoxType { smoke, love, drugDetox, junkFood, shopping, socialMedia }
+
+//
+
 
 // DottedProgressBar widget
 class DottedProgressBar extends StatelessWidget {
-  final double progress; // 0.0 theke 1.0
+  final double progress;
   final double height;
   final double borderRadius;
   final Color baseColor;
   final Color progressColor;
-  final int dotCount; // Koyta dot thakbe
+  final int dotCount;
 
   const DottedProgressBar({
     super.key,

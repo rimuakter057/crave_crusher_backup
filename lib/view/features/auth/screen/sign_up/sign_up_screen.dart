@@ -2,10 +2,9 @@ import 'package:crave_crusher/view/components/custom_button/custom_button.dart';
 import 'package:crave_crusher/view/components/custom_text/custom_text.dart';
 import 'package:crave_crusher/view/components/input_field_with_title/input_field_with_title.dart';
 import 'package:crave_crusher/view/components/input_password_field_widget/input_password_field_widget.dart';
-import 'package:crave_crusher/view/components/show_snakbar/show_snakbar.dart';
+import 'package:crave_crusher/view/components/show_snack_bar/show_snack_bar.dart';
 import 'package:crave_crusher/view/features/auth/controllers/sign_up_controller.dart';
 import 'package:crave_crusher/view/features/auth/models/signup_model.dart';
-
 import 'package:crave_crusher/view/features/auth/screen/login/login_screen.dart';
 import 'package:crave_crusher/view/features/auth/screen/verify_account/verify_account_screen.dart';
 import 'package:crave_crusher/view/features/auth/screen/widgets/action_promote_widget.dart';
@@ -23,20 +22,18 @@ class SignUpScreen extends StatefulWidget {
 }
 
 class _SignUpScreenState extends State<SignUpScreen> {
-  final bool _rememberMe = false;
+  bool _termsAgree = false;
 
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   final TextEditingController _fullNameController = TextEditingController();
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
-  final TextEditingController _confirmedPasswordController = TextEditingController();
+  final TextEditingController _confirmedPasswordController =
+      TextEditingController();
 
   final SignUpController signUpController = Get.find<SignUpController>();
 
   /// ======================= Sign Up Method =========================
-
-
-
 
   /// ================================================================
 
@@ -63,7 +60,8 @@ class _SignUpScreenState extends State<SignUpScreen> {
                   CustomText(
                     maxLines: 2,
                     textAlign: TextAlign.start,
-                    text: "Start your battle and defeat your Addiction Monster.",
+                    text:
+                        "Start your battle and defeat your Addiction Monster.",
                     fontSize: 14.sp,
                     fontWeight: FontWeight.w400,
                     color: Color(0xFF555555),
@@ -114,23 +112,28 @@ class _SignUpScreenState extends State<SignUpScreen> {
                   Gap(16.h),
 
                   /// Remember & Terms
-                  Row(
-                    children: [
-                      Checkbox(
-                        value: _rememberMe,
-                        onChanged: (value) {},
-                      ),
-                      Expanded(
-                        child: const CustomText(
-                          textAlign: TextAlign.start,
-                          maxLines: 2,
-                          text: "I agree to the Terms & Conditions and Privacy Policy",
-                          fontWeight: FontWeight.w400,
-                          fontSize: 12,
-                          color: Color(0xFF555555),
-                        ),
-                      ),
-                    ],
+                  GetBuilder<SignUpController>(
+                    builder: (controller) {
+                      return Row(
+                        children: [
+                          Checkbox(
+                            value: controller.termsAgree,
+                            onChanged: (value) {
+                              controller.toggleTerms(value ?? false);
+                            },
+                          ),
+                          const Expanded(
+                            child: CustomText(
+                              maxLines: 2,
+                              text:
+                                  "I agree to the Terms & Conditions and Privacy Policy",
+                              fontSize: 12,
+                              color: Color(0xFF555555),
+                            ),
+                          ),
+                        ],
+                      );
+                    },
                   ),
 
                   OrDivider(),
@@ -139,10 +142,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                     prefixText: 'Already have an account?',
                     actionText: 'Log In',
                     onActionTapped: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(builder: (context) => LoginScreen()),
-                      );
+                      Get.to(() => LoginScreen());
                     },
                   ),
                   Gap(24.h),
@@ -169,24 +169,50 @@ class _SignUpScreenState extends State<SignUpScreen> {
     );
   }
 
+  Future<void> _signUp() async {
+    // 🔹 Terms check
+    if (!signUpController.termsAgree) {
+      showSnackBarMessage(
+        context,
+        "Please accept the Terms & Conditions to continue.",
+        true,
+      );
+      return;
+    }
 
 
-
- Future <void> _signUp() async{
     if (_formKey.currentState!.validate()) {
-      SignUpModel userModel =SignUpModel(fullName: _fullNameController.text.trim(), email: _emailController.text.trim(),
-          password: _passwordController.text);
-      final bool isSuccess= await signUpController.signUp(userModel);
+      if (_passwordController.text != _confirmedPasswordController.text) {
+        showSnackBarMessage(
+          context,
+          "Password and Confirm Password do not match.",
+          true,
+        );
+        return;
+      }
 
-      if(isSuccess){
-        Get.to(VerifyAccountScreen(email: _emailController.text,));
-      }else{
-        showSnackBarMessage(context, signUpController.errorMessage!, true);
+      // 🔹 Create user model
+      SignUpModel userModel = SignUpModel(
+        fullName: _fullNameController.text.trim(),
+        email: _emailController.text.trim(),
+        password: _passwordController.text,
+      );
+
+      // 🔹 Call signUp
+      final bool isSuccess = await signUpController.signUp(
+        userModel,
+        _confirmedPasswordController.text, // pass confirm password
+      );
+
+      if (isSuccess) {
+        Get.to(() => VerifyAccountScreen(email: _emailController.text));
+      } else {
+        showSnackBarMessage(
+          context,
+          signUpController.errorMessage ?? "Something went wrong.",
+          true,
+        );
       }
     }
   }
-
-
-
-
 }

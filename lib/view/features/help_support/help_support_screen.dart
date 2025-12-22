@@ -2,11 +2,12 @@
 import 'package:crave_crusher/utils/app_colors/app_colors.dart';
 import 'package:crave_crusher/utils/app_const/app_const.dart';
 import 'package:crave_crusher/utils/app_icons/app_icons.dart';
+import 'package:crave_crusher/view/components/common_empty/common_empty_widget.dart';
 import 'package:crave_crusher/view/components/custom_container/custom_container.dart';
 import 'package:crave_crusher/view/components/custom_image/custom_image.dart';
 import 'package:crave_crusher/view/components/custom_leadin_title_appbar.dart';
 import 'package:crave_crusher/view/components/custom_text/custom_text.dart';
-import 'package:crave_crusher/view/features/account_setting/controllers/acount_setting_controller.dart';
+import 'package:crave_crusher/view/features/account_setting/controllers/account_setting_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:gap/gap.dart';
@@ -37,7 +38,7 @@ class HelpSupportScreen extends StatelessWidget {
           final helpData = helpController.helpList;
 
           if (helpData.isEmpty) {
-            return Center(child: Text("No FAQs available"));
+            return EmptyWidget(title: "There are currently no FAQs to display");
           }
 
           return Column(
@@ -47,44 +48,60 @@ class HelpSupportScreen extends StatelessWidget {
               ...helpData.map((faq) => Column(
                 children: [
                   CustomContainer(
-                    backgroundColor: Color(0xFFEEF2FF),
+                    backgroundColor: const Color(0xFFEEF2FF),
+                    padding: 12,
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
+                        /// Question + Icon Row
                         Row(
                           children: [
                             Expanded(
                               child: CustomText(
+                                textAlign: TextAlign.start,
                                 text: faq.question ?? "",
                                 fontSize: 14,
                                 fontWeight: FontWeight.w500,
                               ),
                             ),
-                            Icon(
-                              Icons.keyboard_arrow_down_outlined,
-                              color: AppColors.primary,
-                              size: 28,
-                            )
+                            GestureDetector(
+                              onTap: () {
+                                faq.isExpanded = !faq.isExpanded;
+                                helpController.helpList.refresh();
+                              },
+                              child: Icon(
+                                faq.isExpanded
+                                    ? Icons.keyboard_arrow_down_outlined
+                                    : Icons.keyboard_arrow_right,
+                                color: AppColors.primary,
+                                size: 28,
+                              ),
+                            ),
                           ],
                         ),
-                        Divider(
-                          color: Colors.grey,
-                          thickness: 1.2,
-                        ),
-                        CustomText(
-                          text: faq.answer ?? "",
-                          fontWeight: FontWeight.w400,
-                          fontSize: 14,
-                          color: Color(0xFFA1A1AA),
-                          maxLines: 8,
-                          textAlign: TextAlign.start,
-                        ),
+
+                        /// Answer (only when expanded)
+                        if (faq.isExpanded) ...[
+                          const Divider(
+                            color: Colors.grey,
+                            thickness: 1.2,
+                          ),
+                          CustomText(
+                            text: faq.answer ?? "",
+                            fontWeight: FontWeight.w400,
+                            fontSize: 14,
+                            color: const Color(0xFFA1A1AA),
+                            maxLines: 10,
+                            textAlign: TextAlign.start,
+                          ),
+                        ],
                       ],
                     ),
                   ),
                   Gap(12.h),
                 ],
               )),
+
 
               /// Need More Help section (UI same as before)
               CustomText(

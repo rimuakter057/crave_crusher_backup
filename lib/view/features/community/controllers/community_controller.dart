@@ -1,17 +1,23 @@
+
 import 'package:crave_crusher/service/api_check.dart';
 import 'package:crave_crusher/service/api_client.dart';
 import 'package:crave_crusher/service/api_url.dart';
 import 'package:crave_crusher/utils/app_const/app_const.dart';
 import 'package:crave_crusher/view/features/community/controllers/post_controller.dart';
-import 'package:crave_crusher/view/features/community/models/vote_model.dart';
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:http/http.dart' as http;
+
+import 'package:permission_handler/permission_handler.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:logger/logger.dart';
 
 import '../models/comment_model.dart';
 
 class CommunityController extends GetxController {
+  RxInt communityTabIndex = 0.obs;
+
   final PostController postController = Get.find<PostController>();
 
   ///create comment section=============================================Post Method============================================
@@ -45,7 +51,7 @@ class CommunityController extends GetxController {
     return true;
   }
 
-  /// Create a comment and update list instantly=======================================================================
+  /// Create a comment =====================================================================
 
   Future<bool> createComment(String postId, {required bool allFeed}) async {
     if (!validateComment()) return false;
@@ -65,13 +71,7 @@ class CommunityController extends GetxController {
       isLoadingSend.value = false;
       if (response.statusCode == 200 || response.statusCode == 201) {
         isLoadingSend.value = true;
-        CommentModel model = CommentModel(
-          id: "",
-          commentText: commentText.value,
-          authorId: userID.value,
-          createdAt: DateTime.now(),
-        );
-        commentList.insert(0, model);
+
         commentText.value = '';
 
         if (allFeed) {
@@ -79,6 +79,8 @@ class CommunityController extends GetxController {
         } else {
           postController.fetchMyPost();
         }
+        await fetchCommentList(postId, callFormCreateComment:  true);
+
         return true;
       } else {
         Get.snackbar(
@@ -100,11 +102,14 @@ class CommunityController extends GetxController {
   var isLoadingComment = false.obs;
   RxList<CommentModel> commentList = <CommentModel>[].obs;
 
-  Future<void> fetchCommentList(String postId) async {
-    isLoadingComment.value = true;
-    debugPrint(
-      'Fetching comments for post:=============================== $postId',
-    );
+  Future<void> fetchCommentList(String postId, {bool callFormCreateComment = false}) async {
+
+     if(callFormCreateComment){
+       isLoadingComment.value = false;
+     }else{
+       isLoadingComment.value = true;
+     }
+
     final response = await ApiClient.getData(ApiUrl.getAllComment(postId));
     isLoadingComment.value = false;
     if (response.statusCode == 200 || response.statusCode == 201) {
@@ -120,31 +125,16 @@ class CommunityController extends GetxController {
     }
   }
 
-  ///add vote =====================================================Post Method================================
+  /// Add or remove vote==============================================post method==========================================
 
-  // Votes============================================
-
-  RxList<VoteModel> voteList = <VoteModel>[].obs;
-  RxInt totalVotes = 0.obs; // total votes
-
-  Future<void> fetchVotesForPost(String postId) async {
-    final response = await ApiClient.getData(ApiUrl.getAllVote(postId));
-
-    if (response.statusCode == 200 || response.statusCode == 201) {
-      final data = response.body['data'] as List;
-      voteList.value = data.map((e) => VoteModel.fromJson(e)).toList();
-
-      totalVotes.value = voteList.length; // total vote count
-    } else {
-      ApiChecker.checkApi(response);
-    }
-  }
-
-  RxMap<String, int> votesNumberPerPost = <String, int>{}.obs;
   RxList<String> userVotedPosts = <String>[].obs;
 
-  // Add or remove vote
-  Future<bool> addVote(String postId) async {
+  Future<bool> addVote({
+    required String postId,
+    required int index,
+    required bool isMyPost,
+    required bool hasVoted,
+  }) async {
     if (userID.value.isEmpty) return false;
     final body = {'userId': userID.value};
     final response = await ApiClient.postData(
@@ -154,17 +144,102 @@ class CommunityController extends GetxController {
     );
     if (response.statusCode == 200 || response.statusCode == 201) {
       // Toggle UI logic
-      if (userVotedPosts.contains(postId)) {
-        userVotedPosts.remove(postId);
-        votesNumberPerPost[postId] = (votesNumberPerPost[postId] ?? 1) - 1;
-      } else {
-        userVotedPosts.add(postId);
-        votesNumberPerPost[postId] = (votesNumberPerPost[postId] ?? 0) + 1;
+
+      debugPrint("===========================>>>  hasVoted: $hasVoted");
+      debugPrint("===========================>>>  index: $index");
+      debugPrint("===========================>>>  isMyPost: $isMyPost");
+
+    if(isMyPost){
+      if(hasVoted) {
+        postController.getMyPostList.reversed.toList()[index].totalVotes =
+            postController.getMyPostList.reversed.toList()[index].totalVotes - 1;
+        postController.getMyPostList.reversed.toList()[index].hasVoted.value = false;
+      }else{
+        postController.getMyPostList.reversed.toList()[index].totalVotes =
+            postController.getMyPostList.reversed.toList()[index].totalVotes + 1;
+        postController.getMyPostList.reversed.toList()[index].hasVoted.value = true;
+
       }
+
+    }else{
+      if(hasVoted) {
+        postController.allPostList.reversed.toList()[index].totalVotes =
+            postController.allPostList.reversed.toList()[index].totalVotes - 1;
+        postController.allPostList.reversed.toList()[index].hasVoted.value = false;
+      }else{
+        postController.allPostList.reversed.toList()[index].totalVotes =
+            postController.allPostList.reversed.toList()[index
+            ].totalVotes + 1;
+        postController.allPostList.reversed.toList()[index].hasVoted.value = true;
+
+      }}
+
       return true;
     } else {
       ApiChecker.checkApi(response);
       return false;
     }
   }
-}
+
+
+
+
+
+
+
+
+/// download images============================
+//   var isDownloading = false.obs;
+//
+//   Future<void> downloadImage(String imageUrl) async {
+//     try {
+//       // Request storage/photos permission
+//       var status = await Permission.storage.request();
+//       if (!status.isGranted) {
+//         Get.snackbar("Permission Denied", "Storage permission is required");
+//         return;
+//       }
+//
+//       isDownloading.value = true;
+//
+//       // Download image bytes
+//       var response = await http.get(Uri.parse(imageUrl));
+//       if (response.statusCode == 200) {
+//         // Use ImageDownloader package
+//         try {
+//           var imageId = await ImageDownloader.downloadImage(
+//             imageUrl,
+//             destination: AndroidDestinationType.directoryPictures
+//               ..subDirectory("image_${DateTime.now().millisecondsSinceEpoch}.png"),
+//           );
+//
+//           if (imageId != null) {
+//             Get.snackbar("Success", "Image saved to gallery");
+//           } else {
+//             Get.snackbar("Failed", "Failed to save image");
+//           }
+//         } catch (e) {
+//           Get.snackbar("Error", "Failed to save image: $e");
+//         }
+//       } else {
+//         Get.snackbar(
+//             "Failed", "Failed to download image: ${response.statusCode}");
+//       }
+//     } catch (e) {
+//       Get.snackbar("Error", e.toString());
+//       debugPrint("error ================================= ${e.toString()}");
+//     } finally {
+//       isDownloading.value = false;
+//     }
+//   }
+  }
+
+
+
+
+
+
+
+
+
+

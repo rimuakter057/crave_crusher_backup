@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'package:crave_crusher/view/features/auth/controllers/auth_controller.dart';
 import 'package:get/get.dart' as getx;
+
 import 'package:http/http.dart';
 import 'package:logger/logger.dart';
 
@@ -136,6 +137,8 @@ class NetworkCaller {
         await _handleUnauthorized();
       }
 
+
+
       return NetworkResponse(
         isSuccess: false,
         statusCode: response.statusCode,
@@ -149,6 +152,16 @@ class NetworkCaller {
       );
     }
   }
+
+
+
+
+
+
+
+
+
+
 
   /// ---------------- Handle Unauthorized ----------------
   Future<void> _handleUnauthorized() async {

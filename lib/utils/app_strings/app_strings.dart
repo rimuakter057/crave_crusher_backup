@@ -10,4 +10,41 @@ class AppStrings {
   static const String enterThe8Character = "Please Enter The 8 character";
   static const String passwordNotMatch = "Passwords do not match";
   static const String noDataFound = "No Data Found";
+
+  static const String smokingDetox = 'Smoking Detox';
+  static const String drugDetox = 'Saving Money Battle';
+  static const String socialMediaDetox = 'Social Media Detox';
+  static const String toxicRelationship = 'Toxic Relationship Battle';
+  static const String shoppingDetox = 'Shopping Detox';
+  static const String junkFoodBattle = 'Junk Food Battle';
+
+  static const String caved="Caved";
+  static const String craved="Craved";
+  static const String missed="Missed";
+
+  static const List<String> addictionTypes = [
+    smokingDetox,
+    drugDetox,
+    socialMediaDetox,
+    toxicRelationship,
+    shoppingDetox,
+    junkFoodBattle,
+  ];
+
+
+  // Addiction Levels
+  static const String veryLow = 'Very Low';
+  static const String low = 'Low';
+  static const String medium = 'Medium';
+  static const String high = 'High';
+  static const String veryHigh = 'Very High';
+
+  static const List<String> addictionLevels = [
+    veryLow,
+    low,
+    medium,
+    high,
+    veryHigh,
+  ];
+
 }

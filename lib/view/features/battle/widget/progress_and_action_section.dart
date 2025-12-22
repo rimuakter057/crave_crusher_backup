@@ -12,7 +12,12 @@ class ProgressAndActionSection extends StatelessWidget {
   final String title;
   final VoidCallback onBattleLogPressed;
   final VoidCallback onBattleNowPressed;
-
+  final bool isActive;
+  final String?buttonText;
+  final Color? bgColor;
+  final String?iconSrc;
+  final Color boarderColor;
+final Color?textColor;
   const ProgressAndActionSection({
     super.key,
     required this.progress,
@@ -20,10 +25,17 @@ class ProgressAndActionSection extends StatelessWidget {
     required this.title,
     required this.onBattleLogPressed,
     required this.onBattleNowPressed,
+    required this.isActive,
+     this.buttonText,
+    this.textColor,
+ this.bgColor,
+   this.iconSrc,
+   required this.boarderColor
+
   });
 
-  // Custom Button factory
   Widget _buildActionButton({
+    required Color boarderColor,
     required String text,
     required String iconSrc,
     required Color bgColor,
@@ -31,6 +43,7 @@ class ProgressAndActionSection extends StatelessWidget {
     required VoidCallback onTap,
     bool isPrimary = false,
   }) {
+
     return GestureDetector(
       onTap: onTap,
       child: Container(
@@ -40,7 +53,7 @@ class ProgressAndActionSection extends StatelessWidget {
         decoration: BoxDecoration(
           color: bgColor,
           borderRadius: BorderRadius.circular(8.r),
-          //  border: isPrimary ? null : Border.all(color: AppColors.primary),
+          border: Border.all(color: boarderColor),
         ),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.center,
@@ -48,8 +61,6 @@ class ProgressAndActionSection extends StatelessWidget {
             CustomImage(
               imageSrc: iconSrc,
               height: 18.h,
-              width: 18.w,
-              imageColor: isPrimary ? AppColors.white : AppColors.primary,
             ),
             SizedBox(width: 8.w),
             CustomText(
@@ -68,6 +79,7 @@ class ProgressAndActionSection extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final width= MediaQuery.sizeOf(context).width;
     return Container(
       padding: EdgeInsets.all(16.w),
       decoration: BoxDecoration(
@@ -108,13 +120,19 @@ class ProgressAndActionSection extends StatelessWidget {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      CustomText(
-                        text: "${(progress * 100).toInt()}% to complete",
-                        fontSize: 16.sp,
-                        fontWeight: FontWeight.w600,
-                        color: AppColors.black,
-                        bottom: 0,
-                        top: 0,
+                      SizedBox(
+                        width:width>440? 200.w:170.w,
+                        child: CustomText(
+                          text: "${(progress * 100).toInt()}% to complete",
+
+                          maxLines: 1,
+                          overflow: TextOverflow.ellipsis,
+                          fontSize: 14.sp,
+                          fontWeight: FontWeight.w600,
+                          color: AppColors.black,
+                          bottom: 0,
+                          top: 0,
+                        ),
                       ),
                       Row(
                         children: [
@@ -123,14 +141,19 @@ class ProgressAndActionSection extends StatelessWidget {
                             size: 14.w,
                             color: AppColors.softWhite,
                           ),
-                          SizedBox(width: 4.w),
-                          CustomText(
-                            text: dayCount, // e.g., Day 12 of 30
-                            fontSize: 14.sp,
-                            fontWeight: FontWeight.w400,
-                            color: AppColors.softWhite,
-                            bottom: 0,
-                            top: 0,
+                          SizedBox(width: 2.w),
+                          SizedBox(
+                            width:width>440? 100.w:90.w,
+                            child: CustomText(
+                              overflow: TextOverflow.ellipsis,
+                              maxLines: 1,
+                              text: dayCount, // e.g., Day 12 of 30
+                              fontSize: 12.sp,
+                              fontWeight: FontWeight.w400,
+                              color: AppColors.softWhite,
+                              bottom: 0,
+                              top: 0,
+                            ),
                           ),
                         ],
                       ),
@@ -153,6 +176,7 @@ class ProgressAndActionSection extends StatelessWidget {
                     children: [
                       // Battle Log Button
                       _buildActionButton(
+                        boarderColor:AppColors.subPrimary,
                         text: "Battle Log",
                         iconSrc: AppIcons.calender,
                         bgColor: AppColors.subPrimary,
@@ -171,11 +195,14 @@ class ProgressAndActionSection extends StatelessWidget {
           ),
 
           SizedBox(height: 20.h),
+
+          if(isActive)
           _buildActionButton(
-            text: "Battle Now",
-            iconSrc: AppIcons.battle,
-            bgColor: AppColors.primary,
-            textColor: AppColors.white,
+            boarderColor:boarderColor,
+            text:buttonText?? "Battle Now",
+            iconSrc:iconSrc?? AppIcons.battle,
+            bgColor:bgColor?? AppColors.primary,
+            textColor:textColor?? AppColors.white,
             onTap: onBattleNowPressed,
             isPrimary: true,
           ),

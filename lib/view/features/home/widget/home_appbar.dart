@@ -3,13 +3,15 @@ import 'package:crave_crusher/utils/app_icons/app_icons.dart';
 import 'package:crave_crusher/view/components/custom_image/custom_image.dart';
 import 'package:crave_crusher/view/components/custom_text/custom_text.dart';
 import 'package:crave_crusher/view/features/notification/notification_screen.dart';
+import 'package:crave_crusher/view/features/profile/controllers/profile_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:get/get.dart';
 
 class HomeAppbar extends StatelessWidget implements PreferredSizeWidget {
-  const HomeAppbar({super.key, this.title, this.onNotificationTab});
+  HomeAppbar({super.key, this.onNotificationTab});
+  final ProfileController profileController = Get.find<ProfileController>();
 
-  final String? title;
   final VoidCallback? onNotificationTab;
 
   @override
@@ -28,12 +30,25 @@ class HomeAppbar extends StatelessWidget implements PreferredSizeWidget {
           Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              CustomText(
-                text: "Hello ${title ?? "Sheena"}",
-                fontWeight: FontWeight.w600,
-                fontSize: 18.w,
-                color: AppColors.black_02,
-              ),
+
+              Obx(() {
+                final profile = profileController.myProfile.value;
+
+                return SizedBox(
+                  width: 200.w,
+                  child: CustomText(
+                    textAlign: TextAlign.start,
+                    maxLines: 1,
+                    overflow: TextOverflow.ellipsis,
+                    text: "Hello ${profile?.fullName ?? "Empty Name"}",
+                    fontWeight: FontWeight.w600,
+                    fontSize: 18.w,
+                    color: AppColors.black_02,
+                  ),
+                );
+
+              }),
+
               CustomText(
                 text: "Welcome to Crave Crusher",
                 fontWeight: FontWeight.w400,

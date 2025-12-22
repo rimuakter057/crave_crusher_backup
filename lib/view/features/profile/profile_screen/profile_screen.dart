@@ -1,8 +1,9 @@
 import 'package:crave_crusher/core/routes/app_routes.dart';
+import 'package:crave_crusher/helper/imges_handler/image_handler.dart';
 import 'package:crave_crusher/utils/app_colors/app_colors.dart';
 import 'package:crave_crusher/utils/app_const/app_const.dart';
 import 'package:crave_crusher/utils/app_images/app_images.dart';
-import 'package:crave_crusher/view/components/common_profile/avater_widget.dart';
+import 'package:crave_crusher/view/components/common_profile/avatar_widget.dart';
 import 'package:crave_crusher/view/components/custom_nav_bar/navbar.dart';
 import 'package:crave_crusher/view/components/custom_text/custom_text.dart';
 import 'package:crave_crusher/view/features/account_setting/account_setting_screen.dart';
@@ -18,9 +19,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:gap/gap.dart';
 import 'package:get/get.dart';
-class ProfileScreen extends StatelessWidget {
-  const ProfileScreen({super.key});
 
+import '../controllers/profile_controller.dart';
+class ProfileScreen extends StatelessWidget {
+   ProfileScreen({super.key});
+  final ProfileController profileController = Get.find<ProfileController>();
   @override
   Widget build(BuildContext context) {
     final stackHeight = 180.h; // height of the top stack
@@ -30,7 +33,7 @@ class ProfileScreen extends StatelessWidget {
       body: SingleChildScrollView(
         child: Column(
           children: [
-            // Top Stack
+          // Top Stack
             SizedBox(
               height: stackHeight,
               child: Stack(
@@ -79,22 +82,40 @@ class ProfileScreen extends StatelessWidget {
                     ),
                   ),
 
-                  // Profile image overlapping bottom
+                  // Profile image (SAFE)
                   Positioned(
-                    bottom: -50, // overlaps below stack
-                    child: ProfileAvatarWidget(
-                      imagePath: AppConstants.unknown,
-                      heightA: 100.h,
-                      widthA: 100.w,
-                    ),
+                    bottom: -50,
+                    child: Obx(() {
+                      final profile = profileController.myProfile.value;
+
+                      return ProfileAvatarWidget(
+                        imagePath: ImageHandler.imagesHandle(
+                          profile?.profileImage,
+                          isProfile: true,
+                        ),
+
+                      );
+                    }),
                   ),
                 ],
               ),
             ),
 
-          Gap(62.h),
+            Gap(62.h),
 
-            CustomText(text: "Sheena DuBois",fontWeight: FontWeight.w600,fontSize: 18.sp,),
+            /// Profile Name (SAFE)
+            Obx(() {
+              final profile = profileController.myProfile.value;
+
+              return CustomText(
+                text: profile?.fullName ?? "Empty Name",
+                fontWeight: FontWeight.w600,
+                fontSize: 18.sp,
+              );
+            }),
+
+
+
             Gap(24.h),
 
 
@@ -163,7 +184,7 @@ class ProfileScreen extends StatelessWidget {
                   CustomProfileMenu(text: 'Log Out', icon: Icon(Icons.logout_outlined),
                       onTap: () async {
                         await Get.find<AuthController>().clearUserData();
-                        Get.offAllNamed(AppRoutes.onBoardingOneScreen);
+                        Get.offAllNamed(AppRoutes.loginScreen);
                       }
 
                   ),

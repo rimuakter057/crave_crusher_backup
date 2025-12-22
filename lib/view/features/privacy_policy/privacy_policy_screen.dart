@@ -1,5 +1,5 @@
 import 'package:crave_crusher/view/components/custom_leadin_title_appbar.dart';
-import 'package:crave_crusher/view/features/account_setting/controllers/acount_setting_controller.dart';
+import 'package:crave_crusher/view/features/account_setting/controllers/account_setting_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -28,7 +28,7 @@ class PrivacyPolicyScreen extends StatelessWidget {
           final privacyData = privacyController.privacy.value;
 
           if (privacyData == null) {
-            return Center(child: Text("No profile data"));
+            return Center(child: Text("Privacy Policy is currently unavailable"));
           }
 
           return   RichText(

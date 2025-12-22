@@ -1,4 +1,5 @@
 import 'package:crave_crusher/view/components/custom_button/custom_button.dart';
+import 'package:crave_crusher/view/components/custom_loader/custom_loader.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:crave_crusher/view/features/change_password/controllers/change_password_controller.dart';
@@ -57,7 +58,7 @@ class ChangePasswordScreen extends StatelessWidget {
               GetBuilder<ChangePasswordController>(
                 builder: (controller) {
                   return controller.inProgress
-                      ? const CircularProgressIndicator()
+                      ? const CustomLoader()
                       : CustomButton(onTap: _updateButton,
                   title: "Update",
                   );

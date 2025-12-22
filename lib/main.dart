@@ -12,22 +12,28 @@ import 'package:get/get.dart';
 import 'package:device_preview_plus/device_preview_plus.dart';
 import 'package:get/get_core/src/get_main.dart' as getx;
 
+
+import 'package:firebase_core/firebase_core.dart';
+import 'firebase_options.dart';
+
+// ...
+
+
+
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
-
+await Firebase.initializeApp(
+options: DefaultFirebaseOptions.currentPlatform,
+);
   DeviceUtils.lockDevicePortrait();
 
   DependencyInjection di = DependencyInjection();
   di.dependencies();
+
   /// Load Token Immediately (VERY IMPORTANT)
   final auth = getx.Get.find<AuthController>();
   await auth.getUserData();
-  runApp(
-    DevicePreview(
-      enabled: true,
-      builder: (context) => const MyApp(),
-    ),
-  );
+  runApp(DevicePreview(enabled: false, builder: (context) => const MyApp()));
 }
 
 class MyApp extends StatelessWidget {
@@ -41,7 +47,6 @@ class MyApp extends StatelessWidget {
       splitScreenMode: true,
       builder: (context, child) {
         return GetMaterialApp(
-          title: "InviteeMe",
           theme: CustomTheme.lightTheme,
           debugShowCheckedModeBanner: false,
           defaultTransition: Transition.fadeIn,

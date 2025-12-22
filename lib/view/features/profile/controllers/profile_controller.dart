@@ -12,7 +12,11 @@ import 'package:image_picker/image_picker.dart';
 
 class ProfileController extends GetxController {
   ///profile image show =================================================================image picker==============================================
-
+  @override
+  void onInit() {
+    super.onInit();
+    fetchMyProfile();
+  }
   //RxString? profileImagePath;
   Rx<File?> profileImageFile = Rx<File?>(null);
 
@@ -30,7 +34,7 @@ class ProfileController extends GetxController {
     }
   }
 
-  ///update profile==================================================================Patch Methode=======================================
+  ///update profile==================================================================Patch multipart Methode=======================================
   Rx<Status> updateProfileStatus = Status.loading.obs;
   var isLoadingUpdateProfile = false.obs;
 

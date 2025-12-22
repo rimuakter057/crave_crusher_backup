@@ -15,7 +15,7 @@ class UserProfileModel {
   DateTime updatedAt;
   int v;
   DateTime passwordChangedAt;
-
+  final Monster? monster;
   UserProfileModel({
     required this.id,
     required this.fullName,
@@ -33,6 +33,7 @@ class UserProfileModel {
     required this.updatedAt,
     required this.v,
     required this.passwordChangedAt,
+    this.monster,
   });
 
   factory UserProfileModel.fromJson(Map<String, dynamic> json) {
@@ -61,6 +62,8 @@ class UserProfileModel {
       passwordChangedAt: json['passwordChangedAt'] != null
           ? DateTime.parse(json['passwordChangedAt'])
           : DateTime.now(),
+
+      monster: json['monster'] != null ? Monster.fromJson(json['monster']) : null,
     );
   }
 
@@ -82,6 +85,27 @@ class UserProfileModel {
       'updatedAt': updatedAt.toIso8601String(),
       '__v': v,
       'passwordChangedAt': passwordChangedAt.toIso8601String(),
+      'monster': monster?.toJson(),
     };
   }
+}
+
+
+
+
+class Monster {
+  final String? monsterImage;
+final String?monsterMessage;
+
+  Monster({this.monsterImage,this.monsterMessage});
+
+  factory Monster.fromJson(Map<String, dynamic> json) {
+    return Monster(monsterImage: json["monster_image"],
+    monsterMessage: json['monster_message']
+    );
+  }
+
+  Map<String, dynamic> toJson() => {"monster_image": monsterImage,
+  "monster_message":monsterMessage
+  };
 }

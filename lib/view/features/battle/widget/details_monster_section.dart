@@ -1,11 +1,14 @@
 // ignore_for_file: deprecated_member_use
 
+import 'package:crave_crusher/helper/imges_handler/image_handler.dart';
 import 'package:crave_crusher/utils/app_colors/app_colors.dart';
 import 'package:crave_crusher/utils/app_icons/app_icons.dart';
 import 'package:crave_crusher/view/components/custom_image/custom_image.dart';
 import 'package:crave_crusher/view/components/custom_text/custom_text.dart';
+import 'package:crave_crusher/view/features/battle/widget/active_battle_card.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import '../../../components/custom_network_image/custom_network_image.dart';
 
 class DetailsMonsterSection extends StatelessWidget {
   // Battle details to display in the header
@@ -13,17 +16,39 @@ class DetailsMonsterSection extends StatelessWidget {
   final String battleDescription;
   final String status;
   final String monsterStatusMessage;
-
+ final DetoxType detoxType;
+ final String monster;
   const DetailsMonsterSection({
     super.key,
     required this.battleTitle,
     required this.battleDescription,
     required this.status,
     required this.monsterStatusMessage,
+    required this.detoxType,
+    required this.monster,
   });
+
+
+  String getIcon( DetoxType detoxType) {
+    switch (detoxType) {
+      case DetoxType.smoke:
+        return AppIcons.smoke;
+      case DetoxType.love:
+        return AppIcons.toxicRelationship;
+      case DetoxType.drugDetox:
+        return AppIcons.savingsMoney;
+      case DetoxType.junkFood:
+        return AppIcons.junkFood;
+      case DetoxType.shopping:
+        return AppIcons.shopping;
+      case DetoxType.socialMedia:
+        return AppIcons.socialMedia;
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
+
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -31,18 +56,11 @@ class DetailsMonsterSection extends StatelessWidget {
         Padding(
           padding: EdgeInsets.only(bottom: 16.h),
           child: Container(
-            padding: EdgeInsets.all(12.w),
+            padding: EdgeInsets.all(8.w),
             decoration: BoxDecoration(
               color: AppColors.white,
               borderRadius: BorderRadius.circular(12),
-              // boxShadow: [
-              //   BoxShadow(
-              //     color: AppColors.black.withOpacity(0.05),
-              //     spreadRadius: 1,
-              //     blurRadius: 5,
-              //     offset: const Offset(0, 3),
-              //   ),
-              // ],
+
             ),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -52,8 +70,8 @@ class DetailsMonsterSection extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Container(
-                      height: 44.h,
-                      width: 44.w,
+                      height: 40.h,
+                      width: 40.w,
                       alignment: Alignment.center,
                       decoration: BoxDecoration(
                         color: AppColors.subPrimary.withOpacity(.3),
@@ -61,25 +79,27 @@ class DetailsMonsterSection extends StatelessWidget {
                         border: Border.all(color: AppColors.subPrimary),
                       ),
                       child: CustomImage(
-                        imageSrc: AppIcons.smoke, // Small monster avatar
+                        imageSrc: getIcon(detoxType), // Small monster avatar
                         height: 36.h,
                         width: 36.w,
                       ),
                     ),
-                    SizedBox(width: 10.w),
+                    SizedBox(width: 8.w),
                     Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         CustomText(
+                          maxLines: 1,
+                          overflow: TextOverflow.ellipsis,
                           textAlign: TextAlign.start,
                           text: battleTitle,
                           fontWeight: FontWeight.w600,
-                          fontSize: 16.sp,
+                          fontSize: 14.sp,
                           color: AppColors.appTitle,
                           bottom: 0,
                           top: 0,
                         ),
-                        //SizedBox(height: 4.h),
+
                         SizedBox(
                           width: 180.w, // Constrain width for description
                           child: CustomText(
@@ -99,7 +119,7 @@ class DetailsMonsterSection extends StatelessWidget {
                 ),
                 // Status Badge
                 Container(
-                  padding: EdgeInsets.symmetric(horizontal: 8.w, vertical: 4.h),
+                  padding: EdgeInsets.symmetric(horizontal: 2.w, vertical: 2.h),
                   decoration: BoxDecoration(
                     color: AppColors.subPrimary.withOpacity(
                       0.3,
@@ -109,13 +129,14 @@ class DetailsMonsterSection extends StatelessWidget {
                   ),
                   child: CustomText(
                     text: "• $status",
-                    fontSize: 12.w,
+                    fontSize: 11.w,
                     fontWeight: FontWeight.w500,
                     color: AppColors.primary,
                     bottom: 0,
                     top: 0,
                   ),
                 ),
+
               ],
             ),
           ),
@@ -123,12 +144,14 @@ class DetailsMonsterSection extends StatelessWidget {
 
         // Monster Image
         Center(
-          child: CustomImage(
-            imageSrc: AppIcons.happyMonstar, // Placeholder Monster PNG
-            height: 250.h,
-            width: 250.w,
-            scale: 1,
+          child:
+
+          CustomNetworkImage(
+            imageUrl: ImageHandler.imagesHandle( monster),
+              height: 250.h,
+              width: 250.w,
           ),
+
         ),
         SizedBox(height: 24.h),
 

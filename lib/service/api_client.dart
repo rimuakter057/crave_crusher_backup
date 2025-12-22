@@ -31,6 +31,7 @@ class ApiClient extends GetxService {
     return await Connectivity().checkConnectivity() != ConnectivityResult.none;
   }
 
+
   //============================= GET REQUEST ================================
   static Future<Response> getData(
       String uri, {
@@ -85,7 +86,7 @@ class ApiClient extends GetxService {
     };
 
     try {
-      logger.i("➡️ POST REQUEST==========================================\nURL:======================================= $uri\nHeaders:=================================== ${headers ?? mainHeaders}\nBody:================================================== $body");
+      logger.i("User Create POST REQUEST==========================================\nURL:======================================= $uri\nHeaders:=================================== ${headers ?? mainHeaders}\nBody:================================================== $body");
 
       http.Response response = await client
           .post(
@@ -94,13 +95,25 @@ class ApiClient extends GetxService {
         headers: headers ?? mainHeaders,
       )
           .timeout(const Duration(seconds: timeoutInSeconds));
-
+///server response here===================================================================
       return handleResponse(response, uri);
     } catch (e) {
-      logger.e("❌ POST Error:================================================ $e");
+      logger.e("❌ POST Error server:================================================ $e");
       return const Response(statusCode: 1, statusText: somethingWentWrong);
     }
   }
+
+
+
+
+
+
+
+
+
+
+
+
 
   //============================= PATCH REQUEST ================================
   static Future<Response> patchData(
@@ -332,7 +345,7 @@ class ApiClient extends GetxService {
     }
 
     logger.i(
-      "⬅️ RESPONSE FOR=============================== [$uri]\nStatus:============================================= ${response.statusCode}\nBody:===================================== ${response.body}",
+      "⬅️ RESPONSE FOR Server=============================== [$uri]\nStatus:============================================= ${response.statusCode}\nBody:===================================== ${response.body}",
     );
 
     return Response(

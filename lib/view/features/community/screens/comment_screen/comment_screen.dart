@@ -1,19 +1,24 @@
+import 'package:crave_crusher/helper/imges_handler/image_handler.dart';
 import 'package:crave_crusher/utils/app_colors/app_colors.dart';
 import 'package:crave_crusher/utils/app_const/app_const.dart';
 import 'package:crave_crusher/utils/app_icons/app_icons.dart';
 import 'package:crave_crusher/utils/app_images/app_images.dart';
-import 'package:crave_crusher/view/components/common_profile/avater_widget.dart';
+import 'package:crave_crusher/view/components/common_profile/avatar_widget.dart';
 import 'package:crave_crusher/view/components/custom_container/custom_container.dart';
 import 'package:crave_crusher/view/components/custom_image/custom_image.dart';
+import 'package:crave_crusher/view/components/custom_loader/custom_loader.dart';
 import 'package:crave_crusher/view/components/custom_text/custom_text.dart';
 import 'package:crave_crusher/view/components/custom_text_field/custom_text_field.dart';
 import 'package:crave_crusher/view/features/community/controllers/community_controller.dart';
-import 'package:crave_crusher/view/features/community/controllers/community_tab_controller.dart';
+
 import 'package:crave_crusher/view/features/community/screens/comment_screen/widgets/comment_widget.dart';
+import 'package:crave_crusher/view/features/profile/controllers/profile_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:gap/gap.dart';
 import 'package:get/get.dart';
+
+import '../../models/comment_model.dart';
 
 class CommentScreen extends StatefulWidget {
   final String postId;
@@ -26,13 +31,13 @@ class CommentScreen extends StatefulWidget {
 class _CommentScreenState extends State<CommentScreen> {
   final CommunityController commentController = Get.find<CommunityController>();
   final TextEditingController _controller = TextEditingController();
-final CommunityTabController tabController =Get.find<CommunityTabController>();
+  final ProfileController profileController = Get.find<ProfileController>();
   @override
   void initState() {
     super.initState();
     // Fetch comments after build
     WidgetsBinding.instance.addPostFrameCallback((_) {
-      commentController.fetchCommentList(widget.postId);
+      commentController.fetchCommentList(widget.postId, );
     });
   }
 
@@ -90,20 +95,30 @@ final CommunityTabController tabController =Get.find<CommunityTabController>();
 
                         children: [
                           // Profile row
-                          SizedBox(
-                            height:38.h,
-                            child: Row(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                ProfileAvatarWidget(
-                                  imagePath: AppConstants.unknown,
-                                  heightA: 35.h,
-                                  widthA: 35.w,
-                                ),
-                                CustomText(text: "@ Sheena", fontSize: 18),
-                              ],
+
+                          Obx((){
+                            final profile = profileController.myProfile.value;
+                            return   SizedBox(
+                              height:38.h,
+                              child: Row(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                              ProfileAvatarWidget(
+                                heightA: 35.h,
+                                widthA: 35.w,
+                              imagePath: ImageHandler.imagesHandle(
+                              profile?.profileImage,
+                                isProfile: true,
+                              ),
+
                             ),
-                          ),
+                                  Gap(4.w),
+                                  CustomText( text: profile?.fullName ?? "Empty Name",fontSize: 18),
+                                ],
+                              ),
+                            );
+                          }),
+
                           // Comment input
                           TextField(
                             maxLines: 2,
@@ -132,7 +147,7 @@ final CommunityTabController tabController =Get.find<CommunityTabController>();
                                 );
                                 return;
                               }
-                              bool isAllFeed = tabController.communityTabIndex.value == 0 ? true : false;
+                              bool isAllFeed = commentController.communityTabIndex.value == 0 ? true : false;
                               await commentController.createComment(
                                   widget.postId,
                                   allFeed: isAllFeed
@@ -141,7 +156,7 @@ final CommunityTabController tabController =Get.find<CommunityTabController>();
                               _controller.clear();
                             },
                             child: commentController.isLoadingSend.value
-                                ? Center(child: CircularProgressIndicator())
+                                ? CustomLoader()
                                 : CustomContainer(
                               backgroundColor: AppColors.primary,
                               padding: 2,
@@ -167,8 +182,11 @@ final CommunityTabController tabController =Get.find<CommunityTabController>();
                 );
               } else {
                 // Comments list
-                final comment = commentController.commentList[index - 1];
+                 RxList<CommentModel> commentList =
+                    commentController.commentList.reversed.toList().obs;
+                final comment = commentList[index - 1];
                 return CommentWidget(
+                  userName:"@${comment.authorName ?? "unknown"}",
                   commentText: comment.commentText ?? "no comment",
                 );
               }

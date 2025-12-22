@@ -3,6 +3,7 @@ import 'package:crave_crusher/utils/app_colors/app_colors.dart';
 import 'package:crave_crusher/utils/app_icons/app_icons.dart';
 import 'package:crave_crusher/view/components/custom_container/custom_container.dart';
 import 'package:crave_crusher/view/components/custom_image/custom_image.dart';
+import 'package:crave_crusher/view/components/custom_loader/custom_loader.dart';
 import 'package:crave_crusher/view/components/custom_text/custom_text.dart';
 import 'package:crave_crusher/view/features/community/controllers/post_controller.dart';
 import 'package:crave_crusher/view/features/community/screens/community_all_feed_screen/community_all_feed_screen.dart';
@@ -91,8 +92,18 @@ class CreatePostScreen extends StatelessWidget {
                   fontWeight: FontWeight.w500,
                 ),
                 Gap(8.h),
-                ///image add option
-              GestureDetector(
+               ///image add option
+
+
+
+
+
+
+
+
+
+
+                GestureDetector(
                 onTap: () => controller.pickImages(), // multiple image picker
                 child: controller.imagePaths.isNotEmpty
                     ? SizedBox(
@@ -174,7 +185,7 @@ class CreatePostScreen extends StatelessWidget {
                 controller.imagePaths.clear(); // <-- FIXED
               },
               child: controller.isLoadingCreate.value
-                  ? CircularProgressIndicator()
+                  ? CustomLoader()
                   : CustomContainer(
                 backgroundColor: AppColors.primary,
                 padding: 4,

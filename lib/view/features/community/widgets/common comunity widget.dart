@@ -4,17 +4,18 @@ import 'package:crave_crusher/utils/app_icons/app_icons.dart';
 import 'package:crave_crusher/utils/app_images/app_images.dart';
 import 'package:crave_crusher/view/components/common_profile/common_profile_widget.dart';
 import 'package:crave_crusher/view/components/custom_image/custom_image.dart';
-import 'package:crave_crusher/view/components/custom_netwrok_image/custom_network_image.dart';
+import 'package:crave_crusher/view/components/custom_network_image/custom_network_image.dart';
 import 'package:crave_crusher/view/components/custom_text/custom_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:gap/gap.dart';
+import 'package:readmore/readmore.dart';
 
 class CommonCommunityWidget extends StatefulWidget {
   final bool myPost; // Controls the edit button visibility
   final int index; // Determines image layout
   final String profileTitle; // Required profile name
-  final String profileSubtitle; // Required subtitle (like date/time)
+  final String time; // Required subtitle (like date/time)
   final String profileImage; // Required profile image
   final String postText; // Required post text
   final void Function() onTapComment;
@@ -30,7 +31,7 @@ class CommonCommunityWidget extends StatefulWidget {
     this.myPost = false,
     this.index = 2,
     required this.profileTitle,
-    required this.profileSubtitle,
+    required this.time,
    required this.profileImage,
     required this.postText,
 
@@ -40,7 +41,8 @@ class CommonCommunityWidget extends StatefulWidget {
      this.onTapUpdate,
     required this.onTapImageShow,
     required this.onTapProfile,
-    required this.favouriteWidget, required this.postImages,
+    required this.favouriteWidget,
+    required this.postImages,
   });
 
   @override
@@ -75,7 +77,7 @@ class _CommonCommunityWidgetState extends State<CommonCommunityWidget> {
                 child: CommonProfileWidget(
                   onTap: widget.onTapProfile,
                   title: widget.profileTitle,
-                  subTitle: widget.profileSubtitle,
+                  subTitle: widget.time,
                   profileImage: widget.profileImage,
                 ),
               ),
@@ -97,7 +99,7 @@ class _CommonCommunityWidgetState extends State<CommonCommunityWidget> {
             ],
           ),
 
-         // Gap(4.h),
+          Gap(8.h),
 
           /// Image Section
       GestureDetector(
@@ -109,18 +111,27 @@ class _CommonCommunityWidgetState extends State<CommonCommunityWidget> {
             ),
 
 
-          Gap(4.h),
+          Gap(8.h),
 
           /// Text Section
-          CustomText(
-            fontWeight: FontWeight.w500,
-            textAlign: TextAlign.start,
-            maxLines: 3,
-            text: widget.postText,
-          ),
-          CustomText(text: "see more", color: AppColors.primary),
+          ReadMoreText(widget.postText,
 
-          Gap(24.h),
+    trimMode: TrimMode.Line,
+    trimLines: 3,
+    textAlign: TextAlign.justify,
+    lessStyle: TextStyle(color: AppColors.primary),
+    moreStyle: TextStyle(color: AppColors.primary,fontSize: 16.sp,fontWeight: FontWeight.bold),
+     style: TextStyle(
+       fontSize: 13.sp,
+       color: Color(0xFF1E293B),
+       fontWeight: FontWeight.w500
+     ),
+    colorClickableText: Colors.pink,
+    trimCollapsedText: 'See more',
+    trimExpandedText: ' See less',
+          ),
+
+          Gap(8.h),
 
           /// Bottom Like & Comment Section
           Row(
@@ -145,6 +156,7 @@ class _CommonCommunityWidgetState extends State<CommonCommunityWidget> {
               ),
             ],
           ),
+
         ],
       ),
     );
@@ -222,16 +234,28 @@ class _CommonCommunityWidgetState extends State<CommonCommunityWidget> {
           ),
 
 
-            if(images.length > 2)...[
+            if(images.length > 3)...[
               Gap(4.h),
               CustomNetworkImage(
                 imageUrl: ImageHandler.imagesHandle( images[2]),
                 height: 90.h,
                 width: 85.w,
-                borderRadius: BorderRadius.circular(6), 
+                borderRadius: BorderRadius.circular(6),
                 child: images.length > 3?
-                Center(
-                  child: CustomText(text: '+${images.length - 3}'),
+                Center
+                  (
+                  child: Container(
+                      height: 90.h,
+                      width: 85.w,
+                      alignment: Alignment.center,
+                      decoration: BoxDecoration(
+                        color: AppColors.white.withAlpha(99) ,
+                        borderRadius: BorderRadius.circular(6),
+
+                       ),
+                      child: CustomText(text: '+${images.length - 3}',
+                      fontSize: 24.sp,
+                      )),
                 ) : SizedBox(),
 
               ),

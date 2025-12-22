@@ -64,7 +64,7 @@ class EmptyHomeScreen extends StatelessWidget {
         ),
       ),
 
-      bottomNavigationBar: NavBar(currentIndex: 0),
+     // bottomNavigationBar: NavBar(currentIndex: 0),
     );
   }
 

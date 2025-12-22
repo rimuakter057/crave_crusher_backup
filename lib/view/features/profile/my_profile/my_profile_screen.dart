@@ -1,9 +1,9 @@
+import 'package:crave_crusher/helper/imges_handler/image_handler.dart';
 import 'package:crave_crusher/utils/app_colors/app_colors.dart';
-import 'package:crave_crusher/utils/app_const/app_const.dart';
-import 'package:crave_crusher/utils/app_images/app_images.dart';
-import 'package:crave_crusher/view/components/common_profile/avater_widget.dart';
+import 'package:crave_crusher/view/components/common_profile/avatar_widget.dart';
 import 'package:crave_crusher/view/components/custom_container/custom_container.dart';
 import 'package:crave_crusher/view/components/custom_leadin_title_appbar.dart';
+import 'package:crave_crusher/view/components/custom_loader/custom_loader.dart';
 import 'package:crave_crusher/view/components/custom_text/custom_text.dart';
 import 'package:crave_crusher/view/features/profile/controllers/profile_controller.dart';
 import 'package:crave_crusher/view/features/profile/edit_profile/edit_profile_screens.dart';
@@ -19,8 +19,6 @@ class MyProfileScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    profileController.fetchMyProfile();
-
     return Scaffold(
       appBar: CustomLeadingTitleAppbar(title: "My Profile"),
       body: SingleChildScrollView(
@@ -29,7 +27,7 @@ class MyProfileScreen extends StatelessWidget {
           child: Obx(() {
             // loading check
             if (profileController.isLoadingMyProfile.value) {
-              return Center(child: CircularProgressIndicator());
+              return Center(child: CustomLoader());
             }
 
             final profile = profileController.myProfile.value;
@@ -43,7 +41,13 @@ class MyProfileScreen extends StatelessWidget {
               children: [
                 Gap(8.h),
                 Center(
-                  child: ProfileAvatarWidget(imagePath: profile.profileImage??''),
+                  child: ProfileAvatarWidget(
+                    imagePath: ImageHandler.imagesHandle(
+                      profile.profileImage,
+                      isProfile: true,
+                    ),
+
+                  ),
                 ),
                 Gap(24.h),
                 // Name
@@ -57,7 +61,11 @@ class MyProfileScreen extends StatelessWidget {
                     Navigator.push(
                       context,
                       MaterialPageRoute(
-                        builder: (context) => EditProfileScreens(name: profile.fullName, email:  profile.email,),
+                        builder:
+                            (context) => EditProfileScreens(
+                              name: profile.fullName,
+                              email: profile.email,
+                            ),
                       ),
                     );
                   },

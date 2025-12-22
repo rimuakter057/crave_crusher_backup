@@ -40,7 +40,7 @@ class _NavBarState extends State<NavBar> {
 
   List<String> selectedIcon = [
     AppIcons.selectHome,
-    AppIcons.selectedBattale,
+    AppIcons.selectedBattle,
     AppIcons.selectCommunity,
     AppIcons.selectReward,
     AppIcons.selectProfile,

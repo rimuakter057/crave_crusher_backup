@@ -1,5 +1,3 @@
-
-
 import 'package:crave_crusher/view/components/custom_text/custom_text.dart';
 import 'package:flutter/material.dart';
 
@@ -24,16 +22,11 @@ class OrDivider extends StatelessWidget {
         // "OR" Text in the center
         Padding(
           padding: EdgeInsets.symmetric(horizontal: 10.0),
-          child: CustomText(text: "OR",),
+          child: CustomText(text: "OR"),
         ),
 
         // Right Divider Line
-        Expanded(
-          child: Divider(
-            color: dividerColor,
-            thickness: 1.5,
-          ),
-        ),
+        Expanded(child: Divider(color: dividerColor, thickness: 1.5)),
       ],
     );
   }
