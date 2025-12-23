@@ -99,7 +99,6 @@ final Color?textColor;
           ),
           SizedBox(height: 10.h),
 
-          // Progress Text (75% to complete)
           Container(
             decoration: BoxDecoration(
               border: Border.all(color: AppColors.subPrimary),
@@ -124,7 +123,7 @@ final Color?textColor;
                         ),
 
                       SizedBox(
-                        width:78.w,
+                        width:82.w,
                         child: Row(
                           children: [
                             Icon(

@@ -276,104 +276,107 @@ class _BattleDetailsScreenState extends State<BattleDetailsScreen> {
   void _buildShowBattleDialog(String id) {
     Get.dialog(
       Obx(() {
-        return Dialog(
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(12),
-          ),
-          child: SizedBox(
-            height: 170.h,
-            width: 340.w,
-            child: controller.isLoadingCompleteBattle.value
-                ? const Center(child: CustomLoader())
-                : Row(
+        return Center(
+          child: Dialog(
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(12),
+            ),
+            child: SizedBox(
+              height: 170.h,
+              width: 340.w,
+              child: controller.isLoadingCompleteBattle.value
+                  ? const Center(child: CustomLoader())
+                  : Row(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      // Caved
+                      InkWell(
+                        onTap: () async {
+                          if (controller.isLoadingCompleteBattle.value) {
+                            return;
+                          }
+                          final success = await controller
+                              .completeBattleDay(id, "caved");
+                          if (success) {
+                            Get.back();
 
-                  children: [
-                    // Caved
-                    InkWell(
-                      onTap: () async {
-                        if (controller.isLoadingCompleteBattle.value) {
-                          return;
-                        }
-                        final success = await controller
-                            .completeBattleDay(id, "caved");
-                        if (success) {
-                          Get.back();
+                            Get.dialog(
+                              Center(
+                                child: Lottie.asset(
+                                        AppIcons.lottieBattle,
+                                  repeat: false,
+                                  onLoaded: (composition) async {
 
-                          Get.dialog(
-                            Center(
-                              child: Lottie.asset(
-                                      AppIcons.lottieBattle,
-                                repeat: false,
-                                onLoaded: (composition) async {
-
-                                  await Future.delayed(composition.duration);
-                                  Get.back();
-                                },
+                                    await Future.delayed(composition.duration);
+                                    Get.back();
+                                  },
+                                ),
                               ),
-                            ),
-                            barrierDismissible: false,
-                          );
+                              barrierDismissible: false,
+                            );
 
 
 
 
-                          await controller.fetchSingleBattle(id);
+                            await controller.fetchSingleBattle(id);
 
-                        } else {
-                          Get.snackbar(
-                            "Error",
-                            "Status update failed",
-                            backgroundColor: AppColors.red100,
-                          );
-                        }
-                      },
-                      child: _buildDialogContainer(
-                        "Caved",
-                        AppIcons.cavedComplete,
+                          } else {
+                            Get.snackbar(
+                              "Error",
+                              "Status update failed",
+                              backgroundColor: AppColors.red100,
+                            );
+                          }
+                        },
+                        child: _buildDialogContainer(
+                          "Caved",
+                          AppIcons.cavedComplete,
+                        ),
                       ),
-                    ),
-                    Gap(8.w),
-                    // Craved
-                    InkWell(
-                      onTap: () async {
-                        if (controller.isLoadingCompleteBattle.value)
-                          return;
+                      Gap(12.w),
+                      // Craved
+                      InkWell(
+                        onTap: () async {
+                          if (controller.isLoadingCompleteBattle.value)
+                            return;
 
-                        final success = await controller
-                            .completeBattleDay(id, "craved");
+                          final success = await controller
+                              .completeBattleDay(id, "craved");
 
-                        if (success) {
-                          Get.back();
-                          Get.dialog(
-                            Center(
-                              child: Lottie.asset(
-                                AppIcons.lottieBattle,
-                                repeat: false,
-                                onLoaded: (composition) async {
-                                  await Future.delayed(composition.duration);
-                                  Get.back();
-                                },
+                          if (success) {
+                            Get.back();
+                            Get.dialog(
+                              Center(
+                                child: Lottie.asset(
+                                  AppIcons.lottieBattle,
+                                  repeat: false,
+                                  onLoaded: (composition) async {
+                                    await Future.delayed(composition.duration);
+                                    Get.back();
+                                  },
+                                ),
                               ),
-                            ),
-                            barrierDismissible: false,
-                          );
-                          await controller.fetchSingleBattle(id);
+                              barrierDismissible: false,
+                            );
+                            await controller.fetchSingleBattle(id);
 
-                        } else {
-                          Get.snackbar(
-                            "Error",
-                            "Status update failed",
-                            backgroundColor: AppColors.red100,
-                          );
-                        }
-                      },
-                      child: _buildDialogContainer(
-                        "Craved",
-                        AppIcons.battlePng,
+                          } else {
+                            Get.snackbar(
+                              "Error",
+                              "Status update failed",
+                              backgroundColor: AppColors.red100,
+                            );
+                          }
+                        },
+                        child: _buildDialogContainer(
+                          "Craved",
+                          AppIcons.battlePng,
+                        ),
                       ),
-                    ),
-                  ],
-                ),
+                    ],
+                  ),
+            ),
           ),
         );
       }),

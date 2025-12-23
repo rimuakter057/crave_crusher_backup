@@ -25,7 +25,7 @@ import '../community_user_profile_screen/community_profile_screen.dart';
 
 class CommunityAllFeedScreen extends StatefulWidget {
   final int initialTabIndex; // 0 = All Posts, 1 = My Posts
-  const CommunityAllFeedScreen({Key? key, this.initialTabIndex = 0}) : super(key: key);
+  const CommunityAllFeedScreen({super.key, this.initialTabIndex = 0});
 
   @override
   State<CommunityAllFeedScreen> createState() => _CommunityAllFeedScreenState();
@@ -117,7 +117,7 @@ class _CommunityAllFeedScreenState extends State<CommunityAllFeedScreen> {
                                 final postId = post.id ?? "";
 
                                 return CommonCommunityWidget(
-                                  profileTitle: post.author?.fullName ?? 'Unknown',
+                                  profileTitle: "@${post.author?.fullName}" ?? 'Unknown',
                                   time: DateConverter.dateYearTimeUtc(post.createdAt.toString()),
                                   postImages: post.postImages ?? [],
                                   postText: post.content ?? "",
@@ -192,7 +192,7 @@ class _CommunityAllFeedScreenState extends State<CommunityAllFeedScreen> {
                                 final postId = myPost.id ?? '';
 
                                 return CommonCommunityWidget(
-                                  profileTitle: myPost.author?.fullName ?? '...',
+                                  profileTitle: "@${myPost.author?.fullName}" ?? 'Unknown',
                                   time: DateConverter.dateYearTimeUtc(myPost.createdAt.toString()),
                                   profileImage: myPost.author?.profileImage ?? AppConstants.unknown,
                                   postImages: myPost.postImages ?? [],

@@ -181,7 +181,7 @@ class CreatePostScreen extends StatelessWidget {
 
                             await controller.createPost();
 
-                        Get.off(() => CommunityAllFeedScreen(initialTabIndex: 1));
+                        Get.off(() => CommunityAllFeedScreen(initialTabIndex: 0));
 
                             textController.clear();
                             controller.postText.value = '';
