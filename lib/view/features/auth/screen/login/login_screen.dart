@@ -228,7 +228,7 @@ class _LoginScreenState extends State<LoginScreen> {
     );
 
     if (isSuccess && _emailController.text.isNotEmpty) {
-      Get.to(VerifyIdentityScreen(email: _emailController.text));
+      Get.to(()=>VerifyIdentityScreen(email: _emailController.text));
     } else {
       Get.snackbar("Error", "Please Enter Your Email");
     }

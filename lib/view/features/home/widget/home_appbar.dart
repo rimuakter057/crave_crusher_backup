@@ -9,7 +9,8 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 
 class HomeAppbar extends StatelessWidget implements PreferredSizeWidget {
-  HomeAppbar({super.key, this.onNotificationTab});
+  HomeAppbar({super.key, this.onNotificationTab, required this.name});
+  final Widget name;
   final ProfileController profileController = Get.find<ProfileController>();
 
   final VoidCallback? onNotificationTab;
@@ -31,23 +32,35 @@ class HomeAppbar extends StatelessWidget implements PreferredSizeWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
 
-              Obx(() {
-                final profile = profileController.myProfile.value;
+              // Obx(() {
+              //   final profile = profileController.myProfile.value;
+              //
+              //   return SizedBox(
+              //     width: 200.w,
+              //     child: CustomText(
+              //       textAlign: TextAlign.start,
+              //       maxLines: 1,
+              //       overflow: TextOverflow.ellipsis,
+              //       text: "Hello $name",
+              //       fontWeight: FontWeight.w600,
+              //       fontSize: 18.w,
+              //       color: AppColors.black_02,
+              //     ),
+              //   );
+              //
+              // }),
 
-                return SizedBox(
+
+
+
+
+ SizedBox(
                   width: 200.w,
-                  child: CustomText(
-                    textAlign: TextAlign.start,
-                    maxLines: 1,
-                    overflow: TextOverflow.ellipsis,
-                    text: "Hello ${profile?.fullName ?? "Empty Name"}",
-                    fontWeight: FontWeight.w600,
-                    fontSize: 18.w,
-                    color: AppColors.black_02,
-                  ),
-                );
+                  child: name
+                ),
 
-              }),
+
+
 
               CustomText(
                 text: "Welcome to Crave Crusher",

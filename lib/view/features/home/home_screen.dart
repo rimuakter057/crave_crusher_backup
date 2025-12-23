@@ -2,7 +2,6 @@
 
 import 'package:crave_crusher/utils/app_colors/app_colors.dart';
 import 'package:crave_crusher/utils/app_icons/app_icons.dart';
-import 'package:crave_crusher/utils/app_images/app_images.dart';
 import 'package:crave_crusher/view/components/common_empty/common_empty_widget.dart';
 import 'package:crave_crusher/view/components/custom_image/custom_image.dart';
 import 'package:crave_crusher/view/components/custom_loader/custom_loader.dart';
@@ -12,13 +11,14 @@ import 'package:crave_crusher/view/features/battle/controller/battle_controller.
 import 'package:crave_crusher/view/features/battle/widget/active_battle_card.dart';
 import 'package:crave_crusher/view/features/battle/widget/detox_type.dart';
 import 'package:crave_crusher/view/features/home/widget/home_appbar.dart';
+import 'package:crave_crusher/view/features/home/widget/home_monster_shimmer.dart';
 import 'package:crave_crusher/view/features/home/widget/monster_section.dart';
 import 'package:crave_crusher/view/features/home/widget/today_tips.dart';
 import 'package:crave_crusher/view/features/profile/controllers/profile_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
-
+import '../../components/custom_refresh_indicator/custom_refresh_indicator.dart';
 import '../battle/inner_screen/battle_details_screen.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -41,11 +41,25 @@ class _HomeScreenState extends State<HomeScreen> {
   }
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: HomeAppbar(
 
+    return Scaffold(
+      appBar:
+      HomeAppbar(
+       name:Obx((){
+         final profile = profileController.myProfile.value;
+         return CustomText(
+           textAlign: TextAlign.start,
+           maxLines: 1,
+           overflow: TextOverflow.ellipsis,
+           text: "Hello ${profile?.fullName??""}",
+           fontWeight: FontWeight.w600,
+           fontSize: 18.w,
+           color: AppColors.black_02,
+         );
+
+       }),
       ),
-      body: RefreshIndicator(
+      body: CustomRefreshIndicator(
         onRefresh: () async {
           controller.fetchAllBattle('active');
         },
@@ -56,41 +70,35 @@ class _HomeScreenState extends State<HomeScreen> {
             children: [
               // Tip and Monster Section
               TodayTips(),
-              MonsterSection(),
+
+              SizedBox(height: 24.h),
+
+
+              _buildTitle(AppIcons.smallMonster,"Your Monster Today",),
+
+              Obx((){
+
+                final profile = profileController.myProfile.value;
+
+
+                if (profileController.isLoadingMyProfile.value) {
+                  return HomeMonsterShimmerLoader();
+                }
+
+                if(profile?.monster==null){
+                  return EmptyWidget(title: "Add your first battle to summon your Monster.");
+                }else{
+                  return MonsterSection(monster:profile?.monster?.monsterImage??"",
+                    monsterMessage: profile?.monster?.monsterMessage?? "Your Monster Is Losing Power — Keep It Up!",);
+                }
+
+
+              }),
 
               SizedBox(height: 24.h),
 
               // Active Battle Section Title
-              Padding(
-                padding: EdgeInsets.only(bottom: 12.h),
-                child: Row(
-                  children: [
-                    Container(
-                      height: 28.h,
-                      width: 28.w,
-                      alignment: Alignment.center,
-                      decoration: BoxDecoration(
-                        color: AppColors.subPrimary.withOpacity(.3),
-                        shape: BoxShape.circle,
-                        border: Border.all(color: AppColors.primary),
-                      ),
-                      child: CustomImage(
-
-                        imageSrc: AppIcons.battlePng,
-
-                        height: 16.h,
-                        width: 16.w,
-                      ),
-                    ),
-                    SizedBox(width: 8.w),
-                    CustomText(
-                      text: "Active Battle",
-                      fontWeight: FontWeight.w600,
-                      fontSize: 18,
-                    ),
-                  ],
-                ),
-              ),
+              _buildTitle(AppIcons.battlePng,"Active Battle",),
 
 
 
@@ -162,6 +170,39 @@ class _HomeScreenState extends State<HomeScreen> {
 
       bottomNavigationBar: NavBar(currentIndex: 0),
     );
+  }
+
+  Padding _buildTitle(String iconSrc,String title) {
+    return Padding(
+              padding: EdgeInsets.only(bottom: 12.h),
+              child: Row(
+                children: [
+                  Container(
+                    height: 28.h,
+                    width: 28.w,
+                    alignment: Alignment.center,
+                    decoration: BoxDecoration(
+                      color: AppColors.subPrimary.withOpacity(.3),
+                      shape: BoxShape.circle,
+                      border: Border.all(color: AppColors.primary),
+                    ),
+                    child: CustomImage(
+
+                      imageSrc: iconSrc,
+
+                      height: 16.h,
+                      width: 16.w,
+                    ),
+                  ),
+                  SizedBox(width: 8.w),
+                  CustomText(
+                    text: title,
+                    fontWeight: FontWeight.w600,
+                    fontSize: 18,
+                  ),
+                ],
+              ),
+            );
   }
 }
 

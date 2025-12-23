@@ -9,6 +9,7 @@ import 'package:crave_crusher/view/components/custom_nav_bar/navbar.dart';
 import 'package:crave_crusher/view/components/custom_network_image/custom_network_image.dart';
 import 'package:crave_crusher/view/components/custom_text/custom_text.dart';
 import 'package:crave_crusher/view/features/rewards/widgets/custom_circular_indicator.dart';
+import 'package:crave_crusher/view/features/rewards/widgets/reward_color.dart';
 import 'package:crave_crusher/view/features/rewards/widgets/shimmer_reward.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -60,7 +61,10 @@ class _RewardsScreenState extends State<RewardsScreen> {
               Center(
                 child: Obx(() {
                   if (controller.isLoadingProgress.value) {
-                    return CustomLoader();
+                    return SizedBox(
+                        height: 120.h,
+                        width: 120.w,
+                        child: CustomLoader());
                   }
 
                   return CustomCircularIndicator(
@@ -81,7 +85,7 @@ class _RewardsScreenState extends State<RewardsScreen> {
                         .value; // create this in your controller
 
                 if (isLoading) {
-                  return Center(child: CustomLoader());
+                  return RewardShimmerLoader();
                 }
 
                 if (currentBadge == null) {
@@ -440,8 +444,10 @@ class _RewardsScreenState extends State<RewardsScreen> {
                                   width: 30.w,
                                   alignment: Alignment.center,
                                   decoration: BoxDecoration(
-                                    color: Colors.grey.shade100,
-                                    border: Border.all(color: AppColors.red),
+                                    color: getBadgeBgColor(allBadgeList.name),
+                                    border: Border.all(
+                                      color: getBadgeBorderColor(allBadgeList.name),
+                                    ),
                                     borderRadius: BorderRadius.circular(3),
                                   ),
                                   child: CustomNetworkImage(
@@ -491,6 +497,7 @@ class _RewardsScreenState extends State<RewardsScreen> {
     );
   }
 
+  ///build empty widget================================================================
   CustomContainer _buildEmptyWidget(final String title) {
     return CustomContainer(
       borderColor: AppColors.subPrimary,

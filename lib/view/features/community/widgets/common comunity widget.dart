@@ -169,14 +169,19 @@ class _CommonCommunityWidgetState extends State<CommonCommunityWidget> {
     if (images.isEmpty) return [];
 
     if (images.length == 1) {
+      double screenWidth = MediaQuery.of(context).size.width;
       // Single image
       return [
         ClipRRect(
           borderRadius: BorderRadius.circular(6),
           child: CustomNetworkImage(
 
+
             height: 180.h,
-            width: 160.w,
+            width:screenWidth<=360? 260.w:280.w,
+
+            // height: 180.h,
+            // width: 160.w,
            imageUrl: ImageHandler.imagesHandle(images[0]),
           ),
         ),
@@ -188,7 +193,7 @@ class _CommonCommunityWidgetState extends State<CommonCommunityWidget> {
         child: CustomNetworkImage(
           imageUrl:ImageHandler.imagesHandle( images[0]),
           height: 180.h,
-          width: 160.w,
+          width: 130.w,
 
         ),
       ),
@@ -198,8 +203,8 @@ class _CommonCommunityWidgetState extends State<CommonCommunityWidget> {
 
     CustomNetworkImage(
     imageUrl: ImageHandler.imagesHandle( images[1]),
-    height: 180.h,
-    width: 160.w,
+      height: 180.h,
+      width: 130.w,
     borderRadius: BorderRadius.circular(6),
 
     ),

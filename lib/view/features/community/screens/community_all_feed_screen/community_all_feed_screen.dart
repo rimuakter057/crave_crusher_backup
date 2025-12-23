@@ -1,6 +1,7 @@
 import 'package:crave_crusher/utils/app_colors/app_colors.dart';
 import 'package:crave_crusher/utils/app_const/app_const.dart';
 import 'package:crave_crusher/view/components/common_empty/common_empty_widget.dart';
+import 'package:crave_crusher/view/components/custom_refresh_indicator/custom_refresh_indicator.dart';
 import 'package:crave_crusher/view/components/custom_text/custom_text.dart';
 import 'package:crave_crusher/view/features/community/controllers/community_controller.dart';
 import 'package:crave_crusher/view/features/community/models/post_update_model.dart';
@@ -16,19 +17,38 @@ import 'package:gap/gap.dart';
 import 'package:get/get.dart';
 import '../../../../../helper/time_converter/date_converter.dart';
 import '../../../../components/custom_app_bar/custom_app_bar.dart';
-
 import '../../../../components/custom_nav_bar/navbar.dart';
 import '../../controllers/post_controller.dart';
 import '../../widgets/common comunity widget.dart';
 import '../../widgets/community_tab_selector.dart';
 import '../community_user_profile_screen/community_profile_screen.dart';
 
-class CommunityAllFeedScreen extends StatelessWidget {
-  CommunityAllFeedScreen({super.key});
+class CommunityAllFeedScreen extends StatefulWidget {
+  final int initialTabIndex; // 0 = All Posts, 1 = My Posts
+  const CommunityAllFeedScreen({Key? key, this.initialTabIndex = 0}) : super(key: key);
 
+  @override
+  State<CommunityAllFeedScreen> createState() => _CommunityAllFeedScreenState();
+}
+
+class _CommunityAllFeedScreenState extends State<CommunityAllFeedScreen> {
   final PostController postController = Get.find<PostController>();
-  final CommunityController communityController =
-      Get.find<CommunityController>();
+  final CommunityController communityController = Get.find<CommunityController>();
+
+  @override
+  void initState() {
+    super.initState();
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+
+      communityController.communityTabIndex.value = widget.initialTabIndex;
+
+      if (widget.initialTabIndex == 0) {
+        postController.fetchAllPosts();
+      } else {
+        postController.fetchMyPost();
+      }
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -40,7 +60,7 @@ class CommunityAllFeedScreen extends StatelessWidget {
       }
     });
 
-    // Load posts and votes once
+    // Load posts once
     if (postController.allPostList.isEmpty) {
       Future.microtask(() async {
         await postController.fetchAllPosts();
@@ -55,37 +75,32 @@ class CommunityAllFeedScreen extends StatelessWidget {
           Get.to(() => CreatePostScreen());
         },
       ),
-      body: RefreshIndicator(
+      body: CustomRefreshIndicator(
         onRefresh: () async {
           if (communityController.communityTabIndex.value == 0) {
             await postController.fetchAllPosts();
           } else if (communityController.communityTabIndex.value == 1) {
             await postController.fetchMyPost();
           }
-
         },
         child: SingleChildScrollView(
           child: Padding(
             padding: EdgeInsets.all(16.w),
             child: Obx(() {
+              final currentTab = communityController.communityTabIndex.value;
+
               return Column(
                 children: [
                   SizedBox(height: 16.h),
-
-                  /// TAB SELECTOR
                   CommunityTabSelector(),
                   Gap(24.h),
 
-                  if (communityController.communityTabIndex.value == 0) ...[
+                  /// All Posts
+                  if (currentTab == 0) ...[
                     if (postController.isLoadingAllPost.value)
                       const PostShimmerLoader()
                     else if (postController.allPostList.isEmpty)
-                      Center(
-                        child: Padding(
-                          padding: EdgeInsets.symmetric(vertical: 50.h),
-                          child: CustomText(text: "No posts available"),
-                        ),
-                      )
+                      EmptyWidget(title: "No posts available yet")
                     else
                       ListView.builder(
                         physics: const BouncingScrollPhysics(),
@@ -93,22 +108,17 @@ class CommunityAllFeedScreen extends StatelessWidget {
                         shrinkWrap: true,
                         itemCount: postController.allPostList.length,
                         itemBuilder: (context, index) {
-                          final postList =
-                              postController.allPostList.reversed.toList();
+                          final postList = postController.allPostList.reversed.toList();
                           final post = postList[index];
+
                           return Column(
                             children: [
                               Obx(() {
                                 final postId = post.id ?? "";
-                                final isLiked = communityController
-                                    .userVotedPosts
-                                    .contains(postId);
 
                                 return CommonCommunityWidget(
-                                  profileTitle:
-                                      post.author?.fullName ?? 'Unknown',
-                                  time:  DateConverter.dateYearTimeUtc(post.createdAt.toString()),
-
+                                  profileTitle: post.author?.fullName ?? 'Unknown',
+                                  time: DateConverter.dateYearTimeUtc(post.createdAt.toString()),
                                   postImages: post.postImages ?? [],
                                   postText: post.content ?? "",
                                   commentsText: "${post.totalComments ?? 0}",
@@ -124,10 +134,9 @@ class CommunityAllFeedScreen extends StatelessWidget {
                                           );
                                           await postController.fetchMyPost();
                                         },
-
                                         icon: Icon(
-                                          post.hasVoted.value ?? false ?
-                                               Icons.favorite
+                                          post.hasVoted.value ?? false
+                                              ? Icons.favorite
                                               : Icons.favorite_border,
                                           color: AppColors.red,
                                           size: 20.w,
@@ -139,28 +148,18 @@ class CommunityAllFeedScreen extends StatelessWidget {
                                       ),
                                     ],
                                   ),
-                                  profileImage:
-                                      post.author?.profileImage ??
-                                      AppConstants.unknown,
-                                  onTapProfile:(){
+                                  profileImage: post.author?.profileImage ?? AppConstants.unknown,
+                                  onTapProfile: () {
                                     Get.to(() => CommunityProfileScreen(
                                       userId: post.author?.id ?? '',
                                     ));
                                   },
-                                  onTapImageShow:
-                                      () => Get.to(
-                                        () => CommunityImageShowScreen(
-                                          images: post.postImages ?? [],
-                                        ),
-                                      ),
-
-                                  onTapComment:
-                                      () => Get.to(
-                                        () => CommentScreen(
-                                          postId: post.id ?? '',
-                                        ),
-                                      ),
-
+                                  onTapImageShow: () => Get.to(() => CommunityImageShowScreen(
+                                    images: post.postImages ?? [],
+                                  )),
+                                  onTapComment: () => Get.to(() => CommentScreen(
+                                    postId: post.id ?? '',
+                                  )),
                                   myPost: false,
                                   index: index,
                                 );
@@ -172,14 +171,12 @@ class CommunityAllFeedScreen extends StatelessWidget {
                       ),
                   ],
 
-                  if (communityController.communityTabIndex.value == 1) ...[
+                  /// My Posts
+                  if (currentTab == 1) ...[
                     if (postController.isLoadingPost.value)
                       const PostShimmerLoader()
                     else if (postController.getMyPostList.isEmpty)
-                      Center(
-                        child: EmptyWidget(
-                          title: "No post available yet.",),
-                      )
+                      Center(child: EmptyWidget(title: "No post available yet."))
                     else
                       ListView.builder(
                         physics: const BouncingScrollPhysics(),
@@ -187,7 +184,6 @@ class CommunityAllFeedScreen extends StatelessWidget {
                         shrinkWrap: true,
                         itemCount: postController.getMyPostList.length,
                         itemBuilder: (context, index) {
-
                           final myPost = postController.getMyPostList.reversed.toList()[index];
 
                           return Column(
@@ -195,33 +191,22 @@ class CommunityAllFeedScreen extends StatelessWidget {
                               Obx(() {
                                 final postId = myPost.id ?? '';
 
-
                                 return CommonCommunityWidget(
-                                  profileTitle:
-                                      myPost.author?.fullName ?? '...',
-                                  // time: DateConverter.formattedTime(
-                                  //   myPost.createdAt ?? DateTime.now(),
-                                  // ),
-
-
-                                 time:  DateConverter.dateYearTimeUtc(myPost.createdAt.toString()),
-
-                                  profileImage:
-                                      myPost.author?.profileImage ??
-                                      AppConstants.unknown,
+                                  profileTitle: myPost.author?.fullName ?? '...',
+                                  time: DateConverter.dateYearTimeUtc(myPost.createdAt.toString()),
+                                  profileImage: myPost.author?.profileImage ?? AppConstants.unknown,
                                   postImages: myPost.postImages ?? [],
                                   postText: myPost.content ?? "",
                                   commentsText: "${myPost.totalComments ?? 0}",
                                   favouriteWidget: Row(
                                     children: [
                                       IconButton(
-                                        onPressed:
-                                            () => communityController.addVote(
-                                              postId: postId,
-                                              index: index,
-                                              isMyPost: true,
-                                              hasVoted: myPost.hasVoted.value ?? false,
-                                            ),
+                                        onPressed: () => communityController.addVote(
+                                          postId: postId,
+                                          index: index,
+                                          isMyPost: true,
+                                          hasVoted: myPost.hasVoted.value ?? false,
+                                        ),
                                         icon: Icon(
                                           myPost.hasVoted.value ?? false
                                               ? Icons.favorite
@@ -232,21 +217,16 @@ class CommunityAllFeedScreen extends StatelessWidget {
                                       ),
                                       SizedBox(width: 4.w),
                                       CustomText(
-                                        text:
-                                            "${myPost.totalVotes?.value ?? 0}",
+                                        text: "${myPost.totalVotes?.value ?? 0}",
                                       ),
                                     ],
                                   ),
                                   myPost: true,
                                   index: index,
-
-                                  /// COMMENT
                                   onTapComment: () {
-                                    Get.to(
-                                      () => CommentScreen(
-                                        postId: myPost.id ?? '',
-                                      ),
-                                    );
+                                    Get.to(() => CommentScreen(
+                                      postId: myPost.id ?? '',
+                                    ));
                                   },
                                   onTapUpdate: () {
                                     final content = myPost.content;
@@ -257,24 +237,15 @@ class CommunityAllFeedScreen extends StatelessWidget {
                                         content: content,
                                         images: myPost.postImages ?? [],
                                       );
-
-                                      Get.to(
-                                        () => UpdatePostScreen(
-                                          updatePostData: model,
-
-                                          // images:myPost.postImages ?? []
-                                        ),
-                                      );
+                                      Get.to(() => UpdatePostScreen(updatePostData: model));
                                     }
                                   },
                                   onTapImageShow: () {
-                                    Get.to(
-                                      () => CommunityImageShowScreen(
-                                        images: myPost.postImages ?? [],
-                                      ),
-                                    );
+                                    Get.to(() => CommunityImageShowScreen(
+                                      images: myPost.postImages ?? [],
+                                    ));
                                   },
-                                  onTapProfile:(){
+                                  onTapProfile: () {
                                     Get.to(() => CommunityProfileScreen(
                                       userId: myPost.author?.id ?? '',
                                     ));

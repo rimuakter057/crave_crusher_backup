@@ -1,6 +1,9 @@
+import 'package:crave_crusher/view/components/common_empty/common_empty_widget.dart';
 import 'package:crave_crusher/view/components/custom_leadin_title_appbar.dart';
+import 'package:crave_crusher/view/components/custom_loader/custom_loader.dart';
 import 'package:crave_crusher/view/features/account_setting/controllers/account_setting_controller.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_html/flutter_html.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:get/get.dart';
@@ -22,30 +25,24 @@ class PrivacyPolicyScreen extends StatelessWidget {
         child:Obx((){
           // loading check
           if (privacyController.isLoadingPrivacy.value) {
-            return Center(child: CircularProgressIndicator());
+            return Center(child: CustomLoader());
           }
 
           final privacyData = privacyController.privacy.value;
 
           if (privacyData == null) {
-            return Center(child: Text("Privacy Policy is currently unavailable"));
+            return EmptyWidget(title: "Privacy Policy is currently unavailable");
           }
 
-          return   RichText(
-            text: TextSpan(
-              style: TextStyle(
-                fontSize: 14,
-                color: Colors.black87,
-                height: 1.5,
+          return   Html(
+            data: privacyData.description,
+            style: {
+              "body": Style(
+                fontSize: FontSize(18.sp),
+                fontWeight: FontWeight.w600,
+                color: Colors.black,
               ),
-              children: [
-                TextSpan(
-                  text: privacyData.description,
-                  style:GoogleFonts.syne(fontSize: 18.sp, fontWeight: FontWeight.w600,),
-                ),
-
-              ],
-            ),
+            },
           );
 
         }),

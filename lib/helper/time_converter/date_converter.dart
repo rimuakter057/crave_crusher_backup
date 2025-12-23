@@ -8,9 +8,15 @@ class DateConverter {
     if (createdAt == null || createdAt.isEmpty) return '';
 
     try {
-      final DateTime dateTime = DateTime.parse(createdAt).toUtc();
-      return DateFormat('dd MMM yyyy hh:mm a').format(dateTime);
-      // Example: 27 Aug 2020 02:48 AM (UTC)
+      // Parse the UTC time string
+      final DateTime utcDateTime = DateTime.parse(createdAt);
+
+      // Convert to local time
+      final DateTime localDateTime = utcDateTime.toLocal();
+
+      // Format and return
+      return DateFormat('dd MMM yyyy hh:mm a').format(localDateTime);
+      // Example: 23 Dec 2025 12:17 PM (Local time)
     } catch (e) {
       return '';
     }

@@ -121,8 +121,7 @@ class _NavBarState extends State<NavBar> {
      // final AddPostController controller = Get.find<AddPostController>();
 
       Get.to(() => CommunityAllFeedScreen(
-        // postText: controller.postText.value,
-        // imagePath: controller.imagePath.value.isEmpty ? null : controller.imagePath.value,
+
       ));
     }
     else if (index == 3 && widget.currentIndex != 3) {

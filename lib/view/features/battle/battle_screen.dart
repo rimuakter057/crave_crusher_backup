@@ -2,6 +2,7 @@ import 'package:crave_crusher/core/routes/app_routes.dart';
 import 'package:crave_crusher/view/components/common_empty/common_empty_widget.dart';
 import 'package:crave_crusher/view/components/custom_app_bar/custom_app_bar.dart';
 import 'package:crave_crusher/view/components/custom_nav_bar/navbar.dart';
+import 'package:crave_crusher/view/components/custom_refresh_indicator/custom_refresh_indicator.dart';
 import 'package:crave_crusher/view/features/battle/controller/battle_controller.dart';
 import 'package:crave_crusher/view/features/battle/inner_screen/battle_details_screen.dart';
 import 'package:crave_crusher/view/features/battle/widget/battle_tab_selector.dart';
@@ -75,7 +76,7 @@ class _BattleScreenState extends State<BattleScreen> {
 
               if (controller.battleTabIndex.value == 0) ...[
                 Expanded(
-                  child: RefreshIndicator(
+                  child: CustomRefreshIndicator(
                     onRefresh: () async {
                       _fetchBattleByTab(controller.battleTabIndex.value);
                     },
@@ -126,7 +127,7 @@ class _BattleScreenState extends State<BattleScreen> {
 
               if (controller.battleTabIndex.value == 1) ...[
                 Expanded(
-                  child: RefreshIndicator(
+                  child: CustomRefreshIndicator(
                     onRefresh: () async {
                       _fetchBattleByTab(controller.battleTabIndex.value);
                     },
@@ -177,7 +178,7 @@ class _BattleScreenState extends State<BattleScreen> {
 
               if (controller.battleTabIndex.value == 2) ...[
                 Expanded(
-                  child: RefreshIndicator(
+                  child: CustomRefreshIndicator(
                     onRefresh: () async {
                       _fetchBattleByTab(controller.battleTabIndex.value);
                     },

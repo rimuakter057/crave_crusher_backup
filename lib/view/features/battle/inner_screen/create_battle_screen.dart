@@ -214,6 +214,7 @@ class _CustomDropdownField extends StatelessWidget {
           bottom: 8.h,
         ),
         DropdownButtonFormField<String>(
+
           value: selectedValue,
           decoration: InputDecoration(
             hintText: hint,
@@ -224,6 +225,7 @@ class _CustomDropdownField extends StatelessWidget {
             ),
             filled: true,
             fillColor: AppColors.subPrimary.withOpacity(0.4),
+           // fillColor: AppColors.red,
             border: OutlineInputBorder(
               borderRadius: BorderRadius.circular(10.r),
               borderSide: BorderSide.none,

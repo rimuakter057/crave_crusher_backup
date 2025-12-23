@@ -64,4 +64,6 @@ class AppIcons {
   static const String claim = "$basePath/claim.png";
   static const String missed = "$basePath/missed.png";
 
+  static const String lottieBattle="$basePath/lottie_battle.json";
+
 }

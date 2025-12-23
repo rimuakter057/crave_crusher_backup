@@ -22,9 +22,19 @@ import 'firebase_options.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
-await Firebase.initializeApp(
-options: DefaultFirebaseOptions.currentPlatform,
-);
+
+  try {
+    await Firebase.initializeApp(
+      options: DefaultFirebaseOptions.currentPlatform,
+    );
+    print('Firebase initialized successfully!======================================');
+  } catch (e) {
+    print('Firebase failed to initialize:=============================================== $e');
+  }
+
+
+
+
   DeviceUtils.lockDevicePortrait();
 
   DependencyInjection di = DependencyInjection();
@@ -41,6 +51,7 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+
     return ScreenUtilInit(
       designSize: const Size(390, 870),
       minTextAdapt: true,
@@ -85,3 +96,4 @@ class CustomTheme {
 
   static ThemeData get darkTheme => ThemeData.dark();
 }
+
