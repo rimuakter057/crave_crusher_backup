@@ -93,73 +93,72 @@ class CreatePostScreen extends StatelessWidget {
                   fontSize: 14.sp,
                   fontWeight: FontWeight.w500,
                 ),
-                Gap(8.h),
-
-                ///image add option
-                GestureDetector(
-                  onTap: () => controller.pickImages(), // multiple image picker
-                  child:
-                      controller.imagePaths.isNotEmpty
-                          ? SizedBox(
-                            height: 120.h,
-                            child: ListView.separated(
-                              scrollDirection: Axis.horizontal,
-                              itemCount: controller.imagePaths.length,
-                              separatorBuilder: (_, __) => SizedBox(width: 10),
-                              itemBuilder: (context, index) {
-                                final path = controller.imagePaths[index];
-                                return Stack(
-                                  children: [
-                                    ClipRRect(
-                                      borderRadius: BorderRadius.circular(12),
-                                      child: Image.file(
-                                        File(path),
-                                        width: 120.w,
-                                        height: 120.h,
-                                        fit: BoxFit.cover,
-                                      ),
-                                    ),
-
-                                    /// Remove button
-                                    Positioned(
-                                      right: 5,
-                                      top: 5,
-                                      child: GestureDetector(
-                                        onTap:
-                                            () => controller.removeImage(path),
-                                        child: Container(
-                                          width: 24.w,
-                                          height: 24.h,
-                                          alignment: Alignment.center,
-                                          decoration: BoxDecoration(
-                                            color: AppColors.white,
-                                            shape: BoxShape.circle,
-                                            border: Border.all(
-                                              color: AppColors.subPrimary,
-                                            ),
-                                          ),
-                                          child: Icon(Icons.close, size: 16),
-                                        ),
-                                      ),
-                                    ),
-                                  ],
-                                );
-                              },
-                            ),
-                          )
-                          : CustomContainer(
-                            width: double.infinity,
-                            height: 120.h,
-                            backgroundColor: AppColors.subPrimary.withOpacity(
-                              .5,
-                            ),
-                            child: Center(
-                              child: CustomImage(imageSrc: AppIcons.addImage),
-                            ),
-                          ),
-                ),
-
                 Gap(12.h),
+
+
+
+
+                /// Image List
+                if (controller.imagePaths.isNotEmpty)
+                  SizedBox(
+                    height: 120.h,
+                    child: ListView.separated(
+                      scrollDirection: Axis.horizontal,
+                      itemCount: controller.imagePaths.length,
+                      separatorBuilder: (_, __) => SizedBox(width: 10),
+                      itemBuilder: (context, index) {
+                        final path = controller.imagePaths[index];
+                        return Stack(
+                          children: [
+                            ClipRRect(
+                              borderRadius: BorderRadius.circular(12),
+                              child: Image.file(
+                                File(path),
+                                width: 120.w,
+                                height: 120.h,
+                                fit: BoxFit.cover,
+                              ),
+                            ),
+                            Positioned(
+                              right: 5,
+                              top: 5,
+                              child: GestureDetector(
+                                onTap: () => controller.removeImage(path),
+                                child: Container(
+                                  width: 24.w,
+                                  height: 24.h,
+                                  decoration: BoxDecoration(
+                                    color: AppColors.white,
+                                    shape: BoxShape.circle,
+                                  ),
+                                  child: Icon(Icons.close, size: 16),
+                                ),
+                              ),
+                            ),
+                          ],
+                        );
+                      },
+                    ),
+                  ),
+
+
+                GestureDetector(
+                  onTap: () => controller.pickImages(),
+                  child: CustomContainer(
+                    width: double.infinity,
+                    height: 120.h,
+                    backgroundColor: AppColors.subPrimary.withOpacity(
+                      .5,
+                    ),
+                    child: Center(
+                      child: CustomImage(imageSrc: AppIcons.addImage),
+                    ),
+                  ),
+                ),
+                Gap(12.h),
+
+
+
 
                 /// post Button section
                 GestureDetector(
