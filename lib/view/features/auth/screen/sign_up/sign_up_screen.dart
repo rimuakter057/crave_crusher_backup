@@ -1,4 +1,5 @@
 import 'package:crave_crusher/view/components/custom_button/custom_button.dart';
+import 'package:crave_crusher/view/components/custom_loader/custom_loader.dart';
 import 'package:crave_crusher/view/components/custom_text/custom_text.dart';
 import 'package:crave_crusher/view/components/input_field_with_title/input_field_with_title.dart';
 import 'package:crave_crusher/view/components/input_password_field_widget/input_password_field_widget.dart';
@@ -152,7 +153,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                     builder: (controller) {
                       return Visibility(
                         visible: controller.signUpInProgress == false,
-                        replacement: Center(child: CircularProgressIndicator()),
+                        replacement: CustomLoader(),
                         child: CustomButton(
                           title: "Sign Up",
                           onTap: _signUp, // <-- calls separate method

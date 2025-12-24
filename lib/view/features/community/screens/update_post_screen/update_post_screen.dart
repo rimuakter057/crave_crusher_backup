@@ -3,7 +3,7 @@ import 'dart:io';
 import 'package:crave_crusher/helper/imges_handler/image_handler.dart';
 import 'package:crave_crusher/utils/app_colors/app_colors.dart';
 import 'package:crave_crusher/utils/app_icons/app_icons.dart';
-import 'package:crave_crusher/utils/app_images/app_images.dart';
+
 import 'package:crave_crusher/view/components/custom_container/custom_container.dart';
 import 'package:crave_crusher/view/components/custom_image/custom_image.dart';
 import 'package:crave_crusher/view/components/custom_loader/custom_loader.dart';
@@ -118,6 +118,10 @@ class _UpdatePostScreenState extends State<UpdatePostScreen> {
                 return Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
+
+
+
+
                     /// selected images (Column or Wrap)
                     if (images.isNotEmpty)
                       Wrap(
@@ -125,37 +129,38 @@ class _UpdatePostScreenState extends State<UpdatePostScreen> {
                         runSpacing: 8.h,
                         children: List.generate(
                           images.length,
-                              (index) => Stack(
-                            children: [
-                              ClipRRect(
-                                borderRadius: BorderRadius.circular(12),
-                                child: Image.file(
-                                  File(images[index]),
-                                  width: double.infinity,
-                                  height: 120.h,
-                                  fit: BoxFit.cover,
-                                ),
-                              ),
-                              Positioned(
-                                right: 6,
-                                top: 6,
-                                child: GestureDetector(
-                                  onTap: () =>  postController.pickImagesUpdate(),
-                                  child: Container(
-                                    width: 24.w,
-                                    height: 24.h,
-                                    alignment: Alignment.center,
-                                    decoration: BoxDecoration(
-                                      color: AppColors.white,
-                                      shape: BoxShape.circle,
-                                      border: Border.all(color: AppColors.subPrimary),
-                                    ),
-                                    child: Icon(Icons.close, size: 16),
-                                  ),
-                                ),
-                              ),
-                            ],
-                          ),
+                              (index) => _buildImageItem(images[index], itemWidth),
+                          //         Stack(
+                          //   children: [
+                          //     ClipRRect(
+                          //       borderRadius: BorderRadius.circular(12),
+                          //       child: Image.file(
+                          //         File(images[index]),
+                          //         width: double.infinity,
+                          //         height: 120.h,
+                          //         fit: BoxFit.cover,
+                          //       ),
+                          //     ),
+                          //     Positioned(
+                          //       right: 6,
+                          //       top: 6,
+                          //       child: GestureDetector(
+                          //         onTap: () =>  postController.pickImagesUpdate(),
+                          //         child: Container(
+                          //           width: 24.w,
+                          //           height: 24.h,
+                          //           alignment: Alignment.center,
+                          //           decoration: BoxDecoration(
+                          //             color: AppColors.white,
+                          //             shape: BoxShape.circle,
+                          //             border: Border.all(color: AppColors.subPrimary),
+                          //           ),
+                          //           child: Icon(Icons.close, size: 16),
+                          //         ),
+                          //       ),
+                          //     ),
+                          //   ],
+                          // ),
                         ),
                       ),
 

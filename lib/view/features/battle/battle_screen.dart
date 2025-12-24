@@ -42,13 +42,13 @@ class _BattleScreenState extends State<BattleScreen> {
   void _fetchBattleByTab(int index) {
     switch (index) {
       case 0:
-        controller.fetchAllBattle('active');
+        controller.fetchAllBattle();
         break;
       case 1:
-        controller.fetchAllBattle('complete');
+        controller.fetchAllBattle();
         break;
       case 2:
-        controller.fetchAllBattle('cancel');
+        controller.fetchAllBattle();
         break;
     }
   }

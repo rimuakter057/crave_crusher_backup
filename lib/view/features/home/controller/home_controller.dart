@@ -96,9 +96,10 @@ class HomeController extends GetxController {
 
     if (response.statusCode == 200 || response.statusCode == 201) {
       notificationList.removeWhere((notification) => notification.id == id);
-      Get.snackbar("Success", "Notification deleted successfully");
+
     } else {
       Get.snackbar("Failed", "Failed to delete notification");
+      ApiChecker.checkApi(response);
     }
   }
 }

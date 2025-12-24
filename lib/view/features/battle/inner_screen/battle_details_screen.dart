@@ -69,8 +69,8 @@ class _BattleDetailsScreenState extends State<BattleDetailsScreen> {
               ),
              // child: BackButton(color: AppColors.primary),
               child: IconButton(onPressed: (){
-                Get.to(() => BattleScreen());
-                controller.fetchAllBattle("active");
+                Get.back();
+                controller.fetchAllBattle();
 
               }, icon: Icon(Icons.arrow_back,color: AppColors.primary,)),
 
@@ -122,7 +122,7 @@ class _BattleDetailsScreenState extends State<BattleDetailsScreen> {
                                             .cancelBattle(widget.battleId);
                                         if (success) {
                                           Get.to(() => BattleScreen());
-                                          controller.fetchAllBattle("active");
+                                          controller.fetchAllBattle();
                                         }
                                       }(); // immediately invoked
                                     },
@@ -299,7 +299,7 @@ class _BattleDetailsScreenState extends State<BattleDetailsScreen> {
                           final success = await controller
                               .completeBattleDay(id, "caved");
                           if (success) {
-                            Get.back();
+                           // Get.back();
 
                             Get.dialog(
                               Center(
@@ -345,7 +345,7 @@ class _BattleDetailsScreenState extends State<BattleDetailsScreen> {
                               .completeBattleDay(id, "craved");
 
                           if (success) {
-                            Get.back();
+                           // Get.back();
                             Get.dialog(
                               Center(
                                 child: Lottie.asset(

@@ -62,8 +62,8 @@ class _RewardsScreenState extends State<RewardsScreen> {
                 child: Obx(() {
                   if (controller.isLoadingProgress.value) {
                     return SizedBox(
-                        height: 120.h,
-                        width: 120.w,
+                        height: 100.h,
+
                         child: CustomLoader());
                   }
 
@@ -89,7 +89,7 @@ class _RewardsScreenState extends State<RewardsScreen> {
                 }
 
                 if (currentBadge == null) {
-                  return EmptyWidget(title: "No badge available");
+                  return _buildEmptyWidget("No badge available");
                 }
 
                 // Data available
@@ -115,8 +115,8 @@ class _RewardsScreenState extends State<RewardsScreen> {
                             width: 30.w,
                             alignment: Alignment.center,
                             decoration: BoxDecoration(
-                              color: Colors.grey.shade100,
-                              border: Border.all(color: AppColors.red),
+                              color: getBadgeBgColor(badgeName),
+                              border: Border.all(color: getBadgeBorderColor(badgeName),),
                               borderRadius: BorderRadius.circular(3),
                             ),
                             child: CustomNetworkImage(
@@ -167,12 +167,8 @@ class _RewardsScreenState extends State<RewardsScreen> {
                 var achieve = controller.allAchieveList;
 
                 if (achieve.isEmpty) {
-                  return Center(
-                    child: CustomText(
-                      text: "achieve badges empty",
-                      fontSize: 14,
-                    ),
-                  );
+                  return
+                    _buildEmptyWidget("achieve badges empty");
                 }
                 final isLoading = controller.isLoadingClaim.value;
                 return ListView.separated(
@@ -279,64 +275,7 @@ class _RewardsScreenState extends State<RewardsScreen> {
                             ),
                           ),
 
-                          // Obx(() {
-                          //   final isLoading = controller.isLoadingClaim.value;
-                          //
-                          //   return GestureDetector(
-                          //     onTap:
-                          //         claimed || isLoading
-                          //             ? null
-                          //             : () async {
-                          //               bool success = await controller.claim(
-                          //                 itemDetails.id,
-                          //               );
-                          //               if (!success) {
-                          //                 Get.snackbar(
-                          //                   "Error",
-                          //                   "Failed to claim badge",
-                          //                 );
-                          //               }
-                          //             },
-                          //     child: Container(
-                          //       height: 28.h,
-                          //       width: 65.w,
-                          //       decoration: BoxDecoration(
-                          //         color:
-                          //             claimed ? Colors.grey : AppColors.primary,
-                          //         borderRadius: BorderRadius.circular(4.r),
-                          //       ),
-                          //       alignment: Alignment.center,
-                          //       child:
-                          //           isLoading
-                          //               ? SizedBox(
-                          //                 width: 12.w,
-                          //                 height: 12.h,
-                          //                 child: CircularProgressIndicator(
-                          //                   color: AppColors.white,
-                          //                   strokeWidth: 2,
-                          //                 ),
-                          //               )
-                          //               : Row(
-                          //                 mainAxisAlignment:
-                          //                     MainAxisAlignment.spaceEvenly,
-                          //                 children: [
-                          //                   CustomImage(
-                          //                     imageSrc: AppIcons.claim,
-                          //                     imageColor: AppColors.white,
-                          //                     height: 12.h,
-                          //                     width: 12.w,
-                          //                   ),
-                          //                   CustomText(
-                          //                     text: "Claim",
-                          //                     fontSize: 10.sp,
-                          //                     fontWeight: FontWeight.w600,
-                          //                     color: AppColors.white,
-                          //                   ),
-                          //                 ],
-                          //               ),
-                          //     ),
-                          //   );
-                          // }),
+
                         ],
                       ),
                     );
@@ -406,7 +345,7 @@ class _RewardsScreenState extends State<RewardsScreen> {
                 );
               }),
 
-              ///gain badge details section====================================================================
+              ///gain all badge details section====================================================================
               _buildGainedBadgeText(title: "All Badges"),
 
               /// all badges section=======================================================================================

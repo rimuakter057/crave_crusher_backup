@@ -141,8 +141,9 @@ class _StartNewBattleScreenState extends State<CreateBattleScreen> {
                         : () async {
                           final success = await controller.createBattle();
                           if (success) {
-                            Get.to(BattleScreen());
-                            controller.fetchAllBattle("active");
+                           // Get.to(BattleScreen());
+                            Get.back();
+                            controller.fetchAllBattle();
                           }
                         },
                 child:

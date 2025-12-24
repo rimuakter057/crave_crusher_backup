@@ -24,7 +24,7 @@ import '../../widgets/community_tab_selector.dart';
 import '../community_user_profile_screen/community_profile_screen.dart';
 
 class CommunityAllFeedScreen extends StatefulWidget {
-  final int initialTabIndex; // 0 = All Posts, 1 = My Posts
+  final int initialTabIndex;
   const CommunityAllFeedScreen({super.key, this.initialTabIndex = 0});
 
   @override

@@ -1,5 +1,6 @@
 import 'package:crave_crusher/utils/app_colors/app_colors.dart';
 import 'package:crave_crusher/view/components/custom_button/custom_button.dart';
+import 'package:crave_crusher/view/components/custom_loader/custom_loader.dart';
 import 'package:crave_crusher/view/components/custom_text/custom_text.dart';
 import 'package:crave_crusher/view/components/show_snack_bar/show_snack_bar.dart';
 import 'package:crave_crusher/view/features/auth/controllers/user_resend_otp_controller.dart';
@@ -132,7 +133,7 @@ class _VerifyAccountScreenState extends State<VerifyAccountScreen> {
                   builder: (controller) {
                     return Visibility(
                       visible: controller.inProgress == false,
-                      replacement: Center(child: CircularProgressIndicator()),
+                      replacement: CustomLoader(),
                       child: CustomButton(
                         title: "Verify OTP",
                         onTap: _verifyOtpButton,

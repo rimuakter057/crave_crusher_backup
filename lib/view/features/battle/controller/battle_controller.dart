@@ -124,15 +124,27 @@ class BattleController extends GetxController {
   }
 
   /// get all battle ============================================================================== Get Method =====================map to lis==============
+  String checkStatus() {
+    switch (battleTabIndex.value) {
+      case 0:
+        return 'active';
+      case 1:
+        return 'complete';
+      case 2:
+        return 'cancel';
+      default:
+        return 'active';
+    }
+  }
 
   RxList<BattleModel> allBattleList = <BattleModel>[].obs;
   RxBool isLoadingAllBattle = false.obs;
   static final Logger logger = Logger();
 
-  Future<void> fetchAllBattle(String status) async {
+  Future<void> fetchAllBattle() async {
     isLoadingAllBattle.value = true;
 
-    final response = await ApiClient.getData(ApiUrl.myBattle(status));
+    final response = await ApiClient.getData(ApiUrl.myBattle(checkStatus()));
 
     if (response.statusCode == 200 &&
         response.body != null &&
@@ -187,7 +199,7 @@ class BattleController extends GetxController {
 
   Future<bool> completeBattleDay(String battleId, final String status) async {
     isLoadingCompleteBattle.value = true;
-
+    Get.back();
     final body = {
       "status": status, // or whatever backend expects
     };
@@ -200,7 +212,8 @@ class BattleController extends GetxController {
     isLoadingCompleteBattle.value = false;
 
     if (response.statusCode == 200 || response.statusCode == 201) {
-      Get.snackbar("Success", "Status updated to Caved");
+      //Get.snackbar("Success", "Status updated to Caved");
+      //Get.back();
       return true;
     }
     ApiChecker.checkApi(response);

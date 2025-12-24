@@ -105,6 +105,7 @@ class _NotificationScreenState extends State<NotificationScreen> {
                   ),
                   trailing:IconButton(onPressed: (){
                     controller.deleteNotification(notification.id!);
+                    Get.snackbar("Success", "Notification deleted successfully",);
                   }, icon: Icon(
                     Icons.close,
                     color: AppColors.primary,
