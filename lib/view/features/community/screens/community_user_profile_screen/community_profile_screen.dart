@@ -2,10 +2,12 @@ import 'package:crave_crusher/helper/imges_handler/image_handler.dart';
 import 'package:crave_crusher/helper/time_converter/date_converter.dart';
 import 'package:crave_crusher/utils/app_colors/app_colors.dart';
 import 'package:crave_crusher/utils/app_const/app_const.dart';
+import 'package:crave_crusher/utils/app_icons/app_icons.dart';
 import 'package:crave_crusher/utils/app_images/app_images.dart';
 import 'package:crave_crusher/view/components/common_empty/common_empty_widget.dart';
 import 'package:crave_crusher/view/components/common_profile/avatar_widget.dart';
 import 'package:crave_crusher/view/components/custom_nav_bar/navbar.dart';
+import 'package:crave_crusher/view/components/custom_svg_icon/custom_svg_icon.dart';
 import 'package:crave_crusher/view/components/custom_text/custom_text.dart';
 import 'package:crave_crusher/view/features/community/controllers/community_controller.dart';
 import 'package:crave_crusher/view/features/community/controllers/post_controller.dart';
@@ -19,6 +21,7 @@ import 'package:crave_crusher/view/features/profile/controllers/profile_controll
 import 'package:crave_crusher/view/features/profile/profile_screen/profile_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:gap/gap.dart';
 import 'package:get/get.dart';
 
@@ -64,7 +67,9 @@ class _CommunityProfileScreenState extends State<CommunityProfileScreen> {
               shape: BoxShape.circle,
               border: Border.all(color: AppColors.subPrimary),
             ),
-            child: BackButton(color: AppColors.primary),
+            child: IconButton(onPressed: (){
+              Get.back();
+            },        icon: CustomSvgIcon(icon: AppIcons.backButton),)
           ),
         ),
         centerTitle: true,
@@ -175,13 +180,27 @@ class _CommunityProfileScreenState extends State<CommunityProfileScreen> {
                                       isMyPost: true,
                                       hasVoted: myPost.hasVoted.value ?? false,
                                     ),
-                                    icon: Icon(
-                                      myPost.hasVoted.value ?? false
-                                          ? Icons.favorite
-                                          : Icons.favorite_border,
-                                      color: AppColors.red,
-                                      size: 20.w,
+
+
+                                   icon: SvgPicture.asset(
+                                      myPost.hasVoted.value
+                                          ? AppIcons.favorite     // filled heart svg
+                                          : AppIcons.favoriteOutline,   // outline heart svg
+                                      width: 18.w,
+                                      height: 18.w,
+                                      colorFilter: ColorFilter.mode(
+                                        AppColors.red,
+                                        BlendMode.srcIn,
+                                      ),
                                     ),
+
+                                    // icon: Icon(
+                                    //   myPost.hasVoted.value ?? false
+                                    //       ? Icons.favorite
+                                    //       : Icons.favorite_border,
+                                    //   color: AppColors.red,
+                                    //   size: 20.w,
+                                    // ),
                                   ),
                                   SizedBox(width: 4.w),
                                   CustomText(

@@ -5,6 +5,7 @@ import 'package:crave_crusher/utils/app_images/app_images.dart';
 import 'package:crave_crusher/view/components/common_profile/common_profile_widget.dart';
 import 'package:crave_crusher/view/components/custom_image/custom_image.dart';
 import 'package:crave_crusher/view/components/custom_network_image/custom_network_image.dart';
+import 'package:crave_crusher/view/components/custom_svg_icon/custom_svg_icon.dart';
 import 'package:crave_crusher/view/components/custom_text/custom_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -144,11 +145,7 @@ class _CommonCommunityWidgetState extends State<CommonCommunityWidget> {
                 onTap: widget.onTapComment,
                 child: Row(
                   children: [
-                    Icon(
-                      Icons.message_outlined,
-                      color: AppColors.primary,
-                      size: 20.w,
-                    ),
+                    CustomSvgIcon(icon: AppIcons.comment),
                     Gap(4.w),
                     CustomText(text: widget.commentsText),
                   ],
@@ -197,7 +194,7 @@ class _CommonCommunityWidgetState extends State<CommonCommunityWidget> {
 
         ),
       ),
-    Gap(4.w),
+    Gap(8.w),
     Column(
     children: [
 
@@ -208,11 +205,46 @@ class _CommonCommunityWidgetState extends State<CommonCommunityWidget> {
     borderRadius: BorderRadius.circular(6),
 
     ),
+
+
       ])];
     }
 
+    else if(images.length == 3){
 
+      return [
+        ClipRRect(
+          borderRadius: BorderRadius.circular(6),
+          child: CustomNetworkImage(
+            imageUrl:ImageHandler.imagesHandle( images[0]),
+            height: 180.h,
+            width: 130.w,
 
+          ),
+        ),
+        Gap(8.w),
+        Column(
+            children: [
+
+              CustomNetworkImage(
+                imageUrl: ImageHandler.imagesHandle( images[1]),
+                height: 90.h,
+                width: 100.w,
+                borderRadius: BorderRadius.circular(6),
+
+              ),
+              Gap(8.h),
+              CustomNetworkImage(
+                imageUrl: ImageHandler.imagesHandle( images[2]),
+                height: 90.h,
+                width: 100.w,
+                borderRadius: BorderRadius.circular(6),
+
+              ),
+
+            ])];
+
+    }
 
     else {
       // Multiple images
@@ -226,7 +258,7 @@ class _CommonCommunityWidgetState extends State<CommonCommunityWidget> {
 
           ),
         ),
-        Gap(4.w),
+        Gap(8.w),
         Column(
           children: [
 
@@ -240,18 +272,18 @@ class _CommonCommunityWidgetState extends State<CommonCommunityWidget> {
 
 
             if(images.length > 3)...[
-              Gap(4.h),
+              Gap(8.h),
               CustomNetworkImage(
                 imageUrl: ImageHandler.imagesHandle( images[2]),
                 height: 90.h,
-                width: 85.w,
+                width: 100.w,
                 borderRadius: BorderRadius.circular(6),
                 child: images.length > 3?
                 Center
                   (
                   child: Container(
                       height: 90.h,
-                      width: 85.w,
+                      width: 100.w,
                       alignment: Alignment.center,
                       decoration: BoxDecoration(
                         color: AppColors.white.withAlpha(99) ,

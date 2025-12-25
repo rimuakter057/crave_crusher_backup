@@ -8,6 +8,7 @@ import 'package:crave_crusher/view/components/custom_container/custom_container.
 import 'package:crave_crusher/view/components/custom_image/custom_image.dart';
 import 'package:crave_crusher/view/components/custom_loader/custom_loader.dart';
 import 'package:crave_crusher/view/components/custom_refresh_indicator/custom_refresh_indicator.dart';
+import 'package:crave_crusher/view/components/custom_svg_icon/custom_svg_icon.dart';
 import 'package:crave_crusher/view/components/custom_text/custom_text.dart';
 import 'package:crave_crusher/view/components/custom_text_field/custom_text_field.dart';
 import 'package:crave_crusher/view/features/community/controllers/community_controller.dart';
@@ -58,7 +59,7 @@ class _CommentScreenState extends State<CommentScreen> {
               shape: BoxShape.circle,
               border: Border.all(color: AppColors.subPrimary),
             ),
-            child: BackButton(color: AppColors.primary),
+            child: IconButton(onPressed: (){Get.back();}, icon: CustomSvgIcon(icon: AppIcons.backButton))
           ),
         ),
         centerTitle: true,

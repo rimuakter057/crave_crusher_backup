@@ -1,19 +1,24 @@
 
 
+import 'dart:ffi';
+
 import 'package:crave_crusher/utils/app_colors/app_colors.dart';
 import 'package:crave_crusher/utils/app_const/app_const.dart';
+import 'package:crave_crusher/utils/app_icons/app_icons.dart';
 import 'package:crave_crusher/utils/app_images/app_images.dart';
 import 'package:crave_crusher/view/components/common_empty/common_empty_widget.dart';
 import 'package:crave_crusher/view/components/custom_image/custom_image.dart';
 import 'package:crave_crusher/view/components/custom_leadin_title_appbar.dart';
 import 'package:crave_crusher/view/components/custom_loader/custom_loader.dart';
 import 'package:crave_crusher/view/components/custom_refresh_indicator/custom_refresh_indicator.dart';
+import 'package:crave_crusher/view/components/custom_svg_icon/custom_svg_icon.dart';
 import 'package:crave_crusher/view/components/custom_text/custom_text.dart';
 import 'package:crave_crusher/view/features/home/controller/home_controller.dart';
 import 'package:crave_crusher/view/features/notification/widgets/notification_tile_widget.dart';
 import 'package:crave_crusher/view/features/rewards/widgets/custom_circular_indicator.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 
 
@@ -103,18 +108,23 @@ class _NotificationScreenState extends State<NotificationScreen> {
                       fit: BoxFit.cover,
                     ),
                   ),
-                  trailing:IconButton(onPressed: (){
-                    controller.deleteNotification(notification.id!);
-                    Get.snackbar("Success", "Notification deleted successfully",);
-                  }, icon: Icon(
-                    Icons.close,
-                    color: AppColors.primary,
-                    size: 24,
-                  ),),
+
+                  trailing: IconButton(
+                    onPressed: () {
+                  controller.deleteNotification(notification.id!);
+                  Get.snackbar(
+                    "Success",
+                    "Notification deleted successfully",
+                  );
+                },
+              icon: CustomSvgIcon(
+                icon: AppIcons.cross,
+              ),
+              ),
 
 
 
-                );
+              );
               } else {
                 // Bottom loader for pagination
                 return Obx(() {
@@ -137,6 +147,8 @@ class _NotificationScreenState extends State<NotificationScreen> {
     );
   }
 }
+
+
 
 
 

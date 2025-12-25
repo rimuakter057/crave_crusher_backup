@@ -8,6 +8,7 @@ import 'package:crave_crusher/view/components/custom_container/custom_container.
 import 'package:crave_crusher/view/components/custom_image/custom_image.dart';
 import 'package:crave_crusher/view/components/custom_loader/custom_loader.dart';
 import 'package:crave_crusher/view/components/custom_network_image/custom_network_image.dart';
+import 'package:crave_crusher/view/components/custom_svg_icon/custom_svg_icon.dart';
 import 'package:crave_crusher/view/components/custom_text/custom_text.dart';
 import 'package:crave_crusher/view/components/custom_text_field/custom_text_field.dart';
 import 'package:crave_crusher/view/features/community/controllers/post_controller.dart';
@@ -33,13 +34,18 @@ class _UpdatePostScreenState extends State<UpdatePostScreen> {
   void initState() {
     super.initState();
 
-    contentController.text = widget.updatePostData.content;
 
-    // Existing images set kora
-    postController.currentImagePaths.value =
-        widget.updatePostData.images.isNotEmpty
-            ? List<String>.from(widget.updatePostData.images)
-            : [];
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      contentController.text = widget.updatePostData.content;
+
+      // Existing images set kora
+      postController.currentImagePaths.value =
+      widget.updatePostData.images.isNotEmpty
+          ? List<String>.from(widget.updatePostData.images)
+          : [];
+    });
+
+
   }
 
   @override
@@ -62,7 +68,10 @@ class _UpdatePostScreenState extends State<UpdatePostScreen> {
               shape: BoxShape.circle,
               border: Border.all(color: AppColors.subPrimary),
             ),
-            child: BackButton(color: AppColors.primary),
+            child: IconButton(onPressed: (){
+              Get.back();
+            }, icon: CustomSvgIcon(icon: AppIcons.backButton)
+            )
           ),
         ),
         centerTitle: true,
@@ -130,37 +139,6 @@ class _UpdatePostScreenState extends State<UpdatePostScreen> {
                         children: List.generate(
                           images.length,
                               (index) => _buildImageItem(images[index], itemWidth),
-                          //         Stack(
-                          //   children: [
-                          //     ClipRRect(
-                          //       borderRadius: BorderRadius.circular(12),
-                          //       child: Image.file(
-                          //         File(images[index]),
-                          //         width: double.infinity,
-                          //         height: 120.h,
-                          //         fit: BoxFit.cover,
-                          //       ),
-                          //     ),
-                          //     Positioned(
-                          //       right: 6,
-                          //       top: 6,
-                          //       child: GestureDetector(
-                          //         onTap: () =>  postController.pickImagesUpdate(),
-                          //         child: Container(
-                          //           width: 24.w,
-                          //           height: 24.h,
-                          //           alignment: Alignment.center,
-                          //           decoration: BoxDecoration(
-                          //             color: AppColors.white,
-                          //             shape: BoxShape.circle,
-                          //             border: Border.all(color: AppColors.subPrimary),
-                          //           ),
-                          //           child: Icon(Icons.close, size: 16),
-                          //         ),
-                          //       ),
-                          //     ),
-                          //   ],
-                          // ),
                         ),
                       ),
 
@@ -268,7 +246,7 @@ class _UpdatePostScreenState extends State<UpdatePostScreen> {
                 shape: BoxShape.circle,
                 border: Border.all(color: AppColors.subPrimary),
               ),
-              child: Icon(Icons.close, size: 16),
+              child: CustomSvgIcon(icon: AppIcons.cross)
             ),
           ),
         ),

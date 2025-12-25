@@ -43,11 +43,11 @@ Future<void> main() async {
   /// Load Token Immediately (VERY IMPORTANT)
   final auth = getx.Get.find<AuthController>();
   await auth.getUserData();
-  runApp(DevicePreview(enabled: false, builder: (context) => const MyApp()));
+  runApp(DevicePreview(enabled: false, builder: (context) => const CraveCrusher()));
 }
 
-class MyApp extends StatelessWidget {
-  const MyApp({super.key});
+class CraveCrusher extends StatelessWidget {
+  const CraveCrusher({super.key});
 
   @override
   Widget build(BuildContext context) {

@@ -52,6 +52,10 @@ class ApiUrl {
   static String getSingleUserProfile(String userId) {
     return "/community-post/get-single-user-posts/$userId";
   }
+ /// home=====================================================
+
+
+  static const String tips = "/user/daily-tip";
 
 
 

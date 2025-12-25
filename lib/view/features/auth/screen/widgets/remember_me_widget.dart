@@ -23,7 +23,7 @@ class RememberMeAndForgotPassword extends StatelessWidget {
         // 1. Remember Me Checkbox and Text
         Row(
           children: [
-            Checkbox(value: isChecked, onChanged: onRememberMeChanged),
+            Checkbox(value: isChecked, onChanged: onRememberMeChanged,      materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,),
             const CustomText(
               text: "Remember Me",
               fontWeight: FontWeight.w600,

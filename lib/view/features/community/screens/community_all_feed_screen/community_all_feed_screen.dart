@@ -13,9 +13,11 @@ import 'package:crave_crusher/view/features/community/widgets/shimmer_widget.dar
 import 'package:crave_crusher/view/features/profile/profile_screen/profile_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:gap/gap.dart';
 import 'package:get/get.dart';
 import '../../../../../helper/time_converter/date_converter.dart';
+import '../../../../../utils/app_icons/app_icons.dart';
 import '../../../../components/custom_app_bar/custom_app_bar.dart';
 import '../../../../components/custom_nav_bar/navbar.dart';
 import '../../controllers/post_controller.dart';
@@ -134,13 +136,18 @@ class _CommunityAllFeedScreenState extends State<CommunityAllFeedScreen> {
                                           );
                                           await postController.fetchMyPost();
                                         },
-                                        icon: Icon(
-                                          post.hasVoted.value ?? false
-                                              ? Icons.favorite
-                                              : Icons.favorite_border,
-                                          color: AppColors.red,
-                                          size: 20.w,
+                                        icon: SvgPicture.asset(
+                                          post.hasVoted.value
+                                              ? AppIcons.favorite     // filled heart svg
+                                              : AppIcons.favoriteOutline,   // outline heart svg
+                                          width: 18.w,
+                                          height: 18.w,
+                                          colorFilter: ColorFilter.mode(
+                                            AppColors.red,
+                                            BlendMode.srcIn,
+                                          ),
                                         ),
+
                                       ),
                                       SizedBox(width: 4.w),
                                       CustomText(
@@ -207,12 +214,17 @@ class _CommunityAllFeedScreenState extends State<CommunityAllFeedScreen> {
                                           isMyPost: true,
                                           hasVoted: myPost.hasVoted.value ?? false,
                                         ),
-                                        icon: Icon(
-                                          myPost.hasVoted.value ?? false
-                                              ? Icons.favorite
-                                              : Icons.favorite_border,
-                                          color: AppColors.red,
-                                          size: 20.w,
+
+                                icon:SvgPicture.asset(
+                                          myPost.hasVoted.value
+                                              ? AppIcons.favorite     // filled heart svg
+                                              : AppIcons.favoriteOutline,   // outline heart svg
+                                          width: 18.w,
+                                          height: 18.w,
+                                          colorFilter: ColorFilter.mode(
+                                            AppColors.red,
+                                            BlendMode.srcIn,
+                                          ),
                                         ),
                                       ),
                                       SizedBox(width: 4.w),

@@ -1,3 +1,4 @@
+import 'package:crave_crusher/view/components/custom_svg_icon/custom_svg_icon.dart';
 import 'package:crave_crusher/view/features/community/controllers/community_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -34,7 +35,7 @@ class _CommunityImageShowScreenState extends State<CommunityImageShowScreen> {
         title: 'Media',
         leading: IconButton(
           onPressed: () => Navigator.pop(context),
-          icon: Icon(Icons.close, color: AppColors.primary),
+          icon: CustomSvgIcon(icon: AppIcons.backButton),
         ),
         actionIcon: AppIcons.download,
         onActionPressed: () {

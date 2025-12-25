@@ -66,4 +66,32 @@ class AppIcons {
 
   static const String lottieBattle="$basePath/lottie_battle.json";
 
+
+  static const String backButton="$basePath/back_button.svg";
+  static const String comment="$basePath/comment.svg";
+  static const String favoriteOutline="$basePath/favorite_outline.svg";
+  static const String favorite="$basePath/favorite.svg";
+  static const String arrowFront="$basePath/arrow_front.svg";
+
+  static const String myProfile="$basePath/my_profile.svg";
+  static const String accountSetting="$basePath/account_Setting.svg";
+
+  static const String terms="$basePath/terms.svg";
+
+  static const String privacy="$basePath/privacy.svg";
+  static const String help="$basePath/help.svg";
+
+  static const String logout="$basePath/log_out.svg";
+
+
+  static const String changePass="$basePath/change_pass.svg";
+
+  static const String deleteAccount="$basePath/delete_account.svg";
+
+
+  static const String notificationHome="$basePath/notification_home.svg";
+  static const String dropDown="$basePath/drop_down.svg";
+  static const String hide="$basePath/hide.svg";
+  static const String visible="$basePath/visible.svg";
+
 }

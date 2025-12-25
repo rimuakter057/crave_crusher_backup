@@ -1,6 +1,8 @@
 import 'package:crave_crusher/utils/app_colors/app_colors.dart';
+import 'package:crave_crusher/utils/app_icons/app_icons.dart';
 import 'package:crave_crusher/view/components/custom_button/custom_button.dart';
 import 'package:crave_crusher/view/components/custom_leadin_title_appbar.dart';
+import 'package:crave_crusher/view/components/custom_svg_icon/custom_svg_icon.dart';
 import 'package:crave_crusher/view/components/custom_text/custom_text.dart';
 import 'package:crave_crusher/view/features/change_password/change_password_screen.dart';
 import 'package:crave_crusher/view/features/profile/widgets/custom_profile_menu.dart';
@@ -25,7 +27,7 @@ class AccountSettingScreen extends StatelessWidget {
           children: [
             CustomProfileMenu(
               text: 'Change Password',
-              icon: Icon(Icons.lock_outline),
+              icon:AppIcons.changePass,
               onTap: () {
                 Navigator.push(
                   context,
@@ -42,7 +44,7 @@ class AccountSettingScreen extends StatelessWidget {
                 iconColor: AppColors.red,
                 textColor: AppColors.red,
                 text: 'Delete Account',
-                icon: Icon(Icons.delete_forever_outlined),
+                icon: AppIcons.deleteAccount,
                 onTap:
                     controller.isLoadingDeleteAccount.value
                         ? () {}

@@ -8,6 +8,7 @@ import 'package:crave_crusher/view/components/custom_text/custom_text.dart';
 import 'package:crave_crusher/view/features/battle/controller/battle_controller.dart';
 import 'package:crave_crusher/view/features/battle/widget/active_battle_card.dart';
 import 'package:crave_crusher/view/features/battle/widget/detox_type.dart';
+import 'package:crave_crusher/view/features/home/controller/home_controller.dart';
 import 'package:crave_crusher/view/features/home/widget/home_appbar.dart';
 import 'package:crave_crusher/view/features/home/widget/home_monster_shimmer.dart';
 import 'package:crave_crusher/view/features/home/widget/monster_section.dart';
@@ -30,6 +31,7 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> {
   final BattleController controller = Get.find<BattleController>();
   final ProfileController profileController = Get.find<ProfileController>();
+  final HomeController homeController = Get.find<HomeController>();
   @override
   void initState() {
     super.initState();
@@ -37,6 +39,7 @@ class _HomeScreenState extends State<HomeScreen> {
       controller.battleTabIndex.value = 0;
       controller.fetchAllBattle();
       profileController.fetchMyProfile();
+      homeController.getDailyTip();
     });
   }
 
@@ -69,33 +72,31 @@ class _HomeScreenState extends State<HomeScreen> {
             /// today tips===============================================================================================
 
               _buildTitle(AppIcons.smallMonster, "Tip for Today",),
-              Obx((){
-                final profile = profileController.myProfile.value;
-
-                if (profileController.isLoadingMyProfile.value) {
-                  return  Center(
+              Obx(() {
+                if (homeController.isLoadingTip.value) {
+                  return Center(
                     child: Shimmer.fromColors(
                       baseColor: Colors.grey[300]!,
                       highlightColor: Colors.grey[100]!,
-                      child:Container(
-                         height: 120,
+                      child: Container(
+                        height: 120,
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(6.r),
                           color: Colors.white,
-
                         ),
                       ),
                     ),
                   );
-
-
                 }
-                return    CustomImage(
+
+                return CustomImage(
                   imageSrc: AppIcons.tipsBackground,
                   child: Padding(
                     padding: EdgeInsets.symmetric(horizontal: 16.0.w),
                     child: CustomText(
-                      text: '“ Each craving lasts only a few minutes — take slow, deep breaths and remind yourself why you started. ”',
+                      text: homeController.dailyTip.value.isNotEmpty
+                          ? homeController.dailyTip.value
+                          : '“ Each craving lasts only a few minutes — take slow, deep breaths and remind yourself why you started. ”',
                       maxLines: 5,
                       fontSize: 14.w,
                       textAlign: TextAlign.center,
@@ -104,6 +105,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   ),
                 );
               }),
+
 
 
 

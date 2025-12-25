@@ -3,6 +3,7 @@ import 'package:crave_crusher/utils/app_icons/app_icons.dart';
 import 'package:crave_crusher/view/components/common_empty/common_empty_widget.dart';
 import 'package:crave_crusher/view/components/custom_button/custom_button.dart';
 import 'package:crave_crusher/view/components/custom_image/custom_image.dart';
+import 'package:crave_crusher/view/components/custom_svg_icon/custom_svg_icon.dart';
 import 'package:crave_crusher/view/components/custom_text/custom_text.dart';
 import 'package:crave_crusher/view/features/battle/battle_screen.dart';
 import 'package:crave_crusher/view/features/battle/controller/battle_controller.dart';
@@ -53,7 +54,7 @@ class _BattleDetailsScreenState extends State<BattleDetailsScreen> {
         child: Padding(
           padding: EdgeInsets.symmetric(
             horizontal: 16.w,
-          ), // custom horizontal padding
+          ),
           child: AppBar(
             surfaceTintColor: AppColors.backgroundColor,
             backgroundColor: AppColors.backgroundColor,
@@ -72,7 +73,7 @@ class _BattleDetailsScreenState extends State<BattleDetailsScreen> {
                 Get.back();
                 controller.fetchAllBattle();
 
-              }, icon: Icon(Icons.arrow_back,color: AppColors.primary,)),
+              }, icon: CustomSvgIcon(icon: AppIcons.backButton)),
 
             ),
             centerTitle: true,
@@ -146,11 +147,10 @@ class _BattleDetailsScreenState extends State<BattleDetailsScreen> {
                     shape: BoxShape.circle,
                     border: Border.all(color: AppColors.subPrimary),
                   ),
-                  child: Icon(
-                    Icons.close,
-                    color: AppColors.primary,
-                    size: 24.w,
-                  ),
+                  child: CustomSvgIcon(icon: AppIcons.cross,
+                  height: 28.h,
+                    width: 28.w,
+                  )
                 ),
               ),
             ],
@@ -162,7 +162,7 @@ class _BattleDetailsScreenState extends State<BattleDetailsScreen> {
         padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 12.h),
         child: Obx(() {
           if (controller.isLoadingSingleBattle.value) {
-            return const Center(child: CustomLoader());
+            return CustomLoader();
           }
 
           final battle = controller.battleDetails.value.battle;
@@ -181,7 +181,9 @@ class _BattleDetailsScreenState extends State<BattleDetailsScreen> {
                     detoxType: checkDetoxType(battle.addictionType ?? ''),
                     battleTitle: battle.addictionType ?? '',
                     battleDescription: battle.battleReason ?? '',
-                    status: battle.todayStatus ?? '....',
+
+
+                    status: (widget.isActive ? battle.todayStatus : null) ?? battle.battleStatus ?? '....',
                     bgColor: battle.todayStatus == "caved"
                         ? AppColors.red100
                         : battle.todayStatus == "craved"

@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:get/get.dart';
 import '../../utils/app_colors/app_colors.dart';
 import 'custom_text/custom_text.dart';
+import 'leading_back/custom_leading_back_icon.dart';
 
 
 class CustomLeadingTitleAppbar extends StatelessWidget
@@ -33,10 +35,7 @@ final Color? titleColor;
             shape: BoxShape.circle,
             border: Border.all(color: AppColors.subPrimary),
           ),
-          child: BackButton(
-            color: AppColors.primary,
-            onPressed: onBack ?? () => Navigator.pop(context),
-          ),
+          child:        LeadingBackIconWidget(),
         ),
       ),
 

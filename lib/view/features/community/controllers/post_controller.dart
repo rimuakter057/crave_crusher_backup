@@ -14,6 +14,8 @@ import 'package:image_picker/image_picker.dart';
 import 'package:logger/logger.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+import '../screens/community_all_feed_screen/community_all_feed_screen.dart';
+
 class PostController extends GetxController {
   /// get all post ==============================================================================Get Method====================
   RxList<PostModel> allPostList = <PostModel>[].obs;
@@ -244,7 +246,7 @@ class PostController extends GetxController {
     if (response.statusCode == 200 || response.statusCode == 201) {
       showCustomSnackBar("Post updated successfully", isError: false);
       fetchMyPost();
-      Get.back();
+     Get.to(()=>CommunityAllFeedScreen(initialTabIndex: 0,));
     } else {
       ApiChecker.checkApi(response);
     }

@@ -87,12 +87,18 @@ class _SignUpScreenState extends State<SignUpScreen> {
                     hintText: "Enter your email",
                     controller: _emailController,
                     validator: (String? value) {
-                      if (value?.trim().isEmpty ?? true) {
+                      if (value == null || value.trim().isEmpty) {
                         return "Enter Your Email";
+                      }
+                      // Simple email regex
+                      final emailRegex = RegExp(r'^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$');
+                      if (!emailRegex.hasMatch(value.trim())) {
+                        return "Enter a valid email address";
                       }
                       return null;
                     },
                   ),
+
                   Gap(16.h),
                   InputPasswordFieldWidget(
                     title: "Password",
@@ -116,24 +122,28 @@ class _SignUpScreenState extends State<SignUpScreen> {
                   GetBuilder<SignUpController>(
                     builder: (controller) {
                       return Row(
+                        crossAxisAlignment: CrossAxisAlignment.center,
                         children: [
                           Checkbox(
                             value: controller.termsAgree,
                             onChanged: (value) {
                               controller.toggleTerms(value ?? false);
                             },
+                            materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
                           ),
-                          const Expanded(
+                          SizedBox(
+                            width:300.w,
                             child: CustomText(
-                              maxLines: 2,
-                              text:
-                                  "I agree to the Terms & Conditions and Privacy Policy",
-                              fontSize: 12,
+                              maxLines: 1,
+                              overflow: TextOverflow.ellipsis,
+                              text: "I agree to the Terms & Conditions and Privacy Policy",
+                              fontSize: 10.sp,
                               color: Color(0xFF555555),
                             ),
                           ),
                         ],
                       );
+
                     },
                   ),
 

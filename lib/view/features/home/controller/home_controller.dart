@@ -102,4 +102,27 @@ class HomeController extends GetxController {
       ApiChecker.checkApi(response);
     }
   }
+
+  /// get tips
+
+
+  RxString dailyTip = ''.obs;
+  var isLoadingTip = false.obs;
+
+  Future<void> getDailyTip() async {
+    isLoadingTip.value = true;
+
+    final response = await ApiClient.getData(ApiUrl.tips);
+
+    if (response.statusCode == 200 && response.body['data'] != null) {
+      dailyTip.value = response.body['data']['tip'] ?? '';
+    } else if (response.statusCode != 404) {
+      ApiChecker.checkApi(response);
+    }
+
+    isLoadingTip.value = false;
+  }
+
+
+
 }

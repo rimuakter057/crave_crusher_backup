@@ -5,6 +5,7 @@ import 'package:crave_crusher/utils/app_icons/app_icons.dart';
 import 'package:crave_crusher/view/components/custom_container/custom_container.dart';
 import 'package:crave_crusher/view/components/custom_image/custom_image.dart';
 import 'package:crave_crusher/view/components/custom_loader/custom_loader.dart';
+import 'package:crave_crusher/view/components/custom_svg_icon/custom_svg_icon.dart';
 import 'package:crave_crusher/view/components/custom_text/custom_text.dart';
 import 'package:crave_crusher/view/features/community/controllers/community_controller.dart';
 import 'package:crave_crusher/view/features/community/controllers/post_controller.dart';
@@ -38,7 +39,10 @@ class CreatePostScreen extends StatelessWidget {
               shape: BoxShape.circle,
               border: Border.all(color: AppColors.subPrimary),
             ),
-            child: BackButton(color: AppColors.primary),
+            child: IconButton(onPressed: (){
+              Get.back();
+            }, icon: CustomSvgIcon(icon: AppIcons.backButton)
+            ),
           ),
         ),
         centerTitle: true,
@@ -131,7 +135,7 @@ class CreatePostScreen extends StatelessWidget {
                                     color: AppColors.white,
                                     shape: BoxShape.circle,
                                   ),
-                                  child: Icon(Icons.close, size: 16),
+                                  child: CustomSvgIcon(icon: AppIcons.cross)
                                 ),
                               ),
                             ),
@@ -141,7 +145,7 @@ class CreatePostScreen extends StatelessWidget {
                     ),
                   ),
 
-
+                Gap(24.h),
                 GestureDetector(
                   onTap: () => controller.pickImages(),
                   child: CustomContainer(
@@ -155,7 +159,7 @@ class CreatePostScreen extends StatelessWidget {
                     ),
                   ),
                 ),
-                Gap(12.h),
+                Gap(24.h),
 
 
 

@@ -1,6 +1,7 @@
 import 'package:crave_crusher/utils/app_colors/app_colors.dart';
 import 'package:crave_crusher/utils/app_icons/app_icons.dart';
 import 'package:crave_crusher/view/components/custom_image/custom_image.dart';
+import 'package:crave_crusher/view/components/custom_svg_icon/custom_svg_icon.dart';
 import 'package:crave_crusher/view/components/custom_text/custom_text.dart';
 import 'package:crave_crusher/view/features/notification/notification_screen.dart';
 import 'package:crave_crusher/view/features/profile/controllers/profile_controller.dart';
@@ -90,7 +91,8 @@ class HomeAppbar extends StatelessWidget implements PreferredSizeWidget {
                 shape: BoxShape.circle,
                 border: Border.all(width: .5, color: AppColors.primary),
               ),
-              child: CustomImage(
+              child:
+              CustomImage(
                 height: 24.h,
                 width: 24.w,
                 imageSrc: AppIcons.notification,
