@@ -82,7 +82,9 @@ class _BattleDetailsScreenState extends State<BattleDetailsScreen> {
               fontSize: 18.sp,
               fontWeight: FontWeight.w500,
             ),
-            actions: [
+
+            actions: widget.isActive
+                ? [
               GestureDetector(
                 onTap: () {
                   Get.dialog(
@@ -113,20 +115,16 @@ class _BattleDetailsScreenState extends State<BattleDetailsScreen> {
                         ),
                         Obx(() {
                           return CustomButton(
-                            onTap:
-                                controller.isLoadingCancelBattle.value
-                                    ? () {}
-                                    : () {
-                                      // synchronous wrapper
-                                      () async {
-                                        final success = await controller
-                                            .cancelBattle(widget.battleId);
-                                        if (success) {
-                                          Get.to(() => BattleScreen());
-                                          controller.fetchAllBattle();
-                                        }
-                                      }(); // immediately invoked
-                                    },
+                            onTap: controller.isLoadingCancelBattle.value
+                                ? () {}
+                                : () async {
+                              final success = await controller
+                                  .cancelBattle(widget.battleId);
+                              if (success) {
+                                Get.to(() => BattleScreen());
+                                controller.fetchAllBattle();
+                              }
+                            },
                             title: "Yes",
                             height: 30.h,
                             width: 100.w,
@@ -134,10 +132,9 @@ class _BattleDetailsScreenState extends State<BattleDetailsScreen> {
                         }),
                       ],
                     ),
-                    barrierDismissible: false, // optional
+                    barrierDismissible: false,
                   );
                 },
-
                 child: Container(
                   width: 50.w,
                   height: 50.h,
@@ -147,13 +144,21 @@ class _BattleDetailsScreenState extends State<BattleDetailsScreen> {
                     shape: BoxShape.circle,
                     border: Border.all(color: AppColors.subPrimary),
                   ),
-                  child: CustomSvgIcon(icon: AppIcons.cross,
-                  height: 28.h,
+                  child: CustomSvgIcon(
+                    icon: AppIcons.cross,
+                    height: 28.h,
                     width: 28.w,
-                  )
+                  ),
                 ),
               ),
-            ],
+            ]
+                : [],
+
+
+
+
+
+
           ),
         ),
       ),
@@ -177,36 +182,52 @@ class _BattleDetailsScreenState extends State<BattleDetailsScreen> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
+
                   DetailsMonsterSection(
                     detoxType: checkDetoxType(battle.addictionType ?? ''),
                     battleTitle: battle.addictionType ?? '',
                     battleDescription: battle.battleReason ?? '',
-
-
-                    status: (widget.isActive ? battle.todayStatus : null) ?? battle.battleStatus ?? '....',
-                    bgColor: battle.todayStatus == "caved"
+                    status: widget.isActive ? (battle.todayStatus ?? battle.battleStatus ?? '....') : (battle.battleStatus ?? '....'),
+                    bgColor: widget.isActive
+                        ? (battle.todayStatus == "caved"
                         ? AppColors.red100
                         : battle.todayStatus == "craved"
                         ? AppColors.softGreen
-                        : AppColors.subPrimary,
-
-
-                    textColor: battle.todayStatus == "caved"
+                        : AppColors.subPrimary)
+                        : (battle.battleStatus == "cancel"
+                        ? AppColors.red100
+                        : battle.battleStatus == "complete"
+                        ? Colors.blue.shade50
+                        : AppColors.subPrimary),
+                    textColor: widget.isActive
+                        ? (battle.todayStatus == "caved"
                         ? AppColors.red
                         : battle.todayStatus == "craved"
                         ? AppColors.green
-                        : AppColors.primary,
-                    boarderColor: battle.todayStatus == "caved"
+                        : AppColors.primary)
+                        : (battle.battleStatus == "cancel"
+                        ? AppColors.red
+                        : battle.battleStatus == "complete"
+                        ? Colors.blue
+                        : AppColors.primary),
+                    boarderColor: widget.isActive
+                        ? (battle.todayStatus == "caved"
                         ? AppColors.red
                         : battle.todayStatus == "craved"
                         ? AppColors.green
-                        : AppColors.primary,
-                    monster:
-                        controller.battleDetails.value.monster?.monsterImage ??
-                        '',
-                    monsterStatusMessage:
-                    controller.battleDetails.value.monster?.monsterMessage ?? "Your Monster Is Losing Power — Keep It Up!",
+                        : AppColors.primary)
+                        : (battle.battleStatus == "cancel"
+                        ? AppColors.red
+                        : battle.battleStatus == "complete"
+                        ? Colors.blue
+                        : AppColors.primary),
+                    monster: controller.battleDetails.value.monster?.monsterImage ?? '',
+                    monsterStatusMessage: controller.battleDetails.value.monster?.monsterMessage ??
+                        "Your Monster Is Losing Power — Keep It Up!",
                   ),
+
+
+
 
                   SizedBox(height: 24.h),
 

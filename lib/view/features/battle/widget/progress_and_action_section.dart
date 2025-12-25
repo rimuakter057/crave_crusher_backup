@@ -1,6 +1,7 @@
 import 'package:crave_crusher/utils/app_colors/app_colors.dart';
 import 'package:crave_crusher/utils/app_icons/app_icons.dart';
 import 'package:crave_crusher/view/components/custom_image/custom_image.dart';
+import 'package:crave_crusher/view/components/custom_svg_icon/custom_svg_icon.dart';
 import 'package:crave_crusher/view/components/custom_text/custom_text.dart';
 import 'package:crave_crusher/view/features/battle/widget/active_battle_card.dart';
 import 'package:flutter/material.dart';
@@ -126,11 +127,8 @@ final Color?textColor;
                         width:82.w,
                         child: Row(
                           children: [
-                            Icon(
-                              Icons.access_time,
-                              size: 14.w,
-                              color: AppColors.softWhite,
-                            ),
+                            CustomSvgIcon(icon: AppIcons.alarm,height: 12.h,width: 12.w,),
+
                             SizedBox(width: 2.w),
                             CustomText(
                               overflow: TextOverflow.ellipsis,
