@@ -246,7 +246,10 @@ class PostController extends GetxController {
     if (response.statusCode == 200 || response.statusCode == 201) {
       showCustomSnackBar("Post updated successfully", isError: false);
       fetchMyPost();
-     Get.to(()=>CommunityAllFeedScreen(initialTabIndex: 0,));
+      // ✅ navigate AFTER snackbar frame completes
+      WidgetsBinding.instance.addPostFrameCallback((_) {
+        Get.to(() => CommunityAllFeedScreen(initialTabIndex: 0));
+      });
     } else {
       ApiChecker.checkApi(response);
     }
