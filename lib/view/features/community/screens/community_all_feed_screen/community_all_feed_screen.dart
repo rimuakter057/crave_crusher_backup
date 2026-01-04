@@ -10,7 +10,6 @@ import 'package:crave_crusher/view/features/community/screens/community_image_sh
 import 'package:crave_crusher/view/features/community/screens/create_post_screen/create_post_screen.dart';
 import 'package:crave_crusher/view/features/community/screens/update_post_screen/update_post_screen.dart';
 import 'package:crave_crusher/view/features/community/widgets/shimmer_widget.dart';
-import 'package:crave_crusher/view/features/profile/profile_screen/profile_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
@@ -119,7 +118,7 @@ class _CommunityAllFeedScreenState extends State<CommunityAllFeedScreen> {
                                 final postId = post.id ?? "";
 
                                 return CommonCommunityWidget(
-                                  profileTitle: "@${post.author?.fullName}" ?? 'Unknown',
+                                  profileTitle: "@${post.author?.fullName}",
                                   time: DateConverter.dateYearTimeUtc(post.createdAt.toString()),
                                   postImages: post.postImages ?? [],
                                   postText: post.content ?? "",
@@ -132,7 +131,7 @@ class _CommunityAllFeedScreenState extends State<CommunityAllFeedScreen> {
                                             postId: postId,
                                             index: index,
                                             isMyPost: false,
-                                            hasVoted: post.hasVoted.value ?? false,
+                                            hasVoted: post.hasVoted.value,
                                           );
                                           await postController.fetchMyPost();
                                         },

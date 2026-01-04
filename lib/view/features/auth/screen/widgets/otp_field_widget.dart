@@ -27,7 +27,7 @@ class OtpFieldWidget extends StatelessWidget {
         fontSize: 20,
         fontWeight: FontWeight.bold,
       ),
-
+      cursorColor: Colors.black,
       pinTheme: PinTheme(
         shape: PinCodeFieldShape.box,
         borderRadius: BorderRadius.circular(8),
