@@ -3,18 +3,19 @@ import 'package:crave_crusher/utils/app_icons/app_icons.dart';
 import 'package:crave_crusher/view/components/common_empty/common_empty_widget.dart';
 import 'package:crave_crusher/view/components/custom_container/custom_container.dart';
 import 'package:crave_crusher/view/components/custom_image/custom_image.dart';
-import 'package:crave_crusher/view/components/custom_leadin_title_appbar.dart';
+import 'package:crave_crusher/view/components/custom_leading_title_appbar.dart';
 import 'package:crave_crusher/view/components/custom_loader/custom_loader.dart';
 import 'package:crave_crusher/view/components/custom_nav_bar/navbar.dart';
 import 'package:crave_crusher/view/components/custom_network_image/custom_network_image.dart';
 import 'package:crave_crusher/view/components/custom_text/custom_text.dart';
 import 'package:crave_crusher/view/features/rewards/widgets/custom_circular_indicator.dart';
+import 'package:crave_crusher/view/features/rewards/widgets/reward_color.dart';
 import 'package:crave_crusher/view/features/rewards/widgets/shimmer_reward.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:gap/gap.dart';
 import 'package:shimmer/shimmer.dart';
-import '../../../helper/imges_handler/image_handler.dart';
+import '../../../helper/images_handler/image_handler.dart';
 import 'controller/reward_controller.dart';
 import 'package:get/get.dart';
 
@@ -60,7 +61,10 @@ class _RewardsScreenState extends State<RewardsScreen> {
               Center(
                 child: Obx(() {
                   if (controller.isLoadingProgress.value) {
-                    return CustomLoader();
+                    return SizedBox(
+                        height: 100.h,
+
+                        child: CustomLoader());
                   }
 
                   return CustomCircularIndicator(
@@ -81,11 +85,11 @@ class _RewardsScreenState extends State<RewardsScreen> {
                         .value; // create this in your controller
 
                 if (isLoading) {
-                  return Center(child: CustomLoader());
+                  return RewardShimmerLoader();
                 }
 
                 if (currentBadge == null) {
-                  return EmptyWidget(title: "No badge available");
+                  return _buildEmptyWidget("No badge available");
                 }
 
                 // Data available
@@ -111,8 +115,8 @@ class _RewardsScreenState extends State<RewardsScreen> {
                             width: 30.w,
                             alignment: Alignment.center,
                             decoration: BoxDecoration(
-                              color: Colors.grey.shade100,
-                              border: Border.all(color: AppColors.red),
+                              color: getBadgeBgColor(badgeName),
+                              border: Border.all(color: getBadgeBorderColor(badgeName),),
                               borderRadius: BorderRadius.circular(3),
                             ),
                             child: CustomNetworkImage(
@@ -163,12 +167,8 @@ class _RewardsScreenState extends State<RewardsScreen> {
                 var achieve = controller.allAchieveList;
 
                 if (achieve.isEmpty) {
-                  return Center(
-                    child: CustomText(
-                      text: "achieve badges empty",
-                      fontSize: 14,
-                    ),
-                  );
+                  return
+                    _buildEmptyWidget("achieve badges empty");
                 }
                 final isLoading = controller.isLoadingClaim.value;
                 return ListView.separated(
@@ -275,64 +275,7 @@ class _RewardsScreenState extends State<RewardsScreen> {
                             ),
                           ),
 
-                          // Obx(() {
-                          //   final isLoading = controller.isLoadingClaim.value;
-                          //
-                          //   return GestureDetector(
-                          //     onTap:
-                          //         claimed || isLoading
-                          //             ? null
-                          //             : () async {
-                          //               bool success = await controller.claim(
-                          //                 itemDetails.id,
-                          //               );
-                          //               if (!success) {
-                          //                 Get.snackbar(
-                          //                   "Error",
-                          //                   "Failed to claim badge",
-                          //                 );
-                          //               }
-                          //             },
-                          //     child: Container(
-                          //       height: 28.h,
-                          //       width: 65.w,
-                          //       decoration: BoxDecoration(
-                          //         color:
-                          //             claimed ? Colors.grey : AppColors.primary,
-                          //         borderRadius: BorderRadius.circular(4.r),
-                          //       ),
-                          //       alignment: Alignment.center,
-                          //       child:
-                          //           isLoading
-                          //               ? SizedBox(
-                          //                 width: 12.w,
-                          //                 height: 12.h,
-                          //                 child: CircularProgressIndicator(
-                          //                   color: AppColors.white,
-                          //                   strokeWidth: 2,
-                          //                 ),
-                          //               )
-                          //               : Row(
-                          //                 mainAxisAlignment:
-                          //                     MainAxisAlignment.spaceEvenly,
-                          //                 children: [
-                          //                   CustomImage(
-                          //                     imageSrc: AppIcons.claim,
-                          //                     imageColor: AppColors.white,
-                          //                     height: 12.h,
-                          //                     width: 12.w,
-                          //                   ),
-                          //                   CustomText(
-                          //                     text: "Claim",
-                          //                     fontSize: 10.sp,
-                          //                     fontWeight: FontWeight.w600,
-                          //                     color: AppColors.white,
-                          //                   ),
-                          //                 ],
-                          //               ),
-                          //     ),
-                          //   );
-                          // }),
+
                         ],
                       ),
                     );
@@ -402,7 +345,7 @@ class _RewardsScreenState extends State<RewardsScreen> {
                 );
               }),
 
-              ///gain badge details section====================================================================
+              ///gain all badge details section====================================================================
               _buildGainedBadgeText(title: "All Badges"),
 
               /// all badges section=======================================================================================
@@ -440,8 +383,10 @@ class _RewardsScreenState extends State<RewardsScreen> {
                                   width: 30.w,
                                   alignment: Alignment.center,
                                   decoration: BoxDecoration(
-                                    color: Colors.grey.shade100,
-                                    border: Border.all(color: AppColors.red),
+                                    color: getBadgeBgColor(allBadgeList.name),
+                                    border: Border.all(
+                                      color: getBadgeBorderColor(allBadgeList.name),
+                                    ),
                                     borderRadius: BorderRadius.circular(3),
                                   ),
                                   child: CustomNetworkImage(
@@ -491,6 +436,7 @@ class _RewardsScreenState extends State<RewardsScreen> {
     );
   }
 
+  ///build empty widget================================================================
   CustomContainer _buildEmptyWidget(final String title) {
     return CustomContainer(
       borderColor: AppColors.subPrimary,

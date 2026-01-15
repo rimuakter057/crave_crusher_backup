@@ -5,11 +5,12 @@ import 'package:crave_crusher/utils/app_icons/app_icons.dart';
 import 'package:crave_crusher/view/components/common_empty/common_empty_widget.dart';
 import 'package:crave_crusher/view/components/custom_container/custom_container.dart';
 import 'package:crave_crusher/view/components/custom_image/custom_image.dart';
-import 'package:crave_crusher/view/components/custom_leadin_title_appbar.dart';
+import 'package:crave_crusher/view/components/custom_leading_title_appbar.dart';
 import 'package:crave_crusher/view/components/custom_text/custom_text.dart';
 import 'package:crave_crusher/view/features/account_setting/controllers/account_setting_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:gap/gap.dart';
 import 'package:get/get.dart';
 
@@ -69,13 +70,18 @@ class HelpSupportScreen extends StatelessWidget {
                                 faq.isExpanded = !faq.isExpanded;
                                 helpController.helpList.refresh();
                               },
-                              child: Icon(
+                              child: SvgPicture.asset(
                                 faq.isExpanded
-                                    ? Icons.keyboard_arrow_down_outlined
-                                    : Icons.keyboard_arrow_right,
-                                color: AppColors.primary,
-                                size: 28,
+                                    ? AppIcons.dropDown   // SVG for down arrow
+                                    : AppIcons.arrowFront, // SVG for right arrow
+                                width: 28,
+                                height: 28,
+                                colorFilter: ColorFilter.mode(
+                                  AppColors.primary,
+                                  BlendMode.srcIn,
+                                ),
                               ),
+
                             ),
                           ],
                         ),

@@ -1,6 +1,7 @@
 import 'package:crave_crusher/utils/app_colors/app_colors.dart';
 import 'package:crave_crusher/utils/app_icons/app_icons.dart';
 import 'package:crave_crusher/view/components/custom_image/custom_image.dart';
+import 'package:crave_crusher/view/components/custom_svg_icon/custom_svg_icon.dart';
 import 'package:crave_crusher/view/components/custom_text/custom_text.dart';
 import 'package:crave_crusher/view/features/battle/widget/active_battle_card.dart';
 import 'package:flutter/material.dart';
@@ -79,20 +80,11 @@ final Color?textColor;
 
   @override
   Widget build(BuildContext context) {
-    final width= MediaQuery.sizeOf(context).width;
     return Container(
       padding: EdgeInsets.all(16.w),
       decoration: BoxDecoration(
         color: AppColors.white,
         borderRadius: BorderRadius.circular(12),
-        // boxShadow: [
-        //   BoxShadow(
-        //     color: AppColors.black.withOpacity(0.05),
-        //     spreadRadius: 1,
-        //     blurRadius: 5,
-        //     offset: const Offset(0, 3),
-        //   ),
-        // ],
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -108,7 +100,6 @@ final Color?textColor;
           ),
           SizedBox(height: 10.h),
 
-          // Progress Text (75% to complete)
           Container(
             decoration: BoxDecoration(
               border: Border.all(color: AppColors.subPrimary),
@@ -120,11 +111,9 @@ final Color?textColor;
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      SizedBox(
-                        width:width>440? 200.w:170.w,
-                        child: CustomText(
-                          text: "${(progress * 100).toInt()}% to complete",
 
+                   CustomText(
+                          text: "${(progress * 100).toInt()}% to complete",
                           maxLines: 1,
                           overflow: TextOverflow.ellipsis,
                           fontSize: 14.sp,
@@ -133,18 +122,15 @@ final Color?textColor;
                           bottom: 0,
                           top: 0,
                         ),
-                      ),
-                      Row(
-                        children: [
-                          Icon(
-                            Icons.access_time,
-                            size: 14.w,
-                            color: AppColors.softWhite,
-                          ),
-                          SizedBox(width: 2.w),
-                          SizedBox(
-                            width:width>440? 100.w:90.w,
-                            child: CustomText(
+
+                      SizedBox(
+                        width:82.w,
+                        child: Row(
+                          children: [
+                            CustomSvgIcon(icon: AppIcons.alarm,height: 12.h,width: 12.w,),
+
+                            SizedBox(width: 2.w),
+                            CustomText(
                               overflow: TextOverflow.ellipsis,
                               maxLines: 1,
                               text: dayCount, // e.g., Day 12 of 30
@@ -154,8 +140,8 @@ final Color?textColor;
                               bottom: 0,
                               top: 0,
                             ),
-                          ),
-                        ],
+                          ],
+                        ),
                       ),
                     ],
                   ),

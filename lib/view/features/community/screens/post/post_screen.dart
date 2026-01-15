@@ -1,10 +1,10 @@
 import 'package:crave_crusher/view/components/common_empty/common_empty_widget.dart';
 import 'package:crave_crusher/view/components/custom_loader/custom_loader.dart';
-import 'package:crave_crusher/view/components/custom_nav_bar/navbar.dart';
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:crave_crusher/view/features/community/controllers/post_controller.dart';
-import 'package:crave_crusher/view/features/community/models/all_post_model.dart';
+
 
 class PostScreen extends StatelessWidget {
   final PostController postController = Get.find<PostController>();

@@ -1,5 +1,7 @@
+import 'package:crave_crusher/utils/app_icons/app_icons.dart';
 import 'package:crave_crusher/view/components/custom_button/custom_button.dart';
 import 'package:crave_crusher/view/components/custom_loader/custom_loader.dart';
+import 'package:crave_crusher/view/components/custom_svg_icon/custom_svg_icon.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:crave_crusher/view/features/change_password/controllers/change_password_controller.dart';
@@ -20,7 +22,9 @@ class ChangePasswordScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text("Change Password")),
+      appBar: AppBar(title: Text("Change Password"),
+      leading: IconButton(onPressed: (){Get.back();}, icon: CustomSvgIcon(icon: AppIcons.backButton)),
+      ),
       body: Form(
         key: _formKey,
         child: Padding(

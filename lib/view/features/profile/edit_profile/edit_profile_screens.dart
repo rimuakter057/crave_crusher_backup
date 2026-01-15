@@ -1,8 +1,8 @@
-import 'package:crave_crusher/helper/imges_handler/image_handler.dart';
+import 'package:crave_crusher/helper/images_handler/image_handler.dart';
 import 'package:crave_crusher/utils/app_colors/app_colors.dart';
 import 'package:crave_crusher/view/components/common_profile/avatar_widget.dart';
 import 'package:crave_crusher/view/components/custom_container/custom_container.dart';
-import 'package:crave_crusher/view/components/custom_leadin_title_appbar.dart';
+import 'package:crave_crusher/view/components/custom_leading_title_appbar.dart';
 import 'package:crave_crusher/view/components/custom_text/custom_text.dart';
 import 'package:crave_crusher/view/components/input_field_with_title/input_field_with_title.dart';
 import 'package:crave_crusher/view/features/profile/controllers/profile_controller.dart';

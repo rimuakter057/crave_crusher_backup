@@ -1,4 +1,6 @@
 import 'package:crave_crusher/utils/app_colors/app_colors.dart';
+import 'package:crave_crusher/utils/app_icons/app_icons.dart';
+import 'package:crave_crusher/view/components/custom_svg_icon/custom_svg_icon.dart';
 import 'package:crave_crusher/view/components/custom_text/custom_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -8,14 +10,14 @@ import 'package:gap/gap.dart';
 
 class CustomProfileMenu extends StatelessWidget {
   const CustomProfileMenu({
-    super.key, required this.text, required this.icon, required this.onTap, this.textColor, this.iconColor,
+    super.key, required this.text, required this.onTap, this.textColor, this.iconColor, required this.icon,
   });
   final String text;
-  final Icon icon;
+
   final void Function() onTap;
  final Color? textColor;
  final Color? iconColor;
-
+ final String icon;
 
   @override
   Widget build(BuildContext context) {
@@ -39,7 +41,7 @@ class CustomProfileMenu extends StatelessWidget {
                     size: 24, // auto size for any icon
                     color: iconColor ?? AppColors.primary, // auto color
                   ),
-                  child: icon,
+                  child: CustomSvgIcon(icon:icon ),
                 ),
 
                     Gap(18.w),
@@ -52,11 +54,7 @@ class CustomProfileMenu extends StatelessWidget {
           ),
 
 
-      Icon(
-            Icons.arrow_forward_ios,
-            size: 20,
-        color: AppColors.primary,
-          ),
+    CustomSvgIcon(icon: AppIcons.arrowFront)
 
         ],),
 

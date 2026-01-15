@@ -1,8 +1,12 @@
 import 'package:crave_crusher/core/routes/app_routes.dart';
+import 'package:crave_crusher/utils/app_colors/app_colors.dart';
 import 'package:crave_crusher/utils/app_images/app_images.dart';
 import 'package:crave_crusher/view/components/custom_image/custom_image.dart';
+import 'package:crave_crusher/view/components/custom_text/custom_text.dart';
 import 'package:crave_crusher/view/features/auth/controllers/auth_controller.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:gap/gap.dart';
 import 'package:get/get.dart';
 
 class SplashScreen extends StatefulWidget {
@@ -38,7 +42,15 @@ class _SplashScreenState extends State<SplashScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Center(
-        child: CustomImage(imageSrc: AppImages.appLogo),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            CustomImage(imageSrc: AppImages.appLogo),
+            Gap(16.h),
+            CustomText(text: "Crave Crusher",fontSize: 32.sp,color: AppColors.primary,)
+          ],
+        ),
       ),
     );
   }

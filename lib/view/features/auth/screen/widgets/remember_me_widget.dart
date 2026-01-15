@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 
 class RememberMeAndForgotPassword extends StatelessWidget {
   final bool isChecked;
-  // Required: The function to call when the Checkbox state changes
+
   final ValueChanged<bool?> onRememberMeChanged;
 
   final Widget child;
@@ -23,7 +23,7 @@ class RememberMeAndForgotPassword extends StatelessWidget {
         // 1. Remember Me Checkbox and Text
         Row(
           children: [
-            Checkbox(value: isChecked, onChanged: onRememberMeChanged),
+            Checkbox(value: isChecked, onChanged: onRememberMeChanged,      materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,),
             const CustomText(
               text: "Remember Me",
               fontWeight: FontWeight.w600,

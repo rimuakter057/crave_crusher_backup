@@ -1,5 +1,7 @@
+import 'package:crave_crusher/utils/app_icons/app_icons.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:google_fonts/google_fonts.dart';
 import '../../../utils/app_colors/app_colors.dart';
 
@@ -117,10 +119,22 @@ class _CustomTextFieldState extends State<CustomTextField> {
                   onTap: toggle,
                   child: Padding(
                     padding: const EdgeInsets.all(16),
-                    child: Icon(
-                      obscureText ? Icons.visibility : Icons.visibility_off,
-                      color: Colors.grey,
+                    child: SvgPicture.asset(
+                      obscureText
+                          ? AppIcons.hide   // SVG for down arrow
+                          : AppIcons.visible, // SVG for right arrow
+                      width: 28,
+                      height: 28,
+                      colorFilter: ColorFilter.mode(
+                        Colors.grey,
+                        BlendMode.srcIn,
+                      ),
                     ),
+
+                    // Icon(
+                    //   obscureText ? Icons.visibility : Icons.visibility_off,
+                    //   color: Colors.grey,
+                    // ),
 
                     /*SvgPicture.asset(
                     obscureText ? AppIcons.eyeOff : AppIcons.eye,

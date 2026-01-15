@@ -1,6 +1,14 @@
 class ApiUrl {
+
   static const String primaryUrl = "http://56.228.56.225:5000";
 
+ // static const String primaryUrl = "https://sg6hn18x-5555.inc1.devtunnels.ms";
+  //static const String primaryUrl = "https://sg6hn18x-5000.inc1.devtunnels.ms";
+
+
+  static const String primaryUrl = "http://56.228.56.225:5000"; //local
+
+  //static const String primaryUrl = "http://10.10.20.45:5555"; //local
   static const String baseUrl = "$primaryUrl/api/v1";
   // static const String baseUrl = "https://sta-map-point-2.onrender.com/api/v1";
   static const String imageUrl = "$primaryUrl/";
@@ -53,6 +61,10 @@ class ApiUrl {
   static String getSingleUserProfile(String userId) {
     return "/community-post/get-single-user-posts/$userId";
   }
+ /// home=====================================================
+
+
+  static const String tips = "/user/daily-tip";
 
   ///profile section==================================================================
   static const String getMyProfile = "/user/get-my-profile";

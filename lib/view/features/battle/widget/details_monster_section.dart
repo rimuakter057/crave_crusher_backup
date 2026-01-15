@@ -1,6 +1,6 @@
 // ignore_for_file: deprecated_member_use
 
-import 'package:crave_crusher/helper/imges_handler/image_handler.dart';
+import 'package:crave_crusher/helper/images_handler/image_handler.dart';
 import 'package:crave_crusher/utils/app_colors/app_colors.dart';
 import 'package:crave_crusher/utils/app_icons/app_icons.dart';
 import 'package:crave_crusher/view/components/custom_image/custom_image.dart';
@@ -18,6 +18,10 @@ class DetailsMonsterSection extends StatelessWidget {
   final String monsterStatusMessage;
  final DetoxType detoxType;
  final String monster;
+ final Color bgColor;
+ final Color textColor;
+ final Color boarderColor;
+
   const DetailsMonsterSection({
     super.key,
     required this.battleTitle,
@@ -26,6 +30,9 @@ class DetailsMonsterSection extends StatelessWidget {
     required this.monsterStatusMessage,
     required this.detoxType,
     required this.monster,
+    required this.bgColor,
+    required this.textColor,
+    required this.boarderColor,
   });
 
 
@@ -52,11 +59,11 @@ class DetailsMonsterSection extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        // Battle Header (Icon, Title, Status)
+
         Padding(
           padding: EdgeInsets.only(bottom: 16.h),
           child: Container(
-            padding: EdgeInsets.all(8.w),
+
             decoration: BoxDecoration(
               color: AppColors.white,
               borderRadius: BorderRadius.circular(12),
@@ -85,35 +92,35 @@ class DetailsMonsterSection extends StatelessWidget {
                       ),
                     ),
                     SizedBox(width: 8.w),
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        CustomText(
-                          maxLines: 1,
-                          overflow: TextOverflow.ellipsis,
-                          textAlign: TextAlign.start,
-                          text: battleTitle,
-                          fontWeight: FontWeight.w600,
-                          fontSize: 14.sp,
-                          color: AppColors.appTitle,
-                          bottom: 0,
-                          top: 0,
-                        ),
+                    SizedBox(
+                      width: 150.w,
 
-                        SizedBox(
-                          width: 180.w, // Constrain width for description
-                          child: CustomText(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          CustomText(
+                            maxLines: 1,
+                            overflow: TextOverflow.ellipsis,
+                            textAlign: TextAlign.start,
+                            text: battleTitle,
+                            fontWeight: FontWeight.w600,
+                            fontSize: 14.sp,
+                            color: AppColors.appTitle,
+                            bottom: 0,
+                            top: 0,
+                          ),
+
+                          CustomText(
                             textAlign: TextAlign.start,
                             text: battleDescription,
                             fontWeight: FontWeight.w400,
                             fontSize: 12.sp,
                             color: AppColors.softWhite,
-                            maxLines: 2,
-                            bottom: 0,
-                            top: 0,
-                          ),
-                        ),
-                      ],
+                            maxLines: 4,
+                            overflow: TextOverflow.ellipsis,
+                                                    ),
+                        ],
+                      ),
                     ),
                   ],
                 ),
@@ -121,17 +128,16 @@ class DetailsMonsterSection extends StatelessWidget {
                 Container(
                   padding: EdgeInsets.symmetric(horizontal: 2.w, vertical: 2.h),
                   decoration: BoxDecoration(
-                    color: AppColors.subPrimary.withOpacity(
-                      0.3,
-                    ), // Using subPrimary as a placeholder color
+                    color:bgColor,
+                  // Using subPrimary as a placeholder color
                     borderRadius: BorderRadius.circular(5),
-                    border: Border.all(color: AppColors.primary),
+                    border: Border.all(color: boarderColor),
                   ),
                   child: CustomText(
                     text: "• $status",
                     fontSize: 11.w,
                     fontWeight: FontWeight.w500,
-                    color: AppColors.primary,
+                    color: textColor,
                     bottom: 0,
                     top: 0,
                   ),

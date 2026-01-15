@@ -1,3 +1,4 @@
+import 'package:crave_crusher/view/components/custom_loader/custom_loader.dart';
 import 'package:crave_crusher/view/features/auth/controllers/reset_resend_otp_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -125,7 +126,7 @@ class _VerifyIdentityScreenState extends State<VerifyIdentityScreen> {
                   builder: (controller) {
                     return Visibility(
                       visible: controller.inProgress == false,
-                      replacement: Center(child: CircularProgressIndicator()),
+                      replacement: CustomLoader(),
                       child: CustomButton(
                         title: "Verify OTP",
                         onTap: _verifyOtp,
