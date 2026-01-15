@@ -2,6 +2,7 @@ import 'package:crave_crusher/core/routes/app_routes.dart';
 import 'package:crave_crusher/view/components/common_empty/common_empty_widget.dart';
 import 'package:crave_crusher/view/components/custom_app_bar/custom_app_bar.dart';
 import 'package:crave_crusher/view/components/custom_nav_bar/navbar.dart';
+import 'package:crave_crusher/view/components/custom_refresh_indicator/custom_refresh_indicator.dart';
 import 'package:crave_crusher/view/features/battle/controller/battle_controller.dart';
 import 'package:crave_crusher/view/features/battle/inner_screen/battle_details_screen.dart';
 import 'package:crave_crusher/view/features/battle/widget/battle_tab_selector.dart';
@@ -12,7 +13,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 
-import 'models/battle_model.dart';
+
 
 class BattleScreen extends StatefulWidget {
   const BattleScreen({super.key});
@@ -41,13 +42,13 @@ class _BattleScreenState extends State<BattleScreen> {
   void _fetchBattleByTab(int index) {
     switch (index) {
       case 0:
-        controller.fetchAllBattle('active');
+        controller.fetchAllBattle();
         break;
       case 1:
-        controller.fetchAllBattle('complete');
+        controller.fetchAllBattle();
         break;
       case 2:
-        controller.fetchAllBattle('cancel');
+        controller.fetchAllBattle();
         break;
     }
   }
@@ -75,7 +76,7 @@ class _BattleScreenState extends State<BattleScreen> {
 
               if (controller.battleTabIndex.value == 0) ...[
                 Expanded(
-                  child: RefreshIndicator(
+                  child: CustomRefreshIndicator(
                     onRefresh: () async {
                       _fetchBattleByTab(controller.battleTabIndex.value);
                     },
@@ -126,7 +127,7 @@ class _BattleScreenState extends State<BattleScreen> {
 
               if (controller.battleTabIndex.value == 1) ...[
                 Expanded(
-                  child: RefreshIndicator(
+                  child: CustomRefreshIndicator(
                     onRefresh: () async {
                       _fetchBattleByTab(controller.battleTabIndex.value);
                     },
@@ -177,7 +178,7 @@ class _BattleScreenState extends State<BattleScreen> {
 
               if (controller.battleTabIndex.value == 2) ...[
                 Expanded(
-                  child: RefreshIndicator(
+                  child: CustomRefreshIndicator(
                     onRefresh: () async {
                       _fetchBattleByTab(controller.battleTabIndex.value);
                     },

@@ -67,10 +67,10 @@ class _CustomSliderState extends State<CustomSlider> {
 
       double percent = minMax / widget.currentValue!;
 
-      double mediaHight =
+      double mediaHeight =
           widget.currentWidth ?? MediaQuery.sizeOf(context).width / 3;
 
-      width = mediaHight / percent;
+      width = mediaHeight / percent;
 
       setState(() {});
     }

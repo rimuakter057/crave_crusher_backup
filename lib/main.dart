@@ -22,9 +22,19 @@ import 'firebase_options.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
-await Firebase.initializeApp(
-options: DefaultFirebaseOptions.currentPlatform,
-);
+
+  try {
+    await Firebase.initializeApp(
+      options: DefaultFirebaseOptions.currentPlatform,
+    );
+    print('Firebase initialized successfully!======================================');
+  } catch (e) {
+    print('Firebase failed to initialize:=============================================== $e');
+  }
+
+
+
+
   DeviceUtils.lockDevicePortrait();
 
   DependencyInjection di = DependencyInjection();
@@ -33,14 +43,15 @@ options: DefaultFirebaseOptions.currentPlatform,
   /// Load Token Immediately (VERY IMPORTANT)
   final auth = getx.Get.find<AuthController>();
   await auth.getUserData();
-  runApp(DevicePreview(enabled: false, builder: (context) => const MyApp()));
+  runApp(DevicePreview(enabled: false, builder: (context) => const CraveCrusher()));
 }
 
-class MyApp extends StatelessWidget {
-  const MyApp({super.key});
+class CraveCrusher extends StatelessWidget {
+  const CraveCrusher({super.key});
 
   @override
   Widget build(BuildContext context) {
+
     return ScreenUtilInit(
       designSize: const Size(390, 870),
       minTextAdapt: true,
@@ -85,3 +96,4 @@ class CustomTheme {
 
   static ThemeData get darkTheme => ThemeData.dark();
 }
+

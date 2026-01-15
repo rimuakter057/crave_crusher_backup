@@ -29,22 +29,6 @@ class RewardShimmerLoader extends StatelessWidget {
               ),
             ),
 
-            // Row(
-            //     mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            //     children: [
-            //       Row(
-            //         children: [
-            //           _buildSkeleton(25.w, 20.h,),
-            //           SizedBox(width: 8.w),
-            //           _buildSkeleton(150.w, 15.h,),
-            //         ],
-            //       ),
-            //       SizedBox(width: 8.w),
-            //       _buildSkeleton(60.w, 20.h,),
-            //
-            //
-            //     ],
-            //   ),
 
           ),
         );

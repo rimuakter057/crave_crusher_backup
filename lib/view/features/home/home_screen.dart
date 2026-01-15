@@ -1,8 +1,5 @@
-
-
 import 'package:crave_crusher/utils/app_colors/app_colors.dart';
 import 'package:crave_crusher/utils/app_icons/app_icons.dart';
-import 'package:crave_crusher/utils/app_images/app_images.dart';
 import 'package:crave_crusher/view/components/common_empty/common_empty_widget.dart';
 import 'package:crave_crusher/view/components/custom_image/custom_image.dart';
 import 'package:crave_crusher/view/components/custom_loader/custom_loader.dart';
@@ -11,18 +8,21 @@ import 'package:crave_crusher/view/components/custom_text/custom_text.dart';
 import 'package:crave_crusher/view/features/battle/controller/battle_controller.dart';
 import 'package:crave_crusher/view/features/battle/widget/active_battle_card.dart';
 import 'package:crave_crusher/view/features/battle/widget/detox_type.dart';
+import 'package:crave_crusher/view/features/home/controller/home_controller.dart';
 import 'package:crave_crusher/view/features/home/widget/home_appbar.dart';
+import 'package:crave_crusher/view/features/home/widget/home_monster_shimmer.dart';
 import 'package:crave_crusher/view/features/home/widget/monster_section.dart';
-import 'package:crave_crusher/view/features/home/widget/today_tips.dart';
+
 import 'package:crave_crusher/view/features/profile/controllers/profile_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
-
+import 'package:shimmer/shimmer.dart';
+import '../../components/custom_refresh_indicator/custom_refresh_indicator.dart';
 import '../battle/inner_screen/battle_details_screen.dart';
 
 class HomeScreen extends StatefulWidget {
-   const HomeScreen({super.key});
+  const HomeScreen({super.key});
 
   @override
   State<HomeScreen> createState() => _HomeScreenState();
@@ -31,77 +31,135 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> {
   final BattleController controller = Get.find<BattleController>();
   final ProfileController profileController = Get.find<ProfileController>();
+  final HomeController homeController = Get.find<HomeController>();
   @override
   void initState() {
     super.initState();
     WidgetsBinding.instance.addPostFrameCallback((_) {
-      controller.fetchAllBattle('active');
+      controller.battleTabIndex.value = 0;
+      controller.fetchAllBattle();
       profileController.fetchMyProfile();
+      homeController.getDailyTip();
     });
   }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: HomeAppbar(
-
+        name: Obx(() {
+          final profile = profileController.myProfile.value;
+          return CustomText(
+            textAlign: TextAlign.start,
+            maxLines: 1,
+            overflow: TextOverflow.ellipsis,
+            text: "Hello ${profile?.fullName ?? ""}",
+            fontWeight: FontWeight.w600,
+            fontSize: 18.w,
+            color: AppColors.black_02,
+          );
+        }),
       ),
-      body: RefreshIndicator(
+      body: CustomRefreshIndicator(
         onRefresh: () async {
-          controller.fetchAllBattle('active');
+          controller.fetchAllBattle();
         },
         child: SingleChildScrollView(
           padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 16.h),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              // Tip and Monster Section
-              TodayTips(),
-              MonsterSection(),
+            /// today tips===============================================================================================
+
+              _buildTitle(AppIcons.smallMonster, "Tip for Today",),
+              Obx(() {
+                if (homeController.isLoadingTip.value) {
+                  return Center(
+                    child: Shimmer.fromColors(
+                      baseColor: Colors.grey[300]!,
+                      highlightColor: Colors.grey[100]!,
+                      child: Container(
+                        height: 120,
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(6.r),
+                          color: Colors.white,
+                        ),
+                      ),
+                    ),
+                  );
+                }
+
+                return CustomImage(
+                  imageSrc: AppIcons.tipsBackground,
+                  child: Padding(
+                    padding: EdgeInsets.symmetric(horizontal: 16.0.w),
+                    child: CustomText(
+                      text: homeController.dailyTip.value.isNotEmpty
+                          ? homeController.dailyTip.value
+                          : '“ Each craving lasts only a few minutes — take slow, deep breaths and remind yourself why you started. ”',
+                      maxLines: 5,
+                      fontSize: 14.w,
+                      textAlign: TextAlign.center,
+                      color: AppColors.primary,
+                    ),
+                  ),
+                );
+              }),
+
+
+
+
+              SizedBox(height: 24.h),
+
+              _buildTitle(AppIcons.smallMonster, "Your Monster Today"),
+
+              Obx(() {
+                final profile = profileController.myProfile.value;
+
+                if (profileController.isLoadingMyProfile.value) {
+                  return HomeMonsterShimmerLoader();
+                }
+
+                if (profile?.monster == null) {
+                  return Center(
+                    child: Column(
+                      children: [
+                        SizedBox(height: 24,),
+                        EmptyWidget(
+
+                          title: "Add your first battle to summon your Monster.",
+                        ),
+                      ],
+                    ),
+                  );
+                } else {
+                  return MonsterSection(
+                    monster: profile?.monster?.monsterImage ?? "",
+                    monsterMessage:
+                        profile?.monster?.monsterMessage ??
+                        "Your Monster Is Losing Power — Keep It Up!",
+                  );
+                }
+              }),
 
               SizedBox(height: 24.h),
 
               // Active Battle Section Title
-              Padding(
-                padding: EdgeInsets.only(bottom: 12.h),
-                child: Row(
-                  children: [
-                    Container(
-                      height: 28.h,
-                      width: 28.w,
-                      alignment: Alignment.center,
-                      decoration: BoxDecoration(
-                        color: AppColors.subPrimary.withOpacity(.3),
-                        shape: BoxShape.circle,
-                        border: Border.all(color: AppColors.primary),
-                      ),
-                      child: CustomImage(
-
-                        imageSrc: AppIcons.battlePng,
-
-                        height: 16.h,
-                        width: 16.w,
-                      ),
-                    ),
-                    SizedBox(width: 8.w),
-                    CustomText(
-                      text: "Active Battle",
-                      fontWeight: FontWeight.w600,
-                      fontSize: 18,
-                    ),
-                  ],
-                ),
-              ),
-
-
-
-
+              _buildTitle(AppIcons.battlePng, "Active Battle"),
 
               Obx(() {
                 if (controller.isLoadingAllBattle.value) {
                   return const Center(child: CustomLoader());
                 } else if (controller.allBattleList.isEmpty) {
-                  return   EmptyWidget(
-                    title: "Add your first battle to get started.",
+                  return Center(
+                    child: Column(
+                      children: [
+                        SizedBox(height: 48,),
+                        EmptyWidget(
+                          title: "Add your first battle to get started.",
+                        ),
+                      ],
+                    ),
                   );
                 } else {
                   return ListView.builder(
@@ -113,48 +171,31 @@ class _HomeScreenState extends State<HomeScreen> {
                       return Column(
                         children: [
                           ActiveBattleCard(
-                            detoxType: checkDetoxType(battle.addictionType??''),
+                            detoxType: checkDetoxType(
+                              battle.addictionType ?? '',
+                            ),
                             title: battle.addictionType.toString(),
                             percentText: "${battle.battleProgress}%",
                             progress: (battle.battleProgress ?? 0) / 100,
                             status: battle.todayStatus.toString(),
-                            dayCount:"Day ${battle.day} of ${battle
-                                .battleLength}",
+                            dayCount:
+                                "Day ${battle.day} of ${battle.battleLength}",
                             onBattlePressed: () {
-                              Get.to(BattleDetailsScreen(
+                              Get.to(
+                                BattleDetailsScreen(
                                   isActive: true,
-                                  battleId: battle.id.toString()));
+                                  battleId: battle.id.toString(),
+                                ),
+                              );
                             },
                           ),
-                          SizedBox(height: 4.h,),
-
+                          SizedBox(height: 4.h),
                         ],
                       );
                     },
                   );
                 }
-              })
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+              }),
             ],
           ),
         ),
@@ -163,12 +204,29 @@ class _HomeScreenState extends State<HomeScreen> {
       bottomNavigationBar: NavBar(currentIndex: 0),
     );
   }
+
+  Padding _buildTitle(String iconSrc, String title) {
+    return Padding(
+      padding: EdgeInsets.only(bottom: 12.h),
+      child: Row(
+        children: [
+          Container(
+            height: 28.h,
+            width: 28.w,
+            alignment: Alignment.center,
+            decoration: BoxDecoration(
+              color: AppColors.subPrimary.withOpacity(.3),
+              shape: BoxShape.circle,
+              border: Border.all(color: AppColors.primary),
+            ),
+            child: CustomImage(imageSrc: iconSrc, height: 16.h, width: 16.w),
+          ),
+          SizedBox(width: 8.w),
+          CustomText(text: title, fontWeight: FontWeight.w600, fontSize: 18),
+        ],
+      ),
+    );
+  }
 }
 
 
-
-
-
-// SOLID Principle (SRP): Ei widget-ti shudhu Tip o Monster UI render korar kaaj korche.
-
-// SOLID Principle (OCP, ISP): Highly reusable component with minimal, necessary parameters.

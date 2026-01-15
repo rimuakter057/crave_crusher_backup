@@ -7,7 +7,6 @@ import 'package:crave_crusher/view/components/custom_text/custom_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-
 class ActiveBattleCard extends StatelessWidget {
   final String title;
   final double progress;
@@ -23,10 +22,11 @@ class ActiveBattleCard extends StatelessWidget {
     required this.status,
     required this.dayCount,
     required this.detoxType,
-    this.onBattlePressed, required this.percentText,
+    this.onBattlePressed,
+    required this.percentText,
   });
 
-  String getIcon( DetoxType detoxType) {
+  String getIcon(DetoxType detoxType) {
     switch (detoxType) {
       case DetoxType.smoke:
         return AppIcons.smoke;
@@ -55,8 +55,6 @@ class ActiveBattleCard extends StatelessWidget {
         return AppColors.primary;
     }
   }
-
-
 
   @override
   Widget build(BuildContext context) {
@@ -96,7 +94,7 @@ class ActiveBattleCard extends StatelessWidget {
                       borderRadius: BorderRadius.circular(3),
                     ),
                     child: CustomImage(
-                      imageSrc: getIcon( detoxType),
+                      imageSrc: getIcon(detoxType),
                       height: 22.h,
                       width: 22.w,
                     ),
@@ -129,7 +127,7 @@ class ActiveBattleCard extends StatelessWidget {
                   border: Border.all(color: getStatusColor(status)),
                 ),
                 child: CustomText(
-                  text: "*${status}",
+                  text: "*$status",
                   fontSize: 12.w,
                   fontWeight: FontWeight.w500,
                   color: getStatusColor(status),
@@ -148,7 +146,7 @@ class ActiveBattleCard extends StatelessWidget {
             children: [
               CustomText(
                 text: percentText,
-               // text: "${(progress * 100).toInt()}% to complete",
+                // text: "${(progress * 100).toInt()}% to complete",
                 fontSize: 14.w,
                 fontWeight: FontWeight.w500,
                 color: AppColors.black,
@@ -169,11 +167,7 @@ class ActiveBattleCard extends StatelessWidget {
           SizedBox(height: 8.h),
 
           // Progress Bar
-          DottedProgressBar(
-            progress: progress,
-            height: 8.h,
-            borderRadius: 4.r,
-          ),
+          DottedProgressBar(progress: progress, height: 8.h, borderRadius: 4.r),
 
           SizedBox(height: 12.h),
 
@@ -213,17 +207,14 @@ class ActiveBattleCard extends StatelessWidget {
 
 enum DetoxType { smoke, love, drugDetox, junkFood, shopping, socialMedia }
 
-//
-
-
-// DottedProgressBar widget
 class DottedProgressBar extends StatelessWidget {
-  final double progress;
+  final double progress; // 0.0 - 1.0
   final double height;
   final double borderRadius;
   final Color baseColor;
-  final Color progressColor;
+  final Color progressColor; // line color
   final int dotCount;
+  final Color dotedColor;
 
   const DottedProgressBar({
     super.key,
@@ -232,6 +223,7 @@ class DottedProgressBar extends StatelessWidget {
     this.borderRadius = 4.0,
     this.baseColor = AppColors.subPrimary,
     this.progressColor = AppColors.primary,
+    this.dotedColor = AppColors.white,
     this.dotCount = 6,
   });
 
@@ -240,6 +232,9 @@ class DottedProgressBar extends StatelessWidget {
     return LayoutBuilder(
       builder: (context, constraints) {
         final double totalWidth = constraints.maxWidth;
+
+        //  dots white color হবে
+        int whiteDots = (dotCount * progress).ceil();
 
         return Container(
           height: height.h,
@@ -255,24 +250,22 @@ class DottedProgressBar extends StatelessWidget {
                 duration: const Duration(milliseconds: 300),
                 height: height.h,
                 width: totalWidth * progress,
-                decoration: BoxDecoration(
-                  color: progressColor,
-                ),
+                decoration: BoxDecoration(color: progressColor),
               ),
 
               // Dots Overlay
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                crossAxisAlignment: CrossAxisAlignment.center,
                 children: List.generate(dotCount, (index) {
-                  return Container(
-                    height: height.h,
-                    alignment: Alignment.center,
+                  return Center(
                     child: Container(
-                      width: 2.0.w,
-                      height: (height * 0.7).h,
+
+                      width: 4.w, // circle width = height
+                      height: 4.h, // circle height
                       decoration: BoxDecoration(
-                        color: AppColors.white,
-                        borderRadius: BorderRadius.circular(1.0.r),
+                        color: index < whiteDots ? dotedColor : progressColor,
+                        shape: BoxShape.circle, // makes it circular
                       ),
                     ),
                   );
@@ -285,3 +278,5 @@ class DottedProgressBar extends StatelessWidget {
     );
   }
 }
+
+

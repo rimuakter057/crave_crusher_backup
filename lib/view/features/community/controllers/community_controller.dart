@@ -1,4 +1,6 @@
 
+import 'dart:typed_data';
+
 import 'package:crave_crusher/service/api_check.dart';
 import 'package:crave_crusher/service/api_client.dart';
 import 'package:crave_crusher/service/api_url.dart';
@@ -6,6 +8,7 @@ import 'package:crave_crusher/utils/app_const/app_const.dart';
 import 'package:crave_crusher/view/features/community/controllers/post_controller.dart';
 
 import 'package:flutter/material.dart';
+import 'package:gal/gal.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
 
@@ -189,49 +192,69 @@ class CommunityController extends GetxController {
 
 
 /// download images============================
-//   var isDownloading = false.obs;
-//
-//   Future<void> downloadImage(String imageUrl) async {
-//     try {
-//       // Request storage/photos permission
-//       var status = await Permission.storage.request();
-//       if (!status.isGranted) {
-//         Get.snackbar("Permission Denied", "Storage permission is required");
-//         return;
-//       }
-//
-//       isDownloading.value = true;
-//
-//       // Download image bytes
-//       var response = await http.get(Uri.parse(imageUrl));
-//       if (response.statusCode == 200) {
-//         // Use ImageDownloader package
-//         try {
-//           var imageId = await ImageDownloader.downloadImage(
-//             imageUrl,
-//             destination: AndroidDestinationType.directoryPictures
-//               ..subDirectory("image_${DateTime.now().millisecondsSinceEpoch}.png"),
-//           );
-//
-//           if (imageId != null) {
-//             Get.snackbar("Success", "Image saved to gallery");
-//           } else {
-//             Get.snackbar("Failed", "Failed to save image");
-//           }
-//         } catch (e) {
-//           Get.snackbar("Error", "Failed to save image: $e");
-//         }
-//       } else {
-//         Get.snackbar(
-//             "Failed", "Failed to download image: ${response.statusCode}");
-//       }
-//     } catch (e) {
-//       Get.snackbar("Error", e.toString());
-//       debugPrint("error ================================= ${e.toString()}");
-//     } finally {
-//       isDownloading.value = false;
-//     }
-//   }
+  /// 🔐 Permission check (Android + iOS safe)
+  Future<bool> _checkPermission() async {
+    PermissionStatus status;
+
+    if (GetPlatform.isAndroid) {
+      status = await Permission.photos.request();
+
+      /// fallback for older Android
+      if (!status.isGranted) {
+        status = await Permission.storage.request();
+      }
+    } else {
+      status = await Permission.photosAddOnly.request();
+    }
+
+    if (status.isGranted) return true;
+
+    if (status.isPermanentlyDenied) {
+      Get.snackbar(
+        "Permission Required",
+        "Please allow gallery permission from settings",
+        snackPosition: SnackPosition.BOTTOM,
+      );
+      openAppSettings();
+    }
+
+    return false;
+  }
+
+  /// ⬇️ Download image
+  Future<void> downloadImage(String imageUrl) async {
+    try {
+      bool hasPermission = await _checkPermission();
+      if (!hasPermission) return;
+
+      final response = await http.get(Uri.parse(imageUrl));
+
+      if (response.statusCode == 200) {
+        Uint8List bytes = response.bodyBytes;
+
+        await Gal.putImageBytes(
+          bytes,
+          album: 'CraveCrusher',
+        );
+
+        Get.snackbar(
+          "Downloaded",
+          "Image saved to gallery",
+          snackPosition: SnackPosition.BOTTOM,
+          duration: const Duration(seconds: 2),
+        );
+      } else {
+        throw "Download failed";
+      }
+    } catch (_) {
+      Get.snackbar(
+        "Error",
+        "Image download failed",
+        snackPosition: SnackPosition.BOTTOM,
+        duration: const Duration(seconds: 2),
+      );
+    }
+  }
   }
 
 

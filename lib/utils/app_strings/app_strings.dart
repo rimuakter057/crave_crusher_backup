@@ -47,4 +47,33 @@ class AppStrings {
     veryHigh,
   ];
 
+
+
+  static const String ccLegend = "CC Legend";
+  static const String positivePowerhouse = "Positive Powerhouse";
+  static const String milestoneAchiever = "Milestone Achiever";
+  static const String victoryStreaker = "Victory Streaker";
+  static const String focusFighter = "Focus Fighter";
+  static const String monsterMaster = "Monster Master";
+  static const String consistencyChamp = "Consistency Champ";
+  static const String starterSpark = "Starter Spark";
+
+
+
+  // Optional: সব titles list এ রাখতে চাইলে
+  static const List<String> all = [
+    ccLegend,
+    positivePowerhouse,
+    milestoneAchiever,
+    victoryStreaker,
+    focusFighter,
+    monsterMaster,
+    consistencyChamp,
+    starterSpark,
+  ];
+
+
+
+
+
 }

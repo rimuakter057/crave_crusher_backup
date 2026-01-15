@@ -1,6 +1,6 @@
 import 'dart:io';
 
-import 'package:crave_crusher/helper/imges_handler/image_handler.dart';
+import 'package:crave_crusher/helper/images_handler/image_handler.dart';
 import 'package:crave_crusher/service/api_check.dart';
 import 'package:crave_crusher/service/api_client.dart';
 import 'package:crave_crusher/service/api_url.dart';

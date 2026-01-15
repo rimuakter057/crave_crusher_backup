@@ -1,7 +1,6 @@
 import 'dart:convert';
 import 'package:crave_crusher/view/features/auth/controllers/auth_controller.dart';
 import 'package:get/get.dart' as getx;
-
 import 'package:http/http.dart';
 import 'package:logger/logger.dart';
 

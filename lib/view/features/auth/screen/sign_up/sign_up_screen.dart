@@ -1,4 +1,5 @@
 import 'package:crave_crusher/view/components/custom_button/custom_button.dart';
+import 'package:crave_crusher/view/components/custom_loader/custom_loader.dart';
 import 'package:crave_crusher/view/components/custom_text/custom_text.dart';
 import 'package:crave_crusher/view/components/input_field_with_title/input_field_with_title.dart';
 import 'package:crave_crusher/view/components/input_password_field_widget/input_password_field_widget.dart';
@@ -22,7 +23,6 @@ class SignUpScreen extends StatefulWidget {
 }
 
 class _SignUpScreenState extends State<SignUpScreen> {
-  bool _termsAgree = false;
 
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   final TextEditingController _fullNameController = TextEditingController();
@@ -86,12 +86,18 @@ class _SignUpScreenState extends State<SignUpScreen> {
                     hintText: "Enter your email",
                     controller: _emailController,
                     validator: (String? value) {
-                      if (value?.trim().isEmpty ?? true) {
+                      if (value == null || value.trim().isEmpty) {
                         return "Enter Your Email";
+                      }
+                      // Simple email regex
+                      final emailRegex = RegExp(r'^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$');
+                      if (!emailRegex.hasMatch(value.trim())) {
+                        return "Enter a valid email address";
                       }
                       return null;
                     },
                   ),
+
                   Gap(16.h),
                   InputPasswordFieldWidget(
                     title: "Password",
@@ -115,24 +121,28 @@ class _SignUpScreenState extends State<SignUpScreen> {
                   GetBuilder<SignUpController>(
                     builder: (controller) {
                       return Row(
+                        crossAxisAlignment: CrossAxisAlignment.center,
                         children: [
                           Checkbox(
                             value: controller.termsAgree,
                             onChanged: (value) {
                               controller.toggleTerms(value ?? false);
                             },
+                            materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
                           ),
-                          const Expanded(
+                          SizedBox(
+                            width:300.w,
                             child: CustomText(
-                              maxLines: 2,
-                              text:
-                                  "I agree to the Terms & Conditions and Privacy Policy",
-                              fontSize: 12,
+                              maxLines: 1,
+                              overflow: TextOverflow.ellipsis,
+                              text: "I agree to the Terms & Conditions and Privacy Policy",
+                              fontSize: 10.sp,
                               color: Color(0xFF555555),
                             ),
                           ),
                         ],
                       );
+
                     },
                   ),
 
@@ -152,7 +162,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                     builder: (controller) {
                       return Visibility(
                         visible: controller.signUpInProgress == false,
-                        replacement: Center(child: CircularProgressIndicator()),
+                        replacement: CustomLoader(),
                         child: CustomButton(
                           title: "Sign Up",
                           onTap: _signUp, // <-- calls separate method

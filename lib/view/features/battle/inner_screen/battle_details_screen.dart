@@ -3,6 +3,7 @@ import 'package:crave_crusher/utils/app_icons/app_icons.dart';
 import 'package:crave_crusher/view/components/common_empty/common_empty_widget.dart';
 import 'package:crave_crusher/view/components/custom_button/custom_button.dart';
 import 'package:crave_crusher/view/components/custom_image/custom_image.dart';
+import 'package:crave_crusher/view/components/custom_svg_icon/custom_svg_icon.dart';
 import 'package:crave_crusher/view/components/custom_text/custom_text.dart';
 import 'package:crave_crusher/view/features/battle/battle_screen.dart';
 import 'package:crave_crusher/view/features/battle/controller/battle_controller.dart';
@@ -13,6 +14,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:gap/gap.dart';
 import 'package:get/get.dart';
+import 'package:lottie/lottie.dart';
 import '../../../components/custom_loader/custom_loader.dart';
 import '../widget/detox_type.dart';
 
@@ -34,8 +36,12 @@ class _BattleDetailsScreenState extends State<BattleDetailsScreen> {
 
   @override
   void initState() {
+
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      controller.fetchSingleBattle(widget.battleId);
+    });
     // TODO: implement initState
-controller.fetchSingleBattle(widget.battleId);
+
     super.initState();
   }
 
@@ -48,7 +54,7 @@ controller.fetchSingleBattle(widget.battleId);
         child: Padding(
           padding: EdgeInsets.symmetric(
             horizontal: 16.w,
-          ), // custom horizontal padding
+          ),
           child: AppBar(
             surfaceTintColor: AppColors.backgroundColor,
             backgroundColor: AppColors.backgroundColor,
@@ -62,7 +68,13 @@ controller.fetchSingleBattle(widget.battleId);
                 shape: BoxShape.circle,
                 border: Border.all(color: AppColors.subPrimary),
               ),
-              child: BackButton(color: AppColors.primary),
+             // child: BackButton(color: AppColors.primary),
+              child: IconButton(onPressed: (){
+                Get.back();
+                controller.fetchAllBattle();
+
+              }, icon: CustomSvgIcon(icon: AppIcons.backButton)),
+
             ),
             centerTitle: true,
             title: CustomText(
@@ -70,7 +82,9 @@ controller.fetchSingleBattle(widget.battleId);
               fontSize: 18.sp,
               fontWeight: FontWeight.w500,
             ),
-            actions: [
+
+            actions: widget.isActive
+                ? [
               GestureDetector(
                 onTap: () {
                   Get.dialog(
@@ -101,20 +115,16 @@ controller.fetchSingleBattle(widget.battleId);
                         ),
                         Obx(() {
                           return CustomButton(
-                            onTap:
-                                controller.isLoadingCancelBattle.value
-                                    ? () {}
-                                    : () {
-                                      // synchronous wrapper
-                                      () async {
-                                        final success = await controller
-                                            .cancelBattle(widget.battleId);
-                                        if (success) {
-                                          Get.to(() => BattleScreen());
-                                          controller.fetchAllBattle("active");
-                                        }
-                                      }(); // immediately invoked
-                                    },
+                            onTap: controller.isLoadingCancelBattle.value
+                                ? () {}
+                                : () async {
+                              final success = await controller
+                                  .cancelBattle(widget.battleId);
+                              if (success) {
+                                Get.to(() => BattleScreen());
+                                controller.fetchAllBattle();
+                              }
+                            },
                             title: "Yes",
                             height: 30.h,
                             width: 100.w,
@@ -122,10 +132,9 @@ controller.fetchSingleBattle(widget.battleId);
                         }),
                       ],
                     ),
-                    barrierDismissible: false, // optional
+                    barrierDismissible: false,
                   );
                 },
-
                 child: Container(
                   width: 50.w,
                   height: 50.h,
@@ -135,14 +144,21 @@ controller.fetchSingleBattle(widget.battleId);
                     shape: BoxShape.circle,
                     border: Border.all(color: AppColors.subPrimary),
                   ),
-                  child: Icon(
-                    Icons.close,
-                    color: AppColors.primary,
-                    size: 24.w,
+                  child: CustomSvgIcon(
+                    icon: AppIcons.cross,
+                    height: 28.h,
+                    width: 28.w,
                   ),
                 ),
               ),
-            ],
+            ]
+                : [],
+
+
+
+
+
+
           ),
         ),
       ),
@@ -151,7 +167,7 @@ controller.fetchSingleBattle(widget.battleId);
         padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 12.h),
         child: Obx(() {
           if (controller.isLoadingSingleBattle.value) {
-            return const Center(child: CustomLoader());
+            return CustomLoader();
           }
 
           final battle = controller.battleDetails.value.battle;
@@ -159,81 +175,119 @@ controller.fetchSingleBattle(widget.battleId);
             return EmptyWidget(title: "No battle details yet");
           }
 
-          return SingleChildScrollView(
-            padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 12.h),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                DetailsMonsterSection(
-                  detoxType: checkDetoxType(battle.addictionType ?? ''),
-                  battleTitle: battle.addictionType ?? '',
-                  battleDescription: battle.battleReason ?? '',
-                  status: battle.todayStatus ?? '....',
-                  monster:
-                      controller.battleDetails.value.monster?.monsterImage ??
-                      '',
-                  monsterStatusMessage:
-                  controller.battleDetails.value.monster?.monsterMessage ?? "Your Monster Is Losing Power — Keep It Up!",
-                ),
+          return Card(
+            color: AppColors.white,
+            child: SingleChildScrollView(
+              padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 12.h),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
 
-                SizedBox(height: 24.h),
-
-                ProgressAndActionSection(
-
-                  buttonText: battle.todayStatus == "caved"
-                      ? "Caved"
-                      : battle.todayStatus == "craved"
-                      ? "Craved"
-                      : "Battle Now",
-
-
-                  bgColor: battle.todayStatus == "caved"
-                      ? AppColors.red100
-                      : battle.todayStatus == "craved"
-                      ? AppColors.softGreen
-                      : AppColors.primary,
-
-
-                  textColor: battle.todayStatus == "caved"
-                      ? AppColors.red
-                      : battle.todayStatus == "craved"
-                      ? AppColors.green
-                      : AppColors.white,
-                  boarderColor: battle.todayStatus == "caved"
-                      ? AppColors.red
-                      : battle.todayStatus == "craved"
-                      ? AppColors.green
-                      : AppColors.primary,
-
-                  iconSrc: battle.todayStatus == "caved"
-                      ? AppIcons.cavedComplete
-                      : battle.todayStatus == "craved"
-                      ? AppIcons.battlePng
-                      : AppIcons.battleNow,
-
-                  isActive: widget.isActive,
-                  progress: (battle.battleProgress ?? 0) / 100,
-                  dayCount:
-                      "Day ${battle.day ?? 0} of ${battle.battleLength ?? 0}",
-                  title: battle.addictionType ?? '',
-                  onBattleLogPressed: () {
-                    final id = widget.battleId;
-                    Get.to(() => BattleLogScreen(battleId: id));
-                  },
+                  DetailsMonsterSection(
+                    detoxType: checkDetoxType(battle.addictionType ?? ''),
+                    battleTitle: battle.addictionType ?? '',
+                    battleDescription: battle.battleReason ?? '',
+                    status: widget.isActive ? (battle.todayStatus ?? battle.battleStatus ?? '....') : (battle.battleStatus ?? '....'),
+                    bgColor: widget.isActive
+                        ? (battle.todayStatus == "caved"
+                        ? AppColors.red100
+                        : battle.todayStatus == "craved"
+                        ? AppColors.softGreen
+                        : AppColors.subPrimary)
+                        : (battle.battleStatus == "cancel"
+                        ? AppColors.red100
+                        : battle.battleStatus == "complete"
+                        ? Colors.blue.shade50
+                        : AppColors.subPrimary),
+                    textColor: widget.isActive
+                        ? (battle.todayStatus == "caved"
+                        ? AppColors.red
+                        : battle.todayStatus == "craved"
+                        ? AppColors.green
+                        : AppColors.primary)
+                        : (battle.battleStatus == "cancel"
+                        ? AppColors.red
+                        : battle.battleStatus == "complete"
+                        ? Colors.blue
+                        : AppColors.primary),
+                    boarderColor: widget.isActive
+                        ? (battle.todayStatus == "caved"
+                        ? AppColors.red
+                        : battle.todayStatus == "craved"
+                        ? AppColors.green
+                        : AppColors.primary)
+                        : (battle.battleStatus == "cancel"
+                        ? AppColors.red
+                        : battle.battleStatus == "complete"
+                        ? Colors.blue
+                        : AppColors.primary),
+                    monster: controller.battleDetails.value.monster?.monsterImage ?? '',
+                    monsterStatusMessage: controller.battleDetails.value.monster?.monsterMessage ??
+                        "Your Monster Is Losing Power — Keep It Up!",
+                  ),
 
 
-                  onBattleNowPressed: battle.todayStatus == "caved"
-                      ? (){}
-                      : battle.todayStatus == "craved"
-                      ? (){}
-                      : (){
-                    _buildShowBattleDialog(widget.battleId);
-                  }
 
-                ),
 
-                SizedBox(height: 30.h),
-              ],
+                  SizedBox(height: 24.h),
+
+                  ProgressAndActionSection(
+
+                    buttonText: battle.todayStatus == "caved"
+                        ? "Caved"
+                        : battle.todayStatus == "craved"
+                        ? "Craved"
+                        : "Battle Now",
+
+
+                    bgColor: battle.todayStatus == "caved"
+                        ? AppColors.red100
+                        : battle.todayStatus == "craved"
+                        ? AppColors.softGreen
+                        : AppColors.primary,
+
+
+                    textColor: battle.todayStatus == "caved"
+                        ? AppColors.red
+                        : battle.todayStatus == "craved"
+                        ? AppColors.green
+                        : AppColors.white,
+                    boarderColor: battle.todayStatus == "caved"
+                        ? AppColors.red
+                        : battle.todayStatus == "craved"
+                        ? AppColors.green
+                        : AppColors.primary,
+
+                    iconSrc: battle.todayStatus == "caved"
+                        ? AppIcons.cavedComplete
+                        : battle.todayStatus == "craved"
+                        ? AppIcons.battlePng
+                        : AppIcons.battleNow,
+
+                    isActive: widget.isActive,
+                    progress: (battle.battleProgress ?? 0) / 100,
+                    dayCount:
+                        "Day ${battle.day ?? 0} of ${battle.battleLength ?? 0}",
+                    title: battle.addictionType ?? '',
+                    onBattleLogPressed: () {
+                      final id = widget.battleId;
+                      Get.to(() => BattleLogScreen(battleId: id));
+                    },
+
+
+                    onBattleNowPressed: battle.todayStatus == "caved"
+                        ? (){}
+                        : battle.todayStatus == "craved"
+                        ? (){}
+                        : (){
+                      _buildShowBattleDialog(widget.battleId);
+                    }
+
+                  ),
+
+
+                ],
+              ),
             ),
           );
         }),
@@ -245,74 +299,106 @@ controller.fetchSingleBattle(widget.battleId);
   void _buildShowBattleDialog(String id) {
     Get.dialog(
       Obx(() {
-        return Dialog(
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(12),
-          ),
-          child: SizedBox(
-            height: 170.h,
-            width: 320.w,
-            child: Padding(
-              padding: EdgeInsets.all(12.w),
-              child:
-                  controller.isLoadingCompleteBattle.value
-                      ? const Center(child: CustomLoader())
-                      : Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceAround,
-                        children: [
-                          // Caved
-                          InkWell(
-                            onTap: () async {
-                              if (controller.isLoadingCompleteBattle.value) {
-                                return;
-                              }
-                              final success = await controller
-                                  .completeBattleDay(id, "caved");
-                              if (success) {
-                                await controller.fetchSingleBattle(id);
-                                Get.back(); // Dialog বন্ধ
-                              } else {
-                                Get.snackbar(
-                                  "Error",
-                                  "Status update failed",
-                                  backgroundColor: AppColors.red100,
-                                );
-                              }
-                            },
-                            child: _buildDialogContainer(
-                              "Caved",
-                              AppIcons.cavedComplete,
-                            ),
-                          ),
-                          // Craved
-                          InkWell(
-                            onTap: () async {
-                              if (controller.isLoadingCompleteBattle.value)
-                                return;
-                              final success = await controller
-                                  .completeBattleDay(id, "craved");
-                              Get.back(); // Dialog বন্ধ
-                              if (success) {
-                                Get.snackbar(
-                                  "Success",
-                                  "Status updated to Craved",
-                                );
-                                await controller.fetchSingleBattle(id);
-                              } else {
-                                Get.snackbar(
-                                  "Error",
-                                  "Status update failed",
-                                  backgroundColor: AppColors.red100,
-                                );
-                              }
-                            },
-                            child: _buildDialogContainer(
-                              "Craved",
-                              AppIcons.battlePng,
-                            ),
-                          ),
-                        ],
+        return Center(
+          child: Dialog(
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(12),
+            ),
+            child: SizedBox(
+              height: 170.h,
+              width: 340.w,
+              child: controller.isLoadingCompleteBattle.value
+                  ? const Center(child: CustomLoader())
+                  : Row(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      // Caved
+                      InkWell(
+                        onTap: () async {
+                          if (controller.isLoadingCompleteBattle.value) {
+                            return;
+                          }
+                          final success = await controller
+                              .completeBattleDay(id, "caved");
+                          if (success) {
+                           // Get.back();
+
+                            Get.dialog(
+                              Center(
+                                child: Lottie.asset(
+                                        AppIcons.lottieBattle,
+                                  repeat: false,
+                                  onLoaded: (composition) async {
+
+                                    await Future.delayed(composition.duration);
+                                    Get.back();
+                                  },
+                                ),
+                              ),
+                              barrierDismissible: false,
+                            );
+
+
+
+
+                            await controller.fetchSingleBattle(id);
+
+                          } else {
+                            Get.snackbar(
+                              "Error",
+                              "Status update failed",
+                              backgroundColor: AppColors.red100,
+                            );
+                          }
+                        },
+                        child: _buildDialogContainer(
+                          "Caved",
+                          AppIcons.cavedComplete,
+                        ),
                       ),
+                      Gap(12.w),
+                      // Craved
+                      InkWell(
+                        onTap: () async {
+                          if (controller.isLoadingCompleteBattle.value)
+                            return;
+
+                          final success = await controller
+                              .completeBattleDay(id, "craved");
+
+                          if (success) {
+                           // Get.back();
+                            Get.dialog(
+                              Center(
+                                child: Lottie.asset(
+                                  AppIcons.lottieBattle,
+                                  repeat: false,
+                                  onLoaded: (composition) async {
+                                    await Future.delayed(composition.duration);
+                                    Get.back();
+                                  },
+                                ),
+                              ),
+                              barrierDismissible: false,
+                            );
+                            await controller.fetchSingleBattle(id);
+
+                          } else {
+                            Get.snackbar(
+                              "Error",
+                              "Status update failed",
+                              backgroundColor: AppColors.red100,
+                            );
+                          }
+                        },
+                        child: _buildDialogContainer(
+                          "Craved",
+                          AppIcons.battlePng,
+                        ),
+                      ),
+                    ],
+                  ),
             ),
           ),
         );
@@ -324,8 +410,8 @@ controller.fetchSingleBattle(widget.battleId);
   ///build dialog container
   Container _buildDialogContainer(final String text, final String image) {
     return Container(
-      height: 130.h,
-      width: 128.w,
+      height: 120.h,
+      width: 120.w,
       decoration: BoxDecoration(
         color: AppColors.subPrimary,
         borderRadius: BorderRadius.circular(12),
@@ -337,7 +423,7 @@ controller.fetchSingleBattle(widget.battleId);
           CustomImage(
             imageSrc: image,
             height: 80.h,
-            width: 108.w,
+            width: 100.w,
             fit: BoxFit.cover,
           ),
           Gap(4.h),

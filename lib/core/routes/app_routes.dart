@@ -1,9 +1,8 @@
 import 'package:crave_crusher/view/features/auth/screen/login/login_screen.dart';
 import 'package:crave_crusher/view/features/battle/inner_screen/create_battle_screen.dart';
 import 'package:crave_crusher/view/features/community/screens/post/post_screen.dart';
-import 'package:crave_crusher/view/features/home/empty_home_screen.dart';
 import 'package:crave_crusher/view/features/home/home_screen.dart';
-import 'package:crave_crusher/view/features/on_boarding/on_boarding_one/on_boarding_One_screen.dart';
+import 'package:crave_crusher/view/features/on_boarding/on_boarding_one/on_boarding_one_screen.dart';
 import 'package:crave_crusher/view/features/splash/splash_screen.dart';
 import 'package:get/get.dart';
 
@@ -29,7 +28,7 @@ class AppRoutes {
     GetPage(name: homeScreen, page: () => HomeScreen()),
 
     GetPage(name: createBattleScreen, page: () => CreateBattleScreen()),
-    GetPage(name: emptyHome, page: () => EmptyHomeScreen()),
+    //GetPage(name: emptyHome, page: () => EmptyHomeScreen()),
 
 
     GetPage(name: postScreen, page: () => PostScreen()),

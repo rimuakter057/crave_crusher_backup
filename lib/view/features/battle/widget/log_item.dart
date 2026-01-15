@@ -3,6 +3,7 @@
 import 'package:crave_crusher/utils/app_colors/app_colors.dart';
 import 'package:crave_crusher/utils/app_icons/app_icons.dart';
 import 'package:crave_crusher/view/components/custom_image/custom_image.dart';
+import 'package:crave_crusher/view/components/custom_svg_icon/custom_svg_icon.dart';
 import 'package:crave_crusher/view/components/custom_text/custom_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -122,7 +123,7 @@ class LogEntryItem extends StatelessWidget {
             // Timestamp
             Row(
               children: [
-                Icon(Icons.history, size: 12, color: AppColors.softWhite),
+                CustomSvgIcon(icon: AppIcons.alarm,height: 12.h,width: 12.w,),
                 SizedBox(width: 5.w),
                 CustomText(
                   text: timestamp,

@@ -1,6 +1,7 @@
 import 'package:crave_crusher/core/routes/app_routes.dart';
 import 'package:crave_crusher/utils/app_colors/app_colors.dart';
 import 'package:crave_crusher/view/components/custom_button/custom_button.dart';
+import 'package:crave_crusher/view/components/custom_loader/custom_loader.dart';
 import 'package:crave_crusher/view/components/custom_text/custom_text.dart';
 import 'package:crave_crusher/view/components/input_field_with_title/input_field_with_title.dart';
 import 'package:crave_crusher/view/components/input_password_field_widget/input_password_field_widget.dart';
@@ -94,12 +95,18 @@ class _LoginScreenState extends State<LoginScreen> {
                       hintText: "Enter your email",
                       controller: _emailController,
                       validator: (String? value) {
-                        if (value?.trim().isEmpty ?? true) {
+                        if (value == null || value.trim().isEmpty) {
                           return "Enter Your Email";
+                        }
+                        // Simple email regex
+                        final emailRegex = RegExp(r'^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$');
+                        if (!emailRegex.hasMatch(value.trim())) {
+                          return "Enter a valid email address";
                         }
                         return null;
                       },
                     ),
+
 
                     Gap(16.h),
                     InputPasswordFieldWidget(
@@ -127,9 +134,7 @@ class _LoginScreenState extends State<LoginScreen> {
                         builder: (controller) {
                           return Visibility(
                             visible: controller.inProgress == false,
-                            replacement: Center(
-                              child: CircularProgressIndicator(),
-                            ),
+                            replacement:CustomLoader(),
                             child: TextButton(
                               onPressed: _forgetButtonTap,
                               child: CustomText(
@@ -166,9 +171,7 @@ class _LoginScreenState extends State<LoginScreen> {
                       builder: (controller) {
                         return Visibility(
                           visible: controller.inProgress == false,
-                          replacement: Center(
-                            child: CircularProgressIndicator(),
-                          ),
+                          replacement: CustomLoader(),
                           child: CustomButton(
                             title: "Log In",
                             onTap: _signInButtonTap,
@@ -228,7 +231,7 @@ class _LoginScreenState extends State<LoginScreen> {
     );
 
     if (isSuccess && _emailController.text.isNotEmpty) {
-      Get.to(VerifyIdentityScreen(email: _emailController.text));
+      Get.to(()=>VerifyIdentityScreen(email: _emailController.text));
     } else {
       Get.snackbar("Error", "Please Enter Your Email");
     }

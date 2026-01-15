@@ -6,13 +6,14 @@ import 'package:crave_crusher/service/api_client.dart';
 import 'package:crave_crusher/service/api_url.dart';
 import 'package:crave_crusher/utils/ToastMsg/toast_message.dart';
 import 'package:crave_crusher/utils/app_const/app_const.dart';
-import 'package:crave_crusher/view/features/community/models/my_post_model.dart';
 import 'package:crave_crusher/view/features/community/models/all_post_model.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:logger/logger.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+
+import '../screens/community_all_feed_screen/community_all_feed_screen.dart';
 
 class PostController extends GetxController {
   /// get all post ==============================================================================Get Method====================
@@ -244,7 +245,10 @@ class PostController extends GetxController {
     if (response.statusCode == 200 || response.statusCode == 201) {
       showCustomSnackBar("Post updated successfully", isError: false);
       fetchMyPost();
-      Get.back();
+      // ✅ navigate AFTER snackbar frame completes
+      WidgetsBinding.instance.addPostFrameCallback((_) {
+        Get.to(() => CommunityAllFeedScreen(initialTabIndex: 0));
+      });
     } else {
       ApiChecker.checkApi(response);
     }

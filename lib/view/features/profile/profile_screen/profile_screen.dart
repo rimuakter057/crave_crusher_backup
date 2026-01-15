@@ -1,14 +1,14 @@
 import 'package:crave_crusher/core/routes/app_routes.dart';
-import 'package:crave_crusher/helper/imges_handler/image_handler.dart';
+import 'package:crave_crusher/helper/images_handler/image_handler.dart';
 import 'package:crave_crusher/utils/app_colors/app_colors.dart';
-import 'package:crave_crusher/utils/app_const/app_const.dart';
+import 'package:crave_crusher/utils/app_icons/app_icons.dart';
 import 'package:crave_crusher/utils/app_images/app_images.dart';
 import 'package:crave_crusher/view/components/common_profile/avatar_widget.dart';
 import 'package:crave_crusher/view/components/custom_nav_bar/navbar.dart';
 import 'package:crave_crusher/view/components/custom_text/custom_text.dart';
+import 'package:crave_crusher/view/components/leading_back/custom_leading_back_icon.dart';
 import 'package:crave_crusher/view/features/account_setting/account_setting_screen.dart';
 import 'package:crave_crusher/view/features/auth/controllers/auth_controller.dart';
-import 'package:crave_crusher/view/features/auth/screen/login/login_screen.dart';
 import 'package:crave_crusher/view/features/help_support/help_support_screen.dart';
 import 'package:crave_crusher/view/features/notification/notification_screen.dart';
 import 'package:crave_crusher/view/features/privacy_policy/privacy_policy_screen.dart';
@@ -66,7 +66,7 @@ class ProfileScreen extends StatelessWidget {
                         shape: BoxShape.circle,
                         border: Border.all(color: AppColors.subPrimary),
                       ),
-                      child: BackButton(color: AppColors.primary),
+                      child:        LeadingBackIconWidget(),
                     ),
                   ),
 
@@ -125,14 +125,14 @@ class ProfileScreen extends StatelessWidget {
               child:Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  CustomProfileMenu(text: 'My Profile', icon: Icon(Icons.account_circle_outlined), onTap: () {
+                  CustomProfileMenu(text: 'My Profile', icon: AppIcons.myProfile, onTap: () {
                     Navigator.push(
                       context,
                       MaterialPageRoute(builder: (context) => MyProfileScreen()),
                     );
                   },),
                   Gap(8.h),
-                  CustomProfileMenu(text: 'Account Setting', icon: Icon(Icons.settings), onTap: () {
+                  CustomProfileMenu(text: 'Account Setting', icon: AppIcons.accountSetting, onTap: () {
 
                     Navigator.push(
                       context,
@@ -141,7 +141,7 @@ class ProfileScreen extends StatelessWidget {
 
                   },),
                   Gap(8.h),
-                  CustomProfileMenu(text: 'Notification', icon: Icon(Icons.notifications_none), onTap: () {
+                  CustomProfileMenu(text: 'Notification', icon: AppIcons.notification, onTap: () {
 
                     Navigator.push(
                       context,
@@ -156,7 +156,7 @@ class ProfileScreen extends StatelessWidget {
 
 
 
-                  CustomProfileMenu(text: 'Terms & Condition', icon: Icon(Icons.description_outlined), onTap: () {
+                  CustomProfileMenu(text: 'Terms & Condition', icon: AppIcons.terms, onTap: () {
                     Navigator.push(
                       context,
                       MaterialPageRoute(builder: (context) => TermsConditionScreen()),
@@ -165,7 +165,7 @@ class ProfileScreen extends StatelessWidget {
 
                   },),
                   Gap(8.h),
-                  CustomProfileMenu(text: 'Privacy policy', icon: Icon(Icons.privacy_tip_outlined), onTap: () {
+                  CustomProfileMenu(text: 'Privacy policy', icon: AppIcons.privacy,  onTap: () {
                     Navigator.push(
                       context,
                       MaterialPageRoute(builder: (context) => PrivacyPolicyScreen()),
@@ -174,14 +174,14 @@ class ProfileScreen extends StatelessWidget {
 
                   },),
                   Gap(8.h),
-                  CustomProfileMenu(text: 'Help/Support', icon: Icon(Icons.help_outline), onTap: () {
+                  CustomProfileMenu(text: 'Help/Support', icon: AppIcons.help,  onTap: () {
                     Navigator.push(
                       context,
                       MaterialPageRoute(builder: (context) => HelpSupportScreen()),
                     );
                   },),
                   Gap(12.h),
-                  CustomProfileMenu(text: 'Log Out', icon: Icon(Icons.logout_outlined),
+                  CustomProfileMenu(text: 'Log Out', icon: AppIcons.logout,
                       onTap: () async {
                         await Get.find<AuthController>().clearUserData();
                         Get.offAllNamed(AppRoutes.loginScreen);

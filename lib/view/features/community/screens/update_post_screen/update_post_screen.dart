@@ -1,13 +1,14 @@
 import 'dart:io';
 
-import 'package:crave_crusher/helper/imges_handler/image_handler.dart';
+import 'package:crave_crusher/helper/images_handler/image_handler.dart';
 import 'package:crave_crusher/utils/app_colors/app_colors.dart';
 import 'package:crave_crusher/utils/app_icons/app_icons.dart';
-import 'package:crave_crusher/utils/app_images/app_images.dart';
+
 import 'package:crave_crusher/view/components/custom_container/custom_container.dart';
 import 'package:crave_crusher/view/components/custom_image/custom_image.dart';
 import 'package:crave_crusher/view/components/custom_loader/custom_loader.dart';
 import 'package:crave_crusher/view/components/custom_network_image/custom_network_image.dart';
+import 'package:crave_crusher/view/components/custom_svg_icon/custom_svg_icon.dart';
 import 'package:crave_crusher/view/components/custom_text/custom_text.dart';
 import 'package:crave_crusher/view/components/custom_text_field/custom_text_field.dart';
 import 'package:crave_crusher/view/features/community/controllers/post_controller.dart';
@@ -33,13 +34,15 @@ class _UpdatePostScreenState extends State<UpdatePostScreen> {
   void initState() {
     super.initState();
 
-    contentController.text = widget.updatePostData.content;
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      contentController.text = widget.updatePostData.content;
 
-    // Existing images set kora
-    postController.currentImagePaths.value =
-        widget.updatePostData.images.isNotEmpty
-            ? List<String>.from(widget.updatePostData.images)
-            : [];
+      // Existing images set kora
+      postController.currentImagePaths.value =
+          widget.updatePostData.images.isNotEmpty
+              ? List<String>.from(widget.updatePostData.images)
+              : [];
+    });
   }
 
   @override
@@ -62,7 +65,12 @@ class _UpdatePostScreenState extends State<UpdatePostScreen> {
               shape: BoxShape.circle,
               border: Border.all(color: AppColors.subPrimary),
             ),
-            child: BackButton(color: AppColors.primary),
+            child: IconButton(
+              onPressed: () {
+                Get.back();
+              },
+              icon: CustomSvgIcon(icon: AppIcons.backButton),
+            ),
           ),
         ),
         centerTitle: true,
@@ -72,8 +80,8 @@ class _UpdatePostScreenState extends State<UpdatePostScreen> {
           fontWeight: FontWeight.w500,
         ),
       ),
-//         onTap: () => postController.pickImagesUpdate(),
-    //        final images = postController.currentImagePaths;
+      //         onTap: () => postController.pickImagesUpdate(),
+      //        final images = postController.currentImagePaths;
       body: SingleChildScrollView(
         child: Padding(
           padding: EdgeInsets.symmetric(horizontal: 16.w),
@@ -110,7 +118,6 @@ class _UpdatePostScreenState extends State<UpdatePostScreen> {
               ),
               Gap(16.h),
 
-
               //========================================
               Obx(() {
                 final images = postController.currentImagePaths;
@@ -125,37 +132,7 @@ class _UpdatePostScreenState extends State<UpdatePostScreen> {
                         runSpacing: 8.h,
                         children: List.generate(
                           images.length,
-                              (index) => Stack(
-                            children: [
-                              ClipRRect(
-                                borderRadius: BorderRadius.circular(12),
-                                child: Image.file(
-                                  File(images[index]),
-                                  width: double.infinity,
-                                  height: 120.h,
-                                  fit: BoxFit.cover,
-                                ),
-                              ),
-                              Positioned(
-                                right: 6,
-                                top: 6,
-                                child: GestureDetector(
-                                  onTap: () =>  postController.pickImagesUpdate(),
-                                  child: Container(
-                                    width: 24.w,
-                                    height: 24.h,
-                                    alignment: Alignment.center,
-                                    decoration: BoxDecoration(
-                                      color: AppColors.white,
-                                      shape: BoxShape.circle,
-                                      border: Border.all(color: AppColors.subPrimary),
-                                    ),
-                                    child: Icon(Icons.close, size: 16),
-                                  ),
-                                ),
-                              ),
-                            ],
-                          ),
+                          (index) => _buildImageItem(images[index], itemWidth),
                         ),
                       ),
 
@@ -163,7 +140,7 @@ class _UpdatePostScreenState extends State<UpdatePostScreen> {
 
                     /// full width add button
                     GestureDetector(
-                      onTap: () =>  postController.pickImagesUpdate(),
+                      onTap: () => postController.pickImagesUpdate(),
                       child: CustomContainer(
                         width: double.infinity,
                         height: 120.h,
@@ -178,11 +155,6 @@ class _UpdatePostScreenState extends State<UpdatePostScreen> {
                 );
               }),
 
-
-
-
-
-
               Gap(16.h),
 
               /// post button
@@ -193,7 +165,6 @@ class _UpdatePostScreenState extends State<UpdatePostScreen> {
                       Get.snackbar("Error", "Content cannot be empty!");
                       return;
                     }
-
 
                     await postController.updatePost(
                       widget.updatePostData.postId,
@@ -263,7 +234,7 @@ class _UpdatePostScreenState extends State<UpdatePostScreen> {
                 shape: BoxShape.circle,
                 border: Border.all(color: AppColors.subPrimary),
               ),
-              child: Icon(Icons.close, size: 16),
+              child: CustomSvgIcon(icon: AppIcons.cross),
             ),
           ),
         ),
