@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'package:crave_crusher/view/features/auth/controllers/auth_controller.dart';
+import 'package:flutter/rendering.dart';
 import 'package:get/get.dart' as getx;
 import 'package:http/http.dart';
 import 'package:logger/logger.dart';
@@ -22,15 +23,29 @@ class NetworkCaller {
   final Logger _logger = Logger();
 
   /// Log request
+
+  void _logRequest(
+    String url,
+    Map<String, dynamic> headers, {
+    Map<String, dynamic>? requestBody,
+  }) {
+    _logger.i("URL => $url\nHeaders: $headers\nBody: $requestBody");
+
   void _logRequest(String url, Map<String, dynamic> headers,
       {Map<String, dynamic>? requestBody}) {
     _logger.i("URL ==========================> $url\nHeaders=========================: $headers\nBody============================: $requestBody");
+
   }
 
   /// Log response
   void _logResponse(String url, Response response) {
     _logger.i(
+
+      "URL => $url\nStatus Code: ${response.statusCode}\nHeaders: ${response.headers}\nBody: ${response.body}",
+    );
+
         "URL => $url\nStatus Code===============: ${response.statusCode}\nHeaders===================: ${response.headers}\nBody========================: ${response.body}");
+
   }
 
   /// ---------------- GET REQUEST ----------------
@@ -117,12 +132,17 @@ class NetworkCaller {
 
       _logRequest(url, headers, requestBody: body);
 
-      Response response =
-      await post(uri, headers: headers, body: jsonEncode(body));
+      Response response = await post(
+        uri,
+        headers: headers,
+        body: jsonEncode(body),
+      );
 
       _logResponse(url, response);
 
       final data = jsonDecode(response.body);
+
+      debugPrint('Response Data:================= >> $data');
 
       if (response.statusCode == 200 || response.statusCode == 201) {
         return NetworkResponse(
@@ -135,8 +155,6 @@ class NetworkCaller {
       if (response.statusCode == 401) {
         await _handleUnauthorized();
       }
-
-
 
       return NetworkResponse(
         isSuccess: false,
@@ -151,16 +169,6 @@ class NetworkCaller {
       );
     }
   }
-
-
-
-
-
-
-
-
-
-
 
   /// ---------------- Handle Unauthorized ----------------
   Future<void> _handleUnauthorized() async {

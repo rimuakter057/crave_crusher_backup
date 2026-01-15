@@ -12,28 +12,15 @@ import 'package:get/get.dart';
 import 'package:device_preview_plus/device_preview_plus.dart';
 import 'package:get/get_core/src/get_main.dart' as getx;
 
-
 import 'package:firebase_core/firebase_core.dart';
 import 'firebase_options.dart';
 
 // ...
 
-
-
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
-  try {
-    await Firebase.initializeApp(
-      options: DefaultFirebaseOptions.currentPlatform,
-    );
-    print('Firebase initialized successfully!======================================');
-  } catch (e) {
-    print('Firebase failed to initialize:=============================================== $e');
-  }
-
-
-
+  await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
 
   DeviceUtils.lockDevicePortrait();
 
