@@ -1,5 +1,5 @@
 class ApiUrl {
-  static const String primaryUrl = "https://sg6hn18x-5555.inc1.devtunnels.ms";
+  static const String primaryUrl = "http://56.228.56.225:5000";
 
   static const String baseUrl = "$primaryUrl/api/v1";
   // static const String baseUrl = "https://sta-map-point-2.onrender.com/api/v1";
@@ -49,11 +49,10 @@ class ApiUrl {
   static String getAllComment(String postId) {
     return "/community-comment/comment/$postId";
   }
+
   static String getSingleUserProfile(String userId) {
     return "/community-post/get-single-user-posts/$userId";
   }
-
-
 
   ///profile section==================================================================
   static const String getMyProfile = "/user/get-my-profile";
@@ -105,5 +104,4 @@ class ApiUrl {
 
   static String deleteNotifications({required String id}) =>
       "/notification/delete-notification/$id";
-
 }

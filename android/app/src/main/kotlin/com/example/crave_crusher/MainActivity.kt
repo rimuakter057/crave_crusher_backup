@@ -1,4 +1,4 @@
-package com.example.crave_crusher
+package com.app.cravecrusher
 
 import io.flutter.embedding.android.FlutterActivity
 
