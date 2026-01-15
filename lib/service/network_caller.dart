@@ -24,13 +24,13 @@ class NetworkCaller {
   /// Log request
   void _logRequest(String url, Map<String, dynamic> headers,
       {Map<String, dynamic>? requestBody}) {
-    _logger.i("URL => $url\nHeaders: $headers\nBody: $requestBody");
+    _logger.i("URL ==========================> $url\nHeaders=========================: $headers\nBody============================: $requestBody");
   }
 
   /// Log response
   void _logResponse(String url, Response response) {
     _logger.i(
-        "URL => $url\nStatus Code: ${response.statusCode}\nHeaders: ${response.headers}\nBody: ${response.body}");
+        "URL => $url\nStatus Code===============: ${response.statusCode}\nHeaders===================: ${response.headers}\nBody========================: ${response.body}");
   }
 
   /// ---------------- GET REQUEST ----------------
