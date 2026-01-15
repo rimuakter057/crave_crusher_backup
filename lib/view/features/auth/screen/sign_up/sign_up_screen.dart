@@ -68,18 +68,23 @@ class _SignUpScreenState extends State<SignUpScreen> {
                   ),
                   Gap(24.h),
 
-                  /// Input Fields
                   InputFieldWithTitleWidget(
                     title: "Full Name",
                     hintText: "Enter your full name",
                     controller: _fullNameController,
                     validator: (String? value) {
-                      if (value?.trim().isEmpty ?? true) {
-                        return "Enter Your Full Name";
+                      if (value == null || value.trim().isEmpty) {
+                        return "Enter your full name";
                       }
+
+                      if (value.trim().length > 12) {
+                        return "Full Name must be within 12 characters";
+                      }
+
                       return null;
                     },
                   ),
+
                   Gap(16.h),
                   InputFieldWithTitleWidget(
                     title: "Email Address",
