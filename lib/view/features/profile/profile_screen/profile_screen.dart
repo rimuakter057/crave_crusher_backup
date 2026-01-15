@@ -1,7 +1,6 @@
 import 'package:crave_crusher/core/routes/app_routes.dart';
-import 'package:crave_crusher/helper/imges_handler/image_handler.dart';
+import 'package:crave_crusher/helper/images_handler/image_handler.dart';
 import 'package:crave_crusher/utils/app_colors/app_colors.dart';
-import 'package:crave_crusher/utils/app_const/app_const.dart';
 import 'package:crave_crusher/utils/app_icons/app_icons.dart';
 import 'package:crave_crusher/utils/app_images/app_images.dart';
 import 'package:crave_crusher/view/components/common_profile/avatar_widget.dart';
@@ -10,7 +9,6 @@ import 'package:crave_crusher/view/components/custom_text/custom_text.dart';
 import 'package:crave_crusher/view/components/leading_back/custom_leading_back_icon.dart';
 import 'package:crave_crusher/view/features/account_setting/account_setting_screen.dart';
 import 'package:crave_crusher/view/features/auth/controllers/auth_controller.dart';
-import 'package:crave_crusher/view/features/auth/screen/login/login_screen.dart';
 import 'package:crave_crusher/view/features/help_support/help_support_screen.dart';
 import 'package:crave_crusher/view/features/notification/notification_screen.dart';
 import 'package:crave_crusher/view/features/privacy_policy/privacy_policy_screen.dart';

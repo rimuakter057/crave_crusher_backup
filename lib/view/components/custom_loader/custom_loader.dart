@@ -12,7 +12,7 @@ class CustomLoader extends StatelessWidget {
   {
     return SpinKitCircle(
       color: AppColors.primary,
-      // color: AppColors.appBarBackground,
+
       size: 60.h,
     );
   }

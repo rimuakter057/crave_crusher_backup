@@ -12,7 +12,7 @@ import 'package:crave_crusher/view/features/home/controller/home_controller.dart
 import 'package:crave_crusher/view/features/home/widget/home_appbar.dart';
 import 'package:crave_crusher/view/features/home/widget/home_monster_shimmer.dart';
 import 'package:crave_crusher/view/features/home/widget/monster_section.dart';
-import 'package:crave_crusher/view/features/home/widget/today_tips.dart';
+
 import 'package:crave_crusher/view/features/profile/controllers/profile_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';

@@ -1,3 +1,4 @@
+import 'package:crave_crusher/service/api_url.dart';
 import 'package:crave_crusher/view/components/custom_svg_icon/custom_svg_icon.dart';
 import 'package:crave_crusher/view/features/community/controllers/community_controller.dart';
 import 'package:flutter/material.dart';
@@ -18,7 +19,7 @@ class CommunityImageShowScreen extends StatefulWidget {
 
 class _CommunityImageShowScreenState extends State<CommunityImageShowScreen> {
   final CommunityController controller = Get.put(CommunityController());
-  PageController _pageController = PageController();
+  final PageController _pageController = PageController();
   int _currentPage = 0;
 
   @override
@@ -41,7 +42,7 @@ class _CommunityImageShowScreenState extends State<CommunityImageShowScreen> {
           if (widget.images.isEmpty) return;
 
           final imageUrl =
-              "http://10.10.20.45:5555/${widget.images[_currentPage]}";
+              "${ApiUrl.primaryUrl}/${widget.images[_currentPage]}";
 
           controller.downloadImage(imageUrl);
         },
@@ -61,7 +62,7 @@ class _CommunityImageShowScreenState extends State<CommunityImageShowScreen> {
               });
                       },
                       itemBuilder: (context, index) {
-              String imageUrl = "http://10.10.20.45:5555/${widget.images[index]}";
+              String imageUrl = "${ApiUrl.primaryUrl}/${widget.images[index]}";
               return Padding(
                 padding: EdgeInsets.symmetric(horizontal: 8.w),
                 child: Container(

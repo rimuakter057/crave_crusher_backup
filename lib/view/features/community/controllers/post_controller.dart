@@ -6,7 +6,6 @@ import 'package:crave_crusher/service/api_client.dart';
 import 'package:crave_crusher/service/api_url.dart';
 import 'package:crave_crusher/utils/ToastMsg/toast_message.dart';
 import 'package:crave_crusher/utils/app_const/app_const.dart';
-import 'package:crave_crusher/view/features/community/models/my_post_model.dart';
 import 'package:crave_crusher/view/features/community/models/all_post_model.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';

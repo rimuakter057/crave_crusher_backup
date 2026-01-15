@@ -3,13 +3,13 @@ import 'package:flutter/material.dart';
 class AppColors {
   static const Color primary = Color(0xff6C63FF);
   static const Color shedOfPrimary = Color(0xff6C75A1);
-  static const Color subPrimary = Color(0xffDDE3FA); //#C7D2FE
+  static const Color subPrimary = Color(0xffDDE3FA);
   static const Color naveUnselected = Color(0xff6F6F6F);
   static const Color indigoColor = Color(0xffC7D2FE);
 
   static const Color naveBordar = Color(0xffEEF2FF);
 
-  static const Color naveWhite = Color(0xffFAFAFF); //#FAFAFF99//#FAFAFF99
+  static const Color naveWhite = Color(0xffFAFAFF);
   static const Color black = Color(0xff000000);
   static const Color appTitle = Color(0xff2C3A54);
   static const Color black_02 = Color(0xff181818);

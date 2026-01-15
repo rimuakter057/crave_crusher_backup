@@ -11,12 +11,6 @@ import '../models/battle_model.dart';
 class BattleController extends GetxController {
   RxInt battleTabIndex = 0.obs;
 
-  // @override
-  // void onInit() {
-  //   // TODO: implement onInit
-  //   super.onInit();
-  //   fetchAllBattle('active');
-  // }
 
   ///create battle section=============================================Post Method============================================
 

@@ -127,7 +127,7 @@ class ActiveBattleCard extends StatelessWidget {
                   border: Border.all(color: getStatusColor(status)),
                 ),
                 child: CustomText(
-                  text: "*${status}",
+                  text: "*$status",
                   fontSize: 12.w,
                   fontWeight: FontWeight.w500,
                   color: getStatusColor(status),

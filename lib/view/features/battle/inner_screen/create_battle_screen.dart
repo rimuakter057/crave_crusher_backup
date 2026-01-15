@@ -4,11 +4,9 @@ import 'package:crave_crusher/view/components/custom_app_bar/custom_app_bar.dart
 import 'package:crave_crusher/view/components/custom_image/custom_image.dart';
 import 'package:crave_crusher/view/components/custom_svg_icon/custom_svg_icon.dart';
 import 'package:crave_crusher/view/components/custom_text/custom_text.dart';
-import 'package:crave_crusher/view/features/battle/battle_screen.dart';
 import 'package:crave_crusher/view/features/battle/controller/battle_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import '../../../components/custom_loader/custom_loader.dart';

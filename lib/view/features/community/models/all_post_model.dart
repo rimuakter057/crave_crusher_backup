@@ -1,6 +1,4 @@
-// To parse this JSON data, do
-//
-//     final postModel = postModelFromJson(jsonString);
+
 
 import 'dart:convert';
 
@@ -10,9 +8,7 @@ PostModel postModelFromJson(String str) => PostModel.fromJson(json.decode(str));
 
 String postModelToJson(PostModel data) => json.encode(data.toJson());
 
-// "totalReaction": 1,
-// "totalBadge": 2,
-// "totalPost": 3
+
 class PostModel {
   final String? id;
   final String? content;

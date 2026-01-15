@@ -120,7 +120,7 @@ class _CommunityAllFeedScreenState extends State<CommunityAllFeedScreen> {
                                 return CommonCommunityWidget(
                                   profileTitle: "@${post.author?.fullName}",
                                   time: DateConverter.dateYearTimeUtc(post.createdAt.toString()),
-                                  postImages: post.postImages ?? [],
+                                  postImages: post.postImages ,
                                   postText: post.content ?? "",
                                   commentsText: "${post.totalComments ?? 0}",
                                   favouriteWidget: Row(
@@ -150,7 +150,7 @@ class _CommunityAllFeedScreenState extends State<CommunityAllFeedScreen> {
                                       ),
                                       SizedBox(width: 4.w),
                                       CustomText(
-                                        text: "${post.totalVotes.value ?? 0}",
+                                        text: "${post.totalVotes.value }",
                                       ),
                                     ],
                                   ),
@@ -161,7 +161,7 @@ class _CommunityAllFeedScreenState extends State<CommunityAllFeedScreen> {
                                     ));
                                   },
                                   onTapImageShow: () => Get.to(() => CommunityImageShowScreen(
-                                    images: post.postImages ?? [],
+                                    images: post.postImages ,
                                   )),
                                   onTapComment: () => Get.to(() => CommentScreen(
                                     postId: post.id ?? '',
@@ -198,10 +198,10 @@ class _CommunityAllFeedScreenState extends State<CommunityAllFeedScreen> {
                                 final postId = myPost.id ?? '';
 
                                 return CommonCommunityWidget(
-                                  profileTitle: "@${myPost.author?.fullName}" ?? 'Unknown',
+                                  profileTitle: "@${myPost.author?.fullName}" ,
                                   time: DateConverter.dateYearTimeUtc(myPost.createdAt.toString()),
                                   profileImage: myPost.author?.profileImage ?? AppConstants.unknown,
-                                  postImages: myPost.postImages ?? [],
+                                  postImages: myPost.postImages,
                                   postText: myPost.content ?? "",
                                   commentsText: "${myPost.totalComments ?? 0}",
                                   favouriteWidget: Row(

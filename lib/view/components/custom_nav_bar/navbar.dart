@@ -5,12 +5,9 @@ import 'package:crave_crusher/utils/app_icons/app_icons.dart';
 import 'package:crave_crusher/view/components/custom_image/custom_image.dart';
 import 'package:crave_crusher/view/features/battle/battle_screen.dart';
 import 'package:crave_crusher/view/features/community/screens/community_all_feed_screen/community_all_feed_screen.dart';
-import 'package:crave_crusher/view/features/community/screens/post/post_screen.dart';
-
 import 'package:crave_crusher/view/features/home/home_screen.dart';
 import 'package:crave_crusher/view/features/profile/profile_screen/profile_screen.dart';
 import 'package:crave_crusher/view/features/rewards/rewards_screen.dart';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';

@@ -51,7 +51,7 @@ class CustomText extends StatelessWidget {
         maxLines: maxLines,
         overflow: overflow,
         style: GoogleFonts.syne(
-          fontSize: textType != null ? setFonteSize(textType!) : fontSize.w,
+          fontSize: textType != null ? setFontSize(textType!) : fontSize.w,
           fontWeight: textType != null ? setFontWeight(textType!) : fontWeight,
           color: color,
           decoration: decoration,
@@ -62,14 +62,14 @@ class CustomText extends StatelessWidget {
     );
   }
 
-  double setFonteSize(TextType type) {
+  double setFontSize(TextType type) {
     switch (type) {
       case TextType.title:
         return 16.w;
 
       case TextType.subTitle:
         return 12.w;
-      case TextType.discription:
+      case TextType.description:
         return 10.w;
       case TextType.small:
         return 14.w;
@@ -95,7 +95,7 @@ class CustomText extends StatelessWidget {
 
       case TextType.subTitle:
         return FontWeight.w400;
-      case TextType.discription:
+      case TextType.description:
         return FontWeight.w400;
       case TextType.small:
         return FontWeight.w400;
@@ -118,7 +118,7 @@ class CustomText extends StatelessWidget {
 enum TextType {
   title,
   subTitle,
-  discription,
+  description,
   small,
   h5,
   h6,

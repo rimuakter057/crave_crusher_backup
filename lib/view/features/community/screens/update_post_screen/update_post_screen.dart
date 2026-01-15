@@ -1,6 +1,6 @@
 import 'dart:io';
 
-import 'package:crave_crusher/helper/imges_handler/image_handler.dart';
+import 'package:crave_crusher/helper/images_handler/image_handler.dart';
 import 'package:crave_crusher/utils/app_colors/app_colors.dart';
 import 'package:crave_crusher/utils/app_icons/app_icons.dart';
 
@@ -34,18 +34,15 @@ class _UpdatePostScreenState extends State<UpdatePostScreen> {
   void initState() {
     super.initState();
 
-
     WidgetsBinding.instance.addPostFrameCallback((_) {
       contentController.text = widget.updatePostData.content;
 
       // Existing images set kora
       postController.currentImagePaths.value =
-      widget.updatePostData.images.isNotEmpty
-          ? List<String>.from(widget.updatePostData.images)
-          : [];
+          widget.updatePostData.images.isNotEmpty
+              ? List<String>.from(widget.updatePostData.images)
+              : [];
     });
-
-
   }
 
   @override
@@ -68,10 +65,12 @@ class _UpdatePostScreenState extends State<UpdatePostScreen> {
               shape: BoxShape.circle,
               border: Border.all(color: AppColors.subPrimary),
             ),
-            child: IconButton(onPressed: (){
-              Get.back();
-            }, icon: CustomSvgIcon(icon: AppIcons.backButton)
-            )
+            child: IconButton(
+              onPressed: () {
+                Get.back();
+              },
+              icon: CustomSvgIcon(icon: AppIcons.backButton),
+            ),
           ),
         ),
         centerTitle: true,
@@ -81,8 +80,8 @@ class _UpdatePostScreenState extends State<UpdatePostScreen> {
           fontWeight: FontWeight.w500,
         ),
       ),
-//         onTap: () => postController.pickImagesUpdate(),
-    //        final images = postController.currentImagePaths;
+      //         onTap: () => postController.pickImagesUpdate(),
+      //        final images = postController.currentImagePaths;
       body: SingleChildScrollView(
         child: Padding(
           padding: EdgeInsets.symmetric(horizontal: 16.w),
@@ -119,7 +118,6 @@ class _UpdatePostScreenState extends State<UpdatePostScreen> {
               ),
               Gap(16.h),
 
-
               //========================================
               Obx(() {
                 final images = postController.currentImagePaths;
@@ -127,10 +125,6 @@ class _UpdatePostScreenState extends State<UpdatePostScreen> {
                 return Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-
-
-
-
                     /// selected images (Column or Wrap)
                     if (images.isNotEmpty)
                       Wrap(
@@ -138,7 +132,7 @@ class _UpdatePostScreenState extends State<UpdatePostScreen> {
                         runSpacing: 8.h,
                         children: List.generate(
                           images.length,
-                              (index) => _buildImageItem(images[index], itemWidth),
+                          (index) => _buildImageItem(images[index], itemWidth),
                         ),
                       ),
 
@@ -146,7 +140,7 @@ class _UpdatePostScreenState extends State<UpdatePostScreen> {
 
                     /// full width add button
                     GestureDetector(
-                      onTap: () =>  postController.pickImagesUpdate(),
+                      onTap: () => postController.pickImagesUpdate(),
                       child: CustomContainer(
                         width: double.infinity,
                         height: 120.h,
@@ -161,11 +155,6 @@ class _UpdatePostScreenState extends State<UpdatePostScreen> {
                 );
               }),
 
-
-
-
-
-
               Gap(16.h),
 
               /// post button
@@ -176,7 +165,6 @@ class _UpdatePostScreenState extends State<UpdatePostScreen> {
                       Get.snackbar("Error", "Content cannot be empty!");
                       return;
                     }
-
 
                     await postController.updatePost(
                       widget.updatePostData.postId,
@@ -246,7 +234,7 @@ class _UpdatePostScreenState extends State<UpdatePostScreen> {
                 shape: BoxShape.circle,
                 border: Border.all(color: AppColors.subPrimary),
               ),
-              child: CustomSvgIcon(icon: AppIcons.cross)
+              child: CustomSvgIcon(icon: AppIcons.cross),
             ),
           ),
         ),
