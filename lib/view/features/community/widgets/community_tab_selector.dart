@@ -1,4 +1,4 @@
-
+// ignore_for_file: deprecated_member_use
 
 import 'package:crave_crusher/view/features/community/controllers/community_controller.dart';
 
@@ -7,7 +7,6 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:crave_crusher/utils/app_colors/app_colors.dart';
 import 'package:crave_crusher/view/components/custom_text/custom_text.dart';
 import 'package:get/get.dart';
-
 
 class CommunityTabSelector extends StatefulWidget {
   final Function(int)? onTabChanged; // callback for parent
@@ -20,7 +19,7 @@ class CommunityTabSelector extends StatefulWidget {
 
 class _CommunityTabSelectorState extends State<CommunityTabSelector> {
   final List<String> _tabs = ["All Feed", "My Posts"];
-  final CommunityController controller=Get.find<CommunityController>();
+  final CommunityController controller = Get.find<CommunityController>();
   int _selectedIndex = 0;
 
   @override
@@ -36,7 +35,7 @@ class _CommunityTabSelectorState extends State<CommunityTabSelector> {
             onTap: () {
               setState(() {
                 _selectedIndex = index;
-                controller.communityTabIndex.value=index;
+                controller.communityTabIndex.value = index;
               });
               if (widget.onTabChanged != null) {
                 widget.onTabChanged!(index); // notify parent
@@ -48,14 +47,18 @@ class _CommunityTabSelectorState extends State<CommunityTabSelector> {
               margin: EdgeInsets.symmetric(horizontal: 4.w),
               alignment: Alignment.center,
               decoration: BoxDecoration(
-                color: isSelected ? AppColors.primary : AppColors.subPrimary.withAlpha(80),
+                color:
+                    isSelected
+                        ? AppColors.primary
+                        : AppColors.subPrimary.withAlpha(80),
                 borderRadius: BorderRadius.circular(8.r),
-                border: isSelected
-                    ? null
-                    : Border.all(
-                  color: AppColors.subPrimary.withOpacity(0.5),
-                  width: 1.w,
-                ),
+                border:
+                    isSelected
+                        ? null
+                        : Border.all(
+                          color: AppColors.subPrimary.withOpacity(0.5),
+                          width: 1.w,
+                        ),
               ),
               child: CustomText(
                 text: tabTitle,

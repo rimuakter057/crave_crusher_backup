@@ -1,3 +1,5 @@
+// ignore_for_file: deprecated_member_use
+
 import 'package:crave_crusher/helper/images_handler/image_handler.dart';
 import 'package:crave_crusher/helper/time_converter/date_converter.dart';
 import 'package:crave_crusher/utils/app_colors/app_colors.dart';
@@ -26,9 +28,9 @@ import 'package:get/get.dart';
 import '../community_image_show_screen/community_image_show_screen.dart';
 
 class CommunityProfileScreen extends StatefulWidget {
-   const CommunityProfileScreen({super.key, required this.userId});
+  const CommunityProfileScreen({super.key, required this.userId});
 
-   final String userId;
+  final String userId;
   @override
   State<CommunityProfileScreen> createState() => _CommunityProfileScreenState();
 }
@@ -45,7 +47,6 @@ class _CommunityProfileScreenState extends State<CommunityProfileScreen> {
       postController.fetchSingleUserProfile(widget.userId);
     });
   }
-
 
   @override
   Widget build(BuildContext context) {
@@ -65,9 +66,12 @@ class _CommunityProfileScreenState extends State<CommunityProfileScreen> {
               shape: BoxShape.circle,
               border: Border.all(color: AppColors.subPrimary),
             ),
-            child: IconButton(onPressed: (){
-              Get.back();
-            },        icon: CustomSvgIcon(icon: AppIcons.backButton),)
+            child: IconButton(
+              onPressed: () {
+                Get.back();
+              },
+              icon: CustomSvgIcon(icon: AppIcons.backButton),
+            ),
           ),
         ),
         centerTitle: true,
@@ -95,16 +99,14 @@ class _CommunityProfileScreenState extends State<CommunityProfileScreen> {
                         profile?.profileImage,
                         isProfile: true,
                       ),
-
                     ),
-
 
                     Gap(16.h),
                     CustomText(
-                text: profile?.fullName ?? "Empty Name",
-                fontWeight: FontWeight.w600,
-                fontSize: 18.sp,
-                ),
+                      text: profile?.fullName ?? "Empty Name",
+                      fontWeight: FontWeight.w600,
+                      fontSize: 18.sp,
+                    ),
                   ],
                 );
               }),
@@ -112,25 +114,27 @@ class _CommunityProfileScreenState extends State<CommunityProfileScreen> {
               Gap(24.h),
 
               /// profile details section
-
-              Obx((){
-
-                return     Row(
-
+              Obx(() {
+                return Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    ProfileStatusContainer(number:postController.totalPost.value, title:"Posts" ),
-                    ProfileStatusContainer(number:postController.totalReaction.value, title: 'Reaction'),
-                    ProfileStatusContainer(number: postController.totalBadge.value, title: 'badge'),
+                    ProfileStatusContainer(
+                      number: postController.totalPost.value,
+                      title: "Posts",
+                    ),
+                    ProfileStatusContainer(
+                      number: postController.totalReaction.value,
+                      title: 'Reaction',
+                    ),
+                    ProfileStatusContainer(
+                      number: postController.totalBadge.value,
+                      title: 'badge',
+                    ),
                   ],
                 );
-
               }),
 
-
-
               Gap(24.h),
-
 
               Obx(() {
                 if (postController.isLoadingSingleUser.value) {
@@ -138,109 +142,93 @@ class _CommunityProfileScreenState extends State<CommunityProfileScreen> {
                 } else if (postController.singleUserProfileList.isEmpty) {
                   return EmptyWidget(title: "Post is not available");
                 } else {
-
-
-                  return    ListView.builder(
+                  return ListView.builder(
                     physics: const BouncingScrollPhysics(),
                     scrollDirection: Axis.vertical,
                     shrinkWrap: true,
                     itemCount: postController.singleUserProfileList.length,
                     itemBuilder: (context, index) {
-
-                      final myPost = postController.singleUserProfileList.reversed.toList()[index];
+                      final myPost =
+                          postController.singleUserProfileList.reversed
+                              .toList()[index];
                       final CommunityController communityController =
-                      Get.find<CommunityController>();
+                          Get.find<CommunityController>();
                       final postId = myPost.id ?? '';
                       return Column(
                         children: [
-
-
-
-                             CommonCommunityWidget(
-                              profileTitle:
-                              myPost.author?.fullName ?? '...',
-                              time: DateConverter.formattedTime(
-                                myPost.createdAt ?? DateTime.now(),
-                              ),
-                              profileImage:
-                              myPost.author?.profileImage ??
-                                  AppConstants.unknown,
-                              postImages: myPost.postImages,
-                              postText: myPost.content ?? "",
-                              commentsText: "${myPost.totalComments ?? 0}",
-                              favouriteWidget: Row(
-                                children: [
-                                  IconButton(
-                                    onPressed:
-                                        () => communityController.addVote(
-                                      postId: postId,
-                                      index: index,
-                                      isMyPost: true,
-                                      hasVoted: myPost.hasVoted.value,
-                                    ),
-
-
-                                   icon: SvgPicture.asset(
-                                      myPost.hasVoted.value
-                                          ? AppIcons.favorite     // filled heart svg
-                                          : AppIcons.favoriteOutline,   // outline heart svg
-                                      width: 18.w,
-                                      height: 18.w,
-                                      colorFilter: ColorFilter.mode(
-                                        AppColors.red,
-                                        BlendMode.srcIn,
-                                      ),
-                                    ),
-
-                                  ),
-                                  SizedBox(width: 4.w),
-                                  CustomText(
-                                    text:
-                                    "${myPost.totalVotes?.value ?? 0}",
-                                  ),
-                                ],
-                              ),
-                              myPost: true,
-                              index: index,
-
-                              /// COMMENT
-                              onTapComment: () {
-                                Get.to(
-                                      () => CommentScreen(
-                                    postId: myPost.id ?? '',
-                                  ),
-                                );
-                              },
-                              onTapUpdate: () {
-                                final content = myPost.content;
-                                final postId = myPost.id;
-                                if (postId != null && content != null) {
-                                  PostUpdateModel model = PostUpdateModel(
-                                    postId: postId,
-                                    content: content,
-                                    images: myPost.postImages ?? [],
-                                  );
-
-                                  Get.to(
-                                        () => UpdatePostScreen(
-                                      updatePostData: model,
-
-
-                                    ),
-                                  );
-                                }
-                              },
-                              onTapImageShow: () {
-                                Get.to(
-                                      () => CommunityImageShowScreen(
-                                    images: myPost.postImages ?? [],
-                                  ),
-                                );
-                              },
-                              onTapProfile: () {
-
-                              },
+                          CommonCommunityWidget(
+                            profileTitle: myPost.author?.fullName ?? '...',
+                            time: DateConverter.formattedTime(
+                              myPost.createdAt ?? DateTime.now(),
                             ),
+                            profileImage:
+                                myPost.author?.profileImage ??
+                                AppConstants.unknown,
+                            postImages: myPost.postImages,
+                            postText: myPost.content ?? "",
+                            commentsText: "${myPost.totalComments ?? 0}",
+                            favouriteWidget: Row(
+                              children: [
+                                IconButton(
+                                  onPressed:
+                                      () => communityController.addVote(
+                                        postId: postId,
+                                        index: index,
+                                        isMyPost: true,
+                                        hasVoted: myPost.hasVoted.value,
+                                      ),
+
+                                  icon: SvgPicture.asset(
+                                    myPost.hasVoted.value
+                                        ? AppIcons
+                                            .favorite // filled heart svg
+                                        : AppIcons
+                                            .favoriteOutline, // outline heart svg
+                                    width: 18.w,
+                                    height: 18.w,
+                                    colorFilter: ColorFilter.mode(
+                                      AppColors.red,
+                                      BlendMode.srcIn,
+                                    ),
+                                  ),
+                                ),
+                                SizedBox(width: 4.w),
+                                CustomText(text: "${myPost.totalVotes.value}"),
+                              ],
+                            ),
+                            myPost: true,
+                            index: index,
+
+                            /// COMMENT
+                            onTapComment: () {
+                              Get.to(
+                                () => CommentScreen(postId: myPost.id ?? ''),
+                              );
+                            },
+                            onTapUpdate: () {
+                              final content = myPost.content;
+                              final postId = myPost.id;
+                              if (postId != null && content != null) {
+                                PostUpdateModel model = PostUpdateModel(
+                                  postId: postId,
+                                  content: content,
+                                  images: myPost.postImages,
+                                );
+
+                                Get.to(
+                                  () => UpdatePostScreen(updatePostData: model),
+                                );
+                              }
+                            },
+                            onTapImageShow: () {
+                              Get.to(
+                                () => CommunityImageShowScreen(
+                                  images: myPost.postImages,
+                                ),
+                              );
+                            },
+                            onTapProfile: () {},
+                          ),
 
                           SizedBox(height: 8.h),
                         ],
@@ -248,24 +236,7 @@ class _CommunityProfileScreenState extends State<CommunityProfileScreen> {
                     },
                   );
                 }
-              })
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+              }),
             ],
           ),
         ),

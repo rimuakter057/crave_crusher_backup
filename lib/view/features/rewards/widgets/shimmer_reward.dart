@@ -1,5 +1,6 @@
+// ignore_for_file: unused_element
+
 import 'package:flutter/material.dart';
-import 'package:gap/gap.dart';
 import 'package:shimmer/shimmer.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
@@ -25,11 +26,8 @@ class RewardShimmerLoader extends StatelessWidget {
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(6.r),
                 color: Colors.white,
-
               ),
             ),
-
-
           ),
         );
       },

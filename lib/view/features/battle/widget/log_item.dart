@@ -123,7 +123,7 @@ class LogEntryItem extends StatelessWidget {
             // Timestamp
             Row(
               children: [
-                CustomSvgIcon(icon: AppIcons.alarm,height: 12.h,width: 12.w,),
+                CustomSvgIcon(icon: AppIcons.alarm, height: 12.h, width: 12.w),
                 SizedBox(width: 5.w),
                 CustomText(
                   text: timestamp,

@@ -19,14 +19,14 @@ import '../../../components/custom_loader/custom_loader.dart';
 import '../widget/detox_type.dart';
 
 class BattleDetailsScreen extends StatefulWidget {
-   BattleDetailsScreen({
+  BattleDetailsScreen({
     super.key,
     required this.battleId,
-   required this.isActive,
+    required this.isActive,
   });
   final String battleId;
 
-  bool isActive=false;
+  bool isActive = false;
   @override
   State<BattleDetailsScreen> createState() => _BattleDetailsScreenState();
 }
@@ -36,7 +36,6 @@ class _BattleDetailsScreenState extends State<BattleDetailsScreen> {
 
   @override
   void initState() {
-
     WidgetsBinding.instance.addPostFrameCallback((_) {
       controller.fetchSingleBattle(widget.battleId);
     });
@@ -52,9 +51,7 @@ class _BattleDetailsScreenState extends State<BattleDetailsScreen> {
       appBar: PreferredSize(
         preferredSize: Size.fromHeight(kToolbarHeight),
         child: Padding(
-          padding: EdgeInsets.symmetric(
-            horizontal: 16.w,
-          ),
+          padding: EdgeInsets.symmetric(horizontal: 16.w),
           child: AppBar(
             surfaceTintColor: AppColors.backgroundColor,
             backgroundColor: AppColors.backgroundColor,
@@ -68,13 +65,14 @@ class _BattleDetailsScreenState extends State<BattleDetailsScreen> {
                 shape: BoxShape.circle,
                 border: Border.all(color: AppColors.subPrimary),
               ),
-             // child: BackButton(color: AppColors.primary),
-              child: IconButton(onPressed: (){
-                Get.back();
-                controller.fetchAllBattle();
-
-              }, icon: CustomSvgIcon(icon: AppIcons.backButton)),
-
+              // child: BackButton(color: AppColors.primary),
+              child: IconButton(
+                onPressed: () {
+                  Get.back();
+                  controller.fetchAllBattle();
+                },
+                icon: CustomSvgIcon(icon: AppIcons.backButton),
+              ),
             ),
             centerTitle: true,
             title: CustomText(
@@ -83,82 +81,81 @@ class _BattleDetailsScreenState extends State<BattleDetailsScreen> {
               fontWeight: FontWeight.w500,
             ),
 
-            actions: widget.isActive
-                ? [
-              GestureDetector(
-                onTap: () {
-                  Get.dialog(
-                    AlertDialog(
-                      backgroundColor: AppColors.white,
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(12),
-                      ),
-                      title: Text(
-                        "Confirm",
-                        style: TextStyle(fontWeight: FontWeight.bold),
-                        textAlign: TextAlign.center,
-                      ),
-                      content: CustomText(
-                        maxLines: 2,
-                        text: "Are you sure you want to cancel your battle?",
-                        textAlign: TextAlign.center,
-                      ),
-                      actionsAlignment: MainAxisAlignment.center,
-                      actions: [
-                        CustomButton(
-                          onTap: () {
-                            Get.back(); // Close dialog
-                          },
-                          title: "No",
-                          height: 30.h,
-                          width: 100.w,
-                        ),
-                        Obx(() {
-                          return CustomButton(
-                            onTap: controller.isLoadingCancelBattle.value
-                                ? () {}
-                                : () async {
-                              final success = await controller
-                                  .cancelBattle(widget.battleId);
-                              if (success) {
-                                Get.to(() => BattleScreen());
-                                controller.fetchAllBattle();
-                              }
-                            },
-                            title: "Yes",
-                            height: 30.h,
-                            width: 100.w,
+            actions:
+                widget.isActive
+                    ? [
+                      GestureDetector(
+                        onTap: () {
+                          Get.dialog(
+                            AlertDialog(
+                              backgroundColor: AppColors.white,
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(12),
+                              ),
+                              title: Text(
+                                "Confirm",
+                                style: TextStyle(fontWeight: FontWeight.bold),
+                                textAlign: TextAlign.center,
+                              ),
+                              content: CustomText(
+                                maxLines: 2,
+                                text:
+                                    "Are you sure you want to cancel your battle?",
+                                textAlign: TextAlign.center,
+                              ),
+                              actionsAlignment: MainAxisAlignment.center,
+                              actions: [
+                                CustomButton(
+                                  onTap: () {
+                                    Get.back(); // Close dialog
+                                  },
+                                  title: "No",
+                                  height: 30.h,
+                                  width: 100.w,
+                                ),
+                                Obx(() {
+                                  return CustomButton(
+                                    onTap:
+                                        controller.isLoadingCancelBattle.value
+                                            ? () {}
+                                            : () async {
+                                              final success = await controller
+                                                  .cancelBattle(
+                                                    widget.battleId,
+                                                  );
+                                              if (success) {
+                                                Get.to(() => BattleScreen());
+                                                controller.fetchAllBattle();
+                                              }
+                                            },
+                                    title: "Yes",
+                                    height: 30.h,
+                                    width: 100.w,
+                                  );
+                                }),
+                              ],
+                            ),
+                            barrierDismissible: false,
                           );
-                        }),
-                      ],
-                    ),
-                    barrierDismissible: false,
-                  );
-                },
-                child: Container(
-                  width: 50.w,
-                  height: 50.h,
-                  alignment: Alignment.center,
-                  decoration: BoxDecoration(
-                    color: AppColors.subPrimary.withOpacity(.3),
-                    shape: BoxShape.circle,
-                    border: Border.all(color: AppColors.subPrimary),
-                  ),
-                  child: CustomSvgIcon(
-                    icon: AppIcons.cross,
-                    height: 28.h,
-                    width: 28.w,
-                  ),
-                ),
-              ),
-            ]
-                : [],
-
-
-
-
-
-
+                        },
+                        child: Container(
+                          width: 50.w,
+                          height: 50.h,
+                          alignment: Alignment.center,
+                          decoration: BoxDecoration(
+                            color: AppColors.subPrimary.withOpacity(.3),
+                            shape: BoxShape.circle,
+                            border: Border.all(color: AppColors.subPrimary),
+                          ),
+                          child: CustomSvgIcon(
+                            icon: AppIcons.cross,
+                            height: 28.h,
+                            width: 28.w,
+                          ),
+                        ),
+                      ),
+                    ]
+                    : [],
           ),
         ),
       ),
@@ -182,87 +179,100 @@ class _BattleDetailsScreenState extends State<BattleDetailsScreen> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-
                   DetailsMonsterSection(
                     detoxType: checkDetoxType(battle.addictionType ?? ''),
                     battleTitle: battle.addictionType ?? '',
                     battleDescription: battle.battleReason ?? '',
-                    status: widget.isActive ? (battle.todayStatus ?? battle.battleStatus ?? '....') : (battle.battleStatus ?? '....'),
-                    bgColor: widget.isActive
-                        ? (battle.todayStatus == "caved"
-                        ? AppColors.red100
-                        : battle.todayStatus == "craved"
-                        ? AppColors.softGreen
-                        : AppColors.subPrimary)
-                        : (battle.battleStatus == "cancel"
-                        ? AppColors.red100
-                        : battle.battleStatus == "complete"
-                        ? Colors.blue.shade50
-                        : AppColors.subPrimary),
-                    textColor: widget.isActive
-                        ? (battle.todayStatus == "caved"
-                        ? AppColors.red
-                        : battle.todayStatus == "craved"
-                        ? AppColors.green
-                        : AppColors.primary)
-                        : (battle.battleStatus == "cancel"
-                        ? AppColors.red
-                        : battle.battleStatus == "complete"
-                        ? Colors.blue
-                        : AppColors.primary),
-                    boarderColor: widget.isActive
-                        ? (battle.todayStatus == "caved"
-                        ? AppColors.red
-                        : battle.todayStatus == "craved"
-                        ? AppColors.green
-                        : AppColors.primary)
-                        : (battle.battleStatus == "cancel"
-                        ? AppColors.red
-                        : battle.battleStatus == "complete"
-                        ? Colors.blue
-                        : AppColors.primary),
-                    monster: controller.battleDetails.value.monster?.monsterImage ?? '',
-                    monsterStatusMessage: controller.battleDetails.value.monster?.monsterMessage ??
+                    status:
+                        widget.isActive
+                            ? (battle.todayStatus ??
+                                battle.battleStatus ??
+                                '....')
+                            : (battle.battleStatus ?? '....'),
+                    bgColor:
+                        widget.isActive
+                            ? (battle.todayStatus == "caved"
+                                ? AppColors.red100
+                                : battle.todayStatus == "craved"
+                                ? AppColors.softGreen
+                                : AppColors.subPrimary)
+                            : (battle.battleStatus == "cancel"
+                                ? AppColors.red100
+                                : battle.battleStatus == "complete"
+                                ? Colors.blue.shade50
+                                : AppColors.subPrimary),
+                    textColor:
+                        widget.isActive
+                            ? (battle.todayStatus == "caved"
+                                ? AppColors.red
+                                : battle.todayStatus == "craved"
+                                ? AppColors.green
+                                : AppColors.primary)
+                            : (battle.battleStatus == "cancel"
+                                ? AppColors.red
+                                : battle.battleStatus == "complete"
+                                ? Colors.blue
+                                : AppColors.primary),
+                    boarderColor:
+                        widget.isActive
+                            ? (battle.todayStatus == "caved"
+                                ? AppColors.red
+                                : battle.todayStatus == "craved"
+                                ? AppColors.green
+                                : AppColors.primary)
+                            : (battle.battleStatus == "cancel"
+                                ? AppColors.red
+                                : battle.battleStatus == "complete"
+                                ? Colors.blue
+                                : AppColors.primary),
+                    monster:
+                        controller.battleDetails.value.monster?.monsterImage ??
+                        '',
+                    monsterStatusMessage:
+                        controller
+                            .battleDetails
+                            .value
+                            .monster
+                            ?.monsterMessage ??
                         "Your Monster Is Losing Power — Keep It Up!",
                   ),
-
-
-
 
                   SizedBox(height: 24.h),
 
                   ProgressAndActionSection(
+                    buttonText:
+                        battle.todayStatus == "caved"
+                            ? "Caved"
+                            : battle.todayStatus == "craved"
+                            ? "Craved"
+                            : "Battle Now",
 
-                    buttonText: battle.todayStatus == "caved"
-                        ? "Caved"
-                        : battle.todayStatus == "craved"
-                        ? "Craved"
-                        : "Battle Now",
+                    bgColor:
+                        battle.todayStatus == "caved"
+                            ? AppColors.red100
+                            : battle.todayStatus == "craved"
+                            ? AppColors.softGreen
+                            : AppColors.primary,
 
+                    textColor:
+                        battle.todayStatus == "caved"
+                            ? AppColors.red
+                            : battle.todayStatus == "craved"
+                            ? AppColors.green
+                            : AppColors.white,
+                    boarderColor:
+                        battle.todayStatus == "caved"
+                            ? AppColors.red
+                            : battle.todayStatus == "craved"
+                            ? AppColors.green
+                            : AppColors.primary,
 
-                    bgColor: battle.todayStatus == "caved"
-                        ? AppColors.red100
-                        : battle.todayStatus == "craved"
-                        ? AppColors.softGreen
-                        : AppColors.primary,
-
-
-                    textColor: battle.todayStatus == "caved"
-                        ? AppColors.red
-                        : battle.todayStatus == "craved"
-                        ? AppColors.green
-                        : AppColors.white,
-                    boarderColor: battle.todayStatus == "caved"
-                        ? AppColors.red
-                        : battle.todayStatus == "craved"
-                        ? AppColors.green
-                        : AppColors.primary,
-
-                    iconSrc: battle.todayStatus == "caved"
-                        ? AppIcons.cavedComplete
-                        : battle.todayStatus == "craved"
-                        ? AppIcons.battlePng
-                        : AppIcons.battleNow,
+                    iconSrc:
+                        battle.todayStatus == "caved"
+                            ? AppIcons.cavedComplete
+                            : battle.todayStatus == "craved"
+                            ? AppIcons.battlePng
+                            : AppIcons.battleNow,
 
                     isActive: widget.isActive,
                     progress: (battle.battleProgress ?? 0) / 100,
@@ -274,18 +284,15 @@ class _BattleDetailsScreenState extends State<BattleDetailsScreen> {
                       Get.to(() => BattleLogScreen(battleId: id));
                     },
 
-
-                    onBattleNowPressed: battle.todayStatus == "caved"
-                        ? (){}
-                        : battle.todayStatus == "craved"
-                        ? (){}
-                        : (){
-                      _buildShowBattleDialog(widget.battleId);
-                    }
-
+                    onBattleNowPressed:
+                        battle.todayStatus == "caved"
+                            ? () {}
+                            : battle.todayStatus == "craved"
+                            ? () {}
+                            : () {
+                              _buildShowBattleDialog(widget.battleId);
+                            },
                   ),
-
-
                 ],
               ),
             ),
@@ -307,98 +314,98 @@ class _BattleDetailsScreenState extends State<BattleDetailsScreen> {
             child: SizedBox(
               height: 170.h,
               width: 340.w,
-              child: controller.isLoadingCompleteBattle.value
-                  ? const Center(child: CustomLoader())
-                  : Row(
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      // Caved
-                      InkWell(
-                        onTap: () async {
-                          if (controller.isLoadingCompleteBattle.value) {
-                            return;
-                          }
-                          final success = await controller
-                              .completeBattleDay(id, "caved");
-                          if (success) {
-                           // Get.back();
+              child:
+                  controller.isLoadingCompleteBattle.value
+                      ? const Center(child: CustomLoader())
+                      : Row(
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          // Caved
+                          InkWell(
+                            onTap: () async {
+                              if (controller.isLoadingCompleteBattle.value) {
+                                return;
+                              }
+                              final success = await controller
+                                  .completeBattleDay(id, "caved");
+                              if (success) {
+                                // Get.back();
 
-                            Get.dialog(
-                              Center(
-                                child: Lottie.asset(
-                                        AppIcons.lottieBattle,
-                                  repeat: false,
-                                  onLoaded: (composition) async {
+                                Get.dialog(
+                                  Center(
+                                    child: Lottie.asset(
+                                      AppIcons.lottieBattle,
+                                      repeat: false,
+                                      onLoaded: (composition) async {
+                                        await Future.delayed(
+                                          composition.duration,
+                                        );
+                                        Get.back();
+                                      },
+                                    ),
+                                  ),
+                                  barrierDismissible: false,
+                                );
 
-                                    await Future.delayed(composition.duration);
-                                    Get.back();
-                                  },
-                                ),
-                              ),
-                              barrierDismissible: false,
-                            );
+                                await controller.fetchSingleBattle(id);
+                              } else {
+                                Get.snackbar(
+                                  "Error",
+                                  "Status update failed",
+                                  backgroundColor: AppColors.red100,
+                                );
+                              }
+                            },
+                            child: _buildDialogContainer(
+                              "Caved",
+                              AppIcons.cavedComplete,
+                            ),
+                          ),
+                          Gap(12.w),
+                          // Craved
+                          InkWell(
+                            onTap: () async {
+                              if (controller.isLoadingCompleteBattle.value) {
+                                return;
+                              }
 
+                              final success = await controller
+                                  .completeBattleDay(id, "craved");
 
-
-
-                            await controller.fetchSingleBattle(id);
-
-                          } else {
-                            Get.snackbar(
-                              "Error",
-                              "Status update failed",
-                              backgroundColor: AppColors.red100,
-                            );
-                          }
-                        },
-                        child: _buildDialogContainer(
-                          "Caved",
-                          AppIcons.cavedComplete,
-                        ),
+                              if (success) {
+                                // Get.back();
+                                Get.dialog(
+                                  Center(
+                                    child: Lottie.asset(
+                                      AppIcons.lottieBattle,
+                                      repeat: false,
+                                      onLoaded: (composition) async {
+                                        await Future.delayed(
+                                          composition.duration,
+                                        );
+                                        Get.back();
+                                      },
+                                    ),
+                                  ),
+                                  barrierDismissible: false,
+                                );
+                                await controller.fetchSingleBattle(id);
+                              } else {
+                                Get.snackbar(
+                                  "Error",
+                                  "Status update failed",
+                                  backgroundColor: AppColors.red100,
+                                );
+                              }
+                            },
+                            child: _buildDialogContainer(
+                              "Craved",
+                              AppIcons.battlePng,
+                            ),
+                          ),
+                        ],
                       ),
-                      Gap(12.w),
-                      // Craved
-                      InkWell(
-                        onTap: () async {
-                          if (controller.isLoadingCompleteBattle.value)
-                            return;
-
-                          final success = await controller
-                              .completeBattleDay(id, "craved");
-
-                          if (success) {
-                           // Get.back();
-                            Get.dialog(
-                              Center(
-                                child: Lottie.asset(
-                                  AppIcons.lottieBattle,
-                                  repeat: false,
-                                  onLoaded: (composition) async {
-                                    await Future.delayed(composition.duration);
-                                    Get.back();
-                                  },
-                                ),
-                              ),
-                              barrierDismissible: false,
-                            );
-                            await controller.fetchSingleBattle(id);
-
-                          } else {
-                            Get.snackbar(
-                              "Error",
-                              "Status update failed",
-                              backgroundColor: AppColors.red100,
-                            );
-                          }
-                        },
-                        child: _buildDialogContainer(
-                          "Craved",
-                          AppIcons.battlePng,
-                        ),
-                      ),
-                    ],
-                  ),
             ),
           ),
         );

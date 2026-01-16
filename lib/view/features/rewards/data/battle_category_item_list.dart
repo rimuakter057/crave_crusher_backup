@@ -16,9 +16,6 @@ class BattleCategoryItemModel {
   });
 }
 
-
-
-
 final List<BattleCategoryItemModel> battleCategoryItems = [
   BattleCategoryItemModel(
     title: "Starter Spark",
@@ -44,5 +41,4 @@ final List<BattleCategoryItemModel> battleCategoryItems = [
     backgroundColor: Color(0xFFF7FEE7),
     borderColor: Color(0xFF84CC16),
   ),
-
 ];

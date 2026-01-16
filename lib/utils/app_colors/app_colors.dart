@@ -24,8 +24,8 @@ class AppColors {
   static const Color green = Color(0xff22C55E);
 
   static const Color red = Color(0xffFF0000);
-   static const Color red100=Color(0xFFFEE2E2);
-  static const Color red500=Color(0xFFEF4444);
+  static const Color red100 = Color(0xFFFEE2E2);
+  static const Color red500 = Color(0xFFEF4444);
   static const backgroundColor = Color(0xffF9FAFB);
 
   ///reward==========================
@@ -38,12 +38,10 @@ class AppColors {
   static const focusBg = Color(0xffF7FEE7);
   static const victoryBg = Color(0xffECFDF5);
   static const milestoneBg = Color(0xffECFEFF);
-  static const positiveBg= Color(0xffEFF6FF);
+  static const positiveBg = Color(0xffEFF6FF);
   static const ccBg = Color(0xffFAF5FF);
 
-
-
-//boarder color--------------------------------------------------
+  //boarder color--------------------------------------------------
   static const starterBoarder = Color(0xffEF4444);
   static const consistencyBoarder = Color(0xffF97316);
   static const monsterBoarder = Color(0xffFACC15);
@@ -52,6 +50,4 @@ class AppColors {
   static const milestoneBoarder = Color(0xff06B6D4);
   static const positiveBoarder = Color(0xff3B82F6);
   static const ccBoarder = Color(0xffA855F7);
-
-
 }

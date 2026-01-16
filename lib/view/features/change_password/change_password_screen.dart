@@ -14,16 +14,24 @@ class ChangePasswordScreen extends StatelessWidget {
 
   final TextEditingController _oldPassController = TextEditingController();
   final TextEditingController _newPassController = TextEditingController();
-  final TextEditingController _confirmedPassController = TextEditingController();
+  final TextEditingController _confirmedPassController =
+      TextEditingController();
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
-  final ChangePasswordController changePasswordController = Get.find<ChangePasswordController>();
+  final ChangePasswordController changePasswordController =
+      Get.find<ChangePasswordController>();
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text("Change Password"),
-      leading: IconButton(onPressed: (){Get.back();}, icon: CustomSvgIcon(icon: AppIcons.backButton)),
+      appBar: AppBar(
+        title: Text("Change Password"),
+        leading: IconButton(
+          onPressed: () {
+            Get.back();
+          },
+          icon: CustomSvgIcon(icon: AppIcons.backButton),
+        ),
       ),
       body: Form(
         key: _formKey,
@@ -35,8 +43,12 @@ class ChangePasswordScreen extends StatelessWidget {
                 title: "Old Password",
                 controller: _oldPassController,
                 validator: (value) {
-                  if (value == null || value.isEmpty) return "Enter old password";
-                  if (value.length < 6) return "Password must be at least 6 characters";
+                  if (value == null || value.isEmpty) {
+                    return "Enter old password";
+                  }
+                  if (value.length < 6) {
+                    return "Password must be at least 6 characters";
+                  }
                   return null;
                 },
               ),
@@ -44,8 +56,12 @@ class ChangePasswordScreen extends StatelessWidget {
                 title: "New Password",
                 controller: _newPassController,
                 validator: (value) {
-                  if (value == null || value.isEmpty) return "Enter new password";
-                  if (value.length < 6) return "Password must be at least 6 characters";
+                  if (value == null || value.isEmpty) {
+                    return "Enter new password";
+                  }
+                  if (value.length < 6) {
+                    return "Password must be at least 6 characters";
+                  }
                   return null;
                 },
               ),
@@ -53,8 +69,12 @@ class ChangePasswordScreen extends StatelessWidget {
                 title: "Confirm Password",
                 controller: _confirmedPassController,
                 validator: (value) {
-                  if (value == null || value.isEmpty) return "Enter confirm password";
-                  if (value != _newPassController.text) return "Passwords do not match";
+                  if (value == null || value.isEmpty) {
+                    return "Enter confirm password";
+                  }
+                  if (value != _newPassController.text) {
+                    return "Passwords do not match";
+                  }
                   return null;
                 },
               ),
@@ -63,11 +83,7 @@ class ChangePasswordScreen extends StatelessWidget {
                 builder: (controller) {
                   return controller.inProgress
                       ? const CustomLoader()
-                      : CustomButton(onTap: _updateButton,
-                  title: "Update",
-                  );
-
-
+                      : CustomButton(onTap: _updateButton, title: "Update");
                 },
               ),
             ],
@@ -89,7 +105,10 @@ class ChangePasswordScreen extends StatelessWidget {
       if (success) {
         Get.off(ProfileScreen());
       } else {
-        Get.snackbar("Error", changePasswordController.errorMessage ?? "Something went wrong");
+        Get.snackbar(
+          "Error",
+          changePasswordController.errorMessage ?? "Something went wrong",
+        );
       }
     }
   }

@@ -14,16 +14,11 @@ class BattleItemDetailsModel {
     required this.backgroundColor,
     required this.borderColor,
     required this.subTitle,
-
   });
 }
 
-
-
-
 final List<BattleItemDetailsModel> battleDetailItems = [
   BattleItemDetailsModel(
-
     title: "Focus Fighter",
     subTitle: "Day 15 of 15",
     icon: AppIcons.focusFighter,
@@ -59,6 +54,4 @@ final List<BattleItemDetailsModel> battleDetailItems = [
     backgroundColor: Color(0xFFFAF5FF),
     borderColor: Color(0xFFA855F7),
   ),
-
-
 ];

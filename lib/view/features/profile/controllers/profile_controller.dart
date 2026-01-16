@@ -1,6 +1,5 @@
 import 'dart:io';
 
-import 'package:crave_crusher/helper/images_handler/image_handler.dart';
 import 'package:crave_crusher/service/api_check.dart';
 import 'package:crave_crusher/service/api_client.dart';
 import 'package:crave_crusher/service/api_url.dart';
@@ -17,9 +16,9 @@ class ProfileController extends GetxController {
     super.onInit();
     fetchMyProfile();
   }
+
   //RxString? profileImagePath;
   Rx<File?> profileImageFile = Rx<File?>(null);
-
 
   final ImagePicker _picker = ImagePicker();
 
@@ -27,17 +26,15 @@ class ProfileController extends GetxController {
     final pickedFile = await _picker.pickImage(source: ImageSource.gallery);
 
     if (pickedFile != null) {
-     // profileImagePath?.value = pickedFile.path; // reactive update
+      // profileImagePath?.value = pickedFile.path; // reactive update
 
       profileImageFile.value = File(pickedFile.path);
-
     }
   }
 
   ///update profile==================================================================Patch multipart Methode=======================================
   Rx<Status> updateProfileStatus = Status.loading.obs;
   var isLoadingUpdateProfile = false.obs;
-
 
   Future<void> updateProfile(String name) async {
     isLoadingUpdateProfile(true);
@@ -50,12 +47,13 @@ class ProfileController extends GetxController {
               body,
               isJson: true,
             )
-            : await ApiClient.patchMultipartData(ApiUrl.updateProfile, body, multipartBody: [
-              MultipartBody(
-                "profileImage",
-                 profileImageFile.value!,
-              ),
-        ]);
+            : await ApiClient.patchMultipartData(
+              ApiUrl.updateProfile,
+              body,
+              multipartBody: [
+                MultipartBody("profileImage", profileImageFile.value!),
+              ],
+            );
     isLoadingUpdateProfile(false);
     if (response.statusCode == 200 || response.statusCode == 201) {
       showCustomSnackBar("Profile updated successfully", isError: false);

@@ -8,13 +8,13 @@ import 'package:crave_crusher/utils/app_icons/app_icons.dart';
 import 'package:crave_crusher/view/components/common_empty/common_empty_widget.dart';
 import 'package:crave_crusher/view/components/custom_app_bar/custom_app_bar.dart';
 
-
 class CommunityImageShowScreen extends StatefulWidget {
   final List<String> images;
   const CommunityImageShowScreen({super.key, required this.images});
 
   @override
-  State<CommunityImageShowScreen> createState() => _CommunityImageShowScreenState();
+  State<CommunityImageShowScreen> createState() =>
+      _CommunityImageShowScreenState();
 }
 
 class _CommunityImageShowScreenState extends State<CommunityImageShowScreen> {
@@ -47,40 +47,42 @@ class _CommunityImageShowScreenState extends State<CommunityImageShowScreen> {
           controller.downloadImage(imageUrl);
         },
       ),
-      body: widget.images.isEmpty
-          ? EmptyWidget(title: "Images is not available")
-          : Center(
-            child: SizedBox(
-                    width: 390.w,
-                    height: 300.h,
-              child: PageView.builder(
-                      controller: _pageController,
-                      itemCount: widget.images.length,
-                      onPageChanged: (index) {
-              setState(() {
-                _currentPage = index;
-              });
-                      },
-                      itemBuilder: (context, index) {
-              String imageUrl = "${ApiUrl.primaryUrl}/${widget.images[index]}";
-              return Padding(
-                padding: EdgeInsets.symmetric(horizontal: 8.w),
-                child: Container(
+      body:
+          widget.images.isEmpty
+              ? EmptyWidget(title: "Images is not available")
+              : Center(
+                child: SizedBox(
                   width: 390.w,
                   height: 300.h,
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(6.r),
-                    image: DecorationImage(
-                      image: NetworkImage(imageUrl),
-                      fit: BoxFit.cover,
-                    ),
+                  child: PageView.builder(
+                    controller: _pageController,
+                    itemCount: widget.images.length,
+                    onPageChanged: (index) {
+                      setState(() {
+                        _currentPage = index;
+                      });
+                    },
+                    itemBuilder: (context, index) {
+                      String imageUrl =
+                          "${ApiUrl.primaryUrl}/${widget.images[index]}";
+                      return Padding(
+                        padding: EdgeInsets.symmetric(horizontal: 8.w),
+                        child: Container(
+                          width: 390.w,
+                          height: 300.h,
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(6.r),
+                            image: DecorationImage(
+                              image: NetworkImage(imageUrl),
+                              fit: BoxFit.cover,
+                            ),
+                          ),
+                        ),
+                      );
+                    },
                   ),
                 ),
-              );
-                      },
-                    ),
-            ),
-          ),
+              ),
     );
   }
 }

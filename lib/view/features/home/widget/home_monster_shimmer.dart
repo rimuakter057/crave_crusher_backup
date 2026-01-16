@@ -23,16 +23,13 @@ class HomeMonsterShimmerLoader extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 // first Row
-                _buildSkeleton(double.infinity,280.h),
+                _buildSkeleton(double.infinity, 280.h),
 
                 Gap(12.h),
 
                 // 2nd Row
-                _buildSkeleton(double.infinity, 52.h,),
+                _buildSkeleton(double.infinity, 52.h),
                 Gap(8.h),
-
-
-
               ],
             ),
           ),

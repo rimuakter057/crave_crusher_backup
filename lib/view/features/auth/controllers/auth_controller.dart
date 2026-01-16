@@ -11,18 +11,16 @@ class AuthController extends GetxController {
   String? token;
   UserModel? user;
 
-  Future<void> saveTokenId(String accessToken,String userId ) async {
+  Future<void> saveTokenId(String accessToken, String userId) async {
     SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
     await sharedPreferences.setString(_tokenKey, accessToken);
     await sharedPreferences.setString(_userId, userId);
   }
 
-
-  Future<void> saveId(String userId ) async {
+  Future<void> saveId(String userId) async {
     SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
     await sharedPreferences.setString(_userId, userId);
   }
-
 
   Future<void> getUserData() async {
     SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
@@ -51,15 +49,10 @@ class AuthController extends GetxController {
     user = null;
   }
 
-
-
-
   // remember me keys
   final String _rememberMeKey = "remember_me";
   final String _rememberEmailKey = "remember_email";
   final String _rememberPasswordKey = "remember_password";
-
-
 
   /// ================= REMEMBER ME =================
   Future<void> saveRememberMe({
@@ -89,6 +82,4 @@ class AuthController extends GetxController {
       "password": prefs.getString(_rememberPasswordKey) ?? "",
     };
   }
-
-
 }

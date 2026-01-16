@@ -21,28 +21,23 @@ class NotificationTileWidget extends StatelessWidget {
     return Container(
       color: Colors.white,
       child: ListTile(
-
         leading: leading,
-        title:CustomText(
+        title: CustomText(
           textAlign: TextAlign.start,
           text: title,
-        fontWeight: FontWeight.w500,
-        fontSize: 14,
-          color:AppColors.black,
+          fontWeight: FontWeight.w500,
+          fontSize: 14,
+          color: AppColors.black,
         ),
-
 
         subtitle: CustomText(
-             maxLines: 8,
-            textAlign: TextAlign.start,
-            text: subtitle,
+          maxLines: 8,
+          textAlign: TextAlign.start,
+          text: subtitle,
           fontWeight: FontWeight.w400,
           fontSize: 10,
-          color:Color(0xFFA1A1AA)
+          color: Color(0xFFA1A1AA),
         ),
-
-
-
 
         trailing: trailing,
       ),

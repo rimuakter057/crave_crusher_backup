@@ -11,7 +11,6 @@ class BadgeModel {
     required this.day,
   });
 
-
   factory BadgeModel.fromJson(Map<String, dynamic> json) {
     return BadgeModel(
       id: json['_id'] as String,
@@ -23,11 +22,6 @@ class BadgeModel {
 
   // Model কে JSON এ convert করা
   Map<String, dynamic> toJson() {
-    return {
-      '_id': id,
-      'name': name,
-      'badge_image': badgeImage,
-      'day': day,
-    };
+    return {'_id': id, 'name': name, 'badge_image': badgeImage, 'day': day};
   }
 }

@@ -34,13 +34,13 @@ class CommunityAllFeedScreen extends StatefulWidget {
 
 class _CommunityAllFeedScreenState extends State<CommunityAllFeedScreen> {
   final PostController postController = Get.find<PostController>();
-  final CommunityController communityController = Get.find<CommunityController>();
+  final CommunityController communityController =
+      Get.find<CommunityController>();
 
   @override
   void initState() {
     super.initState();
     WidgetsBinding.instance.addPostFrameCallback((_) {
-
       communityController.communityTabIndex.value = widget.initialTabIndex;
 
       if (widget.initialTabIndex == 0) {
@@ -109,7 +109,8 @@ class _CommunityAllFeedScreenState extends State<CommunityAllFeedScreen> {
                         shrinkWrap: true,
                         itemCount: postController.allPostList.length,
                         itemBuilder: (context, index) {
-                          final postList = postController.allPostList.reversed.toList();
+                          final postList =
+                              postController.allPostList.reversed.toList();
                           final post = postList[index];
 
                           return Column(
@@ -119,8 +120,10 @@ class _CommunityAllFeedScreenState extends State<CommunityAllFeedScreen> {
 
                                 return CommonCommunityWidget(
                                   profileTitle: "@${post.author?.fullName}",
-                                  time: DateConverter.dateYearTimeUtc(post.createdAt.toString()),
-                                  postImages: post.postImages ,
+                                  time: DateConverter.dateYearTimeUtc(
+                                    post.createdAt.toString(),
+                                  ),
+                                  postImages: post.postImages,
                                   postText: post.content ?? "",
                                   commentsText: "${post.totalComments ?? 0}",
                                   favouriteWidget: Row(
@@ -137,8 +140,10 @@ class _CommunityAllFeedScreenState extends State<CommunityAllFeedScreen> {
                                         },
                                         icon: SvgPicture.asset(
                                           post.hasVoted.value
-                                              ? AppIcons.favorite     // filled heart svg
-                                              : AppIcons.favoriteOutline,   // outline heart svg
+                                              ? AppIcons
+                                                  .favorite // filled heart svg
+                                              : AppIcons
+                                                  .favoriteOutline, // outline heart svg
                                           width: 18.w,
                                           height: 18.w,
                                           colorFilter: ColorFilter.mode(
@@ -146,26 +151,35 @@ class _CommunityAllFeedScreenState extends State<CommunityAllFeedScreen> {
                                             BlendMode.srcIn,
                                           ),
                                         ),
-
                                       ),
                                       SizedBox(width: 4.w),
                                       CustomText(
-                                        text: "${post.totalVotes.value }",
+                                        text: "${post.totalVotes.value}",
                                       ),
                                     ],
                                   ),
-                                  profileImage: post.author?.profileImage ?? AppConstants.unknown,
+                                  profileImage:
+                                      post.author?.profileImage ??
+                                      AppConstants.unknown,
                                   onTapProfile: () {
-                                    Get.to(() => CommunityProfileScreen(
-                                      userId: post.author?.id ?? '',
-                                    ));
+                                    Get.to(
+                                      () => CommunityProfileScreen(
+                                        userId: post.author?.id ?? '',
+                                      ),
+                                    );
                                   },
-                                  onTapImageShow: () => Get.to(() => CommunityImageShowScreen(
-                                    images: post.postImages ,
-                                  )),
-                                  onTapComment: () => Get.to(() => CommentScreen(
-                                    postId: post.id ?? '',
-                                  )),
+                                  onTapImageShow:
+                                      () => Get.to(
+                                        () => CommunityImageShowScreen(
+                                          images: post.postImages,
+                                        ),
+                                      ),
+                                  onTapComment:
+                                      () => Get.to(
+                                        () => CommentScreen(
+                                          postId: post.id ?? '',
+                                        ),
+                                      ),
                                   myPost: false,
                                   index: index,
                                 );
@@ -182,7 +196,9 @@ class _CommunityAllFeedScreenState extends State<CommunityAllFeedScreen> {
                     if (postController.isLoadingPost.value)
                       const PostShimmerLoader()
                     else if (postController.getMyPostList.isEmpty)
-                      Center(child: EmptyWidget(title: "No post available yet."))
+                      Center(
+                        child: EmptyWidget(title: "No post available yet."),
+                      )
                     else
                       ListView.builder(
                         physics: const BouncingScrollPhysics(),
@@ -190,7 +206,9 @@ class _CommunityAllFeedScreenState extends State<CommunityAllFeedScreen> {
                         shrinkWrap: true,
                         itemCount: postController.getMyPostList.length,
                         itemBuilder: (context, index) {
-                          final myPost = postController.getMyPostList.reversed.toList()[index];
+                          final myPost =
+                              postController.getMyPostList.reversed
+                                  .toList()[index];
 
                           return Column(
                             children: [
@@ -198,26 +216,33 @@ class _CommunityAllFeedScreenState extends State<CommunityAllFeedScreen> {
                                 final postId = myPost.id ?? '';
 
                                 return CommonCommunityWidget(
-                                  profileTitle: "@${myPost.author?.fullName}" ,
-                                  time: DateConverter.dateYearTimeUtc(myPost.createdAt.toString()),
-                                  profileImage: myPost.author?.profileImage ?? AppConstants.unknown,
+                                  profileTitle: "@${myPost.author?.fullName}",
+                                  time: DateConverter.dateYearTimeUtc(
+                                    myPost.createdAt.toString(),
+                                  ),
+                                  profileImage:
+                                      myPost.author?.profileImage ??
+                                      AppConstants.unknown,
                                   postImages: myPost.postImages,
                                   postText: myPost.content ?? "",
                                   commentsText: "${myPost.totalComments ?? 0}",
                                   favouriteWidget: Row(
                                     children: [
                                       IconButton(
-                                        onPressed: () => communityController.addVote(
-                                          postId: postId,
-                                          index: index,
-                                          isMyPost: true,
-                                          hasVoted: myPost.hasVoted.value ?? false,
-                                        ),
+                                        onPressed:
+                                            () => communityController.addVote(
+                                              postId: postId,
+                                              index: index,
+                                              isMyPost: true,
+                                              hasVoted: myPost.hasVoted.value,
+                                            ),
 
-                                icon:SvgPicture.asset(
+                                        icon: SvgPicture.asset(
                                           myPost.hasVoted.value
-                                              ? AppIcons.favorite     // filled heart svg
-                                              : AppIcons.favoriteOutline,   // outline heart svg
+                                              ? AppIcons
+                                                  .favorite // filled heart svg
+                                              : AppIcons
+                                                  .favoriteOutline, // outline heart svg
                                           width: 18.w,
                                           height: 18.w,
                                           colorFilter: ColorFilter.mode(
@@ -228,16 +253,18 @@ class _CommunityAllFeedScreenState extends State<CommunityAllFeedScreen> {
                                       ),
                                       SizedBox(width: 4.w),
                                       CustomText(
-                                        text: "${myPost.totalVotes?.value ?? 0}",
+                                        text: "${myPost.totalVotes.value}",
                                       ),
                                     ],
                                   ),
                                   myPost: true,
                                   index: index,
                                   onTapComment: () {
-                                    Get.to(() => CommentScreen(
-                                      postId: myPost.id ?? '',
-                                    ));
+                                    Get.to(
+                                      () => CommentScreen(
+                                        postId: myPost.id ?? '',
+                                      ),
+                                    );
                                   },
                                   onTapUpdate: () {
                                     final content = myPost.content;
@@ -246,20 +273,28 @@ class _CommunityAllFeedScreenState extends State<CommunityAllFeedScreen> {
                                       PostUpdateModel model = PostUpdateModel(
                                         postId: postId,
                                         content: content,
-                                        images: myPost.postImages ?? [],
+                                        images: myPost.postImages,
                                       );
-                                      Get.to(() => UpdatePostScreen(updatePostData: model));
+                                      Get.to(
+                                        () => UpdatePostScreen(
+                                          updatePostData: model,
+                                        ),
+                                      );
                                     }
                                   },
                                   onTapImageShow: () {
-                                    Get.to(() => CommunityImageShowScreen(
-                                      images: myPost.postImages ?? [],
-                                    ));
+                                    Get.to(
+                                      () => CommunityImageShowScreen(
+                                        images: myPost.postImages,
+                                      ),
+                                    );
                                   },
                                   onTapProfile: () {
-                                    Get.to(() => CommunityProfileScreen(
-                                      userId: myPost.author?.id ?? '',
-                                    ));
+                                    Get.to(
+                                      () => CommunityProfileScreen(
+                                        userId: myPost.author?.id ?? '',
+                                      ),
+                                    );
                                   },
                                 );
                               }),

@@ -1,3 +1,5 @@
+// ignore_for_file: use_build_context_synchronously
+
 import 'package:crave_crusher/core/routes/app_routes.dart';
 import 'package:crave_crusher/utils/app_colors/app_colors.dart';
 import 'package:crave_crusher/view/components/custom_button/custom_button.dart';
@@ -99,14 +101,15 @@ class _LoginScreenState extends State<LoginScreen> {
                           return "Enter Your Email";
                         }
                         // Simple email regex
-                        final emailRegex = RegExp(r'^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$');
+                        final emailRegex = RegExp(
+                          r'^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$',
+                        );
                         if (!emailRegex.hasMatch(value.trim())) {
                           return "Enter a valid email address";
                         }
                         return null;
                       },
                     ),
-
 
                     Gap(16.h),
                     InputPasswordFieldWidget(
@@ -134,7 +137,7 @@ class _LoginScreenState extends State<LoginScreen> {
                         builder: (controller) {
                           return Visibility(
                             visible: controller.inProgress == false,
-                            replacement:CustomLoader(),
+                            replacement: CustomLoader(),
                             child: TextButton(
                               onPressed: _forgetButtonTap,
                               child: CustomText(
@@ -231,7 +234,7 @@ class _LoginScreenState extends State<LoginScreen> {
     );
 
     if (isSuccess && _emailController.text.isNotEmpty) {
-      Get.to(()=>VerifyIdentityScreen(email: _emailController.text));
+      Get.to(() => VerifyIdentityScreen(email: _emailController.text));
     } else {
       Get.snackbar("Error", "Please Enter Your Email");
     }

@@ -13,8 +13,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 
-
-
 class BattleScreen extends StatefulWidget {
   const BattleScreen({super.key});
 
@@ -102,7 +100,8 @@ class _BattleScreenState extends State<BattleScreen> {
                                       ),
                                       title: battle.addictionType.toString(),
                                       percentText: "${battle.battleProgress}%",
-                                      progress: (battle.battleProgress ?? 0) / 100,
+                                      progress:
+                                          (battle.battleProgress ?? 0) / 100,
                                       status:
                                           battle.todayStatus?.toString() ?? '',
                                       dayCount:
@@ -111,7 +110,7 @@ class _BattleScreenState extends State<BattleScreen> {
                                         Get.to(
                                           () => BattleDetailsScreen(
                                             battleId: battle.id.toString(),
-                                           isActive: true,
+                                            isActive: true,
                                           ),
                                         );
                                       },
@@ -204,7 +203,8 @@ class _BattleScreenState extends State<BattleScreen> {
                                       ),
                                       title: battle.addictionType.toString(),
                                       percentText: "${battle.battleProgress}%",
-                                      progress: (battle.battleProgress ?? 0) / 100,
+                                      progress:
+                                          (battle.battleProgress ?? 0) / 100,
                                       status: battle.battleStatus.toString(),
                                       dayCount:
                                           "Day ${battle.day} of ${battle.battleLength}",

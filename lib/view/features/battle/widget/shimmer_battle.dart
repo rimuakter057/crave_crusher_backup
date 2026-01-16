@@ -28,15 +28,13 @@ class BattleShimmerLoader extends StatelessWidget {
                   children: [
                     Row(
                       children: [
-                        _buildSkeleton(25.w, 25.h,),
+                        _buildSkeleton(25.w, 25.h),
                         SizedBox(width: 8.w),
-                        _buildSkeleton(150.w, 10.h,),
+                        _buildSkeleton(150.w, 10.h),
                       ],
                     ),
                     SizedBox(width: 8.w),
-                    _buildSkeleton(60.w, 20.h,),
-
-
+                    _buildSkeleton(60.w, 20.h),
                   ],
                 ),
                 Gap(12.h),
@@ -45,12 +43,9 @@ class BattleShimmerLoader extends StatelessWidget {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-
-                    _buildSkeleton(80.w, 10.h,),
+                    _buildSkeleton(80.w, 10.h),
                     SizedBox(width: 8.w),
-                    _buildSkeleton(80.w, 10.h,),
-
-
+                    _buildSkeleton(80.w, 10.h),
                   ],
                 ),
                 Gap(8.h),
@@ -59,9 +54,7 @@ class BattleShimmerLoader extends StatelessWidget {
                 _buildSkeleton(double.infinity, 14.h),
 
                 Gap(8.h),
-                _buildSkeleton(200.w ,14.h),
-
-
+                _buildSkeleton(200.w, 14.h),
               ],
             ),
           ),

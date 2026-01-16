@@ -47,23 +47,28 @@ class UserProfileModel {
       verifyCode: json['verifyCode'] ?? 0,
       isVerified: json['isVerified'] ?? false,
       isResetVerified: json['isResetVerified'] ?? false,
-      codeExpireIn: json['codeExpireIn'] != null
-          ? DateTime.parse(json['codeExpireIn'])
-          : DateTime.now(),
+      codeExpireIn:
+          json['codeExpireIn'] != null
+              ? DateTime.parse(json['codeExpireIn'])
+              : DateTime.now(),
       isActive: json['isActive'] ?? false,
       isDeleted: json['isDeleted'] ?? false,
-      createdAt: json['createdAt'] != null
-          ? DateTime.parse(json['createdAt'])
-          : DateTime.now(),
-      updatedAt: json['updatedAt'] != null
-          ? DateTime.parse(json['updatedAt'])
-          : DateTime.now(),
+      createdAt:
+          json['createdAt'] != null
+              ? DateTime.parse(json['createdAt'])
+              : DateTime.now(),
+      updatedAt:
+          json['updatedAt'] != null
+              ? DateTime.parse(json['updatedAt'])
+              : DateTime.now(),
       v: json['__v'] ?? 0,
-      passwordChangedAt: json['passwordChangedAt'] != null
-          ? DateTime.parse(json['passwordChangedAt'])
-          : DateTime.now(),
+      passwordChangedAt:
+          json['passwordChangedAt'] != null
+              ? DateTime.parse(json['passwordChangedAt'])
+              : DateTime.now(),
 
-      monster: json['monster'] != null ? Monster.fromJson(json['monster']) : null,
+      monster:
+          json['monster'] != null ? Monster.fromJson(json['monster']) : null,
     );
   }
 
@@ -90,22 +95,21 @@ class UserProfileModel {
   }
 }
 
-
-
-
 class Monster {
   final String? monsterImage;
-final String?monsterMessage;
+  final String? monsterMessage;
 
-  Monster({this.monsterImage,this.monsterMessage});
+  Monster({this.monsterImage, this.monsterMessage});
 
   factory Monster.fromJson(Map<String, dynamic> json) {
-    return Monster(monsterImage: json["monster_image"],
-    monsterMessage: json['monster_message']
+    return Monster(
+      monsterImage: json["monster_image"],
+      monsterMessage: json['monster_message'],
     );
   }
 
-  Map<String, dynamic> toJson() => {"monster_image": monsterImage,
-  "monster_message":monsterMessage
+  Map<String, dynamic> toJson() => {
+    "monster_image": monsterImage,
+    "monster_message": monsterMessage,
   };
 }

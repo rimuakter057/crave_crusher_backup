@@ -1,4 +1,3 @@
-
 import 'package:crave_crusher/utils/app_colors/app_colors.dart';
 import 'package:crave_crusher/utils/app_const/app_const.dart';
 import 'package:crave_crusher/utils/app_icons/app_icons.dart';
@@ -17,7 +16,8 @@ import 'package:get/get.dart';
 class HelpSupportScreen extends StatelessWidget {
   HelpSupportScreen({super.key});
 
-  final AccountSettingController helpController = Get.find<AccountSettingController>();
+  final AccountSettingController helpController =
+      Get.find<AccountSettingController>();
   @override
   Widget build(BuildContext context) {
     // Fetch FAQs once
@@ -46,68 +46,67 @@ class HelpSupportScreen extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               // Loop through API FAQs
-              ...helpData.map((faq) => Column(
-                children: [
-                  CustomContainer(
-                    backgroundColor: const Color(0xFFEEF2FF),
-                    padding: 12,
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        /// Question + Icon Row
-                        Row(
-                          children: [
-                            Expanded(
-                              child: CustomText(
-                                textAlign: TextAlign.start,
-                                text: faq.question ?? "",
-                                fontSize: 14,
-                                fontWeight: FontWeight.w500,
-                              ),
-                            ),
-                            GestureDetector(
-                              onTap: () {
-                                faq.isExpanded = !faq.isExpanded;
-                                helpController.helpList.refresh();
-                              },
-                              child: SvgPicture.asset(
-                                faq.isExpanded
-                                    ? AppIcons.dropDown   // SVG for down arrow
-                                    : AppIcons.arrowFront, // SVG for right arrow
-                                width: 28,
-                                height: 28,
-                                colorFilter: ColorFilter.mode(
-                                  AppColors.primary,
-                                  BlendMode.srcIn,
+              ...helpData.map(
+                (faq) => Column(
+                  children: [
+                    CustomContainer(
+                      backgroundColor: const Color(0xFFEEF2FF),
+                      padding: 12,
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          /// Question + Icon Row
+                          Row(
+                            children: [
+                              Expanded(
+                                child: CustomText(
+                                  textAlign: TextAlign.start,
+                                  text: faq.question ?? "",
+                                  fontSize: 14,
+                                  fontWeight: FontWeight.w500,
                                 ),
                               ),
+                              GestureDetector(
+                                onTap: () {
+                                  faq.isExpanded = !faq.isExpanded;
+                                  helpController.helpList.refresh();
+                                },
+                                child: SvgPicture.asset(
+                                  faq.isExpanded
+                                      ? AppIcons
+                                          .dropDown // SVG for down arrow
+                                      : AppIcons
+                                          .arrowFront, // SVG for right arrow
+                                  width: 28,
+                                  height: 28,
+                                  colorFilter: ColorFilter.mode(
+                                    AppColors.primary,
+                                    BlendMode.srcIn,
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ),
 
+                          /// Answer (only when expanded)
+                          if (faq.isExpanded) ...[
+                            const Divider(color: Colors.grey, thickness: 1.2),
+                            CustomText(
+                              text: faq.answer ?? "",
+                              fontWeight: FontWeight.w400,
+                              fontSize: 14,
+                              color: const Color(0xFFA1A1AA),
+                              maxLines: 10,
+                              textAlign: TextAlign.start,
                             ),
                           ],
-                        ),
-
-                        /// Answer (only when expanded)
-                        if (faq.isExpanded) ...[
-                          const Divider(
-                            color: Colors.grey,
-                            thickness: 1.2,
-                          ),
-                          CustomText(
-                            text: faq.answer ?? "",
-                            fontWeight: FontWeight.w400,
-                            fontSize: 14,
-                            color: const Color(0xFFA1A1AA),
-                            maxLines: 10,
-                            textAlign: TextAlign.start,
-                          ),
                         ],
-                      ],
+                      ),
                     ),
-                  ),
-                  Gap(12.h),
-                ],
-              )),
-
+                    Gap(12.h),
+                  ],
+                ),
+              ),
 
               /// Need More Help section (UI same as before)
               CustomText(
@@ -130,7 +129,7 @@ class HelpSupportScreen extends StatelessWidget {
                   maxLines: 8,
                   textAlign: TextAlign.start,
                   text:
-                  "Our support team will get back to you as soon as possible with assistance for any issues, feedback, or technical questions.",
+                      "Our support team will get back to you as soon as possible with assistance for any issues, feedback, or technical questions.",
                   fontWeight: FontWeight.w400,
                   fontSize: 14,
                   color: Color(0xFFA1A1AA),
@@ -143,13 +142,3 @@ class HelpSupportScreen extends StatelessWidget {
     );
   }
 }
-
-
-
-
-
-
-
-
-
-

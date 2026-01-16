@@ -16,11 +16,11 @@ class DetailsMonsterSection extends StatelessWidget {
   final String battleDescription;
   final String status;
   final String monsterStatusMessage;
- final DetoxType detoxType;
- final String monster;
- final Color bgColor;
- final Color textColor;
- final Color boarderColor;
+  final DetoxType detoxType;
+  final String monster;
+  final Color bgColor;
+  final Color textColor;
+  final Color boarderColor;
 
   const DetailsMonsterSection({
     super.key,
@@ -35,8 +35,7 @@ class DetailsMonsterSection extends StatelessWidget {
     required this.boarderColor,
   });
 
-
-  String getIcon( DetoxType detoxType) {
+  String getIcon(DetoxType detoxType) {
     switch (detoxType) {
       case DetoxType.smoke:
         return AppIcons.smoke;
@@ -55,19 +54,15 @@ class DetailsMonsterSection extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-
         Padding(
           padding: EdgeInsets.only(bottom: 16.h),
           child: Container(
-
             decoration: BoxDecoration(
               color: AppColors.white,
               borderRadius: BorderRadius.circular(12),
-
             ),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -118,7 +113,7 @@ class DetailsMonsterSection extends StatelessWidget {
                             color: AppColors.softWhite,
                             maxLines: 4,
                             overflow: TextOverflow.ellipsis,
-                                                    ),
+                          ),
                         ],
                       ),
                     ),
@@ -128,8 +123,8 @@ class DetailsMonsterSection extends StatelessWidget {
                 Container(
                   padding: EdgeInsets.symmetric(horizontal: 2.w, vertical: 2.h),
                   decoration: BoxDecoration(
-                    color:bgColor,
-                  // Using subPrimary as a placeholder color
+                    color: bgColor,
+                    // Using subPrimary as a placeholder color
                     borderRadius: BorderRadius.circular(5),
                     border: Border.all(color: boarderColor),
                   ),
@@ -142,7 +137,6 @@ class DetailsMonsterSection extends StatelessWidget {
                     top: 0,
                   ),
                 ),
-
               ],
             ),
           ),
@@ -150,14 +144,11 @@ class DetailsMonsterSection extends StatelessWidget {
 
         // Monster Image
         Center(
-          child:
-
-          CustomNetworkImage(
-            imageUrl: ImageHandler.imagesHandle( monster),
-              height: 250.h,
-              width: 250.w,
+          child: CustomNetworkImage(
+            imageUrl: ImageHandler.imagesHandle(monster),
+            height: 250.h,
+            width: 250.w,
           ),
-
         ),
         SizedBox(height: 24.h),
 

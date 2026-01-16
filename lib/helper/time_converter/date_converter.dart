@@ -1,5 +1,3 @@
-
-
 import 'package:intl/intl.dart';
 
 class DateConverter {
@@ -25,7 +23,6 @@ class DateConverter {
   static String estimatedDate(DateTime dateTime) {
     return DateFormat('dd MMM yyyy').format(dateTime);
   }
-
 
   static String formattedTime(DateTime dateTime) {
     return DateFormat('hh:mm a').format(dateTime);
@@ -192,7 +189,6 @@ class DateConverter {
       birthDate.month,
       birthDate.day,
     );
-
 
     Duration remainingDuration = targetDate.difference(currentDate);
 

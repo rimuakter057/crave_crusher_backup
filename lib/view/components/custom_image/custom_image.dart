@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
@@ -37,7 +36,6 @@ class CustomImage extends StatelessWidget {
   });
 
   Widget _buildImageWidget() {
-
     if (imageSrc.toLowerCase().endsWith('.svg')) {
       return SvgPicture.asset(
         imageSrc,
@@ -61,7 +59,6 @@ class CustomImage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-
     return Container(
       margin: EdgeInsets.symmetric(horizontal: horizontal, vertical: vertical),
       padding: padding,
@@ -69,16 +66,9 @@ class CustomImage extends StatelessWidget {
       width: sizeWidth ?? width,
       height: height,
 
-
       child: Stack(
-
         alignment: alignment as Alignment,
-        children: [
-
-          _buildImageWidget(),
-
-          if (child != null) child!,
-        ],
+        children: [_buildImageWidget(), if (child != null) child!],
       ),
     );
   }

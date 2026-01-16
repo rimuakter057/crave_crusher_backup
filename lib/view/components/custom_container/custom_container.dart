@@ -25,16 +25,14 @@ class CustomContainer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: EdgeInsets.all(padding??8),
+      padding: EdgeInsets.all(padding ?? 8),
       width: width,
-      height:height,
+      height: height,
       margin: margin,
       decoration: BoxDecoration(
         color: backgroundColor ?? Colors.white,
         borderRadius: BorderRadius.circular(radius ?? 8),
-        border: Border.all(
-          color: borderColor ?? Colors.transparent,
-        ),
+        border: Border.all(color: borderColor ?? Colors.transparent),
       ),
       child: child,
     );

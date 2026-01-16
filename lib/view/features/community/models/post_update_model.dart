@@ -9,7 +9,6 @@ class PostUpdateModel {
     required this.images,
   });
 
-
   factory PostUpdateModel.fromJson(Map<String, dynamic> json) {
     return PostUpdateModel(
       postId: json['postId'] ?? '',
@@ -19,10 +18,6 @@ class PostUpdateModel {
   }
 
   Map<String, dynamic> toJson() {
-    return {
-      'postId': postId,
-      'content': content,
-      'images': images,
-    };
+    return {'postId': postId, 'content': content, 'images': images};
   }
 }

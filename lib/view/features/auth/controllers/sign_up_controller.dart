@@ -1,9 +1,7 @@
-
 import 'package:crave_crusher/service/api_url.dart';
 import 'package:crave_crusher/service/network_caller.dart';
 import 'package:crave_crusher/view/features/auth/models/signup_model.dart';
 import 'package:get/get.dart';
-
 
 class SignUpController extends GetxController {
   bool _signUpInProgress = false;
@@ -41,15 +39,10 @@ class SignUpController extends GetxController {
     _signUpInProgress = true;
     update();
 
-    final NetworkResponse response =
-    await Get.find<NetworkCaller>().postRequest(
-      url: ApiUrl.signUpUrl,
-      body: userModel.toJson(),
-    );
+    final NetworkResponse response = await Get.find<NetworkCaller>()
+        .postRequest(url: ApiUrl.signUpUrl, body: userModel.toJson());
 
     if (response.isSuccess) {
-
-
       _errorMessage = null;
       isSuccess = true;
     } else {

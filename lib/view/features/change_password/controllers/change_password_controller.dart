@@ -1,4 +1,3 @@
-
 import 'package:crave_crusher/service/api_url.dart';
 import 'package:crave_crusher/service/network_caller.dart';
 import 'package:crave_crusher/view/features/change_password/models/change_password_model.dart';
@@ -14,10 +13,11 @@ class ChangePasswordController extends GetxController {
     _inProgress = true;
     update();
 
-    final NetworkResponse response = await Get.find<NetworkCaller>().postRequest(
-      url: ApiUrl.changePassword,
-      body: changePasswordModel.toJson(),
-    );
+    final NetworkResponse response = await Get.find<NetworkCaller>()
+        .postRequest(
+          url: ApiUrl.changePassword,
+          body: changePasswordModel.toJson(),
+        );
 
     bool isSuccess = false;
     if (response.isSuccess) {

@@ -4,30 +4,34 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:percent_indicator/circular_percent_indicator.dart';
 
-
-
 class CustomCircularIndicator extends StatelessWidget {
   const CustomCircularIndicator({
-    super.key, required this.percentText, required this.percent,
+    super.key,
+    required this.percentText,
+    required this.percent,
   });
 
   final String percentText;
   final double percent;
-
 
   @override
   Widget build(BuildContext context) {
     return CircularPercentIndicator(
       radius: 55,
       lineWidth: 12,
-      percent: percent,              //  percentage
-      center: CustomText(text: percentText,color: AppColors.primary,fontSize: 18.sp,fontWeight: FontWeight.w700,),
+      percent: percent, //  percentage
+      center: CustomText(
+        text: percentText,
+        color: AppColors.primary,
+        fontSize: 18.sp,
+        fontWeight: FontWeight.w700,
+      ),
 
       // IMPORTANT — gradient
       linearGradient: const LinearGradient(
         colors: [
-          Color(0xFF6C63FF),  // Start color
-          Color(0xFF1E293B),  // End color
+          Color(0xFF6C63FF), // Start color
+          Color(0xFF1E293B), // End color
         ],
         begin: Alignment.topLeft,
         end: Alignment.bottomRight,

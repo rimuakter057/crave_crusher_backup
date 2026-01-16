@@ -4,36 +4,35 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:gap/gap.dart';
 
-
 class InputPasswordFieldWidget extends StatelessWidget {
   const InputPasswordFieldWidget({
-    super.key, required this.title, this.hintText, this.controller, this.validator,
+    super.key,
+    required this.title,
+    this.hintText,
+    this.controller,
+    this.validator,
   });
 
   final String title;
- final String ?hintText;
+  final String? hintText;
   final TextEditingController? controller;
-  final String? Function(String?)? validator ;
+  final String? Function(String?)? validator;
 
   @override
   Widget build(BuildContext context) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        CustomText(text: title,fontSize: 14.sp,fontWeight: FontWeight.w500,),
+        CustomText(text: title, fontSize: 14.sp, fontWeight: FontWeight.w500),
         Gap(8.h),
         CustomTextField(
           textEditingController: controller,
           validator: validator,
           isPassword: true,
-          hintText:hintText?? "Enter Your Password",
+          hintText: hintText ?? "Enter Your Password",
           fillColor: Color(0xFFEEF2FF),
-          hintStyle: TextStyle(
-            fontSize: 14,
-            color: Color(0xFFA1A1AA),
-          ),
+          hintStyle: TextStyle(fontSize: 14, color: Color(0xFFA1A1AA)),
         ),
-
       ],
     );
   }

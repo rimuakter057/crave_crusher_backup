@@ -48,8 +48,6 @@ class PostController extends GetxController {
   RxList<PostModel> getMyPostList = <PostModel>[].obs;
   RxBool isLoadingPost = false.obs;
 
-
-
   Future<void> fetchMyPost() async {
     isLoadingPost.value = true;
 
@@ -63,10 +61,8 @@ class PostController extends GetxController {
       getMyPostList.assignAll(posts.map((e) => PostModel.fromJson(e)).toList());
 
       /// numbers
-
     } else {
-       getMyPostList.clear();
-
+      getMyPostList.clear();
     }
 
     isLoadingPost.value = false;
@@ -222,7 +218,7 @@ class PostController extends GetxController {
     for (var path in currentImagePaths) {
       if (File(path).existsSync()) {
         multipartFiles.add(MultipartBody('post_images', File(path)));
-      }else{
+      } else {
         continue;
       }
     }
@@ -254,19 +250,6 @@ class PostController extends GetxController {
     }
   }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
   RxList<PostModel> singleUserProfileList = <PostModel>[].obs;
   RxBool isLoadingSingleUser = false.obs;
 
@@ -277,14 +260,18 @@ class PostController extends GetxController {
   Future<void> fetchSingleUserProfile(String userId) async {
     isLoadingSingleUser.value = true;
 
-    final response = await ApiClient.getData(ApiUrl.getSingleUserProfile(userId));
+    final response = await ApiClient.getData(
+      ApiUrl.getSingleUserProfile(userId),
+    );
 
     if (response.statusCode == 200 && response.body['data'] != null) {
       final data = response.body['data'];
 
       /// posts
       final List posts = data['posts'] ?? [];
-      singleUserProfileList.assignAll(posts.map((e) => PostModel.fromJson(e)).toList());
+      singleUserProfileList.assignAll(
+        posts.map((e) => PostModel.fromJson(e)).toList(),
+      );
 
       /// numbers
       totalReaction.value = data['totalReaction'] ?? 0;
@@ -299,9 +286,4 @@ class PostController extends GetxController {
 
     isLoadingSingleUser.value = false;
   }
-
-
-
-
-
 }

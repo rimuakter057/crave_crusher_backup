@@ -61,10 +61,7 @@ class _RewardsScreenState extends State<RewardsScreen> {
               Center(
                 child: Obx(() {
                   if (controller.isLoadingProgress.value) {
-                    return SizedBox(
-                        height: 100.h,
-
-                        child: CustomLoader());
+                    return SizedBox(height: 100.h, child: CustomLoader());
                   }
 
                   return CustomCircularIndicator(
@@ -96,8 +93,8 @@ class _RewardsScreenState extends State<RewardsScreen> {
                 final badgeImageUrl = ImageHandler.imagesHandle(
                   currentBadge.badgeImage,
                 );
-                final badgeName = currentBadge.name ?? "Loading...";
-                final orderNumber = currentBadge.orderNumber.toString() ?? "00";
+                final badgeName = currentBadge.name;
+                final orderNumber = currentBadge.orderNumber.toString();
 
                 return CustomContainer(
                   borderColor: AppColors.subPrimary,
@@ -116,7 +113,9 @@ class _RewardsScreenState extends State<RewardsScreen> {
                             alignment: Alignment.center,
                             decoration: BoxDecoration(
                               color: getBadgeBgColor(badgeName),
-                              border: Border.all(color: getBadgeBorderColor(badgeName),),
+                              border: Border.all(
+                                color: getBadgeBorderColor(badgeName),
+                              ),
                               borderRadius: BorderRadius.circular(3),
                             ),
                             child: CustomNetworkImage(
@@ -167,8 +166,7 @@ class _RewardsScreenState extends State<RewardsScreen> {
                 var achieve = controller.allAchieveList;
 
                 if (achieve.isEmpty) {
-                  return
-                    _buildEmptyWidget("achieve badges empty");
+                  return _buildEmptyWidget("achieve badges empty");
                 }
                 final isLoading = controller.isLoadingClaim.value;
                 return ListView.separated(
@@ -274,8 +272,6 @@ class _RewardsScreenState extends State<RewardsScreen> {
                                       ),
                             ),
                           ),
-
-
                         ],
                       ),
                     );
@@ -333,10 +329,7 @@ class _RewardsScreenState extends State<RewardsScreen> {
                               width: 32.w,
                             ),
                             Gap(4.h),
-                            CustomText(
-                              text: claim[index].name ?? "",
-                              fontSize: 10,
-                            ),
+                            CustomText(text: claim[index].name, fontSize: 10),
                           ],
                         ),
                       );
@@ -385,7 +378,9 @@ class _RewardsScreenState extends State<RewardsScreen> {
                                   decoration: BoxDecoration(
                                     color: getBadgeBgColor(allBadgeList.name),
                                     border: Border.all(
-                                      color: getBadgeBorderColor(allBadgeList.name),
+                                      color: getBadgeBorderColor(
+                                        allBadgeList.name,
+                                      ),
                                     ),
                                     borderRadius: BorderRadius.circular(3),
                                   ),

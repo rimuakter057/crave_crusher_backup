@@ -1,4 +1,3 @@
-
 import 'dart:typed_data';
 
 import 'package:crave_crusher/service/api_check.dart';
@@ -82,7 +81,7 @@ class CommunityController extends GetxController {
         } else {
           postController.fetchMyPost();
         }
-        await fetchCommentList(postId, callFormCreateComment:  true);
+        await fetchCommentList(postId, callFormCreateComment: true);
 
         return true;
       } else {
@@ -105,13 +104,15 @@ class CommunityController extends GetxController {
   var isLoadingComment = false.obs;
   RxList<CommentModel> commentList = <CommentModel>[].obs;
 
-  Future<void> fetchCommentList(String postId, {bool callFormCreateComment = false}) async {
-
-     if(callFormCreateComment){
-       isLoadingComment.value = false;
-     }else{
-       isLoadingComment.value = true;
-     }
+  Future<void> fetchCommentList(
+    String postId, {
+    bool callFormCreateComment = false,
+  }) async {
+    if (callFormCreateComment) {
+      isLoadingComment.value = false;
+    } else {
+      isLoadingComment.value = true;
+    }
 
     final response = await ApiClient.getData(ApiUrl.getAllComment(postId));
     isLoadingComment.value = false;
@@ -152,30 +153,35 @@ class CommunityController extends GetxController {
       debugPrint("===========================>>>  index: $index");
       debugPrint("===========================>>>  isMyPost: $isMyPost");
 
-    if(isMyPost){
-      if(hasVoted) {
-        postController.getMyPostList.reversed.toList()[index].totalVotes =
-            postController.getMyPostList.reversed.toList()[index].totalVotes - 1;
-        postController.getMyPostList.reversed.toList()[index].hasVoted.value = false;
-      }else{
-        postController.getMyPostList.reversed.toList()[index].totalVotes =
-            postController.getMyPostList.reversed.toList()[index].totalVotes + 1;
-        postController.getMyPostList.reversed.toList()[index].hasVoted.value = true;
-
+      if (isMyPost) {
+        if (hasVoted) {
+          postController.getMyPostList.reversed.toList()[index].totalVotes =
+              postController.getMyPostList.reversed.toList()[index].totalVotes -
+              1;
+          postController.getMyPostList.reversed.toList()[index].hasVoted.value =
+              false;
+        } else {
+          postController.getMyPostList.reversed.toList()[index].totalVotes =
+              postController.getMyPostList.reversed.toList()[index].totalVotes +
+              1;
+          postController.getMyPostList.reversed.toList()[index].hasVoted.value =
+              true;
+        }
+      } else {
+        if (hasVoted) {
+          postController.allPostList.reversed.toList()[index].totalVotes =
+              postController.allPostList.reversed.toList()[index].totalVotes -
+              1;
+          postController.allPostList.reversed.toList()[index].hasVoted.value =
+              false;
+        } else {
+          postController.allPostList.reversed.toList()[index].totalVotes =
+              postController.allPostList.reversed.toList()[index].totalVotes +
+              1;
+          postController.allPostList.reversed.toList()[index].hasVoted.value =
+              true;
+        }
       }
-
-    }else{
-      if(hasVoted) {
-        postController.allPostList.reversed.toList()[index].totalVotes =
-            postController.allPostList.reversed.toList()[index].totalVotes - 1;
-        postController.allPostList.reversed.toList()[index].hasVoted.value = false;
-      }else{
-        postController.allPostList.reversed.toList()[index].totalVotes =
-            postController.allPostList.reversed.toList()[index
-            ].totalVotes + 1;
-        postController.allPostList.reversed.toList()[index].hasVoted.value = true;
-
-      }}
 
       return true;
     } else {
@@ -184,14 +190,7 @@ class CommunityController extends GetxController {
     }
   }
 
-
-
-
-
-
-
-
-/// download images============================
+  /// download images============================
   /// 🔐 Permission check (Android + iOS safe)
   Future<bool> _checkPermission() async {
     PermissionStatus status;
@@ -232,10 +231,7 @@ class CommunityController extends GetxController {
       if (response.statusCode == 200) {
         Uint8List bytes = response.bodyBytes;
 
-        await Gal.putImageBytes(
-          bytes,
-          album: 'CraveCrusher',
-        );
+        await Gal.putImageBytes(bytes, album: 'CraveCrusher');
 
         Get.snackbar(
           "Downloaded",
@@ -255,14 +251,4 @@ class CommunityController extends GetxController {
       );
     }
   }
-  }
-
-
-
-
-
-
-
-
-
-
+}

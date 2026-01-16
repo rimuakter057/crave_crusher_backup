@@ -1,4 +1,3 @@
-
 import 'package:crave_crusher/utils/app_images/app_images.dart';
 import 'package:crave_crusher/view/features/auth/screen/login/login_screen.dart';
 import 'package:crave_crusher/view/features/on_boarding/widgets/on_boarding_body_widget.dart';
