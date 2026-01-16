@@ -1,3 +1,5 @@
+// ignore_for_file: must_be_immutable, deprecated_member_use
+
 import 'package:crave_crusher/utils/app_colors/app_colors.dart';
 import 'package:crave_crusher/utils/app_icons/app_icons.dart';
 import 'package:crave_crusher/view/components/common_empty/common_empty_widget.dart';
@@ -39,7 +41,7 @@ class _BattleDetailsScreenState extends State<BattleDetailsScreen> {
     WidgetsBinding.instance.addPostFrameCallback((_) {
       controller.fetchSingleBattle(widget.battleId);
     });
-    // TODO: implement initState
+    // T ODO: implement initState
 
     super.initState();
   }
