@@ -5,9 +5,6 @@ class VerifyIdentityOtpModel {
   VerifyIdentityOtpModel({required this.email, required this.resetCode});
 
   Map<String, dynamic> toJson() {
-    return {
-      "email": email,
-      "resetCode": int.tryParse(resetCode) ?? 0,
-    };
+    return {"email": email, "resetCode": int.tryParse(resetCode) ?? 0};
   }
 }

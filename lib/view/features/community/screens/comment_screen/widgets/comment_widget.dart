@@ -6,11 +6,12 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:gap/gap.dart';
 
 class CommentWidget extends StatelessWidget {
-final String commentText;
-final String userName;
+  final String commentText;
+  final String userName;
   const CommentWidget({
-    super.key, required this.commentText, required this.userName,
-
+    super.key,
+    required this.commentText,
+    required this.userName,
   });
 
   @override
@@ -20,11 +21,14 @@ final String userName;
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-
           /// Profile avatar
-          ProfileAvatarWidget(    imagePath: AppConstants.unknown,heightA: 40.h,widthA: 40.w,),
+          ProfileAvatarWidget(
+            imagePath: AppConstants.unknown,
+            heightA: 40.h,
+            widthA: 40.w,
+          ),
 
-           Gap(8.w),
+          Gap(8.w),
 
           /// Column with title and subtitle
           Expanded(
@@ -33,7 +37,7 @@ final String userName;
               children: [
                 /// Username / title
                 CustomText(text: userName),
-              Gap(12.h),
+                Gap(12.h),
                 CustomText(
                   fontWeight: FontWeight.w500,
                   textAlign: TextAlign.start,
@@ -41,10 +45,9 @@ final String userName;
                   maxLines: 3,
                   overflow: TextOverflow.ellipsis,
                   color: Color(0xFFA1A1AA),
-                  text:commentText,
+                  text: commentText,
                   //'Love This Energy! It\'s Amazing How Small Wins Every Day Start To Change Everything. Keep Going – Your Monster Doesn\'t Stand A Chance 🏗️🎶',
                 ),
-
               ],
             ),
           ),

@@ -5,7 +5,6 @@ import 'package:crave_crusher/view/features/on_boarding/widgets/skip_button_widg
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-
 class OnBoardingOneScreen extends StatefulWidget {
   const OnBoardingOneScreen({super.key});
 
@@ -22,16 +21,19 @@ class _OnBoardingOneScreenState extends State<OnBoardingOneScreen> {
         actions: [
           Padding(
             padding: const EdgeInsets.only(right: 8.0),
-            child:SkipButtonWidget(),
-            ),
-
+            child: SkipButtonWidget(),
+          ),
         ],
       ),
-      body: OnBoardingBodyWidget(imagePath: AppImages.onBoardingOne, title: "Face Your Monster", subTitle: 'Spot your addictions and get ready to battle them — one step at a time.', onTap: () {
-        Get.to(() => OnBoardingTwoScreen());
-      },),
+      body: OnBoardingBodyWidget(
+        imagePath: AppImages.onBoardingOne,
+        title: "Face Your Monster",
+        subTitle:
+            'Spot your addictions and get ready to battle them — one step at a time.',
+        onTap: () {
+          Get.to(() => OnBoardingTwoScreen());
+        },
+      ),
     );
   }
 }
-
-

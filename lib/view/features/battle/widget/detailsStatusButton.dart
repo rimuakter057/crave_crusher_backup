@@ -1,3 +1,5 @@
+// ignore_for_file: file_names
+
 import 'package:crave_crusher/utils/app_colors/app_colors.dart';
 import 'package:crave_crusher/view/components/custom_image/custom_image.dart';
 import 'package:crave_crusher/view/components/custom_text/custom_text.dart';
@@ -35,9 +37,7 @@ class DetailsStatusButtonWidget extends StatelessWidget {
         decoration: BoxDecoration(
           color: bgColor,
           borderRadius: BorderRadius.circular(8.r),
-          border: Border.all(
-            color: borderColor ?? AppColors.subPrimary,
-          ),
+          border: Border.all(color: borderColor ?? AppColors.subPrimary),
         ),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.center,
@@ -46,8 +46,7 @@ class DetailsStatusButtonWidget extends StatelessWidget {
               imageSrc: iconSrc,
               height: 18.h,
               width: 18.w,
-              imageColor:
-              isPrimary ? AppColors.white : AppColors.primary,
+              imageColor: isPrimary ? AppColors.white : AppColors.primary,
             ),
             SizedBox(width: 8.w),
             CustomText(

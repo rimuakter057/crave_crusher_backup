@@ -1,3 +1,5 @@
+// ignore_for_file: deprecated_member_use
+
 import 'package:crave_crusher/utils/app_colors/app_colors.dart';
 import 'package:crave_crusher/utils/app_icons/app_icons.dart';
 import 'package:crave_crusher/view/components/common_empty/common_empty_widget.dart';
@@ -69,9 +71,8 @@ class _HomeScreenState extends State<HomeScreen> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-            /// today tips===============================================================================================
-
-              _buildTitle(AppIcons.smallMonster, "Tip for Today",),
+              /// today tips===============================================================================================
+              _buildTitle(AppIcons.smallMonster, "Tip for Today"),
               Obx(() {
                 if (homeController.isLoadingTip.value) {
                   return Center(
@@ -94,9 +95,10 @@ class _HomeScreenState extends State<HomeScreen> {
                   child: Padding(
                     padding: EdgeInsets.symmetric(horizontal: 16.0.w),
                     child: CustomText(
-                      text: homeController.dailyTip.value.isNotEmpty
-                          ? homeController.dailyTip.value
-                          : '“ Each craving lasts only a few minutes — take slow, deep breaths and remind yourself why you started. ”',
+                      text:
+                          homeController.dailyTip.value.isNotEmpty
+                              ? homeController.dailyTip.value
+                              : '“ Each craving lasts only a few minutes — take slow, deep breaths and remind yourself why you started. ”',
                       maxLines: 5,
                       fontSize: 14.w,
                       textAlign: TextAlign.center,
@@ -105,9 +107,6 @@ class _HomeScreenState extends State<HomeScreen> {
                   ),
                 );
               }),
-
-
-
 
               SizedBox(height: 24.h),
 
@@ -124,10 +123,10 @@ class _HomeScreenState extends State<HomeScreen> {
                   return Center(
                     child: Column(
                       children: [
-                        SizedBox(height: 24,),
+                        SizedBox(height: 24),
                         EmptyWidget(
-
-                          title: "Add your first battle to summon your Monster.",
+                          title:
+                              "Add your first battle to summon your Monster.",
                         ),
                       ],
                     ),
@@ -154,7 +153,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   return Center(
                     child: Column(
                       children: [
-                        SizedBox(height: 48,),
+                        SizedBox(height: 48),
                         EmptyWidget(
                           title: "Add your first battle to get started.",
                         ),
@@ -228,5 +227,3 @@ class _HomeScreenState extends State<HomeScreen> {
     );
   }
 }
-
-

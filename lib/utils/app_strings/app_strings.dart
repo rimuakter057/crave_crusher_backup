@@ -18,9 +18,9 @@ class AppStrings {
   static const String shoppingDetox = 'Shopping Detox';
   static const String junkFoodBattle = 'Junk Food Battle';
 
-  static const String caved="Caved";
-  static const String craved="Craved";
-  static const String missed="Missed";
+  static const String caved = "Caved";
+  static const String craved = "Craved";
+  static const String missed = "Missed";
 
   static const List<String> addictionTypes = [
     smokingDetox,
@@ -30,7 +30,6 @@ class AppStrings {
     shoppingDetox,
     junkFoodBattle,
   ];
-
 
   // Addiction Levels
   static const String veryLow = 'Very Low';
@@ -47,8 +46,6 @@ class AppStrings {
     veryHigh,
   ];
 
-
-
   static const String ccLegend = "CC Legend";
   static const String positivePowerhouse = "Positive Powerhouse";
   static const String milestoneAchiever = "Milestone Achiever";
@@ -57,8 +54,6 @@ class AppStrings {
   static const String monsterMaster = "Monster Master";
   static const String consistencyChamp = "Consistency Champ";
   static const String starterSpark = "Starter Spark";
-
-
 
   // Optional: সব titles list এ রাখতে চাইলে
   static const List<String> all = [
@@ -71,9 +66,4 @@ class AppStrings {
     consistencyChamp,
     starterSpark,
   ];
-
-
-
-
-
 }

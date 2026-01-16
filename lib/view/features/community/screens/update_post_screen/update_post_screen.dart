@@ -1,3 +1,5 @@
+// ignore_for_file: deprecated_member_use
+
 import 'dart:io';
 
 import 'package:crave_crusher/helper/images_handler/image_handler.dart';

@@ -23,14 +23,13 @@ class AppRoutes {
   static List<GetPage> routes = [
     ///===========================Authentication==========================
     GetPage(name: splashScreen, page: () => SplashScreen()),
-    GetPage(name: onBoardingOneScreen, page: ()=>OnBoardingOneScreen()),
+    GetPage(name: onBoardingOneScreen, page: () => OnBoardingOneScreen()),
     GetPage(name: loginScreen, page: () => LoginScreen()),
     GetPage(name: homeScreen, page: () => HomeScreen()),
 
     GetPage(name: createBattleScreen, page: () => CreateBattleScreen()),
+
     //GetPage(name: emptyHome, page: () => EmptyHomeScreen()),
-
-
     GetPage(name: postScreen, page: () => PostScreen()),
   ];
 }

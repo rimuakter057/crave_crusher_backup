@@ -46,7 +46,6 @@ class MyProfileScreen extends StatelessWidget {
                       profile.profileImage,
                       isProfile: true,
                     ),
-
                   ),
                 ),
                 Gap(24.h),

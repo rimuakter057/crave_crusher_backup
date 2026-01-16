@@ -1,3 +1,5 @@
+// ignore_for_file: use_build_context_synchronously
+
 import 'package:crave_crusher/view/components/custom_button/custom_button.dart';
 import 'package:crave_crusher/view/components/custom_loader/custom_loader.dart';
 import 'package:crave_crusher/view/components/custom_text/custom_text.dart';
@@ -23,7 +25,6 @@ class SignUpScreen extends StatefulWidget {
 }
 
 class _SignUpScreenState extends State<SignUpScreen> {
-
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   final TextEditingController _fullNameController = TextEditingController();
   final TextEditingController _emailController = TextEditingController();
@@ -95,7 +96,9 @@ class _SignUpScreenState extends State<SignUpScreen> {
                         return "Enter Your Email";
                       }
                       // Simple email regex
-                      final emailRegex = RegExp(r'^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$');
+                      final emailRegex = RegExp(
+                        r'^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$',
+                      );
                       if (!emailRegex.hasMatch(value.trim())) {
                         return "Enter a valid email address";
                       }
@@ -133,21 +136,22 @@ class _SignUpScreenState extends State<SignUpScreen> {
                             onChanged: (value) {
                               controller.toggleTerms(value ?? false);
                             },
-                            materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
+                            materialTapTargetSize:
+                                MaterialTapTargetSize.shrinkWrap,
                           ),
                           SizedBox(
-                            width:300.w,
+                            width: 300.w,
                             child: CustomText(
                               maxLines: 1,
                               overflow: TextOverflow.ellipsis,
-                              text: "I agree to the Terms & Conditions and Privacy Policy",
+                              text:
+                                  "I agree to the Terms & Conditions and Privacy Policy",
                               fontSize: 10.sp,
                               color: Color(0xFF555555),
                             ),
                           ),
                         ],
                       );
-
                     },
                   ),
 
@@ -194,7 +198,6 @@ class _SignUpScreenState extends State<SignUpScreen> {
       );
       return;
     }
-
 
     if (_formKey.currentState!.validate()) {
       if (_passwordController.text != _confirmedPasswordController.text) {

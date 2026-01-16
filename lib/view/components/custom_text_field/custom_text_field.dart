@@ -121,7 +121,8 @@ class _CustomTextFieldState extends State<CustomTextField> {
                     padding: const EdgeInsets.all(16),
                     child: SvgPicture.asset(
                       obscureText
-                          ? AppIcons.hide   // SVG for down arrow
+                          ? AppIcons
+                              .hide // SVG for down arrow
                           : AppIcons.visible, // SVG for right arrow
                       width: 28,
                       height: 28,

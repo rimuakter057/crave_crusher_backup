@@ -1,3 +1,5 @@
+// ignore_for_file: file_names, deprecated_member_use
+
 import 'package:crave_crusher/helper/images_handler/image_handler.dart';
 import 'package:crave_crusher/utils/app_colors/app_colors.dart';
 import 'package:crave_crusher/utils/app_icons/app_icons.dart';
@@ -32,13 +34,13 @@ class CommonCommunityWidget extends StatefulWidget {
     this.index = 2,
     required this.profileTitle,
     required this.time,
-   required this.profileImage,
+    required this.profileImage,
     required this.postText,
 
     // required this.likesText,
     required this.commentsText,
     required this.onTapComment,
-     this.onTapUpdate,
+    this.onTapUpdate,
     required this.onTapImageShow,
     required this.onTapProfile,
     required this.favouriteWidget,
@@ -53,7 +55,6 @@ class _CommonCommunityWidgetState extends State<CommonCommunityWidget> {
   @override
   Widget build(BuildContext context) {
     return Container(
-
       padding: EdgeInsets.only(
         left: 16.w,
         right: 16.w,
@@ -102,33 +103,37 @@ class _CommonCommunityWidgetState extends State<CommonCommunityWidget> {
           Gap(8.h),
 
           /// Image Section
-      GestureDetector(
-              onTap: widget.onTapImageShow,
-              child: Row(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: _buildImages(),
-              ),
+          GestureDetector(
+            onTap: widget.onTapImageShow,
+            child: Row(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: _buildImages(),
             ),
-
+          ),
 
           Gap(8.h),
 
           /// Text Section
-          ReadMoreText(widget.postText,
+          ReadMoreText(
+            widget.postText,
 
-    trimMode: TrimMode.Line,
-    trimLines: 3,
-    textAlign: TextAlign.justify,
-    lessStyle: TextStyle(color: AppColors.primary),
-    moreStyle: TextStyle(color: AppColors.primary,fontSize: 16.sp,fontWeight: FontWeight.bold),
-     style: TextStyle(
-       fontSize: 13.sp,
-       color: Color(0xFF1E293B),
-       fontWeight: FontWeight.w500
-     ),
-    colorClickableText: Colors.pink,
-    trimCollapsedText: 'See more',
-    trimExpandedText: ' See less',
+            trimMode: TrimMode.Line,
+            trimLines: 3,
+            textAlign: TextAlign.justify,
+            lessStyle: TextStyle(color: AppColors.primary),
+            moreStyle: TextStyle(
+              color: AppColors.primary,
+              fontSize: 16.sp,
+              fontWeight: FontWeight.bold,
+            ),
+            style: TextStyle(
+              fontSize: 13.sp,
+              color: Color(0xFF1E293B),
+              fontWeight: FontWeight.w500,
+            ),
+            colorClickableText: Colors.pink,
+            trimCollapsedText: 'See more',
+            trimExpandedText: ' See less',
           ),
 
           Gap(8.h),
@@ -152,7 +157,6 @@ class _CommonCommunityWidgetState extends State<CommonCommunityWidget> {
               ),
             ],
           ),
-
         ],
       ),
     );
@@ -171,136 +175,117 @@ class _CommonCommunityWidgetState extends State<CommonCommunityWidget> {
         ClipRRect(
           borderRadius: BorderRadius.circular(6),
           child: CustomNetworkImage(
-
-
             height: 180.h,
-            width:screenWidth<=360? 260.w:280.w,
+            width: screenWidth <= 360 ? 260.w : 280.w,
 
             // height: 180.h,
             // width: 160.w,
-           imageUrl: ImageHandler.imagesHandle(images[0]),
+            imageUrl: ImageHandler.imagesHandle(images[0]),
           ),
         ),
       ];
-    }  else if(images.length == 2){
-      return [
-      ClipRRect(
-        borderRadius: BorderRadius.circular(6),
-        child: CustomNetworkImage(
-          imageUrl:ImageHandler.imagesHandle( images[0]),
-          height: 180.h,
-          width: 130.w,
-
-        ),
-      ),
-    Gap(8.w),
-    Column(
-    children: [
-
-    CustomNetworkImage(
-    imageUrl: ImageHandler.imagesHandle( images[1]),
-      height: 180.h,
-      width: 130.w,
-    borderRadius: BorderRadius.circular(6),
-
-    ),
-
-
-      ])];
-    }
-
-    else if(images.length == 3){
-
+    } else if (images.length == 2) {
       return [
         ClipRRect(
           borderRadius: BorderRadius.circular(6),
           child: CustomNetworkImage(
-            imageUrl:ImageHandler.imagesHandle( images[0]),
+            imageUrl: ImageHandler.imagesHandle(images[0]),
             height: 180.h,
             width: 130.w,
-
-          ),
-        ),
-        Gap(8.w),
-        Column(
-            children: [
-
-              CustomNetworkImage(
-                imageUrl: ImageHandler.imagesHandle( images[1]),
-                height: 90.h,
-                width: 100.w,
-                borderRadius: BorderRadius.circular(6),
-
-              ),
-              Gap(8.h),
-              CustomNetworkImage(
-                imageUrl: ImageHandler.imagesHandle( images[2]),
-                height: 90.h,
-                width: 100.w,
-                borderRadius: BorderRadius.circular(6),
-
-              ),
-
-            ])];
-
-    }
-
-    else {
-      // Multiple images
-      return [
-        ClipRRect(
-          borderRadius: BorderRadius.circular(6),
-          child: CustomNetworkImage(
-            imageUrl:ImageHandler.imagesHandle( images[0]),
-            height: 180.h,
-            width: 160.w,
-
           ),
         ),
         Gap(8.w),
         Column(
           children: [
-
-    CustomNetworkImage(
-            imageUrl: ImageHandler.imagesHandle( images[1]),
-            height: 90.h,
-            width: 85.w,
-      borderRadius: BorderRadius.circular(6),
-
+            CustomNetworkImage(
+              imageUrl: ImageHandler.imagesHandle(images[1]),
+              height: 180.h,
+              width: 130.w,
+              borderRadius: BorderRadius.circular(6),
+            ),
+          ],
+        ),
+      ];
+    } else if (images.length == 3) {
+      return [
+        ClipRRect(
+          borderRadius: BorderRadius.circular(6),
+          child: CustomNetworkImage(
+            imageUrl: ImageHandler.imagesHandle(images[0]),
+            height: 180.h,
+            width: 130.w,
           ),
+        ),
+        Gap(8.w),
+        Column(
+          children: [
+            CustomNetworkImage(
+              imageUrl: ImageHandler.imagesHandle(images[1]),
+              height: 90.h,
+              width: 100.w,
+              borderRadius: BorderRadius.circular(6),
+            ),
+            Gap(8.h),
+            CustomNetworkImage(
+              imageUrl: ImageHandler.imagesHandle(images[2]),
+              height: 90.h,
+              width: 100.w,
+              borderRadius: BorderRadius.circular(6),
+            ),
+          ],
+        ),
+      ];
+    } else {
+      // Multiple images
+      return [
+        ClipRRect(
+          borderRadius: BorderRadius.circular(6),
+          child: CustomNetworkImage(
+            imageUrl: ImageHandler.imagesHandle(images[0]),
+            height: 180.h,
+            width: 160.w,
+          ),
+        ),
+        Gap(8.w),
+        Column(
+          children: [
+            CustomNetworkImage(
+              imageUrl: ImageHandler.imagesHandle(images[1]),
+              height: 90.h,
+              width: 85.w,
+              borderRadius: BorderRadius.circular(6),
+            ),
 
-
-            if(images.length > 3)...[
+            if (images.length > 3) ...[
               Gap(8.h),
               CustomNetworkImage(
-                imageUrl: ImageHandler.imagesHandle( images[2]),
+                imageUrl: ImageHandler.imagesHandle(images[2]),
                 height: 90.h,
                 width: 100.w,
                 borderRadius: BorderRadius.circular(6),
-                child: images.length > 3?
-                Center
-                  (
-                  child: Container(
-                      height: 90.h,
-                      width: 100.w,
-                      alignment: Alignment.center,
-                      decoration: BoxDecoration(
-                        color: AppColors.white.withAlpha(99) ,
-                        borderRadius: BorderRadius.circular(6),
-
-                       ),
-                      child: CustomText(text: '+${images.length - 3}',
-                      fontSize: 24.sp,
-                      )),
-                ) : SizedBox(),
-
+                child:
+                    images.length > 3
+                        ? Center(
+                          child: Container(
+                            height: 90.h,
+                            width: 100.w,
+                            alignment: Alignment.center,
+                            decoration: BoxDecoration(
+                              color: AppColors.white.withAlpha(99),
+                              borderRadius: BorderRadius.circular(6),
+                            ),
+                            child: CustomText(
+                              text: '+${images.length - 3}',
+                              fontSize: 24.sp,
+                            ),
+                          ),
+                        )
+                        : SizedBox(),
               ),
-            ]
-          ]
-
+            ],
+          ],
         ),
       ];
     }
   }
-
 }

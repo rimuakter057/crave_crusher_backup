@@ -8,12 +8,7 @@ class CustomLoader extends StatelessWidget {
   const CustomLoader({super.key});
 
   @override
-  Widget build(BuildContext context)
-  {
-    return SpinKitCircle(
-      color: AppColors.primary,
-
-      size: 60.h,
-    );
+  Widget build(BuildContext context) {
+    return SpinKitCircle(color: AppColors.primary, size: 60.h);
   }
 }

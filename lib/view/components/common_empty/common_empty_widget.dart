@@ -3,10 +3,9 @@ import 'package:crave_crusher/view/components/custom_image/custom_image.dart';
 import 'package:crave_crusher/view/components/custom_text/custom_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+
 class EmptyWidget extends StatelessWidget {
-  const EmptyWidget({
-    super.key, required this.title,
-  });
+  const EmptyWidget({super.key, required this.title});
   final String title;
   @override
   Widget build(BuildContext context) {

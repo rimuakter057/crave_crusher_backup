@@ -1,3 +1,5 @@
+// ignore_for_file: deprecated_member_use
+
 import 'package:crave_crusher/utils/app_colors/app_colors.dart';
 import 'package:crave_crusher/utils/app_icons/app_icons.dart';
 import 'package:crave_crusher/view/components/custom_app_bar/custom_app_bar.dart';
@@ -141,7 +143,7 @@ class _StartNewBattleScreenState extends State<CreateBattleScreen> {
                         : () async {
                           final success = await controller.createBattle();
                           if (success) {
-                           // Get.to(BattleScreen());
+                            // Get.to(BattleScreen());
                             Get.back();
                             controller.fetchAllBattle();
                           }
@@ -215,8 +217,7 @@ class _CustomDropdownField extends StatelessWidget {
           bottom: 8.h,
         ),
         DropdownButtonFormField<String>(
-
-          value: selectedValue,
+          initialValue: selectedValue,
           decoration: InputDecoration(
             hintText: hint,
             hintStyle: TextStyle(color: AppColors.softWhite, fontSize: 14.sp),
@@ -226,7 +227,7 @@ class _CustomDropdownField extends StatelessWidget {
             ),
             filled: true,
             fillColor: AppColors.subPrimary.withOpacity(0.4),
-           // fillColor: AppColors.red,
+            // fillColor: AppColors.red,
             border: OutlineInputBorder(
               borderRadius: BorderRadius.circular(10.r),
               borderSide: BorderSide.none,
@@ -242,8 +243,7 @@ class _CustomDropdownField extends StatelessWidget {
           ),
           isExpanded: true,
 
-
-        icon: CustomSvgIcon(icon: AppIcons.dropDown),
+          icon: CustomSvgIcon(icon: AppIcons.dropDown),
 
           items:
               items.map((String value) {
@@ -257,12 +257,8 @@ class _CustomDropdownField extends StatelessWidget {
                     bottom: 0,
                     top: 0,
                   ),
-
                 );
               }).toList(),
-
-
-
 
           onChanged: onChanged,
         ),

@@ -1,6 +1,4 @@
-
-
-
+// ignore_for_file: deprecated_member_use
 
 import 'package:crave_crusher/utils/app_colors/app_colors.dart';
 import 'package:crave_crusher/utils/app_icons/app_icons.dart';
@@ -17,7 +15,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 
-
 class NotificationScreen extends StatefulWidget {
   const NotificationScreen({super.key});
 
@@ -30,11 +27,6 @@ class _NotificationScreenState extends State<NotificationScreen> {
 
   final ScrollController scrollController = ScrollController();
 
-
-
-
-
-
   @override
   Widget build(BuildContext context) {
     // Pagination scroll listener
@@ -46,14 +38,11 @@ class _NotificationScreenState extends State<NotificationScreen> {
       }
     });
 
-
-
-
     return Scaffold(
       backgroundColor: AppColors.backgroundColor,
       appBar: CustomLeadingTitleAppbar(title: "Notification"),
       body: CustomRefreshIndicator(
-        onRefresh: ()async{
+        onRefresh: () async {
           controller.currentPage.value = 1;
           await controller.fetchNotificationList(isRefresh: true);
         },
@@ -97,32 +86,27 @@ class _NotificationScreenState extends State<NotificationScreen> {
 
                   trailing: IconButton(
                     onPressed: () {
-                  controller.deleteNotification(notification.id!);
-                  Get.snackbar(
-                    "Success",
-                    "Notification deleted successfully",
-                  );
-                },
-              icon: CustomSvgIcon(
-                icon: AppIcons.cross,
-              ),
-              ),
-
-
-
-              );
+                      controller.deleteNotification(notification.id!);
+                      Get.snackbar(
+                        "Success",
+                        "Notification deleted successfully",
+                      );
+                    },
+                    icon: CustomSvgIcon(icon: AppIcons.cross),
+                  ),
+                );
               } else {
                 // Bottom loader for pagination
                 return Obx(() {
                   return controller.isLoadingNotification.value &&
-                      controller.currentPage.value > 1
+                          controller.currentPage.value > 1
                       ? Padding(
-                    padding: EdgeInsets.symmetric(vertical: 8.h),
-                    child: LinearProgressIndicator(
-                      color: AppColors.primary,
-                      minHeight: 3,
-                    ),
-                  )
+                        padding: EdgeInsets.symmetric(vertical: 8.h),
+                        child: LinearProgressIndicator(
+                          color: AppColors.primary,
+                          minHeight: 3,
+                        ),
+                      )
                       : SizedBox();
                 });
               }
@@ -133,10 +117,3 @@ class _NotificationScreenState extends State<NotificationScreen> {
     );
   }
 }
-
-
-
-
-
-
-

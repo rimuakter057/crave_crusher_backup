@@ -1,7 +1,6 @@
 import 'package:crave_crusher/view/components/custom_text/custom_text.dart';
 import 'package:flutter/material.dart';
 
-
 class RememberMeAndForgotPassword extends StatelessWidget {
   final bool isChecked;
 
@@ -23,7 +22,11 @@ class RememberMeAndForgotPassword extends StatelessWidget {
         // 1. Remember Me Checkbox and Text
         Row(
           children: [
-            Checkbox(value: isChecked, onChanged: onRememberMeChanged,      materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,),
+            Checkbox(
+              value: isChecked,
+              onChanged: onRememberMeChanged,
+              materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
+            ),
             const CustomText(
               text: "Remember Me",
               fontWeight: FontWeight.w600,

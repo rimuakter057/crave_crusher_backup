@@ -7,15 +7,19 @@ import 'package:google_fonts/google_fonts.dart';
 
 import '../../../utils/app_colors/app_colors.dart';
 
-
 class InputFieldWithTitleWidget extends StatelessWidget {
   const InputFieldWithTitleWidget({
-    super.key, required this.title, required this.hintText, this.controller, this.validator,  this.readOnly,
+    super.key,
+    required this.title,
+    required this.hintText,
+    this.controller,
+    this.validator,
+    this.readOnly,
   });
   final String title;
   final String hintText;
   final TextEditingController? controller;
-  final String? Function(String?)? validator ;
+  final String? Function(String?)? validator;
   final bool? readOnly;
 
   @override
@@ -23,21 +27,18 @@ class InputFieldWithTitleWidget extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        CustomText(text: title,fontSize: 14.sp,fontWeight: FontWeight.w500,),
+        CustomText(text: title, fontSize: 14.sp, fontWeight: FontWeight.w500),
         Gap(8.h),
         CustomTextField(
-          readOnly:readOnly?? false,
+          readOnly: readOnly ?? false,
           textEditingController: controller,
           fillColor: AppColors.naveBordar,
-          hintText:hintText ,
+          hintText: hintText,
           hintStyle: GoogleFonts.syne(
-              fontSize: 14.sp,
-              color: Color(0xFFA1A1AA)
+            fontSize: 14.sp,
+            color: Color(0xFFA1A1AA),
           ),
-          validator: validator ,
-
-
-
+          validator: validator,
         ),
       ],
     );

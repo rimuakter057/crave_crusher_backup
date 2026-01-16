@@ -6,23 +6,26 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:gap/gap.dart';
 
-
-
 class CustomProfileMenu extends StatelessWidget {
   const CustomProfileMenu({
-    super.key, required this.text, required this.onTap, this.textColor, this.iconColor, required this.icon,
+    super.key,
+    required this.text,
+    required this.onTap,
+    this.textColor,
+    this.iconColor,
+    required this.icon,
   });
   final String text;
 
   final void Function() onTap;
- final Color? textColor;
- final Color? iconColor;
- final String icon;
+  final Color? textColor;
+  final Color? iconColor;
+  final String icon;
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap:onTap,
+      onTap: onTap,
       child: Container(
         padding: EdgeInsets.all(12.w),
         decoration: BoxDecoration(
@@ -33,32 +36,26 @@ class CustomProfileMenu extends StatelessWidget {
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-          Row(
-            mainAxisAlignment: MainAxisAlignment.start,
-            children: [
-              IconTheme(
+            Row(
+              mainAxisAlignment: MainAxisAlignment.start,
+              children: [
+                IconTheme(
                   data: IconThemeData(
                     size: 24, // auto size for any icon
                     color: iconColor ?? AppColors.primary, // auto color
                   ),
-                  child: CustomSvgIcon(icon:icon ),
+                  child: CustomSvgIcon(icon: icon),
                 ),
 
-                    Gap(18.w),
+                Gap(18.w),
 
-                    CustomText(
-                text: text,
-                color: textColor ?? AppColors.primary,
-              ),
-            ],
-          ),
+                CustomText(text: text, color: textColor ?? AppColors.primary),
+              ],
+            ),
 
-
-    CustomSvgIcon(icon: AppIcons.arrowFront)
-
-        ],),
-
-
+            CustomSvgIcon(icon: AppIcons.arrowFront),
+          ],
+        ),
       ),
     );
   }

@@ -1,3 +1,5 @@
+// ignore_for_file: deprecated_member_use
+
 import 'dart:io';
 import 'package:crave_crusher/helper/time_converter/date_converter.dart';
 import 'package:crave_crusher/utils/app_colors/app_colors.dart';
@@ -20,8 +22,8 @@ class CreatePostScreen extends StatelessWidget {
 
   final PostController controller = Get.find<PostController>();
   final TextEditingController textController = TextEditingController();
-   final CommunityController communityController=Get.find<CommunityController>();
-
+  final CommunityController communityController =
+      Get.find<CommunityController>();
 
   @override
   Widget build(BuildContext context) {
@@ -39,9 +41,11 @@ class CreatePostScreen extends StatelessWidget {
               shape: BoxShape.circle,
               border: Border.all(color: AppColors.subPrimary),
             ),
-            child: IconButton(onPressed: (){
-              Get.back();
-            }, icon: CustomSvgIcon(icon: AppIcons.backButton)
+            child: IconButton(
+              onPressed: () {
+                Get.back();
+              },
+              icon: CustomSvgIcon(icon: AppIcons.backButton),
             ),
           ),
         ),
@@ -99,9 +103,6 @@ class CreatePostScreen extends StatelessWidget {
                 ),
                 Gap(12.h),
 
-
-
-
                 /// Image List
                 if (controller.imagePaths.isNotEmpty)
                   SizedBox(
@@ -135,7 +136,7 @@ class CreatePostScreen extends StatelessWidget {
                                     color: AppColors.white,
                                     shape: BoxShape.circle,
                                   ),
-                                  child: CustomSvgIcon(icon: AppIcons.cross)
+                                  child: CustomSvgIcon(icon: AppIcons.cross),
                                 ),
                               ),
                             ),
@@ -151,9 +152,7 @@ class CreatePostScreen extends StatelessWidget {
                   child: CustomContainer(
                     width: double.infinity,
                     height: 120.h,
-                    backgroundColor: AppColors.subPrimary.withOpacity(
-                      .5,
-                    ),
+                    backgroundColor: AppColors.subPrimary.withOpacity(.5),
                     child: Center(
                       child: CustomImage(imageSrc: AppIcons.addImage),
                     ),
@@ -161,18 +160,19 @@ class CreatePostScreen extends StatelessWidget {
                 ),
                 Gap(24.h),
 
-
-
-
                 /// post Button section
                 GestureDetector(
                   onTap:
                       controller.isLoadingCreate.value
                           ? null
                           : () async {
-                        var  dateTime = DateConverter.dateYearTimeUtc(DateTime.now().toString());
+                            var dateTime = DateConverter.dateYearTimeUtc(
+                              DateTime.now().toString(),
+                            );
 
-                        debugPrint("dateTime========================= >> $dateTime");
+                            debugPrint(
+                              "dateTime========================= >> $dateTime",
+                            );
 
                             if (controller.postText.value.trim().isEmpty) {
                               Get.snackbar(
@@ -184,7 +184,9 @@ class CreatePostScreen extends StatelessWidget {
 
                             await controller.createPost();
 
-                        Get.off(() => CommunityAllFeedScreen(initialTabIndex: 0));
+                            Get.off(
+                              () => CommunityAllFeedScreen(initialTabIndex: 0),
+                            );
 
                             textController.clear();
                             controller.postText.value = '';

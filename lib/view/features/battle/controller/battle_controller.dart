@@ -11,7 +11,6 @@ import '../models/battle_model.dart';
 class BattleController extends GetxController {
   RxInt battleTabIndex = 0.obs;
 
-
   ///create battle section=============================================Post Method============================================
 
   // Loading

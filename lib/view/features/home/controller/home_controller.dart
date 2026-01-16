@@ -18,8 +18,7 @@ class HomeController extends GetxController {
   RxList<NotificationModel> notificationList = <NotificationModel>[].obs;
 
   /// Loading states
-  var isLoadingNotification = false.obs;      // for fetch/pagination
-
+  var isLoadingNotification = false.obs; // for fetch/pagination
 
   Rx<Status> notificationStatus = Status.loading.obs;
   var currentPage = 1.obs;
@@ -78,12 +77,9 @@ class HomeController extends GetxController {
     }
   }
 
-
-
-
   /// Delete notification by ID
 
-  var isDeletingNotification = false.obs;     // for delete
+  var isDeletingNotification = false.obs; // for delete
 
   Future<void> deleteNotification(String id) async {
     isDeletingNotification.value = true;
@@ -96,7 +92,6 @@ class HomeController extends GetxController {
 
     if (response.statusCode == 200 || response.statusCode == 201) {
       notificationList.removeWhere((notification) => notification.id == id);
-
     } else {
       Get.snackbar("Failed", "Failed to delete notification");
       ApiChecker.checkApi(response);
@@ -104,7 +99,6 @@ class HomeController extends GetxController {
   }
 
   /// get tips
-
 
   RxString dailyTip = ''.obs;
   var isLoadingTip = false.obs;
@@ -122,7 +116,4 @@ class HomeController extends GetxController {
 
     isLoadingTip.value = false;
   }
-
-
-
 }

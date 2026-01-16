@@ -1,3 +1,5 @@
+// ignore_for_file: unused_local_variable
+
 import 'package:crave_crusher/helper/time_converter/date_converter.dart';
 import 'package:crave_crusher/view/components/common_empty/common_empty_widget.dart';
 import 'package:crave_crusher/view/components/custom_app_bar/custom_app_bar.dart';

@@ -21,18 +21,10 @@ class FaqModel {
       sId: json['_id'],
       question: json['question'],
       answer: json['answer'],
-
-
     );
   }
 
   Map<String, dynamic> toJson() {
-    return {
-      "id": id,
-      "_id": sId,
-      "question": question,
-      "answer": answer,
-
-    };
+    return {"id": id, "_id": sId, "question": question, "answer": answer};
   }
 }

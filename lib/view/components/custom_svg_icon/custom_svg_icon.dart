@@ -4,9 +4,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 
 class CustomSvgIcon extends StatelessWidget {
-  const CustomSvgIcon({
-    super.key, required this.icon, this.height, this.width,
-  });
+  const CustomSvgIcon({super.key, required this.icon, this.height, this.width});
 
   final String icon;
   final double? height;
@@ -16,12 +14,9 @@ class CustomSvgIcon extends StatelessWidget {
   Widget build(BuildContext context) {
     return SvgPicture.asset(
       icon, // svg icon path
-      width:width?? 20.w,
-      height:height?? 20.h,
-      colorFilter: ColorFilter.mode(
-        AppColors.primary,
-        BlendMode.srcIn,
-      ),
+      width: width ?? 20.w,
+      height: height ?? 20.h,
+      colorFilter: ColorFilter.mode(AppColors.primary, BlendMode.srcIn),
     );
   }
 }

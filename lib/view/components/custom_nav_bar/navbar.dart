@@ -115,16 +115,13 @@ class _NavBarState extends State<NavBar> {
     } else if (index == 1 && widget.currentIndex != 1) {
       Get.to(() => BattleScreen());
     } else if (index == 2 && widget.currentIndex != 2) {
-     // final AddPostController controller = Get.find<AddPostController>();
+      // final AddPostController controller = Get.find<AddPostController>();
 
-      Get.to(() => CommunityAllFeedScreen(
-
-      ));
-    }
-    else if (index == 3 && widget.currentIndex != 3) {
+      Get.to(() => CommunityAllFeedScreen());
+    } else if (index == 3 && widget.currentIndex != 3) {
       Get.to(() => RewardsScreen());
     } else if (index == 4 && widget.currentIndex != 4) {
-     // Get.to(() => ProfileScreen());
+      // Get.to(() => ProfileScreen());
       Get.to(() => ProfileScreen());
     }
   }

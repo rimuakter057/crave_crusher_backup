@@ -1,12 +1,11 @@
 import 'package:crave_crusher/utils/app_const/app_const.dart';
 
-
 import '../../service/api_url.dart';
 
 class ImageHandler {
-  static String imagesHandle(String? url,{bool isProfile = false}) {
+  static String imagesHandle(String? url, {bool isProfile = false}) {
     if (url == null || url.isEmpty) {
-      if(isProfile){
+      if (isProfile) {
         return AppConstants.unknown;
       }
       return AppConstants.restaurantImage;

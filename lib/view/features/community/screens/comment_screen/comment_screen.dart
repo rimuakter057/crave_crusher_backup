@@ -1,3 +1,5 @@
+// ignore_for_file: deprecated_member_use
+
 import 'package:crave_crusher/helper/images_handler/image_handler.dart';
 import 'package:crave_crusher/utils/app_colors/app_colors.dart';
 import 'package:crave_crusher/utils/app_icons/app_icons.dart';
@@ -56,7 +58,12 @@ class _CommentScreenState extends State<CommentScreen> {
               shape: BoxShape.circle,
               border: Border.all(color: AppColors.subPrimary),
             ),
-            child: IconButton(onPressed: (){Get.back();}, icon: CustomSvgIcon(icon: AppIcons.backButton))
+            child: IconButton(
+              onPressed: () {
+                Get.back();
+              },
+              icon: CustomSvgIcon(icon: AppIcons.backButton),
+            ),
           ),
         ),
         centerTitle: true,
@@ -111,8 +118,7 @@ class _CommentScreenState extends State<CommentScreen> {
                                   ),
                                   Gap(4.w),
                                   CustomText(
-                                    text:
-                                        "@${profile?.fullName}",
+                                    text: "@${profile?.fullName}",
                                     fontSize: 18,
                                   ),
                                 ],

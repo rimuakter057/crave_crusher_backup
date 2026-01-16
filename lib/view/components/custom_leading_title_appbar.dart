@@ -1,15 +1,16 @@
+// ignore_for_file: deprecated_member_use
+
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../../utils/app_colors/app_colors.dart';
 import 'custom_text/custom_text.dart';
 import 'leading_back/custom_leading_back_icon.dart';
 
-
 class CustomLeadingTitleAppbar extends StatelessWidget
     implements PreferredSizeWidget {
   final String title;
   final VoidCallback? onBack;
-final Color? titleColor;
+  final Color? titleColor;
   const CustomLeadingTitleAppbar({
     super.key,
     required this.title,
@@ -34,14 +35,14 @@ final Color? titleColor;
             shape: BoxShape.circle,
             border: Border.all(color: AppColors.subPrimary),
           ),
-          child:        LeadingBackIconWidget(),
+          child: LeadingBackIconWidget(),
         ),
       ),
 
       title: CustomText(
         text: title,
         fontSize: 18.sp,
-        color: titleColor??Color(0xFF1E1E1E),
+        color: titleColor ?? Color(0xFF1E1E1E),
         fontWeight: FontWeight.w500,
       ),
     );

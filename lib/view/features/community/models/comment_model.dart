@@ -24,12 +24,10 @@ class CommentModel {
       authorId: json['authorId']?['_id'],
       authorName: json['authorId']?['fullName'],
       commentText: json['commentText'],
-      createdAt: json['createdAt'] != null
-          ? DateTime.parse(json['createdAt'])
-          : null,
-      updatedAt: json['updatedAt'] != null
-          ? DateTime.parse(json['updatedAt'])
-          : null,
+      createdAt:
+          json['createdAt'] != null ? DateTime.parse(json['createdAt']) : null,
+      updatedAt:
+          json['updatedAt'] != null ? DateTime.parse(json['updatedAt']) : null,
     );
   }
 
@@ -37,10 +35,7 @@ class CommentModel {
     return {
       '_id': id,
       'postId': postId,
-      'authorId': {
-        '_id': authorId,
-        'fullName': authorName,
-      },
+      'authorId': {'_id': authorId, 'fullName': authorName},
       'commentText': commentText,
       'createdAt': createdAt?.toIso8601String(),
       'updatedAt': updatedAt?.toIso8601String(),

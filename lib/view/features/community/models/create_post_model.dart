@@ -1,5 +1,5 @@
 class CreatePostModel {
-  String? authorId;       // user id
+  String? authorId; // user id
   String? content;
   List<String>? postImages;
   int? totalVotes;
@@ -21,9 +21,10 @@ class CreatePostModel {
     return CreatePostModel(
       authorId: json['authorId'],
       content: json['content'],
-      postImages: json['post_images'] != null
-          ? List<String>.from(json['post_images'])
-          : [],
+      postImages:
+          json['post_images'] != null
+              ? List<String>.from(json['post_images'])
+              : [],
       totalVotes: json['totalVotes'],
       totalComments: json['totalComments'],
       isDeleted: json['isDeleted'],

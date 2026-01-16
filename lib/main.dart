@@ -30,7 +30,9 @@ Future<void> main() async {
   /// Load Token Immediately (VERY IMPORTANT)
   final auth = getx.Get.find<AuthController>();
   await auth.getUserData();
-  runApp(DevicePreview(enabled: false, builder: (context) => const CraveCrusher()));
+  runApp(
+    DevicePreview(enabled: false, builder: (context) => const CraveCrusher()),
+  );
 }
 
 class CraveCrusher extends StatelessWidget {
@@ -38,7 +40,6 @@ class CraveCrusher extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-
     return ScreenUtilInit(
       designSize: const Size(390, 870),
       minTextAdapt: true,
@@ -83,4 +84,3 @@ class CustomTheme {
 
   static ThemeData get darkTheme => ThemeData.dark();
 }
-

@@ -21,8 +21,9 @@ import 'package:gap/gap.dart';
 import 'package:get/get.dart';
 
 import '../controllers/profile_controller.dart';
+
 class ProfileScreen extends StatelessWidget {
-   ProfileScreen({super.key});
+  ProfileScreen({super.key});
   final ProfileController profileController = Get.find<ProfileController>();
   @override
   Widget build(BuildContext context) {
@@ -33,7 +34,7 @@ class ProfileScreen extends StatelessWidget {
       body: SingleChildScrollView(
         child: Column(
           children: [
-          // Top Stack
+            // Top Stack
             SizedBox(
               height: stackHeight,
               child: Stack(
@@ -66,7 +67,7 @@ class ProfileScreen extends StatelessWidget {
                         shape: BoxShape.circle,
                         border: Border.all(color: AppColors.subPrimary),
                       ),
-                      child:        LeadingBackIconWidget(),
+                      child: LeadingBackIconWidget(),
                     ),
                   ),
 
@@ -93,7 +94,6 @@ class ProfileScreen extends StatelessWidget {
                           profile?.profileImage,
                           isProfile: true,
                         ),
-
                       );
                     }),
                   ),
@@ -114,83 +114,109 @@ class ProfileScreen extends StatelessWidget {
               );
             }),
 
-
-
             Gap(24.h),
-
 
             // Scrollable content
             Padding(
               padding: EdgeInsets.symmetric(horizontal: 16.w),
-              child:Column(
+              child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  CustomProfileMenu(text: 'My Profile', icon: AppIcons.myProfile, onTap: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(builder: (context) => MyProfileScreen()),
-                    );
-                  },),
+                  CustomProfileMenu(
+                    text: 'My Profile',
+                    icon: AppIcons.myProfile,
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => MyProfileScreen(),
+                        ),
+                      );
+                    },
+                  ),
                   Gap(8.h),
-                  CustomProfileMenu(text: 'Account Setting', icon: AppIcons.accountSetting, onTap: () {
-
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(builder: (context) => AccountSettingScreen()),
-                    );
-
-                  },),
+                  CustomProfileMenu(
+                    text: 'Account Setting',
+                    icon: AppIcons.accountSetting,
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => AccountSettingScreen(),
+                        ),
+                      );
+                    },
+                  ),
                   Gap(8.h),
-                  CustomProfileMenu(text: 'Notification', icon: AppIcons.notification, onTap: () {
-
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(builder: (context) => NotificationScreen()),
-                    );
-
-
-                  },),
+                  CustomProfileMenu(
+                    text: 'Notification',
+                    icon: AppIcons.notification,
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => NotificationScreen(),
+                        ),
+                      );
+                    },
+                  ),
                   Gap(12.h),
-                  CustomText(text: "More",fontSize: 18.sp,fontWeight: FontWeight.w500,),
+                  CustomText(
+                    text: "More",
+                    fontSize: 18.sp,
+                    fontWeight: FontWeight.w500,
+                  ),
                   Gap(12.h),
 
-
-
-                  CustomProfileMenu(text: 'Terms & Condition', icon: AppIcons.terms, onTap: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(builder: (context) => TermsConditionScreen()),
-                    );
-
-
-                  },),
+                  CustomProfileMenu(
+                    text: 'Terms & Condition',
+                    icon: AppIcons.terms,
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => TermsConditionScreen(),
+                        ),
+                      );
+                    },
+                  ),
                   Gap(8.h),
-                  CustomProfileMenu(text: 'Privacy policy', icon: AppIcons.privacy,  onTap: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(builder: (context) => PrivacyPolicyScreen()),
-                    );
-
-
-                  },),
+                  CustomProfileMenu(
+                    text: 'Privacy policy',
+                    icon: AppIcons.privacy,
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => PrivacyPolicyScreen(),
+                        ),
+                      );
+                    },
+                  ),
                   Gap(8.h),
-                  CustomProfileMenu(text: 'Help/Support', icon: AppIcons.help,  onTap: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(builder: (context) => HelpSupportScreen()),
-                    );
-                  },),
+                  CustomProfileMenu(
+                    text: 'Help/Support',
+                    icon: AppIcons.help,
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => HelpSupportScreen(),
+                        ),
+                      );
+                    },
+                  ),
                   Gap(12.h),
-                  CustomProfileMenu(text: 'Log Out', icon: AppIcons.logout,
-                      onTap: () async {
-                        await Get.find<AuthController>().clearUserData();
-                        Get.offAllNamed(AppRoutes.loginScreen);
-                      }
-
+                  CustomProfileMenu(
+                    text: 'Log Out',
+                    icon: AppIcons.logout,
+                    onTap: () async {
+                      await Get.find<AuthController>().clearUserData();
+                      Get.offAllNamed(AppRoutes.loginScreen);
+                    },
                   ),
                 ],
-              )
-
+              ),
             ),
           ],
         ),
@@ -198,5 +224,3 @@ class ProfileScreen extends StatelessWidget {
     );
   }
 }
-
-

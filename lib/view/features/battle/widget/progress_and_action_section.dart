@@ -14,11 +14,11 @@ class ProgressAndActionSection extends StatelessWidget {
   final VoidCallback onBattleLogPressed;
   final VoidCallback onBattleNowPressed;
   final bool isActive;
-  final String?buttonText;
+  final String? buttonText;
   final Color? bgColor;
-  final String?iconSrc;
+  final String? iconSrc;
   final Color boarderColor;
-final Color?textColor;
+  final Color? textColor;
   const ProgressAndActionSection({
     super.key,
     required this.progress,
@@ -27,12 +27,11 @@ final Color?textColor;
     required this.onBattleLogPressed,
     required this.onBattleNowPressed,
     required this.isActive,
-     this.buttonText,
+    this.buttonText,
     this.textColor,
- this.bgColor,
-   this.iconSrc,
-   required this.boarderColor
-
+    this.bgColor,
+    this.iconSrc,
+    required this.boarderColor,
   });
 
   Widget _buildActionButton({
@@ -44,7 +43,6 @@ final Color?textColor;
     required VoidCallback onTap,
     bool isPrimary = false,
   }) {
-
     return GestureDetector(
       onTap: onTap,
       child: Container(
@@ -59,10 +57,7 @@ final Color?textColor;
         child: Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            CustomImage(
-              imageSrc: iconSrc,
-              height: 18.h,
-            ),
+            CustomImage(imageSrc: iconSrc, height: 18.h),
             SizedBox(width: 8.w),
             CustomText(
               text: text,
@@ -111,23 +106,26 @@ final Color?textColor;
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-
-                   CustomText(
-                          text: "${(progress * 100).toInt()}% to complete",
-                          maxLines: 1,
-                          overflow: TextOverflow.ellipsis,
-                          fontSize: 14.sp,
-                          fontWeight: FontWeight.w600,
-                          color: AppColors.black,
-                          bottom: 0,
-                          top: 0,
-                        ),
+                      CustomText(
+                        text: "${(progress * 100).toInt()}% to complete",
+                        maxLines: 1,
+                        overflow: TextOverflow.ellipsis,
+                        fontSize: 14.sp,
+                        fontWeight: FontWeight.w600,
+                        color: AppColors.black,
+                        bottom: 0,
+                        top: 0,
+                      ),
 
                       SizedBox(
-                        width:82.w,
+                        width: 82.w,
                         child: Row(
                           children: [
-                            CustomSvgIcon(icon: AppIcons.alarm,height: 12.h,width: 12.w,),
+                            CustomSvgIcon(
+                              icon: AppIcons.alarm,
+                              height: 12.h,
+                              width: 12.w,
+                            ),
 
                             SizedBox(width: 2.w),
                             CustomText(
@@ -162,7 +160,7 @@ final Color?textColor;
                     children: [
                       // Battle Log Button
                       _buildActionButton(
-                        boarderColor:AppColors.subPrimary,
+                        boarderColor: AppColors.subPrimary,
                         text: "Battle Log",
                         iconSrc: AppIcons.calender,
                         bgColor: AppColors.subPrimary,
@@ -182,16 +180,16 @@ final Color?textColor;
 
           SizedBox(height: 20.h),
 
-          if(isActive)
-          _buildActionButton(
-            boarderColor:boarderColor,
-            text:buttonText?? "Battle Now",
-            iconSrc:iconSrc?? AppIcons.battle,
-            bgColor:bgColor?? AppColors.primary,
-            textColor:textColor?? AppColors.white,
-            onTap: onBattleNowPressed,
-            isPrimary: true,
-          ),
+          if (isActive)
+            _buildActionButton(
+              boarderColor: boarderColor,
+              text: buttonText ?? "Battle Now",
+              iconSrc: iconSrc ?? AppIcons.battle,
+              bgColor: bgColor ?? AppColors.primary,
+              textColor: textColor ?? AppColors.white,
+              onTap: onBattleNowPressed,
+              isPrimary: true,
+            ),
         ],
       ),
     );

@@ -12,7 +12,7 @@
 
 
     <application
-        android:label="cruve_crusher"
+        android:label="Crave Crusher"
         android:name="${applicationName}"
         android:requestLegacyExternalStorage="true"
         android:icon="@mipmap/ic_launcher"

@@ -23,20 +23,18 @@ class HomeShimmerLoader extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 // first Row
-                _buildSkeleton(80.w, 10.h,),
+                _buildSkeleton(80.w, 10.h),
                 Gap(12.h),
 
                 // 2nd Row
-                _buildSkeleton(80.w, 10.h,),
+                _buildSkeleton(80.w, 10.h),
                 Gap(8.h),
 
                 // line
                 _buildSkeleton(double.infinity, 14.h),
 
                 Gap(8.h),
-                _buildSkeleton(200.w ,14.h),
-
-
+                _buildSkeleton(200.w, 14.h),
               ],
             ),
           ),

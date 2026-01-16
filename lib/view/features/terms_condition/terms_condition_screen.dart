@@ -33,23 +33,18 @@ class TermsConditionScreen extends StatelessWidget {
               title: "Terms & Conditions are currently unavailable",
             );
           }
-          return
-            Html(
-              data: termsData.description,
-              style: {
-                "body": Style(
-                  fontSize: FontSize(18.sp),
-                  fontWeight: FontWeight.w600,
-                  color: Colors.black,
-                ),
-              },
-            );
-
-
+          return Html(
+            data: termsData.description,
+            style: {
+              "body": Style(
+                fontSize: FontSize(18.sp),
+                fontWeight: FontWeight.w600,
+                color: Colors.black,
+              ),
+            },
+          );
         }),
       ),
     );
   }
 }
-
-

@@ -26,7 +26,7 @@ class AccountSettingScreen extends StatelessWidget {
           children: [
             CustomProfileMenu(
               text: 'Change Password',
-              icon:AppIcons.changePass,
+              icon: AppIcons.changePass,
               onTap: () {
                 Navigator.push(
                   context,

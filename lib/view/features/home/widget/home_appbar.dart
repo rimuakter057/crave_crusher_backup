@@ -31,7 +31,6 @@ class HomeAppbar extends StatelessWidget implements PreferredSizeWidget {
           Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-
               // Obx(() {
               //   final profile = profileController.myProfile.value;
               //
@@ -49,18 +48,7 @@ class HomeAppbar extends StatelessWidget implements PreferredSizeWidget {
               //   );
               //
               // }),
-
-
-
-
-
- SizedBox(
-                  width: 200.w,
-                  child: name
-                ),
-
-
-
+              SizedBox(width: 200.w, child: name),
 
               CustomText(
                 text: "Welcome to Crave Crusher",
@@ -74,7 +62,7 @@ class HomeAppbar extends StatelessWidget implements PreferredSizeWidget {
       ),
       actions: [
         GestureDetector(
-          onTap: (){
+          onTap: () {
             Navigator.push(
               context,
               MaterialPageRoute(builder: (context) => NotificationScreen()),
@@ -90,8 +78,7 @@ class HomeAppbar extends StatelessWidget implements PreferredSizeWidget {
                 shape: BoxShape.circle,
                 border: Border.all(width: .5, color: AppColors.primary),
               ),
-              child:
-              CustomImage(
+              child: CustomImage(
                 height: 24.h,
                 width: 24.w,
                 imageSrc: AppIcons.notification,

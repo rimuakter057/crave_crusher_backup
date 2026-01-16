@@ -1,3 +1,5 @@
+// ignore_for_file: use_build_context_synchronously
+
 import 'package:crave_crusher/view/components/custom_loader/custom_loader.dart';
 import 'package:crave_crusher/view/features/auth/controllers/reset_resend_otp_controller.dart';
 import 'package:flutter/material.dart';

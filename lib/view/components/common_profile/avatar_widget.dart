@@ -14,7 +14,7 @@ class ProfileAvatarWidget extends StatelessWidget {
   final bool enableEdit; // enable edit icon
   final VoidCallback? onEdit; // callback on edit tap
   final String editIconAsset;
-  final bool? isFile  ;
+  final bool? isFile;
 
   const ProfileAvatarWidget({
     super.key,
@@ -24,28 +24,25 @@ class ProfileAvatarWidget extends StatelessWidget {
     this.widthA,
     this.enableEdit = false,
     this.onEdit,
-    this.editIconAsset = "assets/icon/edit_profile_camera.svg", this.isFile = false,
+    this.editIconAsset = "assets/icon/edit_profile_camera.svg",
+    this.isFile = false,
   });
 
   @override
   Widget build(BuildContext context) {
-
-
-    final double avatarHeight =  80.h;
+    final double avatarHeight = 80.h;
     final double avatarWidth = 80.w;
 
-
-
     return SizedBox(
-      height:heightA?? avatarHeight,
-      width:widthA?? avatarWidth,
+      height: heightA ?? avatarHeight,
+      width: widthA ?? avatarWidth,
       child: Stack(
         clipBehavior: Clip.none,
         children: [
           // Circular profile image
           Container(
-            height:heightA?? avatarHeight,
-            width:widthA?? avatarWidth,
+            height: heightA ?? avatarHeight,
+            width: widthA ?? avatarWidth,
             alignment: Alignment.center,
             decoration: BoxDecoration(
               shape: BoxShape.circle,
@@ -56,42 +53,46 @@ class ProfileAvatarWidget extends StatelessWidget {
               color: Colors.white,
             ),
             child: ClipOval(
-              child:  !isFile!
-                  ? CachedNetworkImage(
-                imageUrl: ImageHandler.imagesHandle(imagePath),
-               width: avatarHeight,
-                height: avatarWidth,
-                fit: BoxFit.cover,
-              )
-                  : Image.file(
-                File(imagePath),
-                width: avatarHeight,
-                height: avatarWidth,
-                fit: BoxFit.cover,
-              ),
+              child:
+                  !isFile!
+                      ? CachedNetworkImage(
+                        imageUrl: ImageHandler.imagesHandle(imagePath),
+                        width: avatarHeight,
+                        height: avatarWidth,
+                        fit: BoxFit.cover,
+                      )
+                      : Image.file(
+                        File(imagePath),
+                        width: avatarHeight,
+                        height: avatarWidth,
+                        fit: BoxFit.cover,
+                      ),
             ),
-
           ),
 
           // Bottom-right edit icon
           if (enableEdit)
             Positioned(
               bottom: 0,
-              right:0,
-              child:SizedBox(
+              right: 0,
+              child: SizedBox(
                 height: 24.h,
                 width: 24.w,
                 child: IconButton(
-                    padding: EdgeInsets.zero,
-                    constraints: BoxConstraints(),
-                    onPressed: onEdit,
-                    style: IconButton.styleFrom(
-                      shape: CircleBorder(),
-                      backgroundColor: AppColors.primary
-                    ),
-                    icon: Icon(Icons.camera_alt_outlined,color: AppColors.white,size: 15.w,)),
-              )
-
+                  padding: EdgeInsets.zero,
+                  constraints: BoxConstraints(),
+                  onPressed: onEdit,
+                  style: IconButton.styleFrom(
+                    shape: CircleBorder(),
+                    backgroundColor: AppColors.primary,
+                  ),
+                  icon: Icon(
+                    Icons.camera_alt_outlined,
+                    color: AppColors.white,
+                    size: 15.w,
+                  ),
+                ),
+              ),
             ),
         ],
       ),

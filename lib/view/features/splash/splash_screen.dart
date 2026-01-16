@@ -17,7 +17,6 @@ class SplashScreen extends StatefulWidget {
 }
 
 class _SplashScreenState extends State<SplashScreen> {
-
   @override
   void initState() {
     super.initState();
@@ -37,7 +36,6 @@ class _SplashScreenState extends State<SplashScreen> {
     }
   }
 
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -48,7 +46,11 @@ class _SplashScreenState extends State<SplashScreen> {
           children: [
             CustomImage(imageSrc: AppImages.appLogo),
             Gap(16.h),
-            CustomText(text: "Crave Crusher",fontSize: 32.sp,color: AppColors.primary,)
+            CustomText(
+              text: "Crave Crusher",
+              fontSize: 32.sp,
+              color: AppColors.primary,
+            ),
           ],
         ),
       ),

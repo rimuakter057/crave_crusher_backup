@@ -41,7 +41,7 @@ class _EditProfileScreensState extends State<EditProfileScreens> {
   @override
   void dispose() {
     // T ODO: implement dispose
-    controller.profileImageFile.value== null;
+    controller.profileImageFile.value == null;
     super.dispose();
   }
 
@@ -60,20 +60,19 @@ class _EditProfileScreensState extends State<EditProfileScreens> {
             Center(
               child: Obx(
                 () => ProfileAvatarWidget(
-
-
                   imagePath:
                       controller.profileImageFile.value == null
-                          ?        ImageHandler.imagesHandle(
-                        controller.myProfile.value?.profileImage,
-                        isProfile: true,
-                      )
+                          ? ImageHandler.imagesHandle(
+                            controller.myProfile.value?.profileImage,
+                            isProfile: true,
+                          )
                           : controller.profileImageFile.value?.path ?? '',
                   heightA: 85.h,
                   widthA: 85.w,
                   enableEdit: true,
                   onEdit: controller.pickImageFromGallery,
-                  isFile: controller.profileImageFile.value == null? false:true,
+                  isFile:
+                      controller.profileImageFile.value == null ? false : true,
                 ),
               ),
             ),

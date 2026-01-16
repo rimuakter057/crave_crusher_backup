@@ -21,25 +21,28 @@ class MyPostModel {
     this.hasVoted,
   });
 
-
-
-
   factory MyPostModel.fromJson(Map<String, dynamic> json) => MyPostModel(
     id: json["_id"],
     content: json["content"],
-    postImages: json["post_images"] == null ? [] : List<String>.from(json["post_images"]!.map((x) => x)),
+    postImages:
+        json["post_images"] == null
+            ? []
+            : List<String>.from(json["post_images"]!.map((x) => x)),
     totalVotes: json["totalVotes"],
     totalComments: json["totalComments"],
     isDeleted: json["isDeleted"],
-    createdAt: json["createdAt"] == null ? null : DateTime.parse(json["createdAt"]),
-    updatedAt: json["updatedAt"] == null ? null : DateTime.parse(json["updatedAt"]),
+    createdAt:
+        json["createdAt"] == null ? null : DateTime.parse(json["createdAt"]),
+    updatedAt:
+        json["updatedAt"] == null ? null : DateTime.parse(json["updatedAt"]),
     hasVoted: json["hasVoted"],
   );
 
   Map<String, dynamic> toJson() => {
     "_id": id,
     "content": content,
-    "post_images": postImages == null ? [] : List<dynamic>.from(postImages!.map((x) => x)),
+    "post_images":
+        postImages == null ? [] : List<dynamic>.from(postImages!.map((x) => x)),
     "totalVotes": totalVotes,
     "totalComments": totalComments,
     "isDeleted": isDeleted,
@@ -48,5 +51,3 @@ class MyPostModel {
     "hasVoted": hasVoted,
   };
 }
-
-

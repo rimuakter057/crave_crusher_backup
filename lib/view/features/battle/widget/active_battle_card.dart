@@ -260,7 +260,6 @@ class DottedProgressBar extends StatelessWidget {
                 children: List.generate(dotCount, (index) {
                   return Center(
                     child: Container(
-
                       width: 4.w, // circle width = height
                       height: 4.h, // circle height
                       decoration: BoxDecoration(
@@ -278,5 +277,3 @@ class DottedProgressBar extends StatelessWidget {
     );
   }
 }
-
-

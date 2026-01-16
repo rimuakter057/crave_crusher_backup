@@ -1,5 +1,3 @@
-
-
 import 'dart:convert';
 
 import 'package:get/get.dart';
@@ -8,16 +6,15 @@ PostModel postModelFromJson(String str) => PostModel.fromJson(json.decode(str));
 
 String postModelToJson(PostModel data) => json.encode(data.toJson());
 
-
 class PostModel {
   final String? id;
   final String? content;
   final List<String> postImages;
- final String? totalReaction;
+  final String? totalReaction;
   final String? totalBadge;
   final String? totalPost;
 
-   RxInt totalVotes;
+  RxInt totalVotes;
 
   final int? totalComments;
   final bool? isDeleted;
@@ -40,10 +37,9 @@ class PostModel {
     this.updatedAt,
     RxBool? hasVoted,
     this.author,
-  })  : postImages = postImages ?? [],
-        totalVotes = totalVotes ?? 0.obs,
-        hasVoted = hasVoted ?? false.obs;
-
+  }) : postImages = postImages ?? [],
+       totalVotes = totalVotes ?? 0.obs,
+       hasVoted = hasVoted ?? false.obs;
 
   factory PostModel.fromJson(Map<String, dynamic> json) {
     return PostModel(
@@ -52,22 +48,19 @@ class PostModel {
       totalReaction: json["totalReaction"],
       id: json["_id"],
       content: json["content"],
-      postImages: json["post_images"] == null
-          ? []
-          : List<String>.from(json["post_images"]),
+      postImages:
+          json["post_images"] == null
+              ? []
+              : List<String>.from(json["post_images"]),
       totalVotes: RxInt(json["totalVotes"] ?? 0),
       totalComments: json["totalComments"],
       isDeleted: json["isDeleted"],
-      createdAt: json["createdAt"] == null
-          ? null
-          : DateTime.parse(json["createdAt"]),
-      updatedAt: json["updatedAt"] == null
-          ? null
-          : DateTime.parse(json["updatedAt"]),
-      hasVoted: RxBool(json["hasVoted"]??false),
-      author: json["author"] == null
-          ? null
-          : Author.fromJson(json["author"]),
+      createdAt:
+          json["createdAt"] == null ? null : DateTime.parse(json["createdAt"]),
+      updatedAt:
+          json["updatedAt"] == null ? null : DateTime.parse(json["updatedAt"]),
+      hasVoted: RxBool(json["hasVoted"] ?? false),
+      author: json["author"] == null ? null : Author.fromJson(json["author"]),
     );
   }
 
@@ -88,23 +81,17 @@ class PostModel {
   };
 }
 
-
 class Author {
   final String? id;
   final String? fullName;
   final String? email;
   final dynamic profileImage;
 
-  Author({
-    this.id,
-    this.fullName,
-    this.email,
-    this.profileImage,
-  });
+  Author({this.id, this.fullName, this.email, this.profileImage});
 
   factory Author.fromJson(Map<String, dynamic> json) => Author(
     id: json["_id"],
-    fullName: json["fullName"]??'Unknown',
+    fullName: json["fullName"] ?? 'Unknown',
     email: json["email"],
     profileImage: json["profileImage"],
   );

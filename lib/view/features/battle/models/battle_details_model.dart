@@ -80,7 +80,7 @@ class Battle {
     totalCrave = json['totalCrave'];
     isDeleted = json['isDeleted'];
     createdAt = json['createdAt'];
-    todayStatus=json['todayStatus'];
+    todayStatus = json['todayStatus'];
   }
 
   Map<String, dynamic> toJson() {
@@ -98,7 +98,7 @@ class Battle {
     data['totalCrave'] = totalCrave;
     data['isDeleted'] = isDeleted;
     data['createdAt'] = createdAt;
-    data['todayStatus']=todayStatus;
+    data['todayStatus'] = todayStatus;
     return data;
   }
 }
@@ -147,17 +147,19 @@ class BattleLogs {
 
 class Monster {
   final String? monsterImage;
-  final String?monsterMessage;
+  final String? monsterMessage;
 
-  Monster({this.monsterImage,this.monsterMessage});
+  Monster({this.monsterImage, this.monsterMessage});
 
   factory Monster.fromJson(Map<String, dynamic> json) {
-    return Monster(monsterImage: json["monster_image"],
-        monsterMessage: json['monster_message']
+    return Monster(
+      monsterImage: json["monster_image"],
+      monsterMessage: json['monster_message'],
     );
   }
 
-  Map<String, dynamic> toJson() => {"monster_image": monsterImage,
-    "monster_message":monsterMessage
+  Map<String, dynamic> toJson() => {
+    "monster_image": monsterImage,
+    "monster_message": monsterMessage,
   };
 }

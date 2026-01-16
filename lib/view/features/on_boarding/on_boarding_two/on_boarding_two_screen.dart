@@ -32,11 +32,8 @@ class _OnBoardingTwoScreenState extends State<OnBoardingTwoScreen> {
             'See your streak grow, money saved, and milestones achieved as you progress.',
         onTap: () {
           Get.to(() => OnBoardingThreeScreen());
-
         },
       ),
     );
   }
 }
-
-

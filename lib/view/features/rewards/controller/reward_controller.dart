@@ -7,7 +7,6 @@ import 'package:get/get.dart';
 import '../models/progress_model.dart';
 
 class RewardsController extends GetxController {
-
   ///get all badges controller=================================================================================
 
   RxList<BadgeModel> allBadgeList = <BadgeModel>[].obs;
@@ -24,7 +23,7 @@ class RewardsController extends GetxController {
               .toList();
 
       allBadgeList.value = badgeList;
-    }  else if (response.statusCode != 404) {
+    } else if (response.statusCode != 404) {
       ApiChecker.checkApi(response);
     }
     isLoadingAllBadge.value = false;
@@ -45,10 +44,10 @@ class RewardsController extends GetxController {
     if (response.statusCode == 200 && response.body['data'] != null) {
       // Use model
       final progressModel = BadgeProgressModel.fromJson(response.body['data']);
-      currentProgress.value = progressModel.currentProgress ?? 00;
-      craveCount.value = progressModel.craveCount ?? 00;
+      currentProgress.value = progressModel.currentProgress;
+      craveCount.value = progressModel.craveCount;
       currentBadge.value = progressModel.currentBadge;
-    }  else if (response.statusCode != 404) {
+    } else if (response.statusCode != 404) {
       ApiChecker.checkApi(response);
     }
 
@@ -71,7 +70,7 @@ class RewardsController extends GetxController {
               .toList();
 
       allAchieveList.value = achieveList;
-    }  else if (response.statusCode != 404) {
+    } else if (response.statusCode != 404) {
       ApiChecker.checkApi(response);
     }
     isLoadingAchieveBadge.value = false;
@@ -119,7 +118,7 @@ class RewardsController extends GetxController {
 
       allClaimList.value =
           claimList.map((e) => BadgeModel.fromJson(e)).toList();
-    }  else if (response.statusCode != 404) {
+    } else if (response.statusCode != 404) {
       ApiChecker.checkApi(response);
     }
 

@@ -40,7 +40,7 @@ class CurrentBadge {
   final int day;
   final int orderNumber;
 
-  CurrentBadge( {
+  CurrentBadge({
     required this.name,
     required this.badgeImage,
     required this.day,
@@ -57,6 +57,11 @@ class CurrentBadge {
   }
 
   Map<String, dynamic> toJson() {
-    return {'name': name, 'badge_image': badgeImage, 'day': day,"orderNumber":orderNumber};
+    return {
+      'name': name,
+      'badge_image': badgeImage,
+      'day': day,
+      "orderNumber": orderNumber,
+    };
   }
 }
