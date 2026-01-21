@@ -40,6 +40,7 @@ class Battle {
   String? addictionLevel;
   int? battleLength;
   int? day;
+  int?dayProgress;
   bool? sendReminder;
   String? battleReason;
   int? battleProgress;
@@ -56,6 +57,7 @@ class Battle {
     this.addictionLevel,
     this.battleLength,
     this.day,
+    this.dayProgress,
     this.sendReminder,
     this.battleReason,
     this.battleProgress,
@@ -73,6 +75,7 @@ class Battle {
     addictionLevel = json['addictionLevel'];
     battleLength = json['battleLength'];
     day = json['day'];
+    dayProgress=json['dayProgress'];
     sendReminder = json['sendReminder'];
     battleReason = json['battleReason'];
     battleProgress = json['battleProgress'];
@@ -91,6 +94,7 @@ class Battle {
     data['addictionLevel'] = addictionLevel;
     data['battleLength'] = battleLength;
     data['day'] = day;
+    data['dayProgress'] =dayProgress;
     data['sendReminder'] = sendReminder;
     data['battleReason'] = battleReason;
     data['battleProgress'] = battleProgress;

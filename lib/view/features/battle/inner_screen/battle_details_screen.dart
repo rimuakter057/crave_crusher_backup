@@ -284,7 +284,7 @@ class _BattleDetailsScreenState extends State<BattleDetailsScreen> {
                     isActive: widget.isActive,
                     progress: (battle.battleProgress ?? 0) / 100,
                     dayCount:
-                        "Day ${battle.day ?? 0} of ${battle.battleLength ?? 0}",
+                        "Day ${battle.dayProgress ?? 0} of ${battle.battleLength ?? 0}",
                     title: battle.addictionType ?? '',
                     onBattleLogPressed: () {
                       final id = widget.battleId;
