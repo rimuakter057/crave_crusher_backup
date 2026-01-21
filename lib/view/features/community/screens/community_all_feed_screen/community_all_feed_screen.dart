@@ -165,6 +165,8 @@ class _CommunityAllFeedScreenState extends State<CommunityAllFeedScreen> {
                                     Get.to(
                                       () => CommunityProfileScreen(
                                         userId: post.author?.id ?? '',
+                                        profileName: "${post.author?.fullName}",
+                                        profileImage: post.author?.profileImage,
                                       ),
                                     );
                                   },
@@ -293,6 +295,9 @@ class _CommunityAllFeedScreenState extends State<CommunityAllFeedScreen> {
                                     Get.to(
                                       () => CommunityProfileScreen(
                                         userId: myPost.author?.id ?? '',
+                                        profileName:
+                                            "${myPost.author?.fullName}",
+                                        profileImage: myPost.author?.profileImage,
                                       ),
                                     );
                                   },
