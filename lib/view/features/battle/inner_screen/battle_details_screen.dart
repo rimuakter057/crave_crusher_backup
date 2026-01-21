@@ -181,6 +181,8 @@ class _BattleDetailsScreenState extends State<BattleDetailsScreen> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
+
+
                   DetailsMonsterSection(
                     detoxType: checkDetoxType(battle.addictionType ?? ''),
                     battleTitle: battle.addictionType ?? '',
@@ -239,6 +241,9 @@ class _BattleDetailsScreenState extends State<BattleDetailsScreen> {
                         "Your Monster Is Losing Power — Keep It Up!",
                   ),
 
+
+
+
                   SizedBox(height: 24.h),
 
                   ProgressAndActionSection(
@@ -279,7 +284,7 @@ class _BattleDetailsScreenState extends State<BattleDetailsScreen> {
                     isActive: widget.isActive,
                     progress: (battle.battleProgress ?? 0) / 100,
                     dayCount:
-                        "Day ${battle.day ?? 0} of ${battle.battleLength ?? 0}",
+                        "Day ${battle.dayProgress ?? 0} of ${battle.battleLength ?? 0}",
                     title: battle.addictionType ?? '',
                     onBattleLogPressed: () {
                       final id = widget.battleId;

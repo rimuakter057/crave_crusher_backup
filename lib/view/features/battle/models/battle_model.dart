@@ -8,6 +8,7 @@ class BattleModel {
   final int? battleProgress;
   final String? battleStatus;
   final int? day;
+  final int?dayProgress;
   final String? todayStatus; //next added
 
   final String? currentDayStatus;
@@ -21,6 +22,7 @@ class BattleModel {
     this.battleProgress,
     this.battleStatus,
     this.day,
+    this.dayProgress,
     this.currentDayStatus,
     this.todayStatus, //next added
   });
@@ -35,6 +37,7 @@ class BattleModel {
     battleProgress: json["battleProgress"],
     battleStatus: json["battleStatus"],
     day: json["day"],
+    dayProgress: json["dayProgress"],
     currentDayStatus: json["currentDayStatus"],
     todayStatus: json["todayStatus"], //next added
   );
@@ -49,6 +52,7 @@ class BattleModel {
     "battleProgress": battleProgress,
     "battleStatus": battleStatus,
     "day": day,
+    "dayProgress": dayProgress,
     "currentDayStatus": currentDayStatus,
     "todayStatus": todayStatus,
   };
