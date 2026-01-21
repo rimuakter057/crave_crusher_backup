@@ -1,6 +1,6 @@
 class ApiUrl {
   //Live Server
-  static const String primaryUrl = "http://56.228.56.225:5000"; //
+  static const String primaryUrl = "http://56.228.56.225:5000"; // ////
 
   //local Server
   // static const String primaryUrl = "http://10.10.20.45:5000";
