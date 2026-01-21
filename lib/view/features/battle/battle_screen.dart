@@ -105,7 +105,7 @@ class _BattleScreenState extends State<BattleScreen> {
                                       status:
                                           battle.todayStatus?.toString() ?? '',
                                       dayCount:
-                                          "Day ${battle.day} of ${battle.battleLength}",
+                                          "Day ${battle.dayProgress} of ${battle.battleLength}",
                                       onBattlePressed: () {
                                         Get.to(
                                           () => BattleDetailsScreen(
@@ -156,7 +156,7 @@ class _BattleScreenState extends State<BattleScreen> {
                                           (battle.battleProgress ?? 0) / 100,
                                       status: battle.battleStatus.toString(),
                                       dayCount:
-                                          "Day ${battle.day} of ${battle.battleLength} ",
+                                          "Day ${battle.dayProgress} of ${battle.battleLength} ",
                                       onBattlePressed: () {
                                         Get.to(
                                           BattleDetailsScreen(
@@ -207,7 +207,7 @@ class _BattleScreenState extends State<BattleScreen> {
                                           (battle.battleProgress ?? 0) / 100,
                                       status: battle.battleStatus.toString(),
                                       dayCount:
-                                          "Day ${battle.day} of ${battle.battleLength}",
+                                          "Day ${battle.dayProgress} of ${battle.battleLength}",
                                       onBattlePressed: () {
                                         Get.to(
                                           BattleDetailsScreen(

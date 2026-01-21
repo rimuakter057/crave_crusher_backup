@@ -178,7 +178,7 @@ class _HomeScreenState extends State<HomeScreen> {
                             progress: (battle.battleProgress ?? 0) / 100,
                             status: battle.todayStatus.toString(),
                             dayCount:
-                                "Day ${battle.day} of ${battle.battleLength}",
+                                "Day ${battle.dayProgress} of ${battle.battleLength}",
                             onBattlePressed: () {
                               Get.to(
                                 BattleDetailsScreen(
