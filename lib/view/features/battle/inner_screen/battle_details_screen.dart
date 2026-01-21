@@ -181,6 +181,8 @@ class _BattleDetailsScreenState extends State<BattleDetailsScreen> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
+
+
                   DetailsMonsterSection(
                     detoxType: checkDetoxType(battle.addictionType ?? ''),
                     battleTitle: battle.addictionType ?? '',
@@ -238,6 +240,9 @@ class _BattleDetailsScreenState extends State<BattleDetailsScreen> {
                             ?.monsterMessage ??
                         "Your Monster Is Losing Power — Keep It Up!",
                   ),
+
+
+
 
                   SizedBox(height: 24.h),
 
