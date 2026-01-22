@@ -184,6 +184,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                 BattleDetailsScreen(
                                   isActive: true,
                                   battleId: battle.id.toString(),
+                                  status: battle.todayStatus.toString(),
                                 ),
                               );
                             },

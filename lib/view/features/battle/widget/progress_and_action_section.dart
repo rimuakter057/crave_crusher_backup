@@ -13,12 +13,7 @@ class ProgressAndActionSection extends StatelessWidget {
   final String title;
   final VoidCallback onBattleLogPressed;
   final VoidCallback onBattleNowPressed;
-  final bool isActive;
-  final String? buttonText;
-  final Color? bgColor;
-  final String? iconSrc;
-  final Color boarderColor;
-  final Color? textColor;
+
   const ProgressAndActionSection({
     super.key,
     required this.progress,
@@ -26,52 +21,10 @@ class ProgressAndActionSection extends StatelessWidget {
     required this.title,
     required this.onBattleLogPressed,
     required this.onBattleNowPressed,
-    required this.isActive,
-    this.buttonText,
-    this.textColor,
-    this.bgColor,
-    this.iconSrc,
-    required this.boarderColor,
+
   });
 
-  Widget _buildActionButton({
-    required Color boarderColor,
-    required String text,
-    required String iconSrc,
-    required Color bgColor,
-    required Color textColor,
-    required VoidCallback onTap,
-    bool isPrimary = false,
-  }) {
-    return GestureDetector(
-      onTap: onTap,
-      child: Container(
-        height: 36.h,
-        width: 130.w,
-        alignment: Alignment.center,
-        decoration: BoxDecoration(
-          color: bgColor,
-          borderRadius: BorderRadius.circular(8.r),
-          border: Border.all(color: boarderColor),
-        ),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            CustomImage(imageSrc: iconSrc, height: 18.h),
-            SizedBox(width: 8.w),
-            CustomText(
-              text: text,
-              fontSize: 12.sp,
-              fontWeight: FontWeight.w600,
-              color: textColor,
-              bottom: 0,
-              top: 0,
-            ),
-          ],
-        ),
-      ),
-    );
-  }
+
 
   @override
   Widget build(BuildContext context) {
@@ -178,20 +131,72 @@ class ProgressAndActionSection extends StatelessWidget {
             ),
           ),
 
-          SizedBox(height: 20.h),
+         // SizedBox(height: 20.h),
 
-          if (isActive)
-            _buildActionButton(
-              boarderColor: boarderColor,
-              text: buttonText ?? "Battle Now",
-              iconSrc: iconSrc ?? AppIcons.battle,
-              bgColor: bgColor ?? AppColors.primary,
-              textColor: textColor ?? AppColors.white,
-              onTap: onBattleNowPressed,
-              isPrimary: true,
-            ),
+
+            // _buildActionButton(
+            //   boarderColor: boarderColor,
+            //   text: buttonText ?? "Battle Now",
+            //   iconSrc: iconSrc ?? AppIcons.battle,
+            //   bgColor: bgColor ?? AppColors.primary,
+            //   textColor: textColor ?? AppColors.white,
+            //   onTap: onBattleNowPressed,
+            //   isPrimary: true,
+            // ),
         ],
       ),
     );
   }
+
+
+
+
+
+
+
+  /// 🔹 Build action button
+  Widget _buildActionButton({
+    required Color boarderColor,
+    required String text,
+    required String iconSrc,
+    required Color bgColor,
+    required Color textColor,
+    required VoidCallback onTap,
+    bool isPrimary = false,
+  }) {
+    return GestureDetector(
+      onTap: onTap,
+      child: Container(
+        height: 36.h,
+        width: 130.w,
+        alignment: Alignment.center,
+        decoration: BoxDecoration(
+          color: bgColor,
+          borderRadius: BorderRadius.circular(8.r),
+          border: Border.all(color: boarderColor),
+        ),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            CustomImage(imageSrc: iconSrc, height: 18.h),
+            SizedBox(width: 8.w),
+            CustomText(
+              text: text,
+              fontSize: 12.sp,
+              fontWeight: FontWeight.w600,
+              color: textColor,
+              bottom: 0,
+              top: 0,
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
+
+
+
+
+
 }

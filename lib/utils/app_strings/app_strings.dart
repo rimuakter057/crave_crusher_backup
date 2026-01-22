@@ -1,4 +1,4 @@
-class AppStrings {
+class AppText {
   static RegExp passRegexp = RegExp(r'^(?=.*?[A-Z])(?=.*?[a-z])(?=.{8,}$)');
   static RegExp emailRegexp = RegExp(
     r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+",
@@ -21,6 +21,12 @@ class AppStrings {
   static const String caved = "Caved";
   static const String craved = "Craved";
   static const String missed = "Missed";
+///api status text==============================================
+  static const String cavedStatus = "caved";
+  static const String cravedStatus = "craved";
+  static const String pendingStatus = "pending";
+  static const String completeStatus = "complete";
+  static const String cancelStatus = "cancel";
 
   static const List<String> addictionTypes = [
     smokingDetox,
