@@ -28,15 +28,19 @@ LogType getLogTypeFromStatus(String status) {
 class LogEntryItem extends StatelessWidget {
   final LogType type;
   final int dayNumber;
-  final String statusText;
+  final int countCaved;
+  final int countCraved;
   final String timestamp;
+
 
   const LogEntryItem({
     super.key,
     required this.type,
     required this.dayNumber,
-    required this.statusText,
+
+    required this.countCraved,
     required this.timestamp,
+    required this.countCaved,
   });
 
   Color get _primaryColor {
@@ -110,12 +114,70 @@ class LogEntryItem extends StatelessWidget {
                     fontSize: 16,
                     color: AppColors.appTitle,
                   ),
-                  CustomText(
-                    text: statusText,
-                    fontWeight: FontWeight.w500,
-                    fontSize: 13,
-                    color: AppColors.softWhite,
+
+                  Row(
+                    children: [
+
+                      Container(
+                        height: 30.h,
+                        width: 130.w,
+                        alignment: Alignment.center,
+                        decoration: BoxDecoration(
+                          color: AppColors.red100,
+                          borderRadius: BorderRadius.circular(8.r),
+                          border: Border.all(color: AppColors.red),
+                        ),
+                        child: Row(
+                          children: [
+                            CustomText(
+                              text: "Caved",
+                              fontWeight: FontWeight.w500,
+                              fontSize: 12,
+                              color: AppColors.softWhite,
+                            ),
+                            SizedBox(width: 8.w,),
+
+                            CustomText(
+                              text: countCraved.toString(),
+                              fontWeight: FontWeight.w500,
+                              fontSize: 12,
+                              color: AppColors.softWhite,
+                            ),
+                          ],
+                        ),
+                      ),
+
+                      Container(
+                        height: 30.h,
+                        width: 130.w,
+                        alignment: Alignment.center,
+                        decoration: BoxDecoration(
+                          color: AppColors.softGreen,
+                          borderRadius: BorderRadius.circular(8.r),
+                          border: Border.all(color: AppColors.green),
+                        ),
+                        child:    Row(
+                          children: [
+                            CustomText(
+                              text: "Craved",
+                              fontWeight: FontWeight.w500,
+                              fontSize: 12,
+                              color: AppColors.softWhite,
+                            ),
+                            SizedBox(width: 8.w,),
+
+                            CustomText(
+                              text: countCraved.toString(),
+                              fontWeight: FontWeight.w500,
+                              fontSize: 12,
+                              color: AppColors.softWhite,
+                            ),
+                          ],
+                        ),
+                      ),
+                    ],
                   ),
+
                 ],
               ),
             ),

@@ -12,7 +12,7 @@ class ProgressAndActionSection extends StatelessWidget {
   final String dayCount;
   final String title;
   final VoidCallback onBattleLogPressed;
-  final VoidCallback onBattleNowPressed;
+  //final VoidCallback onBattleNowPressed;
 
   const ProgressAndActionSection({
     super.key,
@@ -20,7 +20,7 @@ class ProgressAndActionSection extends StatelessWidget {
     required this.dayCount,
     required this.title,
     required this.onBattleLogPressed,
-    required this.onBattleNowPressed,
+   // required this.onBattleNowPressed,
 
   });
 

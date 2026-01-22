@@ -42,10 +42,15 @@ class BattleLogScreen extends StatelessWidget {
                     return LogEntryItem(
                       type: type,
                       dayNumber: log.day ?? 0,
-                      statusText: log.status ?? '',
+                      countCraved:  0,
+                      countCaved: 0,
                       timestamp: DateConverter.dateYearTimeUtc(
                         log.createdAt ?? '',
                       ),
+
+
+
+
                     );
                   },
                 ),
