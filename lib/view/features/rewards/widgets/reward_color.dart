@@ -4,21 +4,21 @@ import 'package:flutter/material.dart';
 
 Color getBadgeBorderColor(String title) {
   switch (title) {
-    case AppStrings.ccLegend:
+    case AppText.ccLegend:
       return AppColors.ccBoarder;
-    case AppStrings.positivePowerhouse:
+    case AppText.positivePowerhouse:
       return AppColors.positiveBoarder;
-    case AppStrings.milestoneAchiever:
+    case AppText.milestoneAchiever:
       return AppColors.milestoneBoarder;
-    case AppStrings.victoryStreaker:
+    case AppText.victoryStreaker:
       return AppColors.victoryBoarder;
-    case AppStrings.focusFighter:
+    case AppText.focusFighter:
       return AppColors.focusBoarder;
-    case AppStrings.monsterMaster:
+    case AppText.monsterMaster:
       return AppColors.monsterBoarder;
-    case AppStrings.consistencyChamp:
+    case AppText.consistencyChamp:
       return AppColors.consistencyBoarder;
-    case AppStrings.starterSpark:
+    case AppText.starterSpark:
       return AppColors.starterBoarder;
     default:
       return Colors.grey.shade100;
@@ -27,21 +27,21 @@ Color getBadgeBorderColor(String title) {
 
 Color getBadgeBgColor(String title) {
   switch (title) {
-    case AppStrings.ccLegend:
+    case AppText.ccLegend:
       return AppColors.ccBg;
-    case AppStrings.positivePowerhouse:
+    case AppText.positivePowerhouse:
       return AppColors.positiveBg;
-    case AppStrings.milestoneAchiever:
+    case AppText.milestoneAchiever:
       return AppColors.milestoneBg;
-    case AppStrings.victoryStreaker:
+    case AppText.victoryStreaker:
       return AppColors.victoryBg;
-    case AppStrings.focusFighter:
+    case AppText.focusFighter:
       return AppColors.focusBg;
-    case AppStrings.monsterMaster:
+    case AppText.monsterMaster:
       return AppColors.monsterBg;
-    case AppStrings.consistencyChamp:
+    case AppText.consistencyChamp:
       return AppColors.ccBg;
-    case AppStrings.starterSpark:
+    case AppText.starterSpark:
       return AppColors.ccBg;
     default:
       return Colors.grey.shade100;

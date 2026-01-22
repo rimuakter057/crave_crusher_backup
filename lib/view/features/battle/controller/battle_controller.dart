@@ -27,9 +27,9 @@ class BattleController extends GetxController {
 
   // Static dropdown values
 
-  final List<String> addictionTypes = AppStrings.addictionTypes;
+  final List<String> addictionTypes = AppText.addictionTypes;
 
-  final List<String> addictionLevels = AppStrings.addictionLevels;
+  final List<String> addictionLevels = AppText.addictionLevels;
 
   /// Create Battle API call==========================================Post method===========
   Future<bool> createBattle() async {
