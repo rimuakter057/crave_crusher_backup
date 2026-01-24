@@ -107,10 +107,13 @@ class Battle {
   }
 }
 
+
 class BattleLogs {
   String? sId;
   String? battleId;
   int? day;
+  int?totalCraved;
+  int?totalCaved;
   String? status;
   int? iV;
   String? createdAt;
@@ -120,6 +123,8 @@ class BattleLogs {
     this.sId,
     this.battleId,
     this.day,
+    this.totalCaved,
+    this.totalCraved,
     this.status,
     this.iV,
     this.createdAt,
@@ -130,6 +135,8 @@ class BattleLogs {
     sId = json['_id'];
     battleId = json['battleId'];
     day = json['day'];
+    totalCraved = json['totalCraved'];
+    totalCaved = json['totalCaved'];
     status = json['status'];
     iV = json['__v'];
     createdAt = json['createdAt'];
@@ -141,6 +148,8 @@ class BattleLogs {
     data['_id'] = sId;
     data['battleId'] = battleId;
     data['day'] = day;
+    data['totalCraved'] = totalCraved;
+    data['totalCaved'] = totalCaved;
     data['status'] = status;
     data['__v'] = iV;
     data['createdAt'] = createdAt;

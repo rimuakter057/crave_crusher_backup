@@ -192,7 +192,7 @@ class BattleController extends GetxController {
 
   Future<bool> completeBattleDay(String battleId, final String status) async {
     isLoadingCompleteBattle.value = true;
-    Get.back();
+   // Get.back();
     final body = {
       "status": status, // or whatever backend expects
     };

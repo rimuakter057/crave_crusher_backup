@@ -402,22 +402,22 @@ class _RewardsScreenState extends State<RewardsScreen> {
                               ],
                             ),
                           ),
-                          Row(
-                            children: [
-                              Icon(
-                                Icons.lock_outline,
-                                size: 14,
-                                color: Color(0xFFA1A1AA),
-                              ),
-                              Gap(4.w),
-                              CustomText(
-                                text: "Day ${allBadgeList.day}",
-                                fontSize: 12,
-                                fontWeight: FontWeight.w500,
-                                color: Color(0xFFA1A1AA),
-                              ),
-                            ],
-                          ),
+                          // Row(
+                          //   children: [
+                          //     Icon(
+                          //       Icons.lock_outline,
+                          //       size: 14,
+                          //       color: Color(0xFFA1A1AA),
+                          //     ),
+                          //     Gap(4.w),
+                          //     CustomText(
+                          //       text: "Day ${allBadgeList.day}",
+                          //       fontSize: 12,
+                          //       fontWeight: FontWeight.w500,
+                          //       color: Color(0xFFA1A1AA),
+                          //     ),
+                          //   ],
+                          // ),
                         ],
                       ),
                     );
