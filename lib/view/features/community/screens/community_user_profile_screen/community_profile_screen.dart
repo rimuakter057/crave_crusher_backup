@@ -28,7 +28,12 @@ import 'package:get/get.dart';
 import '../community_image_show_screen/community_image_show_screen.dart';
 
 class CommunityProfileScreen extends StatefulWidget {
-  const CommunityProfileScreen({super.key, required this.userId, required this.profileName, this.profileImage});
+  const CommunityProfileScreen({
+    super.key,
+    required this.userId,
+    required this.profileName,
+    this.profileImage,
+  });
 
   final String userId;
   final String profileName;
@@ -45,7 +50,7 @@ class _CommunityProfileScreenState extends State<CommunityProfileScreen> {
   @override
   void initState() {
     super.initState();
-       debugPrint("userId:============================== ${widget.userId}");
+    debugPrint("userId:============================== ${widget.userId}");
     WidgetsBinding.instance.addPostFrameCallback((_) {
       postController.fetchSingleUserProfile(widget.userId);
     });
@@ -92,7 +97,7 @@ class _CommunityProfileScreenState extends State<CommunityProfileScreen> {
             children: [
               ///profile image
               Obx(() {
-                final profile = profileController.myProfile.value;
+                //  final profile = profileController.myProfile.value;
 
                 return Column(
                   crossAxisAlignment: CrossAxisAlignment.center,
@@ -106,7 +111,7 @@ class _CommunityProfileScreenState extends State<CommunityProfileScreen> {
 
                     Gap(16.h),
                     CustomText(
-                      text:widget.profileName ??"",
+                      text: widget.profileName,
                       fontWeight: FontWeight.w600,
                       fontSize: 18.sp,
                     ),
