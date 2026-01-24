@@ -153,22 +153,17 @@ class _BattleDetailsScreenState extends State<BattleDetailsScreen> {
                   ),
 
                   ///if caved status===============================================
-
-          if (
-          widget.isActive &&
-          (
-          widget.status == AppText.pendingStatus ||
-              widget.status == AppText.cavedStatus ||
-              widget.status == AppText.cravedStatus ||
-              widget.status==AppText.missedStatus
-          )
-          )
+                  if (widget.isActive &&
+                      (widget.status == AppText.pendingStatus ||
+                          widget.status == AppText.cavedStatus ||
+                          widget.status == AppText.cravedStatus ||
+                          widget.status == AppText.missedStatus))
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         ///if caved status===============================================
                         _buildCountButton(
-                          count: battle.todayCavedCount??0,
+                          count: battle.todayCavedCount ?? 0,
                           label: 'Caved',
                           onTap: () async {
                             if (controller.isLoadingCompleteBattle.value) {
@@ -211,7 +206,7 @@ class _BattleDetailsScreenState extends State<BattleDetailsScreen> {
 
                         ///if craved status===============================================
                         _buildCountButton(
-                          count: battle.todayCravedCount??0,
+                          count: battle.todayCravedCount ?? 0,
                           label: 'Craved',
                           onTap: () async {
                             if (controller.isLoadingCompleteBattle.value) {
