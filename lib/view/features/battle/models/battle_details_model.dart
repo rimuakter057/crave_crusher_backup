@@ -33,6 +33,10 @@ class BattleDetailsModel {
   }
 }
 
+
+// todayCravedCount,
+// todayCavedCount
+
 class Battle {
   String? id;
   String? userId;
@@ -40,6 +44,8 @@ class Battle {
   String? addictionLevel;
   int? battleLength;
   int? day;
+  int?todayCravedCount;
+  int?todayCavedCount;
   int?dayProgress;
   bool? sendReminder;
   String? battleReason;
@@ -57,6 +63,8 @@ class Battle {
     this.addictionLevel,
     this.battleLength,
     this.day,
+    this.todayCravedCount,
+    this.todayCavedCount,
     this.dayProgress,
     this.sendReminder,
     this.battleReason,
@@ -75,6 +83,8 @@ class Battle {
     addictionLevel = json['addictionLevel'];
     battleLength = json['battleLength'];
     day = json['day'];
+    todayCravedCount = json['todayCravedCount'];
+    todayCavedCount = json['todayCavedCount'];
     dayProgress=json['dayProgress'];
     sendReminder = json['sendReminder'];
     battleReason = json['battleReason'];
@@ -94,6 +104,8 @@ class Battle {
     data['addictionLevel'] = addictionLevel;
     data['battleLength'] = battleLength;
     data['day'] = day;
+    data['todayCravedCount'] = todayCravedCount;
+    data['todayCavedCount'] = todayCavedCount;
     data['dayProgress'] =dayProgress;
     data['sendReminder'] = sendReminder;
     data['battleReason'] = battleReason;
