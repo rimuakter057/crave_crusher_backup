@@ -108,73 +108,92 @@ class LogEntryItem extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  CustomText(
-                    text: 'Day $dayNumber',
-                    fontWeight: FontWeight.w600,
-                    fontSize: 16,
-                    color: AppColors.appTitle,
-                  ),
-
                   Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      CustomText(
+                        text: 'Day $dayNumber',
+                        fontWeight: FontWeight.w600,
+                        fontSize: 16,
+                        color: AppColors.appTitle,
+                      ),
+                      // Timestamp
+                      Row(
+                        children: [
+                          CustomSvgIcon(icon: AppIcons.alarm, height: 12.h, width: 12.w),
+                          SizedBox(width: 5.w),
+                          CustomText(
+                            text: timestamp,
+                            fontWeight: FontWeight.w400,
+                            fontSize: 12,
+                            color: AppColors.softWhite,
+                          ),
+                        ],
+                      ),
+                    ],
+                  ),
+                  SizedBox(height: 4.h),
+                  Row(
+
                     children: [
 
-                      Container(
-                        height: 30.h,
-                        width: 130.w,
-                        alignment: Alignment.center,
-                        decoration: BoxDecoration(
-                          color: AppColors.red100,
-                          borderRadius: BorderRadius.circular(8.r),
-                          border: Border.all(color: AppColors.red),
-                        ),
-                        child: Row(
-                          children: [
-                            CustomText(
-                              text: "Caved",
-                              fontWeight: FontWeight.w500,
-                              fontSize: 12,
-                              color: AppColors.softWhite,
-                            ),
-                            SizedBox(width: 8.w,),
+                      Row(
+                        mainAxisAlignment:  MainAxisAlignment.center,
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          CustomText(
+                            text: "Caved",
+                            fontWeight: FontWeight.w500,
+                            fontSize: 12,
+                            color: AppColors.softWhite,
+                          ),
+                          SizedBox(width: 4.w,),
 
-                            CustomText(
-                              text: countCraved.toString(),
-                              fontWeight: FontWeight.w500,
-                              fontSize: 12,
-                              color: AppColors.softWhite,
-                            ),
-                          ],
-                        ),
+                          CustomText(
+                           text: countCaved.toString(),
+                            fontWeight: FontWeight.w500,
+                            fontSize: 12,
+                            color: AppColors.softWhite,
+                          ),
+                        ],
+                      ),
+                  SizedBox(
+                    height: 10,
+                    child: VerticalDivider(
+                      color: AppColors.softWhite,
+                      thickness: 1,
+
+                    ),
+                  ),
+                      Row(
+                        mainAxisAlignment:  MainAxisAlignment.center,
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          CustomText(
+                            text: "Craved",
+                            fontWeight: FontWeight.w500,
+                            fontSize: 12,
+                            color: AppColors.softWhite,
+                          ),
+                          SizedBox(width: 4.w,),
+
+                          CustomText(
+                            text: countCraved.toString(),
+
+                            fontWeight: FontWeight.w500,
+                            fontSize: 12,
+                            color: AppColors.softWhite,
+                          ),
+                        ],
                       ),
 
-                      Container(
-                        height: 30.h,
-                        width: 130.w,
-                        alignment: Alignment.center,
-                        decoration: BoxDecoration(
-                          color: AppColors.softGreen,
-                          borderRadius: BorderRadius.circular(8.r),
-                          border: Border.all(color: AppColors.green),
-                        ),
-                        child:    Row(
-                          children: [
-                            CustomText(
-                              text: "Craved",
-                              fontWeight: FontWeight.w500,
-                              fontSize: 12,
-                              color: AppColors.softWhite,
-                            ),
-                            SizedBox(width: 8.w,),
 
-                            CustomText(
-                              text: countCraved.toString(),
-                              fontWeight: FontWeight.w500,
-                              fontSize: 12,
-                              color: AppColors.softWhite,
-                            ),
-                          ],
-                        ),
-                      ),
+
+
+
+
+
+
                     ],
                   ),
 
@@ -182,19 +201,7 @@ class LogEntryItem extends StatelessWidget {
               ),
             ),
 
-            // Timestamp
-            Row(
-              children: [
-                CustomSvgIcon(icon: AppIcons.alarm, height: 12.h, width: 12.w),
-                SizedBox(width: 5.w),
-                CustomText(
-                  text: timestamp,
-                  fontWeight: FontWeight.w400,
-                  fontSize: 12,
-                  color: AppColors.softWhite,
-                ),
-              ],
-            ),
+
           ],
         ),
       ),

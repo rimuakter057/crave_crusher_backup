@@ -42,8 +42,8 @@ class BattleLogScreen extends StatelessWidget {
                     return LogEntryItem(
                       type: type,
                       dayNumber: log.day ?? 0,
-                      countCraved:  0,
-                      countCaved: 0,
+                      countCaved: log.totalCaved??0,
+                      countCraved:  log.totalCraved??0,
                       timestamp: DateConverter.dateYearTimeUtc(
                         log.createdAt ?? '',
                       ),

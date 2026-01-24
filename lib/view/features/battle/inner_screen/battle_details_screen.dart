@@ -41,10 +41,8 @@ class _BattleDetailsScreenState extends State<BattleDetailsScreen> {
   @override
   void initState() {
     WidgetsBinding.instance.addPostFrameCallback((_) {
-
       controller.fetchSingleBattle(widget.battleId);
     });
-
 
     super.initState();
   }
@@ -63,6 +61,15 @@ class _BattleDetailsScreenState extends State<BattleDetailsScreen> {
           }
 
           final battle = controller.battleDetails.value.battle;
+
+          final logs = controller.battleDetails.value.battleLogs ?? [];
+
+          final totalCaved =
+          logs.fold(0, (sum, e) => sum + (e.totalCaved ?? 0));
+
+          final totalCraved =
+          logs.fold(0, (sum, e) => sum + (e.totalCraved ?? 0));
+
           if (battle == null) {
             return EmptyWidget(title: "No battle details yet");
           }
@@ -143,32 +150,35 @@ class _BattleDetailsScreenState extends State<BattleDetailsScreen> {
                       final id = widget.battleId;
                       Get.to(() => BattleLogScreen(battleId: id));
                     },
-
-                    // onBattleNowPressed:
-                    //     battle.todayStatus == "caved"
-                    //         ? () {}
-                    //         : battle.todayStatus == "craved"
-                    //         ? () {}
-                    //         : () {
-                    //           _buildShowBattleDialog(widget.battleId);
-                    //         },
                   ),
 
                   ///if caved status===============================================
-                  if (widget.isActive && widget.status == AppText.pendingStatus)
+
+          if (
+          widget.isActive &&
+          (
+          widget.status == AppText.pendingStatus ||
+              widget.status == AppText.cavedStatus ||
+              widget.status == AppText.cravedStatus
+          )
+          )
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        _buildCountButton(count: '2', label: 'Caved',
+                        ///if caved status===============================================
+                        _buildCountButton(
+                          count: totalCaved,
+                          label: 'Caved',
                           onTap: () async {
                             if (controller.isLoadingCompleteBattle.value) {
                               return;
                             }
-                            final success = await controller
-                                .completeBattleDay(widget.battleId, "caved");
+                            final success = await controller.completeBattleDay(
+                              widget.battleId,
+                              "caved",
+                            );
                             if (success) {
-
-
+                              debugPrint("caved==================success");
                               Get.dialog(
                                 Center(
                                   child: Lottie.asset(
@@ -185,7 +195,9 @@ class _BattleDetailsScreenState extends State<BattleDetailsScreen> {
                                 barrierDismissible: false,
                               );
 
-                              await controller.fetchSingleBattle(widget.battleId);
+                              await controller.fetchSingleBattle(
+                                widget.battleId,
+                              );
                             } else {
                               Get.snackbar(
                                 "Error",
@@ -195,14 +207,20 @@ class _BattleDetailsScreenState extends State<BattleDetailsScreen> {
                             }
                           },
                         ),
-                        _buildCountButton(count: '2', label: 'Craved',
+
+                        ///if craved status===============================================
+                        _buildCountButton(
+                          count: totalCraved,
+                          label: 'Craved',
                           onTap: () async {
                             if (controller.isLoadingCompleteBattle.value) {
                               return;
                             }
 
-                            final success = await controller
-                                .completeBattleDay(widget.battleId, "craved");
+                            final success = await controller.completeBattleDay(
+                              widget.battleId,
+                              "craved",
+                            );
 
                             if (success) {
                               // Get.back();
@@ -221,7 +239,9 @@ class _BattleDetailsScreenState extends State<BattleDetailsScreen> {
                                 ),
                                 barrierDismissible: false,
                               );
-                              await controller.fetchSingleBattle(widget.battleId);
+                              await controller.fetchSingleBattle(
+                                widget.battleId,
+                              );
                             } else {
                               Get.snackbar(
                                 "Error",
@@ -233,60 +253,6 @@ class _BattleDetailsScreenState extends State<BattleDetailsScreen> {
                         ),
                       ],
                     ),
-                  ///if pending status===============================================
-                  if (widget.isActive && widget.status == AppText.cavedStatus)
-                    Container(
-                      height: 36.h,
-                      width: 130.w,
-                      alignment: Alignment.center,
-                      decoration: BoxDecoration(
-                        color: AppColors.red100,
-                        borderRadius: BorderRadius.circular(8.r),
-                        border: Border.all(color: AppColors.red),
-                      ),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          CustomImage(imageSrc: AppIcons.smallMonster, height: 18.h),
-                          SizedBox(width: 8.w),
-                          CustomText(
-                            text: AppText.caved,
-                            fontSize: 12.sp,
-                            fontWeight: FontWeight.w600,
-                            color: AppColors.red,
-                            bottom: 0,
-                            top: 0,
-                          ),
-                        ],
-                      ),
-                    ),
-                  ///if craved status===============================================
-                  if (widget.isActive && widget.status == AppText.cravedStatus)
-                    Container(
-                      height: 36.h,
-                      width: 130.w,
-                      alignment: Alignment.center,
-                      decoration: BoxDecoration(
-                        color: AppColors.softGreen,
-                        borderRadius: BorderRadius.circular(8.r),
-                        border: Border.all(color: AppColors.green),
-                      ),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          CustomImage(imageSrc: AppIcons.battlePng, height: 18.h),
-                          SizedBox(width: 8.w),
-                          CustomText(
-                            text: AppText.craved,
-                            fontSize: 12.sp,
-                            fontWeight: FontWeight.w600,
-                            color: AppColors.green,
-                            bottom: 0,
-                            top: 0,
-                          ),
-                        ],
-                      ),
-                    ),
                 ],
               ),
             ),
@@ -295,8 +261,6 @@ class _BattleDetailsScreenState extends State<BattleDetailsScreen> {
       ),
     );
   }
-
-
 
   /// show dialog==============================================================================================
   void _buildShowBattleDialog(String id) {
@@ -410,11 +374,6 @@ class _BattleDetailsScreenState extends State<BattleDetailsScreen> {
     );
   }
 
-
-
-
-
-
   PreferredSize _buildAppbar() {
     return PreferredSize(
       preferredSize: Size.fromHeight(kToolbarHeight),
@@ -450,78 +409,78 @@ class _BattleDetailsScreenState extends State<BattleDetailsScreen> {
           ),
 
           actions:
-          widget.isActive
-              ? [
-            GestureDetector(
-              onTap: () {
-                Get.dialog(
-                  AlertDialog(
-                    backgroundColor: AppColors.white,
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(12),
-                    ),
-                    title: Text(
-                      "Confirm",
-                      style: TextStyle(fontWeight: FontWeight.bold),
-                      textAlign: TextAlign.center,
-                    ),
-                    content: CustomText(
-                      maxLines: 2,
-                      text:
-                      "Are you sure you want to cancel your battle?",
-                      textAlign: TextAlign.center,
-                    ),
-                    actionsAlignment: MainAxisAlignment.center,
-                    actions: [
-                      CustomButton(
-                        onTap: () {
-                          Get.back(); // Close dialog
-                        },
-                        title: "No",
-                        height: 30.h,
-                        width: 100.w,
-                      ),
-                      Obx(() {
-                        return CustomButton(
-                          onTap:
-                          controller.isLoadingCancelBattle.value
-                              ? () {}
-                              : () async {
-                            final success = await controller
-                                .cancelBattle(widget.battleId);
-                            if (success) {
-                              Get.to(() => BattleScreen());
-                              controller.fetchAllBattle();
-                            }
-                          },
-                          title: "Yes",
-                          height: 30.h,
-                          width: 100.w,
+              widget.isActive
+                  ? [
+                    GestureDetector(
+                      onTap: () {
+                        Get.dialog(
+                          AlertDialog(
+                            backgroundColor: AppColors.white,
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(12),
+                            ),
+                            title: Text(
+                              "Confirm",
+                              style: TextStyle(fontWeight: FontWeight.bold),
+                              textAlign: TextAlign.center,
+                            ),
+                            content: CustomText(
+                              maxLines: 2,
+                              text:
+                                  "Are you sure you want to cancel your battle?",
+                              textAlign: TextAlign.center,
+                            ),
+                            actionsAlignment: MainAxisAlignment.center,
+                            actions: [
+                              CustomButton(
+                                onTap: () {
+                                  Get.back(); // Close dialog
+                                },
+                                title: "No",
+                                height: 30.h,
+                                width: 100.w,
+                              ),
+                              Obx(() {
+                                return CustomButton(
+                                  onTap:
+                                      controller.isLoadingCancelBattle.value
+                                          ? () {}
+                                          : () async {
+                                            final success = await controller
+                                                .cancelBattle(widget.battleId);
+                                            if (success) {
+                                              Get.to(() => BattleScreen());
+                                              controller.fetchAllBattle();
+                                            }
+                                          },
+                                  title: "Yes",
+                                  height: 30.h,
+                                  width: 100.w,
+                                );
+                              }),
+                            ],
+                          ),
+                          barrierDismissible: false,
                         );
-                      }),
-                    ],
-                  ),
-                  barrierDismissible: false,
-                );
-              },
-              child: Container(
-                width: 50.w,
-                height: 50.h,
-                alignment: Alignment.center,
-                decoration: BoxDecoration(
-                  color: AppColors.subPrimary.withOpacity(.3),
-                  shape: BoxShape.circle,
-                  border: Border.all(color: AppColors.subPrimary),
-                ),
-                child: CustomSvgIcon(
-                  icon: AppIcons.cross,
-                  height: 28.h,
-                  width: 28.w,
-                ),
-              ),
-            ),
-          ]
-              : [],
+                      },
+                      child: Container(
+                        width: 50.w,
+                        height: 50.h,
+                        alignment: Alignment.center,
+                        decoration: BoxDecoration(
+                          color: AppColors.subPrimary.withOpacity(.3),
+                          shape: BoxShape.circle,
+                          border: Border.all(color: AppColors.subPrimary),
+                        ),
+                        child: CustomSvgIcon(
+                          icon: AppIcons.cross,
+                          height: 28.h,
+                          width: 28.w,
+                        ),
+                      ),
+                    ),
+                  ]
+                  : [],
         ),
       ),
     );
@@ -555,9 +514,13 @@ class _BattleDetailsScreenState extends State<BattleDetailsScreen> {
 }
 
 /// 🔹 Counter button (Caved / Craved)
-Widget _buildCountButton({required String count, required String label,required VoidCallback onTap}) {
+Widget _buildCountButton({
+  required int count,
+  required String label,
+  required VoidCallback onTap,
+}) {
   return GestureDetector(
-    onTap:onTap ,
+    onTap: onTap,
     child: Container(
       height: 36.h,
       width: 130.w,
@@ -570,7 +533,7 @@ Widget _buildCountButton({required String count, required String label,required 
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           CustomText(
-            text: count,
+            text: count.toString(),
             fontSize: 16.sp,
             fontWeight: FontWeight.w600,
             color: AppColors.white,
