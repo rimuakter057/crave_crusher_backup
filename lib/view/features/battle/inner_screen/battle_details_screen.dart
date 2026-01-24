@@ -159,7 +159,8 @@ class _BattleDetailsScreenState extends State<BattleDetailsScreen> {
           (
           widget.status == AppText.pendingStatus ||
               widget.status == AppText.cavedStatus ||
-              widget.status == AppText.cravedStatus
+              widget.status == AppText.cravedStatus ||
+              widget.status==AppText.missedStatus
           )
           )
                     Row(

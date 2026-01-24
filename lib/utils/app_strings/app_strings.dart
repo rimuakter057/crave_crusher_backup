@@ -24,6 +24,7 @@ class AppText {
 ///api status text==============================================
   static const String cavedStatus = "caved";
   static const String cravedStatus = "craved";
+  static const String missedStatus = "missed";
   static const String pendingStatus = "pending";
   static const String completeStatus = "complete";
   static const String cancelStatus = "cancel";
