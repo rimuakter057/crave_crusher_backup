@@ -62,13 +62,13 @@ class _BattleDetailsScreenState extends State<BattleDetailsScreen> {
 
           final battle = controller.battleDetails.value.battle;
 
-          final logs = controller.battleDetails.value.battleLogs ?? [];
-
-          final totalCaved =
-          logs.fold(0, (sum, e) => sum + (e.totalCaved ?? 0));
-
-          final totalCraved =
-          logs.fold(0, (sum, e) => sum + (e.totalCraved ?? 0));
+          // final logs = controller.battleDetails.value.battleLogs ?? [];
+          //
+          // final totalCaved =
+          // logs.fold(0, (sum, e) => sum + (e.totalCaved ?? 0));
+          //
+          // final totalCraved =
+          // logs.fold(0, (sum, e) => sum + (e.totalCraved ?? 0));
 
           if (battle == null) {
             return EmptyWidget(title: "No battle details yet");
@@ -168,7 +168,7 @@ class _BattleDetailsScreenState extends State<BattleDetailsScreen> {
                       children: [
                         ///if caved status===============================================
                         _buildCountButton(
-                          count: totalCaved,
+                          count: battle.todayCavedCount??0,
                           label: 'Caved',
                           onTap: () async {
                             if (controller.isLoadingCompleteBattle.value) {
@@ -211,7 +211,7 @@ class _BattleDetailsScreenState extends State<BattleDetailsScreen> {
 
                         ///if craved status===============================================
                         _buildCountButton(
-                          count: totalCraved,
+                          count: battle.todayCravedCount??0,
                           label: 'Craved',
                           onTap: () async {
                             if (controller.isLoadingCompleteBattle.value) {
