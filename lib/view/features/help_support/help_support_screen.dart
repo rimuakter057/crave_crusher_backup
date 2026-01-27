@@ -12,6 +12,8 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:gap/gap.dart';
 import 'package:get/get.dart';
+import 'package:url_launcher/url_launcher.dart';
+
 
 class HelpSupportScreen extends StatelessWidget {
   HelpSupportScreen({super.key});
@@ -115,24 +117,29 @@ class HelpSupportScreen extends StatelessWidget {
                 fontSize: 16,
               ),
               Gap(8.h),
-              ListTile(
-                tileColor: Color(0xFFEEF2FF),
-                leading: CustomImage(imageSrc: AppIcons.music),
-                title: CustomText(
-                  textAlign: TextAlign.start,
-                  text: "Mail Us [support@CraveCrusher.com]",
-                  fontWeight: FontWeight.w500,
-                  fontSize: 14,
-                  color: AppColors.black,
-                ),
-                subtitle: CustomText(
-                  maxLines: 8,
-                  textAlign: TextAlign.start,
-                  text:
-                      "Our support team will get back to you as soon as possible with assistance for any issues, feedback, or technical questions.",
-                  fontWeight: FontWeight.w400,
-                  fontSize: 14,
-                  color: Color(0xFFA1A1AA),
+              GestureDetector(
+                onTap: () {
+                  _launchEmail();
+                },
+                child: ListTile(
+                  tileColor: Color(0xFFEEF2FF),
+                  leading: CustomImage(imageSrc: AppIcons.music),
+                  title: CustomText(
+                    textAlign: TextAlign.start,
+                    text: "Mail Us [support@CraveCrusher.com]",
+                    fontWeight: FontWeight.w500,
+                    fontSize: 14,
+                    color: AppColors.black,
+                  ),
+                  subtitle: CustomText(
+                    maxLines: 8,
+                    textAlign: TextAlign.start,
+                    text:
+                        "Our support team will get back to you as soon as possible with assistance for any issues, feedback, or technical questions.",
+                    fontWeight: FontWeight.w400,
+                    fontSize: 14,
+                    color: Color(0xFFA1A1AA),
+                  ),
                 ),
               ),
             ],
@@ -141,4 +148,20 @@ class HelpSupportScreen extends StatelessWidget {
       ),
     );
   }
+
+
+  Future<void> _launchEmail() async {
+    final Uri emailUri = Uri(
+      scheme: 'mailto',
+      path: 'support@CraveCrusher.com',
+      query: Uri.encodeFull(
+        'subject=Support Request&body=Hello CraveCrusher Team,',
+      ),
+    );
+
+    if (!await launchUrl(emailUri)) {
+      throw 'Could not launch email';
+    }
+  }
+
 }
