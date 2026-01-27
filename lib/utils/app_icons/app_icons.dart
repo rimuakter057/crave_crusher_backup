@@ -51,6 +51,8 @@ class AppIcons {
   static const String alarm = "$basePath/alarm.svg";
   static const String music = "$basePath/music.png";
   static const String caved = "$basePath/caved.svg";
+  static const String i = "$basePath/i.svg";
+  static const String correct = "$basePath/correct.png";
 
   ///reward icon
   static const String starSpark = "$basePath/starter_spark.png";

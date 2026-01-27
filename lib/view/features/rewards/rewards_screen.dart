@@ -155,129 +155,142 @@ class _RewardsScreenState extends State<RewardsScreen> {
                 );
               }),
 
-              _buildGainedBadgeText(title: "Achieve Badges"),
 
-              /// achieve badges section=================================================================================
-              Obx(() {
-                if (controller.isLoadingAchieveBadge.value) {
-                  return RewardShimmerLoader();
-                }
 
-                var achieve = controller.allAchieveList;
 
-                if (achieve.isEmpty) {
-                  return _buildEmptyWidget("achieve badges empty");
-                }
-                final isLoading = controller.isLoadingClaim.value;
-                return ListView.separated(
-                  shrinkWrap: true,
-                  physics: NeverScrollableScrollPhysics(),
-                  itemCount: achieve.length,
-                  separatorBuilder: (_, __) => SizedBox(height: 8.h),
-                  itemBuilder: (context, index) {
-                    final itemDetails = achieve[index];
-                    final claimed =
-                        controller.badgeStatus[itemDetails.id] ?? false;
-                    return CustomContainer(
-                      borderColor: AppColors.subPrimary,
-                      width: double.infinity,
-                      padding: 12,
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Expanded(
-                            child: Row(
-                              children: [
-                                Container(
-                                  height: 30.h,
-                                  width: 30.w,
-                                  alignment: Alignment.center,
-                                  decoration: BoxDecoration(
-                                    color: Colors.grey.shade100,
-                                    border: Border.all(color: Colors.red),
-                                    borderRadius: BorderRadius.circular(3),
-                                  ),
-                                  child: CustomNetworkImage(
-                                    imageUrl: ImageHandler.imagesHandle(
-                                      itemDetails.badgeImage,
-                                    ),
-                                    height: 20.h,
-                                    width: 20.w,
-                                  ),
-                                ),
-                                Gap(12.w),
-                                CustomText(
-                                  text: itemDetails.name,
-                                  fontSize: 14,
-                                  fontWeight: FontWeight.w500,
-                                ),
-                              ],
-                            ),
-                          ),
+              // _buildGainedBadgeText(title: "Achieve Badges"),
+              //
+              // /// achieve badges section=================================================================================
+              // Obx(() {
+              //   if (controller.isLoadingAchieveBadge.value) {
+              //     return RewardShimmerLoader();
+              //   }
+              //
+              //   var achieve = controller.allAchieveList;
+              //
+              //   if (achieve.isEmpty) {
+              //     return _buildEmptyWidget("achieve badges empty");
+              //   }
+              //   final isLoading = controller.isLoadingClaim.value;
+              //   return ListView.separated(
+              //     shrinkWrap: true,
+              //     physics: NeverScrollableScrollPhysics(),
+              //     itemCount: achieve.length,
+              //     separatorBuilder: (_, __) => SizedBox(height: 8.h),
+              //     itemBuilder: (context, index) {
+              //       final itemDetails = achieve[index];
+              //       final claimed =
+              //           controller.badgeStatus[itemDetails.id] ?? false;
+              //       return CustomContainer(
+              //         borderColor: AppColors.subPrimary,
+              //         width: double.infinity,
+              //         padding: 12,
+              //         child: Row(
+              //           mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              //           children: [
+              //             Expanded(
+              //               child: Row(
+              //                 children: [
+              //                   Container(
+              //                     height: 30.h,
+              //                     width: 30.w,
+              //                     alignment: Alignment.center,
+              //                     decoration: BoxDecoration(
+              //                       color: Colors.grey.shade100,
+              //                       border: Border.all(color: Colors.red),
+              //                       borderRadius: BorderRadius.circular(3),
+              //                     ),
+              //                     child: CustomNetworkImage(
+              //                       imageUrl: ImageHandler.imagesHandle(
+              //                         itemDetails.badgeImage,
+              //                       ),
+              //                       height: 20.h,
+              //                       width: 20.w,
+              //                     ),
+              //                   ),
+              //                   Gap(12.w),
+              //                   CustomText(
+              //                     text: itemDetails.name,
+              //                     fontSize: 14,
+              //                     fontWeight: FontWeight.w500,
+              //                   ),
+              //                 ],
+              //               ),
+              //             ),
+              //
+              //             ///claim button======================================
+              //
+              //             // Claim Button
+              //             GestureDetector(
+              //               onTap:
+              //                   claimed || isLoading
+              //                       ? null
+              //                       : () async {
+              //                         bool success = await controller.claim(
+              //                           itemDetails.id,
+              //                         );
+              //                         if (!success) {
+              //                           Get.snackbar(
+              //                             "Error",
+              //                             "Failed to claim badge",
+              //                           );
+              //                         }
+              //                       },
+              //               child: Container(
+              //                 height: 28.h,
+              //                 width: 65.w,
+              //                 decoration: BoxDecoration(
+              //                   color:
+              //                       claimed ? Colors.grey : AppColors.primary,
+              //                   borderRadius: BorderRadius.circular(4.r),
+              //                 ),
+              //                 alignment: Alignment.center,
+              //                 child:
+              //                     isLoading
+              //                         ? SizedBox(
+              //                           width: 12.w,
+              //                           height: 12.h,
+              //                           child: CircularProgressIndicator(
+              //                             color: AppColors.white,
+              //                             strokeWidth: 2,
+              //                           ),
+              //                         )
+              //                         : Row(
+              //                           mainAxisAlignment:
+              //                               MainAxisAlignment.spaceEvenly,
+              //                           children: [
+              //                             CustomImage(
+              //                               imageSrc: AppIcons.claim,
+              //                               imageColor: AppColors.white,
+              //                               height: 12.h,
+              //                               width: 12.w,
+              //                             ),
+              //                             CustomText(
+              //                               text: "Claim",
+              //                               fontSize: 10.sp,
+              //                               fontWeight: FontWeight.w600,
+              //                               color: AppColors.white,
+              //                             ),
+              //                           ],
+              //                         ),
+              //               ),
+              //             ),
+              //           ],
+              //         ),
+              //       );
+              //     },
+              //   );
+              // }),
+              //
+              //
+              //
 
-                          ///claim button======================================
 
-                          // Claim Button
-                          GestureDetector(
-                            onTap:
-                                claimed || isLoading
-                                    ? null
-                                    : () async {
-                                      bool success = await controller.claim(
-                                        itemDetails.id,
-                                      );
-                                      if (!success) {
-                                        Get.snackbar(
-                                          "Error",
-                                          "Failed to claim badge",
-                                        );
-                                      }
-                                    },
-                            child: Container(
-                              height: 28.h,
-                              width: 65.w,
-                              decoration: BoxDecoration(
-                                color:
-                                    claimed ? Colors.grey : AppColors.primary,
-                                borderRadius: BorderRadius.circular(4.r),
-                              ),
-                              alignment: Alignment.center,
-                              child:
-                                  isLoading
-                                      ? SizedBox(
-                                        width: 12.w,
-                                        height: 12.h,
-                                        child: CircularProgressIndicator(
-                                          color: AppColors.white,
-                                          strokeWidth: 2,
-                                        ),
-                                      )
-                                      : Row(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.spaceEvenly,
-                                        children: [
-                                          CustomImage(
-                                            imageSrc: AppIcons.claim,
-                                            imageColor: AppColors.white,
-                                            height: 12.h,
-                                            width: 12.w,
-                                          ),
-                                          CustomText(
-                                            text: "Claim",
-                                            fontSize: 10.sp,
-                                            fontWeight: FontWeight.w600,
-                                            color: AppColors.white,
-                                          ),
-                                        ],
-                                      ),
-                            ),
-                          ),
-                        ],
-                      ),
-                    );
-                  },
-                );
-              }),
+
+
+
+
+
 
               ///gain badge category section
               _buildGainedBadgeText(title: "Gained Badges"),

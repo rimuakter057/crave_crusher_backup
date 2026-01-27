@@ -5,6 +5,7 @@ import 'package:crave_crusher/utils/app_icons/app_icons.dart';
 import 'package:crave_crusher/utils/app_strings/app_strings.dart';
 import 'package:crave_crusher/view/components/common_empty/common_empty_widget.dart';
 import 'package:crave_crusher/view/components/custom_button/custom_button.dart';
+
 import 'package:crave_crusher/view/components/custom_svg_icon/custom_svg_icon.dart';
 import 'package:crave_crusher/view/components/custom_text/custom_text.dart';
 import 'package:crave_crusher/view/features/battle/battle_screen.dart';
@@ -14,6 +15,7 @@ import 'package:crave_crusher/view/features/battle/widget/details_monster_sectio
 import 'package:crave_crusher/view/features/battle/widget/progress_and_action_section.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+
 import 'package:get/get.dart';
 import 'package:lottie/lottie.dart';
 import '../../../components/custom_loader/custom_loader.dart';
@@ -256,6 +258,7 @@ class _BattleDetailsScreenState extends State<BattleDetailsScreen> {
     );
   }
 
+
   /// show dialog==============================================================================================
   // void _buildShowBattleDialog(String id) {
   //   Get.dialog(
@@ -367,6 +370,7 @@ class _BattleDetailsScreenState extends State<BattleDetailsScreen> {
   //     barrierDismissible: true,
   //   );
   // }
+
 
   PreferredSize _buildAppbar() {
     return PreferredSize(
@@ -480,6 +484,7 @@ class _BattleDetailsScreenState extends State<BattleDetailsScreen> {
     );
   }
 
+
   //build dialog container
   // Container _buildDialogContainer(final String text, final String image) {
   //   return Container(
@@ -505,6 +510,7 @@ class _BattleDetailsScreenState extends State<BattleDetailsScreen> {
   //     ),
   //   );
   // }
+
 }
 
 /// 🔹 Counter button (Caved / Craved)
