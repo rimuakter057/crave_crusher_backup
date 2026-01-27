@@ -10,6 +10,7 @@ import 'package:crave_crusher/view/components/custom_text/custom_text.dart';
 import 'package:crave_crusher/view/features/battle/controller/battle_controller.dart';
 import 'package:crave_crusher/view/features/battle/widget/active_battle_card.dart';
 import 'package:crave_crusher/view/features/battle/widget/detox_type.dart';
+import 'package:crave_crusher/view/features/battle/widget/shimmer_battle.dart';
 import 'package:crave_crusher/view/features/home/controller/home_controller.dart';
 import 'package:crave_crusher/view/features/home/widget/home_appbar.dart';
 import 'package:crave_crusher/view/features/home/widget/home_monster_shimmer.dart';
@@ -34,6 +35,7 @@ class _HomeScreenState extends State<HomeScreen> {
   final BattleController controller = Get.find<BattleController>();
   final ProfileController profileController = Get.find<ProfileController>();
   final HomeController homeController = Get.find<HomeController>();
+
   @override
   void initState() {
     super.initState();
@@ -65,6 +67,8 @@ class _HomeScreenState extends State<HomeScreen> {
       body: CustomRefreshIndicator(
         onRefresh: () async {
           controller.fetchAllBattle();
+          profileController.fetchMyProfile();
+          homeController.getDailyTip();
         },
         child: SingleChildScrollView(
           padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 16.h),
@@ -110,8 +114,7 @@ class _HomeScreenState extends State<HomeScreen> {
 
               SizedBox(height: 24.h),
 
-             // _buildTitle(AppIcons.smallMonster, "Your Monster Today"),
-
+              // _buildTitle(AppIcons.smallMonster, "Your Monster Today"),
               Obx(() {
                 final profile = profileController.myProfile.value;
 
@@ -148,7 +151,7 @@ class _HomeScreenState extends State<HomeScreen> {
 
               Obx(() {
                 if (controller.isLoadingAllBattle.value) {
-                  return const Center(child: CustomLoader());
+                  return const Center(child: BattleShimmerLoader());
                 } else if (controller.allBattleList.isEmpty) {
                   return Center(
                     child: Column(
