@@ -259,6 +259,118 @@ class _BattleDetailsScreenState extends State<BattleDetailsScreen> {
   }
 
 
+  /// show dialog==============================================================================================
+  // void _buildShowBattleDialog(String id) {
+  //   Get.dialog(
+  //     Obx(() {
+  //       return Center(
+  //         child: Dialog(
+  //           shape: RoundedRectangleBorder(
+  //             borderRadius: BorderRadius.circular(12),
+  //           ),
+  //           child: SizedBox(
+  //             height: 170.h,
+  //             width: 340.w,
+  //             child:
+  //                 controller.isLoadingCompleteBattle.value
+  //                     ? const Center(child: CustomLoader())
+  //                     : Row(
+  //                       crossAxisAlignment: CrossAxisAlignment.center,
+  //                       mainAxisAlignment: MainAxisAlignment.center,
+  //                       children: [
+  //                         // Caved
+  //                         InkWell(
+  //                           onTap: () async {
+  //                             if (controller.isLoadingCompleteBattle.value) {
+  //                               return;
+  //                             }
+  //                             final success = await controller
+  //                                 .completeBattleDay(id, "caved");
+  //                             if (success) {
+  //                               // Get.back();
+
+  //                               Get.dialog(
+  //                                 Center(
+  //                                   child: Lottie.asset(
+  //                                     AppIcons.lottieBattle,
+  //                                     repeat: false,
+  //                                     onLoaded: (composition) async {
+  //                                       await Future.delayed(
+  //                                         composition.duration,
+  //                                       );
+  //                                       Get.back();
+  //                                     },
+  //                                   ),
+  //                                 ),
+  //                                 barrierDismissible: false,
+  //                               );
+
+  //                               await controller.fetchSingleBattle(id);
+  //                             } else {
+  //                               Get.snackbar(
+  //                                 "Error",
+  //                                 "Status update failed",
+  //                                 backgroundColor: AppColors.red100,
+  //                               );
+  //                             }
+  //                           },
+  //                           child: _buildDialogContainer(
+  //                             "Caved",
+  //                             AppIcons.cavedComplete,
+  //                           ),
+  //                         ),
+  //                         Gap(12.w),
+  //                         // Craved
+  //                         InkWell(
+  //                           onTap: () async {
+  //                             if (controller.isLoadingCompleteBattle.value) {
+  //                               return;
+  //                             }
+
+  //                             final success = await controller
+  //                                 .completeBattleDay(id, "craved");
+
+  //                             if (success) {
+  //                               // Get.back();
+  //                               Get.dialog(
+  //                                 Center(
+  //                                   child: Lottie.asset(
+  //                                     AppIcons.lottieBattle,
+  //                                     repeat: false,
+  //                                     onLoaded: (composition) async {
+  //                                       await Future.delayed(
+  //                                         composition.duration,
+  //                                       );
+  //                                       Get.back();
+  //                                     },
+  //                                   ),
+  //                                 ),
+  //                                 barrierDismissible: false,
+  //                               );
+  //                               await controller.fetchSingleBattle(id);
+  //                             } else {
+  //                               Get.snackbar(
+  //                                 "Error",
+  //                                 "Status update failed",
+  //                                 backgroundColor: AppColors.red100,
+  //                               );
+  //                             }
+  //                           },
+  //                           child: _buildDialogContainer(
+  //                             "Craved",
+  //                             AppIcons.battlePng,
+  //                           ),
+  //                         ),
+  //                       ],
+  //                     ),
+  //           ),
+  //         ),
+  //       );
+  //     }),
+  //     barrierDismissible: true,
+  //   );
+  // }
+
 
   PreferredSize _buildAppbar() {
     return PreferredSize(
@@ -372,6 +484,32 @@ class _BattleDetailsScreenState extends State<BattleDetailsScreen> {
     );
   }
 
+
+  //build dialog container
+  // Container _buildDialogContainer(final String text, final String image) {
+  //   return Container(
+  //     height: 120.h,
+  //     width: 120.w,
+  //     decoration: BoxDecoration(
+  //       color: AppColors.subPrimary,
+  //       borderRadius: BorderRadius.circular(12),
+  //     ),
+  //     child: Column(
+  //       crossAxisAlignment: CrossAxisAlignment.center,
+  //       mainAxisAlignment: MainAxisAlignment.center,
+  //       children: [
+  //         CustomImage(
+  //           imageSrc: image,
+  //           height: 80.h,
+  //           width: 100.w,
+  //           fit: BoxFit.cover,
+  //         ),
+  //         Gap(4.h),
+  //         CustomText(text: text),
+  //       ],
+  //     ),
+  //   );
+  // }
 
 }
 
