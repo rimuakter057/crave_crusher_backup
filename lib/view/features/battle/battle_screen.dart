@@ -76,7 +76,7 @@ class _BattleScreenState extends State<BattleScreen> {
                 Expanded(
                   child: CustomRefreshIndicator(
                     onRefresh: () async {
-                      _fetchBattleByTab(controller.battleTabIndex.value);
+                      _fetchBattleByTab (controller.battleTabIndex.value);
                     },
                     child:
                     controller.isLoadingAllBattle.value

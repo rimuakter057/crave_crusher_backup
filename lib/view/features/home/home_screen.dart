@@ -65,6 +65,8 @@ class _HomeScreenState extends State<HomeScreen> {
       body: CustomRefreshIndicator(
         onRefresh: () async {
           controller.fetchAllBattle();
+          profileController.fetchMyProfile();
+          homeController.getDailyTip();
         },
         child: SingleChildScrollView(
           padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 16.h),
