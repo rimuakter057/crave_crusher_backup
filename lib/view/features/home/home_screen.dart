@@ -72,7 +72,7 @@ class _HomeScreenState extends State<HomeScreen> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               /// today tips===============================================================================================
-              _buildTitle(AppIcons.smallMonster, "Tip for Today"),
+              _buildTitle(AppIcons.i, "Tip for Today"),
               Obx(() {
                 if (homeController.isLoadingTip.value) {
                   return Center(
@@ -110,7 +110,7 @@ class _HomeScreenState extends State<HomeScreen> {
 
               SizedBox(height: 24.h),
 
-              _buildTitle(AppIcons.smallMonster, "Your Monster Today"),
+             // _buildTitle(AppIcons.smallMonster, "Your Monster Today"),
 
               Obx(() {
                 final profile = profileController.myProfile.value;

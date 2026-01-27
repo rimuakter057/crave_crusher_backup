@@ -30,7 +30,7 @@ class LogEntryItem extends StatelessWidget {
   final int dayNumber;
   final int countCaved;
   final int countCraved;
-  final String timestamp;
+  //final String timestamp;
 
 
   const LogEntryItem({
@@ -39,7 +39,7 @@ class LogEntryItem extends StatelessWidget {
     required this.dayNumber,
 
     required this.countCraved,
-    required this.timestamp,
+   // required this.timestamp,
     required this.countCaved,
   });
 
@@ -68,7 +68,7 @@ class LogEntryItem extends StatelessWidget {
   String get icon {
     switch (type) {
       case LogType.craved:
-        return AppIcons.battlePng;
+        return AppIcons.correct;
       case LogType.caved:
         return AppIcons.smallMonster;
       case LogType.missed:
@@ -117,19 +117,21 @@ class LogEntryItem extends StatelessWidget {
                         fontSize: 16,
                         color: AppColors.appTitle,
                       ),
+
                       // Timestamp
-                      Row(
-                        children: [
-                          CustomSvgIcon(icon: AppIcons.alarm, height: 12.h, width: 12.w),
-                          SizedBox(width: 5.w),
-                          CustomText(
-                            text: timestamp,
-                            fontWeight: FontWeight.w400,
-                            fontSize: 12,
-                            color: AppColors.softWhite,
-                          ),
-                        ],
-                      ),
+                      // Row(
+                      //   children: [
+                      //     CustomSvgIcon(icon: AppIcons.alarm, height: 12.h, width: 12.w),
+                      //     SizedBox(width: 5.w),
+                      //     CustomText(
+                      //       text: timestamp,
+                      //       fontWeight: FontWeight.w400,
+                      //       fontSize: 12,
+                      //       color: AppColors.softWhite,
+                      //     ),
+                      //   ],
+                      // ),
+
                     ],
                   ),
                   SizedBox(height: 4.h),
