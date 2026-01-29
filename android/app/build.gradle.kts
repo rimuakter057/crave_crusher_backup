@@ -35,12 +35,12 @@ android {
     defaultConfig {
         applicationId = "com.app.cravecrusher"
         minSdk = flutter.minSdkVersion
-        targetSdk = 34
+        targetSdk = 35
         versionCode = flutter.versionCode
         versionName = flutter.versionName
     }
 
-    // ✅ Signing configuration in Kotlin DSL
+   
     signingConfigs {
         create("release") {
             keyAlias = keystoreProperties.getProperty("keyAlias")
@@ -52,7 +52,7 @@ android {
 
     buildTypes {
         release {
-            // ✅ Use release signing config
+            
             signingConfig = signingConfigs.getByName("release")
             
             // Enable optimization
