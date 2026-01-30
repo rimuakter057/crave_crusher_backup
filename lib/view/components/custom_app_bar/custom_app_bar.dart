@@ -1,12 +1,12 @@
 // ignore_for_file: deprecated_member_use
 
+import 'package:crave_crusher/helper/responsive_helper/responsive_helper.dart';
 import 'package:crave_crusher/utils/app_colors/app_colors.dart';
 import 'package:crave_crusher/utils/app_icons/app_icons.dart';
 import 'package:crave_crusher/view/components/custom_image/custom_image.dart';
 import 'package:crave_crusher/view/components/custom_text/custom_text.dart';
 import 'package:crave_crusher/view/components/leading_back/custom_leading_back_icon.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
   final String title;
@@ -34,15 +34,15 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: EdgeInsets.symmetric(horizontal: 16.0.w),
+      padding: EdgeInsets.symmetric(horizontal: ResponsiveHelper.width(16)),
       child: AppBar(
         surfaceTintColor: backgroundColor ?? AppColors.backgroundColor,
         backgroundColor: backgroundColor ?? AppColors.backgroundColor,
         elevation: elevation,
         leading: Center(
           child: Container(
-            width: 50.w,
-            height: 50.h,
+            width: ResponsiveHelper.width(50), // 50.w,
+            height: ResponsiveHelper.height(50), // 50.h,
             alignment: Alignment.center,
             decoration: BoxDecoration(
               color: AppColors.subPrimary.withOpacity(.3),
@@ -55,7 +55,7 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
         centerTitle: true,
         title: CustomText(
           text: title,
-          fontSize: 18.sp,
+          fontSize: ResponsiveHelper.fontSize(18), // 18.sp,
           fontWeight: FontWeight.w500,
         ),
         actions:
@@ -64,8 +64,8 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
               GestureDetector(
                 onTap: onActionPressed,
                 child: Container(
-                  width: 50.w,
-                  height: 50.h,
+                  width: ResponsiveHelper.width(50), // 50.w,
+                  height: ResponsiveHelper.height(50), // 50.h,
                   alignment: Alignment.center,
                   decoration: BoxDecoration(
                     color: AppColors.subPrimary.withOpacity(.3),
@@ -74,8 +74,8 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
                   ),
                   child: CustomImage(
                     imageSrc: actionIcon ?? AppIcons.add,
-                    height: 20.h,
-                    width: 20.w,
+                    height: ResponsiveHelper.height(20), // 20.h,
+                    width: ResponsiveHelper.width(20), // 20.w,
                   ),
                 ),
               ),
