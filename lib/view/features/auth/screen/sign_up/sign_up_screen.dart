@@ -4,8 +4,6 @@ import 'package:crave_crusher/view/components/custom_button/custom_button.dart';
 import 'package:crave_crusher/view/components/custom_loader/custom_loader.dart';
 import 'package:crave_crusher/view/components/custom_text/custom_text.dart';
 import 'package:crave_crusher/view/components/input_field_with_title/input_field_with_title.dart';
-import 'package:crave_crusher/view/components/input_password_field_widget/input_password_field_widget.dart'
-    hide InputPasswordFieldWidget;
 import 'package:crave_crusher/view/components/show_snack_bar/show_snack_bar.dart';
 import 'package:crave_crusher/view/features/auth/controllers/sign_up_controller.dart';
 import 'package:crave_crusher/view/features/auth/models/signup_model.dart';
@@ -14,7 +12,6 @@ import 'package:crave_crusher/view/features/auth/screen/verify_account/verify_ac
 import 'package:crave_crusher/view/features/auth/screen/widgets/action_promote_widget.dart';
 import 'package:crave_crusher/view/features/auth/screen/widgets/or_divider_widget.dart';
 import 'package:flutter/material.dart';
-import 'package:gap/gap.dart';
 import 'package:get/get.dart';
 
 class SignUpScreen extends StatefulWidget {
