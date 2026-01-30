@@ -3,7 +3,6 @@
 import 'package:crave_crusher/utils/app_colors/app_colors.dart';
 import 'package:crave_crusher/utils/app_icons/app_icons.dart';
 import 'package:crave_crusher/view/components/custom_image/custom_image.dart';
-import 'package:crave_crusher/view/components/custom_svg_icon/custom_svg_icon.dart';
 import 'package:crave_crusher/view/components/custom_text/custom_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -32,14 +31,13 @@ class LogEntryItem extends StatelessWidget {
   final int countCraved;
   //final String timestamp;
 
-
   const LogEntryItem({
     super.key,
     required this.type,
     required this.dayNumber,
 
     required this.countCraved,
-   // required this.timestamp,
+    // required this.timestamp,
     required this.countCaved,
   });
 
@@ -131,16 +129,13 @@ class LogEntryItem extends StatelessWidget {
                       //     ),
                       //   ],
                       // ),
-
                     ],
                   ),
                   SizedBox(height: 4.h),
                   Row(
-
                     children: [
-
                       Row(
-                        mainAxisAlignment:  MainAxisAlignment.center,
+                        mainAxisAlignment: MainAxisAlignment.center,
                         crossAxisAlignment: CrossAxisAlignment.center,
                         children: [
                           CustomText(
@@ -149,26 +144,25 @@ class LogEntryItem extends StatelessWidget {
                             fontSize: 12,
                             color: AppColors.softWhite,
                           ),
-                          SizedBox(width: 4.w,),
+                          SizedBox(width: 4.w),
 
                           CustomText(
-                           text: countCaved.toString(),
+                            text: countCaved.toString(),
                             fontWeight: FontWeight.w500,
                             fontSize: 12,
                             color: AppColors.softWhite,
                           ),
                         ],
                       ),
-                  SizedBox(
-                    height: 10,
-                    child: VerticalDivider(
-                      color: AppColors.softWhite,
-                      thickness: 1,
-
-                    ),
-                  ),
+                      SizedBox(
+                        height: 10,
+                        child: VerticalDivider(
+                          color: AppColors.softWhite,
+                          thickness: 1,
+                        ),
+                      ),
                       Row(
-                        mainAxisAlignment:  MainAxisAlignment.center,
+                        mainAxisAlignment: MainAxisAlignment.center,
                         crossAxisAlignment: CrossAxisAlignment.center,
                         children: [
                           CustomText(
@@ -177,7 +171,7 @@ class LogEntryItem extends StatelessWidget {
                             fontSize: 12,
                             color: AppColors.softWhite,
                           ),
-                          SizedBox(width: 4.w,),
+                          SizedBox(width: 4.w),
 
                           CustomText(
                             text: countCraved.toString(),
@@ -188,22 +182,11 @@ class LogEntryItem extends StatelessWidget {
                           ),
                         ],
                       ),
-
-
-
-
-
-
-
-
                     ],
                   ),
-
                 ],
               ),
             ),
-
-
           ],
         ),
       ),
