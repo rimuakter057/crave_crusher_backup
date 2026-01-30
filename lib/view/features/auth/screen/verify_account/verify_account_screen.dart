@@ -11,7 +11,6 @@ import 'package:crave_crusher/view/features/auth/models/verify_account_otp_model
 import 'package:crave_crusher/view/features/auth/screen/login/login_screen.dart';
 import 'package:crave_crusher/view/features/auth/screen/widgets/otp_field_widget.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:gap/gap.dart';
 import 'package:get/get.dart';
 
@@ -48,102 +47,139 @@ class _VerifyAccountScreenState extends State<VerifyAccountScreen> {
 
   @override
   Widget build(BuildContext context) {
+    // Get screen dimensions
+    final screenWidth = MediaQuery.of(context).size.width;
+    final isTablet = screenWidth > 600;
+
+    // Calculate responsive values
+    final double horizontalPadding = isTablet ? 60.0 : 16.0;
+    final double maxContentWidth =
+        isTablet ? (screenWidth > 800 ? 600.0 : 500.0) : double.infinity;
+
+    final double titleSize =
+        isTablet ? (screenWidth > 800 ? 36.0 : 32.0) : 28.0;
+
+    final double subtitleSize =
+        isTablet ? (screenWidth > 800 ? 18.0 : 16.0) : 14.0;
+
+    final double textSize = isTablet ? 16.0 : 14.0;
+
+    final double verticalSpacing = isTablet ? 24.0 : 16.0;
+
     return Scaffold(
-      body: Center(
-        child: SingleChildScrollView(
-          child: Padding(
-            padding: EdgeInsets.symmetric(horizontal: 16.w),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Gap(8.h),
+      body: SafeArea(
+        child: Center(
+          child: SingleChildScrollView(
+            physics: const BouncingScrollPhysics(),
+            child: Padding(
+              padding: EdgeInsets.symmetric(
+                horizontal: horizontalPadding,
+                vertical: 20,
+              ),
+              child: Center(
+                child: ConstrainedBox(
+                  constraints: BoxConstraints(maxWidth: maxContentWidth),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      if (isTablet) const SizedBox(height: 20),
 
-                ///reset  text
-                CustomText(
-                  textAlign: TextAlign.start,
-                  text: "Verify Your Account",
-                  fontSize: 28.sp,
-                  fontWeight: FontWeight.w500,
-                ),
-                CustomText(
-                  maxLines: 2,
-                  textAlign: TextAlign.start,
-                  text:
-                      "Verify it’s you — check your email for the 6-digit code:${widget.email}",
-                  fontSize: 14.sp,
-                  fontWeight: FontWeight.w400,
-                  color: Color(0xFF555555),
-                ),
-                Gap(16.h),
-
-                ///otp field
-                OtpFieldWidget(
-                  controller: _controller,
-                  onCompleted: (value) {
-                    debugPrint("OTP Completed: $value");
-                  },
-                ),
-
-                Gap(16.h),
-
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  children: [
-                    Flexible(
-                      child: CustomText(
-                        text: "'Didn’t receive the code?'",
-                        fontSize: 14,
-                        fontWeight: FontWeight.w400,
-                        color: Color(0xFF555555),
+                      ///verify text
+                      CustomText(
+                        textAlign: TextAlign.start,
+                        text: "Verify Your Account",
+                        fontSize: titleSize,
+                        fontWeight: FontWeight.w500,
                       ),
-                    ),
 
-                    GetBuilder<UserResendOtpController>(
-                      builder: (controller) {
-                        return GestureDetector(
-                          onTap:
-                              (controller.countdown == 0 &&
-                                      !controller.inProgress)
-                                  ? _resendOtpButton
-                                  : null,
-                          child: Padding(
-                            padding: const EdgeInsets.only(left: 4.0),
+                      SizedBox(height: isTablet ? 12 : 8),
+
+                      CustomText(
+                        maxLines: 3,
+                        textAlign: TextAlign.start,
+                        text:
+                            "Verify it's you — check your email for the 6-digit code: ${widget.email}",
+                        fontSize: subtitleSize,
+                        fontWeight: FontWeight.w400,
+                        color: const Color(0xFF555555),
+                      ),
+
+                      SizedBox(height: verticalSpacing),
+
+                      ///otp field
+                      OtpFieldWidget(
+                        controller: _controller,
+                        isTablet: isTablet,
+                        onCompleted: (value) {
+                          debugPrint("OTP Completed: $value");
+                        },
+                      ),
+
+                      SizedBox(height: verticalSpacing),
+
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        children: [
+                          Flexible(
                             child: CustomText(
-                              text:
-                                  controller.countdown > 0
-                                      ? 'Resend OTP (${controller.countdownText})'
-                                      : 'Resend OTP',
-                              fontSize: 14,
-                              fontWeight: FontWeight.w500,
-                              color:
-                                  (controller.countdown > 0 ||
-                                          controller.inProgress)
-                                      ? AppColors.primary
-                                      : AppColors.primary,
+                              textAlign: TextAlign.start,
+                              text: "Didn't receive the code?",
+                              fontSize: textSize,
+                              fontWeight: FontWeight.w400,
+                              color: const Color(0xFF555555),
                             ),
                           ),
-                        );
-                      },
-                    ),
-                  ],
-                ),
-
-                ///reset button
-                Gap(16.h),
-
-                GetBuilder<VerifyAccountOtpController>(
-                  builder: (controller) {
-                    return Visibility(
-                      visible: controller.inProgress == false,
-                      replacement: CustomLoader(),
-                      child: CustomButton(
-                        title: "Verify OTP",
-                        onTap: _verifyOtpButton,
+                          const SizedBox(width: 4),
+                          GetBuilder<UserResendOtpController>(
+                            builder: (controller) {
+                              return GestureDetector(
+                                onTap:
+                                    (controller.countdown == 0 &&
+                                            !controller.inProgress)
+                                        ? _resendOtpButton
+                                        : null,
+                                child: CustomText(
+                                  text:
+                                      controller.countdown > 0
+                                          ? 'Resend OTP (${controller.countdownText})'
+                                          : 'Resend OTP',
+                                  fontSize: textSize,
+                                  fontWeight: FontWeight.w500,
+                                  color:
+                                      (controller.countdown > 0 ||
+                                              controller.inProgress)
+                                          ? AppColors.primary.withOpacity(0.6)
+                                          : AppColors.primary,
+                                ),
+                              );
+                            },
+                          ),
+                        ],
                       ),
-                    );
-                  },
+
+                      ///verify button
+                      SizedBox(height: verticalSpacing),
+
+                      GetBuilder<VerifyAccountOtpController>(
+                        builder: (controller) {
+                          return Visibility(
+                            visible: controller.inProgress == false,
+                            replacement: const CustomLoader(),
+                            child: CustomButton(
+                              title: "Verify OTP",
+                              onTap: _verifyOtpButton,
+                              height: isTablet ? 65 : 55,
+                              fontSize: isTablet ? 16.0 : 14.0,
+                            ),
+                          );
+                        },
+                      ),
+
+                      if (isTablet) const SizedBox(height: 40),
+                    ],
+                  ),
                 ),
-              ],
+              ),
             ),
           ),
         ),
@@ -170,7 +206,7 @@ class _VerifyAccountScreenState extends State<VerifyAccountScreen> {
       _controller.clear();
 
       resendOtpController.startCountdown(seconds: 60);
-      Get.to(() => LoginScreen());
+      Get.to(() => const LoginScreen());
     } else {
       showSnackBarMessage(
         context,
@@ -191,6 +227,7 @@ class _VerifyAccountScreenState extends State<VerifyAccountScreen> {
 
     if (isSuccess) {
       Get.snackbar("Success", "A new OTP has been sent to your email.");
+      resendOtpController.startCountdown(seconds: 60);
     } else {
       Get.snackbar(
         "Error",
@@ -199,3 +236,205 @@ class _VerifyAccountScreenState extends State<VerifyAccountScreen> {
     }
   }
 }
+
+// // ignore_for_file: use_build_context_synchronously
+
+// import 'package:crave_crusher/utils/app_colors/app_colors.dart';
+// import 'package:crave_crusher/view/components/custom_button/custom_button.dart';
+// import 'package:crave_crusher/view/components/custom_loader/custom_loader.dart';
+// import 'package:crave_crusher/view/components/custom_text/custom_text.dart';
+// import 'package:crave_crusher/view/components/show_snack_bar/show_snack_bar.dart';
+// import 'package:crave_crusher/view/features/auth/controllers/user_resend_otp_controller.dart';
+// import 'package:crave_crusher/view/features/auth/controllers/verify_account_otp_controller.dart';
+// import 'package:crave_crusher/view/features/auth/models/verify_account_otp_model.dart';
+// import 'package:crave_crusher/view/features/auth/screen/login/login_screen.dart';
+// import 'package:crave_crusher/view/features/auth/screen/widgets/otp_field_widget.dart';
+// import 'package:flutter/material.dart';
+// import 'package:flutter_screenutil/flutter_screenutil.dart';
+// import 'package:gap/gap.dart';
+// import 'package:get/get.dart';
+
+// class VerifyAccountScreen extends StatefulWidget {
+//   const VerifyAccountScreen({super.key, required this.email});
+//   final String email;
+
+//   @override
+//   State<VerifyAccountScreen> createState() => _VerifyAccountScreenState();
+// }
+
+// class _VerifyAccountScreenState extends State<VerifyAccountScreen> {
+//   final TextEditingController _controller = TextEditingController();
+
+//   final VerifyAccountOtpController verifyOtpController =
+//       Get.find<VerifyAccountOtpController>();
+//   final UserResendOtpController resendOtpController =
+//       Get.find<UserResendOtpController>();
+
+//   @override
+//   void initState() {
+//     super.initState();
+
+//     WidgetsBinding.instance.addPostFrameCallback((_) {
+//       resendOtpController.startCountdown(seconds: 60);
+//     });
+//   }
+
+//   @override
+//   void dispose() {
+//     _controller.dispose();
+//     super.dispose();
+//   }
+
+//   @override
+//   Widget build(BuildContext context) {
+//     return Scaffold(
+//       body: Center(
+//         child: SingleChildScrollView(
+//           child: Padding(
+//             padding: EdgeInsets.symmetric(horizontal: 16.w),
+//             child: Column(
+//               crossAxisAlignment: CrossAxisAlignment.start,
+//               children: [
+//                 Gap(8.h),
+
+//                 ///reset  text
+//                 CustomText(
+//                   textAlign: TextAlign.start,
+//                   text: "Verify Your Account",
+//                   fontSize: 28.sp,
+//                   fontWeight: FontWeight.w500,
+//                 ),
+//                 CustomText(
+//                   maxLines: 2,
+//                   textAlign: TextAlign.start,
+//                   text:
+//                       "Verify it’s you — check your email for the 6-digit code:${widget.email}",
+//                   fontSize: 14.sp,
+//                   fontWeight: FontWeight.w400,
+//                   color: Color(0xFF555555),
+//                 ),
+//                 Gap(16.h),
+
+//                 ///otp field
+//                 OtpFieldWidget(
+//                   controller: _controller,
+//                   onCompleted: (value) {
+//                     debugPrint("OTP Completed: $value");
+//                   },
+//                 ),
+
+//                 Gap(16.h),
+
+//                 Row(
+//                   mainAxisAlignment: MainAxisAlignment.start,
+//                   children: [
+//                     Flexible(
+//                       child: CustomText(
+//                         text: "'Didn’t receive the code?'",
+//                         fontSize: 14,
+//                         fontWeight: FontWeight.w400,
+//                         color: Color(0xFF555555),
+//                       ),
+//                     ),
+
+//                     GetBuilder<UserResendOtpController>(
+//                       builder: (controller) {
+//                         return GestureDetector(
+//                           onTap:
+//                               (controller.countdown == 0 &&
+//                                       !controller.inProgress)
+//                                   ? _resendOtpButton
+//                                   : null,
+//                           child: Padding(
+//                             padding: const EdgeInsets.only(left: 4.0),
+//                             child: CustomText(
+//                               text:
+//                                   controller.countdown > 0
+//                                       ? 'Resend OTP (${controller.countdownText})'
+//                                       : 'Resend OTP',
+//                               fontSize: 14,
+//                               fontWeight: FontWeight.w500,
+//                               color:
+//                                   (controller.countdown > 0 ||
+//                                           controller.inProgress)
+//                                       ? AppColors.primary
+//                                       : AppColors.primary,
+//                             ),
+//                           ),
+//                         );
+//                       },
+//                     ),
+//                   ],
+//                 ),
+
+//                 ///reset button
+//                 Gap(16.h),
+
+//                 GetBuilder<VerifyAccountOtpController>(
+//                   builder: (controller) {
+//                     return Visibility(
+//                       visible: controller.inProgress == false,
+//                       replacement: CustomLoader(),
+//                       child: CustomButton(
+//                         title: "Verify OTP",
+//                         onTap: _verifyOtpButton,
+//                       ),
+//                     );
+//                   },
+//                 ),
+//               ],
+//             ),
+//           ),
+//         ),
+//       ),
+//     );
+//   }
+
+//   ///verify_otp button
+//   Future<void> _verifyOtpButton() async {
+//     if (_controller.text.isEmpty || _controller.text.length != 6) {
+//       showSnackBarMessage(context, "Please enter a 6-digit OTP", true);
+//       return;
+//     }
+
+//     VerifyAccountOtpModel verifyOtpModel = VerifyAccountOtpModel(
+//       email: widget.email,
+//       verifyCode: _controller.text,
+//     );
+
+//     final bool isSuccess = await Get.find<VerifyAccountOtpController>()
+//         .verifyOtp(verifyOtpModel);
+
+//     if (isSuccess) {
+//       _controller.clear();
+
+//       resendOtpController.startCountdown(seconds: 60);
+//       Get.to(() => LoginScreen());
+//     } else {
+//       showSnackBarMessage(
+//         context,
+//         verifyOtpController.errorMessage ?? "Something went wrong",
+//         true,
+//       );
+//     }
+//   }
+
+//   ///resend otp
+//   Future<void> _resendOtpButton() async {
+//     if (widget.email.isEmpty) {
+//       Get.snackbar("Error", "Email not found!");
+//       return;
+//     }
+
+//     final bool isSuccess = await resendOtpController.resendOtp(widget.email);
+
+//     if (isSuccess) {
+//       Get.snackbar("Success", "A new OTP has been sent to your email.");
+//     } else {
+//       Get.snackbar(
+//         "Error",
+//         resendOtpController.errorMessage ?? "Something went wrong.",
+//       );
+//     }
+//   }
+// }
