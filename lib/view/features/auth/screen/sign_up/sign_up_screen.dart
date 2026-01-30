@@ -4,7 +4,8 @@ import 'package:crave_crusher/view/components/custom_button/custom_button.dart';
 import 'package:crave_crusher/view/components/custom_loader/custom_loader.dart';
 import 'package:crave_crusher/view/components/custom_text/custom_text.dart';
 import 'package:crave_crusher/view/components/input_field_with_title/input_field_with_title.dart';
-import 'package:crave_crusher/view/components/input_password_field_widget/input_password_field_widget.dart';
+import 'package:crave_crusher/view/components/input_password_field_widget/input_password_field_widget.dart'
+    hide InputPasswordFieldWidget;
 import 'package:crave_crusher/view/components/show_snack_bar/show_snack_bar.dart';
 import 'package:crave_crusher/view/features/auth/controllers/sign_up_controller.dart';
 import 'package:crave_crusher/view/features/auth/models/signup_model.dart';
