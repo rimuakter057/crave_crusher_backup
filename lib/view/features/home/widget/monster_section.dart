@@ -1,6 +1,7 @@
 // ignore_for_file: deprecated_member_use
 
 import 'package:crave_crusher/helper/images_handler/image_handler.dart';
+import 'package:crave_crusher/helper/responsive_helper/responsive_helper.dart';
 import 'package:crave_crusher/utils/app_colors/app_colors.dart';
 import 'package:crave_crusher/view/components/custom_network_image/custom_network_image.dart';
 import 'package:crave_crusher/view/components/custom_text/custom_text.dart';
@@ -26,24 +27,24 @@ class MonsterSection extends StatelessWidget {
         Center(
           child: CustomNetworkImage(
             imageUrl: ImageHandler.imagesHandle(monster),
-            height: 300.h,
-            width: 286.w,
+            height: ResponsiveHelper.height(300),
+            width: ResponsiveHelper.width(286),
           ),
         ),
-        SizedBox(height: 8),
+        SizedBox(height: ResponsiveHelper.height(8)),
         Container(
-          height: 52.h,
+          height: ResponsiveHelper.height(52),
           width: double.maxFinite,
           alignment: Alignment.center,
           decoration: BoxDecoration(
             color: AppColors.softGreen,
-            borderRadius: BorderRadius.circular(8),
+            borderRadius: BorderRadius.circular(ResponsiveHelper.borderRadius(8)),
             border: Border.all(color: AppColors.green),
           ),
           child: CustomText(
             text: monsterMessage,
             fontWeight: FontWeight.w600,
-            fontSize: 14.w,
+            fontSize: ResponsiveHelper.fontSize(14),
             color: AppColors.green,
             maxLines: 2,
           ),

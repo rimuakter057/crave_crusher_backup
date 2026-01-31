@@ -1,5 +1,6 @@
 import 'dart:io';
 import 'package:crave_crusher/helper/images_handler/image_handler.dart';
+import 'package:crave_crusher/helper/responsive_helper/responsive_helper.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:cached_network_image/cached_network_image.dart';
@@ -30,8 +31,8 @@ class ProfileAvatarWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final double avatarHeight = 80.h;
-    final double avatarWidth = 80.w;
+    final double avatarHeight = ResponsiveHelper.height(80);
+    final double avatarWidth =ResponsiveHelper.width(80);
 
     return SizedBox(
       height: heightA ?? avatarHeight,
@@ -48,7 +49,7 @@ class ProfileAvatarWidget extends StatelessWidget {
               shape: BoxShape.circle,
               border: Border.all(
                 color: borderColor ?? AppColors.subPrimary,
-                width: 2,
+                width: ResponsiveHelper.width(2),
               ),
               color: Colors.white,
             ),
@@ -76,8 +77,8 @@ class ProfileAvatarWidget extends StatelessWidget {
               bottom: 0,
               right: 0,
               child: SizedBox(
-                height: 24.h,
-                width: 24.w,
+                height: ResponsiveHelper.height(24),
+                width: ResponsiveHelper.width(24),
                 child: IconButton(
                   padding: EdgeInsets.zero,
                   constraints: BoxConstraints(),
@@ -89,7 +90,7 @@ class ProfileAvatarWidget extends StatelessWidget {
                   icon: Icon(
                     Icons.camera_alt_outlined,
                     color: AppColors.white,
-                    size: 15.w,
+                    size: ResponsiveHelper.iconSize(15),
                   ),
                 ),
               ),

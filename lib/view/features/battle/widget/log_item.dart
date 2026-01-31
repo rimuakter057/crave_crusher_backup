@@ -1,5 +1,6 @@
 // ignore_for_file: deprecated_member_use
 
+import 'package:crave_crusher/helper/responsive_helper/responsive_helper.dart';
 import 'package:crave_crusher/utils/app_colors/app_colors.dart';
 import 'package:crave_crusher/utils/app_icons/app_icons.dart';
 import 'package:crave_crusher/view/components/custom_image/custom_image.dart';
@@ -77,28 +78,36 @@ class LogEntryItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: EdgeInsets.only(bottom: 12.h),
+      padding: EdgeInsets.only(bottom: ResponsiveHelper.height(12)),
       child: Container(
-        padding: EdgeInsets.all(12.w),
+        padding: EdgeInsets.all(ResponsiveHelper.width(12)),
         decoration: BoxDecoration(
           color: AppColors.white,
           borderRadius: BorderRadius.circular(10.r),
-          border: Border.all(color: AppColors.subPrimary, width: 1.w),
+          border: Border.all(
+            color: AppColors.subPrimary,
+            width: ResponsiveHelper.width(1),
+          ),
         ),
         child: Row(
           children: [
             // Icon container
             Container(
-              width: 48.w,
-              height: 48.h,
+              width: ResponsiveHelper.width(48),
+              height: ResponsiveHelper.height(48),
               decoration: BoxDecoration(
                 color: _primaryColor.withOpacity(0.1),
-                borderRadius: BorderRadius.circular(8.r),
-                border: Border.all(color: _borderColor, width: 1.w),
+                borderRadius: BorderRadius.circular(
+                  ResponsiveHelper.borderRadius(8),
+                ),
+                border: Border.all(
+                  color: _borderColor,
+                  width: ResponsiveHelper.width(1),
+                ),
               ),
               child: Center(child: CustomImage(imageSrc: icon)),
             ),
-            SizedBox(width: 12.w),
+            SizedBox(width: ResponsiveHelper.width(12)),
 
             // Day + Status
             Expanded(
@@ -112,7 +121,7 @@ class LogEntryItem extends StatelessWidget {
                       CustomText(
                         text: 'Day $dayNumber',
                         fontWeight: FontWeight.w600,
-                        fontSize: 16,
+                        fontSize: ResponsiveHelper.fontSize(16),
                         color: AppColors.appTitle,
                       ),
 
@@ -131,7 +140,7 @@ class LogEntryItem extends StatelessWidget {
                       // ),
                     ],
                   ),
-                  SizedBox(height: 4.h),
+                  SizedBox(height: ResponsiveHelper.height(4)),
                   Row(
                     children: [
                       Row(
@@ -141,21 +150,21 @@ class LogEntryItem extends StatelessWidget {
                           CustomText(
                             text: "Caved",
                             fontWeight: FontWeight.w500,
-                            fontSize: 12,
+                            fontSize: ResponsiveHelper.fontSize(12),
                             color: AppColors.softWhite,
                           ),
-                          SizedBox(width: 4.w),
+                          SizedBox(width: ResponsiveHelper.width(4)),
 
                           CustomText(
                             text: countCaved.toString(),
                             fontWeight: FontWeight.w500,
-                            fontSize: 12,
+                            fontSize: ResponsiveHelper.fontSize(12),
                             color: AppColors.softWhite,
                           ),
                         ],
                       ),
                       SizedBox(
-                        height: 10,
+                        height: ResponsiveHelper.height(10),
                         child: VerticalDivider(
                           color: AppColors.softWhite,
                           thickness: 1,
@@ -168,16 +177,16 @@ class LogEntryItem extends StatelessWidget {
                           CustomText(
                             text: "Craved",
                             fontWeight: FontWeight.w500,
-                            fontSize: 12,
+                            fontSize: ResponsiveHelper.fontSize(12),
                             color: AppColors.softWhite,
                           ),
-                          SizedBox(width: 4.w),
+                          SizedBox(width: ResponsiveHelper.width(4)),
 
                           CustomText(
                             text: countCraved.toString(),
 
                             fontWeight: FontWeight.w500,
-                            fontSize: 12,
+                            fontSize: ResponsiveHelper.fontSize(12),
                             color: AppColors.softWhite,
                           ),
                         ],

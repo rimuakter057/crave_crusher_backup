@@ -1,5 +1,6 @@
 // ignore_for_file: deprecated_member_use
 
+import 'package:crave_crusher/helper/responsive_helper/responsive_helper.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../../utils/app_colors/app_colors.dart';
@@ -27,8 +28,8 @@ class CustomLeadingTitleAppbar extends StatelessWidget
 
       leading: Center(
         child: Container(
-          width: 50.w,
-          height: 50.h,
+          width: ResponsiveHelper.width(50),
+          height:ResponsiveHelper.height(50),
           alignment: Alignment.center,
           decoration: BoxDecoration(
             color: AppColors.subPrimary.withOpacity(.3),
@@ -41,7 +42,7 @@ class CustomLeadingTitleAppbar extends StatelessWidget
 
       title: CustomText(
         text: title,
-        fontSize: 18.sp,
+        fontSize: ResponsiveHelper.fontSize(18),
         color: titleColor ?? Color(0xFF1E1E1E),
         fontWeight: FontWeight.w500,
       ),
@@ -49,5 +50,5 @@ class CustomLeadingTitleAppbar extends StatelessWidget
   }
 
   @override
-  Size get preferredSize => Size.fromHeight(60.h);
+  Size get preferredSize => Size.fromHeight(ResponsiveHelper.height(60),);
 }

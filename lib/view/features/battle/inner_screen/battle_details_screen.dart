@@ -1,5 +1,6 @@
 // ignore_for_file: must_be_immutable, deprecated_member_use
 
+import 'package:crave_crusher/helper/responsive_helper/responsive_helper.dart';
 import 'package:crave_crusher/utils/app_colors/app_colors.dart';
 import 'package:crave_crusher/utils/app_icons/app_icons.dart';
 import 'package:crave_crusher/utils/app_strings/app_strings.dart';
@@ -54,7 +55,10 @@ class _BattleDetailsScreenState extends State<BattleDetailsScreen> {
       appBar: _buildAppbar(),
 
       body: SingleChildScrollView(
-        padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 12.h),
+        padding: EdgeInsets.symmetric(
+          horizontal: ResponsiveHelper.width(16),
+          vertical: ResponsiveHelper.height(12),
+        ),
         child: Obx(() {
           if (controller.isLoadingSingleBattle.value) {
             return CustomLoader();
@@ -77,7 +81,10 @@ class _BattleDetailsScreenState extends State<BattleDetailsScreen> {
           return Card(
             color: AppColors.white,
             child: SingleChildScrollView(
-              padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 12.h),
+              padding: EdgeInsets.symmetric(
+                horizontal: ResponsiveHelper.width(16),
+                vertical: ResponsiveHelper.height(12),
+              ),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
@@ -139,7 +146,7 @@ class _BattleDetailsScreenState extends State<BattleDetailsScreen> {
                         "Your Monster Is Losing Power — Keep It Up!",
                   ),
 
-                  SizedBox(height: 24.h),
+                  SizedBox(height: ResponsiveHelper.height(24)),
 
                   ProgressAndActionSection(
                     progress: (battle.battleProgress ?? 0) / 100,
@@ -258,7 +265,6 @@ class _BattleDetailsScreenState extends State<BattleDetailsScreen> {
     );
   }
 
-
   /// show dialog==============================================================================================
   // void _buildShowBattleDialog(String id) {
   //   Get.dialog(
@@ -371,19 +377,18 @@ class _BattleDetailsScreenState extends State<BattleDetailsScreen> {
   //   );
   // }
 
-
   PreferredSize _buildAppbar() {
     return PreferredSize(
       preferredSize: Size.fromHeight(kToolbarHeight),
       child: Padding(
-        padding: EdgeInsets.symmetric(horizontal: 16.w),
+        padding: EdgeInsets.symmetric(horizontal: ResponsiveHelper.width(16)),
         child: AppBar(
           surfaceTintColor: AppColors.backgroundColor,
           backgroundColor: AppColors.backgroundColor,
-          leadingWidth: 50.w, // adjust if needed
+          leadingWidth: ResponsiveHelper.width(50), // adjust if needed
           leading: Container(
-            width: 50.w,
-            height: 50.h,
+            width: ResponsiveHelper.width(50),
+            height: ResponsiveHelper.height(50),
             alignment: Alignment.center,
             decoration: BoxDecoration(
               color: AppColors.subPrimary.withOpacity(.3),
@@ -402,7 +407,7 @@ class _BattleDetailsScreenState extends State<BattleDetailsScreen> {
           centerTitle: true,
           title: CustomText(
             text: 'Battle Details',
-            fontSize: 18.sp,
+            fontSize: ResponsiveHelper.fontSize(18),
             fontWeight: FontWeight.w500,
           ),
 
@@ -415,7 +420,9 @@ class _BattleDetailsScreenState extends State<BattleDetailsScreen> {
                           AlertDialog(
                             backgroundColor: AppColors.white,
                             shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(12),
+                              borderRadius: BorderRadius.circular(
+                                ResponsiveHelper.borderRadius(12),
+                              ),
                             ),
                             title: Text(
                               "Confirm",
@@ -435,8 +442,8 @@ class _BattleDetailsScreenState extends State<BattleDetailsScreen> {
                                   Get.back(); // Close dialog
                                 },
                                 title: "No",
-                                height: 30.h,
-                                width: 100.w,
+                                height: ResponsiveHelper.height(30),
+                                width: ResponsiveHelper.width(100),
                               ),
                               Obx(() {
                                 return CustomButton(
@@ -452,8 +459,8 @@ class _BattleDetailsScreenState extends State<BattleDetailsScreen> {
                                             }
                                           },
                                   title: "Yes",
-                                  height: 30.h,
-                                  width: 100.w,
+                                  height: ResponsiveHelper.height(30),
+                                  width: ResponsiveHelper.width(100),
                                 );
                               }),
                             ],
@@ -462,8 +469,8 @@ class _BattleDetailsScreenState extends State<BattleDetailsScreen> {
                         );
                       },
                       child: Container(
-                        width: 50.w,
-                        height: 50.h,
+                        width: ResponsiveHelper.width(50),
+                        height: ResponsiveHelper.height(50),
                         alignment: Alignment.center,
                         decoration: BoxDecoration(
                           color: AppColors.subPrimary.withOpacity(.3),
@@ -472,8 +479,8 @@ class _BattleDetailsScreenState extends State<BattleDetailsScreen> {
                         ),
                         child: CustomSvgIcon(
                           icon: AppIcons.cross,
-                          height: 28.h,
-                          width: 28.w,
+                          height: ResponsiveHelper.height(28),
+                          width: ResponsiveHelper.width(28),
                         ),
                       ),
                     ),
@@ -483,7 +490,6 @@ class _BattleDetailsScreenState extends State<BattleDetailsScreen> {
       ),
     );
   }
-
 
   //build dialog container
   // Container _buildDialogContainer(final String text, final String image) {
@@ -510,7 +516,6 @@ class _BattleDetailsScreenState extends State<BattleDetailsScreen> {
   //     ),
   //   );
   // }
-
 }
 
 /// 🔹 Counter button (Caved / Craved)
@@ -522,26 +527,26 @@ Widget _buildCountButton({
   return GestureDetector(
     onTap: onTap,
     child: Container(
-      height: 36.h,
-      width: 130.w,
+      height: ResponsiveHelper.height(36),
+      width: ResponsiveHelper.width(130),
       alignment: Alignment.center,
       decoration: BoxDecoration(
         color: AppColors.primary,
-        borderRadius: BorderRadius.circular(8.r),
+        borderRadius: BorderRadius.circular(ResponsiveHelper.borderRadius(8)),
       ),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           CustomText(
             text: count.toString(),
-            fontSize: 16.sp,
+            fontSize: ResponsiveHelper.fontSize(16),
             fontWeight: FontWeight.w600,
             color: AppColors.white,
           ),
-          SizedBox(width: 8.w),
+          SizedBox(width: ResponsiveHelper.width(8)),
           CustomText(
             text: label,
-            fontSize: 14.sp,
+            fontSize:ResponsiveHelper.fontSize(14),
             fontWeight: FontWeight.w600,
             color: AppColors.white,
           ),

@@ -1,3 +1,4 @@
+import 'package:crave_crusher/helper/responsive_helper/responsive_helper.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -31,7 +32,7 @@ class CustomTabSingleText extends StatelessWidget {
       ),
       padding:
           isPadding!
-              ? const EdgeInsets.symmetric(horizontal: 22)
+              ?  EdgeInsets.symmetric(horizontal: ResponsiveHelper.width(22),)
               : const EdgeInsets.symmetric(horizontal: 0),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -39,7 +40,7 @@ class CustomTabSingleText extends StatelessWidget {
           return GestureDetector(
             onTap: () => onTabSelected(index),
             child: Container(
-              padding: const EdgeInsets.only(bottom: 10),
+              padding:  EdgeInsets.only(bottom: ResponsiveHelper.height(10),),
               decoration: BoxDecoration(
                 //color: AppColors.red,
                 border: Border(
@@ -48,7 +49,7 @@ class CustomTabSingleText extends StatelessWidget {
                         selectedIndex == index
                             ? selectedColor
                             : Colors.transparent,
-                    width: 3.0,
+                    width:ResponsiveHelper.width(3),
                   ),
                 ),
               ),

@@ -1,5 +1,6 @@
 // ignore_for_file: deprecated_member_use
 
+import 'package:crave_crusher/helper/responsive_helper/responsive_helper.dart';
 import 'package:crave_crusher/utils/app_colors/app_colors.dart';
 import 'package:crave_crusher/utils/app_icons/app_icons.dart';
 import 'package:crave_crusher/utils/app_images/app_images.dart';
@@ -58,9 +59,9 @@ class _NotificationScreenState extends State<NotificationScreen> {
           }
           return ListView.separated(
             controller: scrollController,
-            padding: EdgeInsets.symmetric(vertical: 12.h),
+            padding: EdgeInsets.symmetric(vertical: ResponsiveHelper.height(12),),
             itemCount: controller.notificationList.length + 1,
-            separatorBuilder: (context, index) => SizedBox(height: 12.h),
+            separatorBuilder: (context, index) => SizedBox(height: ResponsiveHelper.height(12),),
             itemBuilder: (context, index) {
               if (index < controller.notificationList.length) {
                 final notification = controller.notificationList[index];
@@ -68,8 +69,8 @@ class _NotificationScreenState extends State<NotificationScreen> {
                   title: notification.title ?? "empty title",
                   subtitle: notification.message ?? "",
                   leading: Container(
-                    width: 40.w,
-                    height: 40.h,
+                    width: ResponsiveHelper.width(40),
+                    height:ResponsiveHelper.height(40),
                     alignment: Alignment.center,
                     decoration: BoxDecoration(
                       color: AppColors.subPrimary.withOpacity(.3),
@@ -78,8 +79,8 @@ class _NotificationScreenState extends State<NotificationScreen> {
                     ),
                     child: CustomImage(
                       imageSrc: AppImages.appLogo,
-                      height: 24.h,
-                      width: 27.w,
+                      height: ResponsiveHelper.iconSize(24),
+                      width:ResponsiveHelper.iconSize(27),
                       fit: BoxFit.cover,
                     ),
                   ),
@@ -104,7 +105,7 @@ class _NotificationScreenState extends State<NotificationScreen> {
                         padding: EdgeInsets.symmetric(vertical: 8.h),
                         child: LinearProgressIndicator(
                           color: AppColors.primary,
-                          minHeight: 3,
+                          minHeight:ResponsiveHelper.height(3),
                         ),
                       )
                       : SizedBox();

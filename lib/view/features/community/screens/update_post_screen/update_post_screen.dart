@@ -3,6 +3,7 @@
 import 'dart:io';
 
 import 'package:crave_crusher/helper/images_handler/image_handler.dart';
+import 'package:crave_crusher/helper/responsive_helper/responsive_helper.dart';
 import 'package:crave_crusher/utils/app_colors/app_colors.dart';
 import 'package:crave_crusher/utils/app_icons/app_icons.dart';
 
@@ -51,7 +52,7 @@ class _UpdatePostScreenState extends State<UpdatePostScreen> {
   Widget build(BuildContext context) {
     double screenWidth = MediaQuery.of(context).size.width;
     double itemWidth =
-        (screenWidth - 16.w - 16.w - 8.w * 2) / 3; // 3 item fixed
+        (screenWidth - ResponsiveHelper.width(16) - ResponsiveHelper.width(16)-ResponsiveHelper.width(8) * 2) / 3; // 3 item fixed
 
     return Scaffold(
       appBar: AppBar(
@@ -59,8 +60,8 @@ class _UpdatePostScreenState extends State<UpdatePostScreen> {
         backgroundColor: AppColors.backgroundColor,
         leading: Center(
           child: Container(
-            width: 50.w,
-            height: 50.h,
+            width: ResponsiveHelper.width(50),
+            height: ResponsiveHelper.height(50),
             alignment: Alignment.center,
             decoration: BoxDecoration(
               color: AppColors.subPrimary.withOpacity(.3),
@@ -78,7 +79,7 @@ class _UpdatePostScreenState extends State<UpdatePostScreen> {
         centerTitle: true,
         title: CustomText(
           text: "Update",
-          fontSize: 18.sp,
+          fontSize: ResponsiveHelper.fontSize(18),
           fontWeight: FontWeight.w500,
         ),
       ),
@@ -86,14 +87,14 @@ class _UpdatePostScreenState extends State<UpdatePostScreen> {
       //        final images = postController.currentImagePaths;
       body: SingleChildScrollView(
         child: Padding(
-          padding: EdgeInsets.symmetric(horizontal: 16.w),
+          padding: EdgeInsets.symmetric(horizontal:ResponsiveHelper.width(16)),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               /// write comment
               CustomText(
                 text: "What’s on your mind today?",
-                fontSize: 14.sp,
+                fontSize: ResponsiveHelper.fontSize(14),
                 fontWeight: FontWeight.w500,
               ),
               Gap(8.h),
@@ -105,20 +106,20 @@ class _UpdatePostScreenState extends State<UpdatePostScreen> {
                 hintText: "Share your progress, thoughts, or a victory moment…",
                 hintStyle: GoogleFonts.syne(
                   color: AppColors.black.withOpacity(0.5),
-                  fontSize: 14.sp,
+                  fontSize: ResponsiveHelper.fontSize(14),
                 ),
                 fillColor: AppColors.subPrimary.withOpacity(.5),
               ),
 
-              Gap(24.h),
+              Gap(ResponsiveHelper.height(24)),
 
               /// add photo
               CustomText(
                 text: "Add a photo or moment (optional)",
-                fontSize: 14.sp,
+                fontSize: ResponsiveHelper.fontSize(14),
                 fontWeight: FontWeight.w500,
               ),
-              Gap(16.h),
+              Gap(ResponsiveHelper.height(16)),
 
               //========================================
               Obx(() {
@@ -130,8 +131,8 @@ class _UpdatePostScreenState extends State<UpdatePostScreen> {
                     /// selected images (Column or Wrap)
                     if (images.isNotEmpty)
                       Wrap(
-                        spacing: 8.w,
-                        runSpacing: 8.h,
+                        spacing:ResponsiveHelper.width(8),
+                        runSpacing: ResponsiveHelper.height(8),
                         children: List.generate(
                           images.length,
                           (index) => _buildImageItem(images[index], itemWidth),
@@ -145,7 +146,7 @@ class _UpdatePostScreenState extends State<UpdatePostScreen> {
                       onTap: () => postController.pickImagesUpdate(),
                       child: CustomContainer(
                         width: double.infinity,
-                        height: 120.h,
+                        height: ResponsiveHelper.height(120),
                         borderColor: AppColors.primary,
                         backgroundColor: AppColors.subPrimary.withOpacity(.5),
                         child: Center(
@@ -178,14 +179,14 @@ class _UpdatePostScreenState extends State<UpdatePostScreen> {
                           ? CustomLoader()
                           : CustomContainer(
                             backgroundColor: AppColors.primary,
-                            padding: 4,
-                            height: 45.h,
-                            width: 140.w,
+                            padding: ResponsiveHelper.width(4),
+                            height: ResponsiveHelper.height(45),
+                            width: ResponsiveHelper.width(140),
                             child: Center(
                               child: CustomText(
                                 text: "Update Post",
                                 color: AppColors.white,
-                                fontSize: 18,
+                                fontSize: ResponsiveHelper.fontSize(18),
                               ),
                             ),
                           ),
@@ -204,7 +205,7 @@ class _UpdatePostScreenState extends State<UpdatePostScreen> {
     return Stack(
       children: [
         ClipRRect(
-          borderRadius: BorderRadius.circular(12),
+          borderRadius: BorderRadius.circular(ResponsiveHelper.borderRadius(12)),
           child:
               isLocalFile
                   ? Image.file(
@@ -228,8 +229,8 @@ class _UpdatePostScreenState extends State<UpdatePostScreen> {
               debugPrint('delete image');
             },
             child: Container(
-              width: 24.w,
-              height: 24.h,
+              width: ResponsiveHelper.width(24),
+              height: ResponsiveHelper.height(24),
               alignment: Alignment.center,
               decoration: BoxDecoration(
                 color: AppColors.white,

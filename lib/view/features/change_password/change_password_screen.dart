@@ -1,3 +1,4 @@
+import 'package:crave_crusher/helper/responsive_helper/responsive_helper.dart';
 import 'package:crave_crusher/utils/app_icons/app_icons.dart';
 import 'package:crave_crusher/view/components/custom_button/custom_button.dart';
 import 'package:crave_crusher/view/components/custom_loader/custom_loader.dart';
@@ -36,7 +37,7 @@ class ChangePasswordScreen extends StatelessWidget {
       body: Form(
         key: _formKey,
         child: Padding(
-          padding: const EdgeInsets.all(16),
+          padding:  EdgeInsets.all(ResponsiveHelper.width(16)),
           child: Column(
             children: [
               InputPasswordFieldWidget(
@@ -78,7 +79,7 @@ class ChangePasswordScreen extends StatelessWidget {
                   return null;
                 },
               ),
-              const SizedBox(height: 20),
+               SizedBox(height: ResponsiveHelper.height(20)),
               GetBuilder<ChangePasswordController>(
                 builder: (controller) {
                   return controller.inProgress

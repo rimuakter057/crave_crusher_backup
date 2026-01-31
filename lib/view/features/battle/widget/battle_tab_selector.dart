@@ -42,20 +42,20 @@ class _BattleTabSelectorState extends State<BattleTabSelector> {
               duration: const Duration(milliseconds: 200),
 
               height: ResponsiveHelper.height(36), // 36.h,
-              margin: EdgeInsets.symmetric(horizontal: 4.w),
+              margin: EdgeInsets.symmetric(horizontal: ResponsiveHelper.width(4)),
               alignment: Alignment.center,
               decoration: BoxDecoration(
                 color:
                     isSelected
                         ? AppColors.primary
                         : AppColors.subPrimary.withAlpha(80),
-                borderRadius: BorderRadius.circular(8.r),
+                borderRadius: BorderRadius.circular(ResponsiveHelper.borderRadius(8)),
                 border:
                     isSelected
                         ? null
                         : Border.all(
                           color: AppColors.subPrimary.withOpacity(0.5),
-                          width: 1.w,
+                          width:ResponsiveHelper.width(1),
                         ),
               ),
               child: CustomText(

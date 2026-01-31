@@ -1,3 +1,4 @@
+import 'package:crave_crusher/helper/responsive_helper/responsive_helper.dart';
 import 'package:crave_crusher/utils/app_colors/app_colors.dart';
 import 'package:crave_crusher/view/components/custom_loader/custom_loader.dart';
 
@@ -12,20 +13,20 @@ class CustomPopUpLoader {
         return Dialog(
           backgroundColor: Colors.transparent,
           child: Container(
-            padding: const EdgeInsets.all(20),
+            padding:  EdgeInsets.all(ResponsiveHelper.padding(20),),
             decoration: BoxDecoration(
               color: Colors.transparent,
-              borderRadius: BorderRadius.circular(10),
+              borderRadius: BorderRadius.circular(ResponsiveHelper.borderRadius(10),),
             ),
             child: Column(
               mainAxisSize: MainAxisSize.min,
               children: [
                 const CustomLoader(),
-                const SizedBox(height: 20),
+                 SizedBox(height: ResponsiveHelper.height(20),),
                 Text(
                   message,
-                  style: const TextStyle(
-                    fontSize: 16,
+                  style:  TextStyle(
+                    fontSize:ResponsiveHelper.fontSize(16),
                     fontWeight: FontWeight.bold,
                     color: AppColors.primary,
                   ),

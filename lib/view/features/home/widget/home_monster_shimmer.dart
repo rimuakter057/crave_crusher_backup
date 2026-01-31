@@ -1,3 +1,4 @@
+import 'package:crave_crusher/helper/responsive_helper/responsive_helper.dart';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:shimmer/shimmer.dart';
@@ -15,7 +16,7 @@ class HomeMonsterShimmerLoader extends StatelessWidget {
       itemCount: 5,
       itemBuilder: (context, index) {
         return Padding(
-          padding: EdgeInsets.symmetric(vertical: 8.h),
+          padding: EdgeInsets.symmetric(vertical:ResponsiveHelper.height(8)),
           child: Shimmer.fromColors(
             baseColor: Colors.grey[300]!,
             highlightColor: Colors.grey[100]!,
@@ -23,13 +24,13 @@ class HomeMonsterShimmerLoader extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 // first Row
-                _buildSkeleton(double.infinity, 280.h),
+                _buildSkeleton(double.infinity, ResponsiveHelper.height(280)),
 
-                Gap(12.h),
+                Gap(ResponsiveHelper.height(12)),
 
                 // 2nd Row
-                _buildSkeleton(double.infinity, 52.h),
-                Gap(8.h),
+                _buildSkeleton(double.infinity, ResponsiveHelper.height(52)),
+                Gap(ResponsiveHelper.height(8)),
               ],
             ),
           ),
@@ -43,7 +44,7 @@ class HomeMonsterShimmerLoader extends StatelessWidget {
       width: width,
       height: height,
       decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(6.r),
+        borderRadius: BorderRadius.circular(ResponsiveHelper.borderRadius(6)),
         color: Colors.white,
         shape: isCircle ? BoxShape.circle : BoxShape.rectangle,
       ),

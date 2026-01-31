@@ -1,3 +1,4 @@
+import 'package:crave_crusher/helper/responsive_helper/responsive_helper.dart';
 import 'package:crave_crusher/utils/app_colors/app_colors.dart';
 import 'package:crave_crusher/view/components/custom_container/custom_container.dart';
 import 'package:crave_crusher/view/components/custom_text/custom_text.dart';
@@ -15,14 +16,14 @@ class ProfileStatusContainer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return CustomContainer(
-      width: 102.w,
-      height: 64.h,
+      width:  ResponsiveHelper.width(102),
+      height:ResponsiveHelper.height(64),
       backgroundColor: Colors.blue.shade50,
       borderColor: AppColors.primary,
       child: Column(
         children: [
           CustomText(text: number.toString(), fontWeight: FontWeight.w600),
-          CustomText(text: title, fontSize: 10, color: Color(0xFFA1A1AA)),
+          CustomText(text: title, fontSize: ResponsiveHelper.fontSize(10), color: Color(0xFFA1A1AA)),
         ],
       ),
     );

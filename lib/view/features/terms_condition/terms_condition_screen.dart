@@ -1,3 +1,4 @@
+import 'package:crave_crusher/helper/responsive_helper/responsive_helper.dart';
 import 'package:crave_crusher/view/components/common_empty/common_empty_widget.dart';
 import 'package:crave_crusher/view/components/custom_leading_title_appbar.dart';
 import 'package:crave_crusher/view/components/custom_loader/custom_loader.dart';
@@ -37,7 +38,7 @@ class TermsConditionScreen extends StatelessWidget {
             data: termsData.description,
             style: {
               "body": Style(
-                fontSize: FontSize(18.sp),
+                fontSize: FontSize(ResponsiveHelper.fontSize(18),),
                 fontWeight: FontWeight.w600,
                 color: Colors.black,
               ),

@@ -1,5 +1,6 @@
 // ignore_for_file: unused_local_variable
 
+import 'package:crave_crusher/helper/responsive_helper/responsive_helper.dart';
 import 'package:crave_crusher/helper/time_converter/date_converter.dart';
 import 'package:crave_crusher/view/components/common_empty/common_empty_widget.dart';
 import 'package:crave_crusher/view/components/custom_app_bar/custom_app_bar.dart';
@@ -20,7 +21,7 @@ class BattleLogScreen extends StatelessWidget {
     return Scaffold(
       appBar: CustomAppBar(title: 'Battle Log', actions: []),
       body: Padding(
-        padding: EdgeInsets.symmetric(horizontal: 16.0.w),
+        padding: EdgeInsets.symmetric(horizontal: ResponsiveHelper.width(16)),
         child: Obx(() {
           final battleLogs = controller.battleDetails.value.battleLogs;
 
@@ -30,7 +31,7 @@ class BattleLogScreen extends StatelessWidget {
           final dateConverter = DateConverter();
           return Column(
             children: [
-              SizedBox(height: 20.h),
+              SizedBox(height: ResponsiveHelper.height(20)),
               Expanded(
                 child: ListView.builder(
                   physics: const AlwaysScrollableScrollPhysics(),
@@ -42,15 +43,12 @@ class BattleLogScreen extends StatelessWidget {
                     return LogEntryItem(
                       type: type,
                       dayNumber: log.day ?? 0,
-                      countCaved: log.totalCaved??0,
-                      countCraved:  log.totalCraved??0,
+                      countCaved: log.totalCaved ?? 0,
+                      countCraved: log.totalCraved ?? 0,
+
                       // timestamp: DateConverter.dateYearTimeUtc(
                       //   log.createdAt ?? '',
                       // ),
-
-
-
-
                     );
                   },
                 ),

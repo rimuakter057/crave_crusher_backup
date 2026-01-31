@@ -1,3 +1,4 @@
+import 'package:crave_crusher/helper/responsive_helper/responsive_helper.dart';
 import 'package:crave_crusher/utils/app_icons/app_icons.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -26,7 +27,7 @@ class CustomTextField extends StatefulWidget {
     this.fillColor = AppColors.primary,
     this.suffixIcon,
     this.suffixIconColor,
-    this.fieldBorderRadius = 16,
+    this.fieldBorderRadius ,
     this.fieldBorderColor = Colors.transparent, //const Color(0xffB5D8EE),
     this.isPassword = false,
     this.isPrefixIcon = true,
@@ -55,7 +56,7 @@ class CustomTextField extends StatefulWidget {
   final Color? suffixIconColor;
   final Widget? suffixIcon;
   final Widget? prefixIcon;
-  final double fieldBorderRadius;
+  final double ? fieldBorderRadius;
   final Color fieldBorderColor;
   final bool isPassword;
   final bool isPrefixIcon;
@@ -148,17 +149,17 @@ class _CustomTextFieldState extends State<CustomTextField> {
                 : widget.suffixIcon,
         suffixIconColor: widget.suffixIconColor,
         border: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(widget.fieldBorderRadius),
+          borderRadius: BorderRadius.circular(widget.fieldBorderRadius??ResponsiveHelper.borderRadius(16),),
           borderSide: BorderSide(color: widget.fieldBorderColor, width: 1),
           gapPadding: 0,
         ),
         focusedBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(widget.fieldBorderRadius),
+          borderRadius: BorderRadius.circular(widget.fieldBorderRadius??ResponsiveHelper.borderRadius(16),),
           borderSide: BorderSide(color: widget.fieldBorderColor, width: 1),
           gapPadding: 0,
         ),
         enabledBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(widget.fieldBorderRadius),
+          borderRadius: BorderRadius.circular(widget.fieldBorderRadius??ResponsiveHelper.borderRadius(16),),
           borderSide: BorderSide(color: widget.fieldBorderColor, width: 1),
           gapPadding: 0,
         ),

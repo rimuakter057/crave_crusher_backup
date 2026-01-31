@@ -1,3 +1,4 @@
+import 'package:crave_crusher/helper/responsive_helper/responsive_helper.dart';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:shimmer/shimmer.dart';
@@ -15,7 +16,7 @@ class PostShimmerLoader extends StatelessWidget {
       itemCount: 5,
       itemBuilder: (context, index) {
         return Padding(
-          padding: EdgeInsets.symmetric(vertical: 8.h),
+          padding: EdgeInsets.symmetric(vertical:ResponsiveHelper.height(8)),
           child: Shimmer.fromColors(
             baseColor: Colors.grey[300]!,
             highlightColor: Colors.grey[100]!,
@@ -25,43 +26,43 @@ class PostShimmerLoader extends StatelessWidget {
                 // Profile Row
                 Row(
                   children: [
-                    _buildSkeleton(50.w, 50.h, isCircle: true), // Avatar
-                    SizedBox(width: 12.w),
+                    _buildSkeleton(ResponsiveHelper.width(50), ResponsiveHelper.height(50), isCircle: true), // Avatar
+                    SizedBox(width: ResponsiveHelper.width(12)),
                     Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        _buildSkeleton(120.w, 14.h), // Name
-                        Gap(6.h),
-                        _buildSkeleton(80.w, 12.h), // Post time
+                        _buildSkeleton(ResponsiveHelper.width(120), ResponsiveHelper.height(14)), // Name
+                        Gap(ResponsiveHelper.height(6)),
+                        _buildSkeleton(ResponsiveHelper.width(80), ResponsiveHelper.height(12)), // Post time
                       ],
                     ),
                   ],
                 ),
-                Gap(12.h),
+                Gap(ResponsiveHelper.height(12)),
 
                 // Post Image Placeholder
-                _buildSkeleton(double.infinity, 160.h),
-                Gap(8.h),
+                _buildSkeleton(double.infinity, ResponsiveHelper.height(160)),
+                Gap(ResponsiveHelper.height(8)),
 
                 // Post Text Placeholder (2 lines)
-                _buildSkeleton(double.infinity, 14.h),
-                Gap(6.h),
-                _buildSkeleton(200.w, 14.h),
-                Gap(8.h),
+                _buildSkeleton(double.infinity, ResponsiveHelper.height(14)),
+                Gap(ResponsiveHelper.height(6)),
+                _buildSkeleton(ResponsiveHelper.width(200), ResponsiveHelper.height(14)),
+                Gap(ResponsiveHelper.height(8)),
 
                 // Footer Row (Like & Comment)
                 Row(
                   children: [
-                    _buildSkeleton(20.w, 20.h),
-                    SizedBox(width: 6.w),
-                    _buildSkeleton(30.w, 14.h),
-                    SizedBox(width: 20.w),
-                    _buildSkeleton(20.w, 20.h),
-                    SizedBox(width: 6.w),
-                    _buildSkeleton(30.w, 14.h),
+                    _buildSkeleton(ResponsiveHelper.width(20), ResponsiveHelper.height(20)),
+                    SizedBox(width: ResponsiveHelper.width(6)),
+                    _buildSkeleton(ResponsiveHelper.width(30), ResponsiveHelper.height(14)),
+                    SizedBox(width: ResponsiveHelper.width(20)),
+                    _buildSkeleton(ResponsiveHelper.width(20), ResponsiveHelper.height(20)),
+                    SizedBox(width: ResponsiveHelper.width(6)),
+                    _buildSkeleton(ResponsiveHelper.width(30), ResponsiveHelper.height(14)),
                   ],
                 ),
-                SizedBox(height: 12.h),
+                SizedBox(height: ResponsiveHelper.height(12)),
               ],
             ),
           ),

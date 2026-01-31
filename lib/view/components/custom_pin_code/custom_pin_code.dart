@@ -1,5 +1,6 @@
 // ignore_for_file: prefer_const_constructors
 
+import 'package:crave_crusher/helper/responsive_helper/responsive_helper.dart';
 import 'package:flutter/material.dart';
 import 'package:pin_code_fields/pin_code_fields.dart';
 
@@ -14,7 +15,9 @@ class CustomPinCode extends StatelessWidget {
   Widget build(BuildContext context) {
     final size = MediaQuery.sizeOf(context);
     return Padding(
-      padding: const EdgeInsets.only(left: 20, right: 20),
+      padding:  EdgeInsets.symmetric(
+        horizontal: ResponsiveHelper.width(20),
+      ),
       child: PinCodeTextField(
         keyboardType: TextInputType.number,
         appContext: context,

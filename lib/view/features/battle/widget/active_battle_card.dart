@@ -192,7 +192,7 @@ class ActiveBattleCard extends StatelessWidget {
               width: ResponsiveHelper.width(125), // 125.w,
               decoration: BoxDecoration(
                 color: AppColors.subPrimary,
-                borderRadius: BorderRadius.circular(8.r),
+                borderRadius: BorderRadius.circular(ResponsiveHelper.borderRadius(8)),
               ),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -222,8 +222,8 @@ enum DetoxType { smoke, love, drugDetox, junkFood, shopping, socialMedia }
 
 class DottedProgressBar extends StatelessWidget {
   final double progress; // 0.0 - 1.0
-  final double height;
-  final double borderRadius;
+  final double? height;
+  final double? borderRadius;
   final Color baseColor;
   final Color progressColor; // line color
   final int dotCount;
@@ -232,8 +232,8 @@ class DottedProgressBar extends StatelessWidget {
   const DottedProgressBar({
     super.key,
     required this.progress,
-    this.height = 8.0,
-    this.borderRadius = 4.0,
+    this.height ,
+    this.borderRadius ,
     this.baseColor = AppColors.subPrimary,
     this.progressColor = AppColors.primary,
     this.dotedColor = AppColors.white,
@@ -250,18 +250,18 @@ class DottedProgressBar extends StatelessWidget {
         int whiteDots = (dotCount * progress).ceil();
 
         return Container(
-          height: height.h,
+          height: height??ResponsiveHelper.height(8),
           clipBehavior: Clip.hardEdge,
           decoration: BoxDecoration(
             color: baseColor.withOpacity(0.5),
-            borderRadius: BorderRadius.circular(borderRadius.r),
+            borderRadius: BorderRadius.circular(borderRadius??ResponsiveHelper.borderRadius(4)),
           ),
           child: Stack(
             children: [
               // Progress Bar
               AnimatedContainer(
                 duration: const Duration(milliseconds: 300),
-                height: height.h,
+                height: height??ResponsiveHelper.height(8),
                 width: totalWidth * progress,
                 decoration: BoxDecoration(color: progressColor),
               ),
@@ -273,8 +273,8 @@ class DottedProgressBar extends StatelessWidget {
                 children: List.generate(dotCount, (index) {
                   return Center(
                     child: Container(
-                      width: 4.w, // circle width = height
-                      height: 4.h, // circle height
+                      width: ResponsiveHelper.width(4), // circle width = height
+                      height: ResponsiveHelper.height(4), // circle height
                       decoration: BoxDecoration(
                         color: index < whiteDots ? dotedColor : progressColor,
                         shape: BoxShape.circle, // makes it circular

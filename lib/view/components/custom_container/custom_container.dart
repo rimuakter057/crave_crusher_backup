@@ -1,3 +1,4 @@
+import 'package:crave_crusher/helper/responsive_helper/responsive_helper.dart';
 import 'package:flutter/material.dart';
 
 class CustomContainer extends StatelessWidget {
@@ -25,13 +26,13 @@ class CustomContainer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: EdgeInsets.all(padding ?? 8),
+      padding: EdgeInsets.all(padding ?? ResponsiveHelper.padding(8),),
       width: width,
       height: height,
       margin: margin,
       decoration: BoxDecoration(
         color: backgroundColor ?? Colors.white,
-        borderRadius: BorderRadius.circular(radius ?? 8),
+        borderRadius: BorderRadius.circular(radius ?? ResponsiveHelper.borderRadius(8),),
         border: Border.all(color: borderColor ?? Colors.transparent),
       ),
       child: child,

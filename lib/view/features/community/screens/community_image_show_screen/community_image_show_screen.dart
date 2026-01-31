@@ -1,3 +1,4 @@
+import 'package:crave_crusher/helper/responsive_helper/responsive_helper.dart';
 import 'package:crave_crusher/service/api_url.dart';
 import 'package:crave_crusher/view/components/custom_svg_icon/custom_svg_icon.dart';
 import 'package:crave_crusher/view/features/community/controllers/community_controller.dart';
@@ -52,8 +53,8 @@ class _CommunityImageShowScreenState extends State<CommunityImageShowScreen> {
               ? EmptyWidget(title: "Images is not available")
               : Center(
                 child: SizedBox(
-                  width: 390.w,
-                  height: 300.h,
+                  width: ResponsiveHelper.width(390),
+                  height: ResponsiveHelper.height(390),
                   child: PageView.builder(
                     controller: _pageController,
                     itemCount: widget.images.length,
@@ -66,12 +67,16 @@ class _CommunityImageShowScreenState extends State<CommunityImageShowScreen> {
                       String imageUrl =
                           "${ApiUrl.primaryUrl}/${widget.images[index]}";
                       return Padding(
-                        padding: EdgeInsets.symmetric(horizontal: 8.w),
+                        padding: EdgeInsets.symmetric(
+                          horizontal: ResponsiveHelper.width(8),
+                        ),
                         child: Container(
-                          width: 390.w,
-                          height: 300.h,
+                          width: ResponsiveHelper.width(390),
+                          height: ResponsiveHelper.height(300),
                           decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(6.r),
+                            borderRadius: BorderRadius.circular(
+                              ResponsiveHelper.borderRadius(6),
+                            ),
                             image: DecorationImage(
                               image: NetworkImage(imageUrl),
                               fit: BoxFit.cover,

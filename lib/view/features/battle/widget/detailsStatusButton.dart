@@ -6,6 +6,8 @@ import 'package:crave_crusher/view/components/custom_text/custom_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
+import '../../../../helper/responsive_helper/responsive_helper.dart' show ResponsiveHelper;
+
 class DetailsStatusButtonWidget extends StatelessWidget {
   final String text;
   final String iconSrc;
@@ -31,12 +33,12 @@ class DetailsStatusButtonWidget extends StatelessWidget {
     return GestureDetector(
       onTap: onTap,
       child: Container(
-        height: 36.h,
-        width: 130.w,
+        height: ResponsiveHelper.height(36),
+        width: ResponsiveHelper.width(130),
         alignment: Alignment.center,
         decoration: BoxDecoration(
           color: bgColor,
-          borderRadius: BorderRadius.circular(8.r),
+          borderRadius: BorderRadius.circular(ResponsiveHelper.borderRadius(8)),
           border: Border.all(color: borderColor ?? AppColors.subPrimary),
         ),
         child: Row(
@@ -44,14 +46,14 @@ class DetailsStatusButtonWidget extends StatelessWidget {
           children: [
             CustomImage(
               imageSrc: iconSrc,
-              height: 18.h,
-              width: 18.w,
+              height: ResponsiveHelper.height(18),
+              width: ResponsiveHelper.width(18),
               imageColor: isPrimary ? AppColors.white : AppColors.primary,
             ),
-            SizedBox(width: 8.w),
+            SizedBox(width: ResponsiveHelper.width(18)),
             CustomText(
               text: text,
-              fontSize: 12.sp,
+              fontSize: ResponsiveHelper.fontSize(12),
               fontWeight: FontWeight.w600,
               color: textColor,
               top: 0,

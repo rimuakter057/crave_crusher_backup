@@ -1,3 +1,4 @@
+import 'package:crave_crusher/helper/responsive_helper/responsive_helper.dart';
 import 'package:crave_crusher/utils/app_const/app_const.dart';
 import 'package:crave_crusher/view/components/common_profile/avatar_widget.dart';
 import 'package:crave_crusher/view/components/custom_text/custom_text.dart';
@@ -17,18 +18,21 @@ class CommentWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
+      padding: EdgeInsets.symmetric(
+        horizontal: ResponsiveHelper.width(16),
+        vertical: ResponsiveHelper.height(8),
+      ),
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           /// Profile avatar
           ProfileAvatarWidget(
             imagePath: AppConstants.unknown,
-            heightA: 40.h,
-            widthA: 40.w,
+            heightA: ResponsiveHelper.height(40),
+            widthA: ResponsiveHelper.width(40),
           ),
 
-          Gap(8.w),
+          Gap(ResponsiveHelper.width(8)),
 
           /// Column with title and subtitle
           Expanded(
@@ -37,11 +41,11 @@ class CommentWidget extends StatelessWidget {
               children: [
                 /// Username / title
                 CustomText(text: userName),
-                Gap(12.h),
+                Gap(ResponsiveHelper.height(12)),
                 CustomText(
                   fontWeight: FontWeight.w500,
                   textAlign: TextAlign.start,
-                  fontSize: 13.sp,
+                  fontSize: ResponsiveHelper.fontSize(13),
                   maxLines: 3,
                   overflow: TextOverflow.ellipsis,
                   color: Color(0xFFA1A1AA),

@@ -1,3 +1,4 @@
+import 'package:crave_crusher/helper/responsive_helper/responsive_helper.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../../../utils/app_colors/app_colors.dart';
@@ -6,7 +7,7 @@ import '../custom_text/custom_text.dart';
 class CustomButton extends StatelessWidget {
   const CustomButton({
     super.key,
-    this.height = 55,
+    this.height,
     this.width = double.maxFinite,
     required this.onTap,
     this.title = '',
@@ -21,7 +22,7 @@ class CustomButton extends StatelessWidget {
     this.fontWeight,
   });
 
-  final double height;
+  final double? height;
   final double? width;
   final Color? fillColor;
   final Color textColor;
@@ -40,24 +41,24 @@ class CustomButton extends StatelessWidget {
     return GestureDetector(
       onTap: onTap,
       child: Container(
-        padding: EdgeInsets.symmetric(vertical: 5.h),
+        padding: EdgeInsets.symmetric(vertical: ResponsiveHelper.height(5),),
         margin: EdgeInsets.symmetric(
           vertical: marginVertical,
           horizontal: marginHorizontal,
         ),
         alignment: Alignment.center,
-        height: height,
+        height: height??ResponsiveHelper.height(40),
         width: width,
         decoration: BoxDecoration(
           border:
               isBorder
                   ? Border.all(color: textColor, width: borderWidth ?? .05)
                   : null,
-          borderRadius: BorderRadius.circular(borderRadius ?? 6),
+          borderRadius: BorderRadius.circular(borderRadius ?? ResponsiveHelper.borderRadius(6),),
           color: fillColor,
         ),
         child: CustomText(
-          fontSize: fontSize ?? 14.sp,
+          fontSize: fontSize ?? ResponsiveHelper.fontSize(14),
           fontWeight: fontWeight ?? FontWeight.w600,
           color: textColor,
           textAlign: TextAlign.center,

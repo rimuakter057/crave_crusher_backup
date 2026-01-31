@@ -1,5 +1,6 @@
 import 'package:crave_crusher/core/routes/app_routes.dart';
 import 'package:crave_crusher/helper/images_handler/image_handler.dart';
+import 'package:crave_crusher/helper/responsive_helper/responsive_helper.dart';
 import 'package:crave_crusher/utils/app_colors/app_colors.dart';
 import 'package:crave_crusher/utils/app_icons/app_icons.dart';
 import 'package:crave_crusher/utils/app_images/app_images.dart';
@@ -27,7 +28,7 @@ class ProfileScreen extends StatelessWidget {
   final ProfileController profileController = Get.find<ProfileController>();
   @override
   Widget build(BuildContext context) {
-    final stackHeight = 180.h; // height of the top stack
+    final stackHeight = ResponsiveHelper.height(180); // height of the top stack
 
     return Scaffold(
       bottomNavigationBar: NavBar(currentIndex: 4),
@@ -50,17 +51,17 @@ class ProfileScreen extends StatelessWidget {
                         image: AssetImage(AppImages.profileBackground),
                         fit: BoxFit.cover,
                       ),
-                      borderRadius: BorderRadius.circular(20),
+                      borderRadius: BorderRadius.circular(ResponsiveHelper.borderRadius(20)),
                     ),
                   ),
 
                   // Back button
                   Positioned(
-                    left: 16,
-                    top: 48,
+                    left: ResponsiveHelper.width(16),
+                    top:  ResponsiveHelper.height(48),
                     child: Container(
-                      width: 50.w,
-                      height: 50.h,
+                      width:  ResponsiveHelper.width(50),
+                      height: ResponsiveHelper.height(50),
                       alignment: Alignment.center,
                       decoration: BoxDecoration(
                         color: AppColors.white,
@@ -73,7 +74,7 @@ class ProfileScreen extends StatelessWidget {
 
                   // Title text
                   Positioned(
-                    top: 50.h,
+                    top: ResponsiveHelper.height(50),
                     left: 0,
                     right: 0,
                     child: CustomText(
@@ -85,7 +86,7 @@ class ProfileScreen extends StatelessWidget {
 
                   // Profile image (SAFE)
                   Positioned(
-                    bottom: -50,
+                    bottom: - ResponsiveHelper.height(50),
                     child: Obx(() {
                       final profile = profileController.myProfile.value;
 
@@ -101,7 +102,7 @@ class ProfileScreen extends StatelessWidget {
               ),
             ),
 
-            Gap(62.h),
+            Gap( ResponsiveHelper.height(62),),
 
             /// Profile Name (SAFE)
             Obx(() {
@@ -110,15 +111,15 @@ class ProfileScreen extends StatelessWidget {
               return CustomText(
                 text: profile?.fullName ?? "Empty Name",
                 fontWeight: FontWeight.w600,
-                fontSize: 18.sp,
+                fontSize: ResponsiveHelper.fontSize(18),
               );
             }),
 
-            Gap(24.h),
+            Gap( ResponsiveHelper.height(24),),
 
             // Scrollable content
             Padding(
-              padding: EdgeInsets.symmetric(horizontal: 16.w),
+              padding: EdgeInsets.symmetric(horizontal:  ResponsiveHelper.padding(16),),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
@@ -163,7 +164,7 @@ class ProfileScreen extends StatelessWidget {
                   Gap(12.h),
                   CustomText(
                     text: "More",
-                    fontSize: 18.sp,
+                    fontSize: ResponsiveHelper.fontSize(18),
                     fontWeight: FontWeight.w500,
                   ),
                   Gap(12.h),

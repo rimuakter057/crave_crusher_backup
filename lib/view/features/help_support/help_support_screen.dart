@@ -1,3 +1,4 @@
+import 'package:crave_crusher/helper/responsive_helper/responsive_helper.dart';
 import 'package:crave_crusher/utils/app_colors/app_colors.dart';
 import 'package:crave_crusher/utils/app_const/app_const.dart';
 import 'package:crave_crusher/utils/app_icons/app_icons.dart';
@@ -28,7 +29,7 @@ class HelpSupportScreen extends StatelessWidget {
     return Scaffold(
       appBar: CustomLeadingTitleAppbar(title: "Help/Support"),
       body: SingleChildScrollView(
-        padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 16.h),
+        padding: EdgeInsets.symmetric(horizontal:ResponsiveHelper.width(16), vertical: ResponsiveHelper.height(16)),
         child: Obx(() {
           if (helpController.helpStatus.value == Status.loading) {
             return Center(child: CircularProgressIndicator());
@@ -52,8 +53,8 @@ class HelpSupportScreen extends StatelessWidget {
                 (faq) => Column(
                   children: [
                     CustomContainer(
-                      backgroundColor: const Color(0xFFEEF2FF),
-                      padding: 12,
+                      backgroundColor: AppColors.naveBordar,
+                      padding:ResponsiveHelper.width(12),
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
@@ -64,7 +65,7 @@ class HelpSupportScreen extends StatelessWidget {
                                 child: CustomText(
                                   textAlign: TextAlign.start,
                                   text: faq.question ?? "",
-                                  fontSize: 14,
+                                  fontSize:ResponsiveHelper.fontSize(12),
                                   fontWeight: FontWeight.w500,
                                 ),
                               ),
@@ -79,8 +80,8 @@ class HelpSupportScreen extends StatelessWidget {
                                           .dropDown // SVG for down arrow
                                       : AppIcons
                                           .arrowFront, // SVG for right arrow
-                                  width: 28,
-                                  height: 28,
+                                  width: ResponsiveHelper.iconSize(28),
+                                  height: ResponsiveHelper.iconSize(28),
                                   colorFilter: ColorFilter.mode(
                                     AppColors.primary,
                                     BlendMode.srcIn,
@@ -96,7 +97,7 @@ class HelpSupportScreen extends StatelessWidget {
                             CustomText(
                               text: faq.answer ?? "",
                               fontWeight: FontWeight.w400,
-                              fontSize: 14,
+                              fontSize:ResponsiveHelper.fontSize(14),
                               color: const Color(0xFFA1A1AA),
                               maxLines: 10,
                               textAlign: TextAlign.start,
@@ -114,7 +115,7 @@ class HelpSupportScreen extends StatelessWidget {
               CustomText(
                 text: "Need More Help?",
                 fontWeight: FontWeight.w600,
-                fontSize: 16,
+                fontSize: ResponsiveHelper.fontSize(16),
               ),
               Gap(8.h),
               GestureDetector(
@@ -128,7 +129,7 @@ class HelpSupportScreen extends StatelessWidget {
                     textAlign: TextAlign.start,
                     text: "Mail Us [support@CraveCrusher.com]",
                     fontWeight: FontWeight.w500,
-                    fontSize: 14,
+                    fontSize: ResponsiveHelper.fontSize(14),
                     color: AppColors.black,
                   ),
                   subtitle: CustomText(
@@ -137,7 +138,7 @@ class HelpSupportScreen extends StatelessWidget {
                     text:
                         "Our support team will get back to you as soon as possible with assistance for any issues, feedback, or technical questions.",
                     fontWeight: FontWeight.w400,
-                    fontSize: 14,
+                    fontSize: ResponsiveHelper.fontSize(14),
                     color: Color(0xFFA1A1AA),
                   ),
                 ),

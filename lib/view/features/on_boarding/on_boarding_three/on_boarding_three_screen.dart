@@ -1,3 +1,4 @@
+import 'package:crave_crusher/helper/responsive_helper/responsive_helper.dart';
 import 'package:crave_crusher/utils/app_images/app_images.dart';
 import 'package:crave_crusher/view/features/auth/screen/login/login_screen.dart';
 import 'package:crave_crusher/view/features/on_boarding/widgets/on_boarding_body_widget.dart';
@@ -20,7 +21,7 @@ class _OnBoardingThreeScreenState extends State<OnBoardingThreeScreen> {
         automaticallyImplyLeading: false,
         actions: [
           Padding(
-            padding: const EdgeInsets.only(right: 8.0),
+            padding:  EdgeInsets.only(right:ResponsiveHelper.width(8),),
             child: SkipButtonWidget(),
           ),
         ],
