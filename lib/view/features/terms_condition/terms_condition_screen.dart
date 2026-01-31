@@ -4,7 +4,6 @@ import 'package:crave_crusher/view/components/custom_leading_title_appbar.dart';
 import 'package:crave_crusher/view/components/custom_loader/custom_loader.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_html/flutter_html.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import '../account_setting/controllers/account_setting_controller.dart';
 
@@ -38,7 +37,7 @@ class TermsConditionScreen extends StatelessWidget {
             data: termsData.description,
             style: {
               "body": Style(
-                fontSize: FontSize(ResponsiveHelper.fontSize(18),),
+                fontSize: FontSize(ResponsiveHelper.fontSize(18)),
                 fontWeight: FontWeight.w600,
                 color: Colors.black,
               ),

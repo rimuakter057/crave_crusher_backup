@@ -2,7 +2,6 @@
 
 import 'package:crave_crusher/helper/responsive_helper/responsive_helper.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../../../utils/app_colors/app_colors.dart';
 
@@ -39,7 +38,9 @@ class _CustomSliderState extends State<CustomSlider> {
           height: widget.height ?? ResponsiveHelper.height(7),
           decoration: BoxDecoration(
             color: AppColors.primary,
-            borderRadius: BorderRadius.circular(ResponsiveHelper.borderRadius(10),),
+            borderRadius: BorderRadius.circular(
+              ResponsiveHelper.borderRadius(10),
+            ),
           ),
         ),
         Container(
@@ -50,9 +51,9 @@ class _CustomSliderState extends State<CustomSlider> {
                 widget.currentValue == null || widget.currentValue == 0
                     ? AppColors.primary
                     : AppColors.subPrimary,
-            borderRadius:  BorderRadius.only(
-              bottomLeft: Radius.circular(ResponsiveHelper.borderRadius(10),),
-              topLeft: Radius.circular(ResponsiveHelper.borderRadius(10),),
+            borderRadius: BorderRadius.only(
+              bottomLeft: Radius.circular(ResponsiveHelper.borderRadius(10)),
+              topLeft: Radius.circular(ResponsiveHelper.borderRadius(10)),
             ),
           ),
         ),

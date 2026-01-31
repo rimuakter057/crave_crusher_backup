@@ -4,9 +4,9 @@ import 'package:crave_crusher/utils/app_colors/app_colors.dart';
 import 'package:crave_crusher/view/components/custom_image/custom_image.dart';
 import 'package:crave_crusher/view/components/custom_text/custom_text.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-import '../../../../helper/responsive_helper/responsive_helper.dart' show ResponsiveHelper;
+import '../../../../helper/responsive_helper/responsive_helper.dart'
+    show ResponsiveHelper;
 
 class DetailsStatusButtonWidget extends StatelessWidget {
   final String text;

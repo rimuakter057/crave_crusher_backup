@@ -15,7 +15,6 @@ import 'package:crave_crusher/view/features/battle/inner_screen/battle_log_scree
 import 'package:crave_crusher/view/features/battle/widget/details_monster_section.dart';
 import 'package:crave_crusher/view/features/battle/widget/progress_and_action_section.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import 'package:get/get.dart';
 import 'package:lottie/lottie.dart';
@@ -546,7 +545,7 @@ Widget _buildCountButton({
           SizedBox(width: ResponsiveHelper.width(8)),
           CustomText(
             text: label,
-            fontSize:ResponsiveHelper.fontSize(14),
+            fontSize: ResponsiveHelper.fontSize(14),
             fontWeight: FontWeight.w600,
             color: AppColors.white,
           ),

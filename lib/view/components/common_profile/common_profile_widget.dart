@@ -2,7 +2,6 @@ import 'package:crave_crusher/helper/responsive_helper/responsive_helper.dart';
 import 'package:crave_crusher/utils/app_colors/app_colors.dart';
 import 'package:crave_crusher/view/components/custom_text/custom_text.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import 'avatar_widget.dart';
 
@@ -31,7 +30,7 @@ class CommonProfileWidget extends StatelessWidget {
             widthA: ResponsiveHelper.width(50),
           ),
 
-          SizedBox(width: ResponsiveHelper.width(8),),
+          SizedBox(width: ResponsiveHelper.width(8)),
           Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
@@ -46,7 +45,7 @@ class CommonProfileWidget extends StatelessWidget {
               CustomText(
                 text: subTitle,
                 fontWeight: FontWeight.w400,
-                fontSize:ResponsiveHelper.fontSize(12),
+                fontSize: ResponsiveHelper.fontSize(12),
                 color: AppColors.softWhite,
               ),
             ],

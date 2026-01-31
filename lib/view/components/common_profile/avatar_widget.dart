@@ -2,7 +2,6 @@ import 'dart:io';
 import 'package:crave_crusher/helper/images_handler/image_handler.dart';
 import 'package:crave_crusher/helper/responsive_helper/responsive_helper.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 
 import 'package:crave_crusher/utils/app_colors/app_colors.dart';
@@ -32,7 +31,7 @@ class ProfileAvatarWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final double avatarHeight = ResponsiveHelper.height(80);
-    final double avatarWidth =ResponsiveHelper.width(80);
+    final double avatarWidth = ResponsiveHelper.width(80);
 
     return SizedBox(
       height: heightA ?? avatarHeight,
