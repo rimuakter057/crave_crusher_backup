@@ -1,5 +1,6 @@
 // ignore_for_file: deprecated_member_use
 
+import 'package:crave_crusher/helper/responsive_helper/responsive_helper.dart';
 import 'package:crave_crusher/view/features/community/controllers/community_controller.dart';
 
 import 'package:flutter/material.dart';
@@ -43,7 +44,7 @@ class _CommunityTabSelectorState extends State<CommunityTabSelector> {
             },
             child: AnimatedContainer(
               duration: const Duration(milliseconds: 200),
-              height: 36.h,
+              height: ResponsiveHelper.height(36), // 36.h,
               margin: EdgeInsets.symmetric(horizontal: 4.w),
               alignment: Alignment.center,
               decoration: BoxDecoration(
@@ -62,7 +63,7 @@ class _CommunityTabSelectorState extends State<CommunityTabSelector> {
               ),
               child: CustomText(
                 text: tabTitle,
-                fontSize: 12.sp,
+                fontSize: ResponsiveHelper.fontSize(12), // 12.sp,
                 fontWeight: isSelected ? FontWeight.w600 : FontWeight.w500,
                 color: isSelected ? AppColors.white : AppColors.black,
                 textAlign: TextAlign.center,
