@@ -449,11 +449,11 @@ class _RewardsScreenState extends State<RewardsScreen> {
     return CustomContainer(
       borderColor: AppColors.subPrimary,
       width: double.infinity,
-      padding: 12,
+      padding: ResponsiveHelper.padding(12), // 12,
       child: Center(
         child: CustomText(
           text: title,
-          fontSize: 14.sp,
+          fontSize: ResponsiveHelper.fontSize(14), // 14.sp,
           fontWeight: FontWeight.w500,
         ),
       ),
