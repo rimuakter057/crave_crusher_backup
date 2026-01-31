@@ -2,6 +2,7 @@
 
 import 'package:crave_crusher/core/dependency/dependency_injection.dart';
 import 'package:crave_crusher/core/routes/app_routes.dart';
+import 'package:crave_crusher/helper/responsive_helper/responsive_helper.dart';
 import 'package:crave_crusher/utils/app_colors/app_colors.dart';
 import 'package:crave_crusher/view/components/device_utils/device_utils.dart';
 import 'package:crave_crusher/view/features/auth/controllers/auth_controller.dart';
@@ -40,6 +41,7 @@ class CraveCrusher extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    ResponsiveHelper.init(context);
     return ScreenUtilInit(
       designSize: const Size(390, 870),
       minTextAdapt: true,

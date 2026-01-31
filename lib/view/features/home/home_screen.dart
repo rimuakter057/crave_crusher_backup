@@ -1,10 +1,10 @@
 // ignore_for_file: deprecated_member_use
 
+import 'package:crave_crusher/helper/responsive_helper/responsive_helper.dart';
 import 'package:crave_crusher/utils/app_colors/app_colors.dart';
 import 'package:crave_crusher/utils/app_icons/app_icons.dart';
 import 'package:crave_crusher/view/components/common_empty/common_empty_widget.dart';
 import 'package:crave_crusher/view/components/custom_image/custom_image.dart';
-import 'package:crave_crusher/view/components/custom_loader/custom_loader.dart';
 import 'package:crave_crusher/view/components/custom_nav_bar/navbar.dart';
 import 'package:crave_crusher/view/components/custom_text/custom_text.dart';
 import 'package:crave_crusher/view/features/battle/controller/battle_controller.dart';
@@ -59,7 +59,7 @@ class _HomeScreenState extends State<HomeScreen> {
             overflow: TextOverflow.ellipsis,
             text: "Hello ${profile?.fullName ?? ""}",
             fontWeight: FontWeight.w600,
-            fontSize: 18.w,
+            fontSize: ResponsiveHelper.fontSize(18),
             color: AppColors.black_02,
           );
         }),
@@ -84,7 +84,7 @@ class _HomeScreenState extends State<HomeScreen> {
                       baseColor: Colors.grey[300]!,
                       highlightColor: Colors.grey[100]!,
                       child: Container(
-                        height: 120,
+                        height: ResponsiveHelper.height(120), //  120,
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(6.r),
                           color: Colors.white,
@@ -95,16 +95,21 @@ class _HomeScreenState extends State<HomeScreen> {
                 }
 
                 return CustomImage(
+                  fit: BoxFit.contain,
+                  height: ResponsiveHelper.height(110),
+                  width: double.infinity,
                   imageSrc: AppIcons.tipsBackground,
                   child: Padding(
-                    padding: EdgeInsets.symmetric(horizontal: 16.0.w),
+                    padding: EdgeInsets.symmetric(
+                      horizontal: ResponsiveHelper.width(16),
+                    ),
                     child: CustomText(
                       text:
                           homeController.dailyTip.value.isNotEmpty
                               ? homeController.dailyTip.value
                               : '“ Each craving lasts only a few minutes — take slow, deep breaths and remind yourself why you started. ”',
                       maxLines: 5,
-                      fontSize: 14.w,
+                      fontSize: ResponsiveHelper.fontSize(14),
                       textAlign: TextAlign.center,
                       color: AppColors.primary,
                     ),
@@ -214,18 +219,26 @@ class _HomeScreenState extends State<HomeScreen> {
       child: Row(
         children: [
           Container(
-            height: 28.h,
-            width: 28.w,
+            height: ResponsiveHelper.height(28),
+            width: ResponsiveHelper.width(28),
             alignment: Alignment.center,
             decoration: BoxDecoration(
               color: AppColors.subPrimary.withOpacity(.3),
               shape: BoxShape.circle,
               border: Border.all(color: AppColors.primary),
             ),
-            child: CustomImage(imageSrc: iconSrc, height: 16.h, width: 16.w),
+            child: CustomImage(
+              imageSrc: iconSrc,
+              height: ResponsiveHelper.height(16),
+              width: ResponsiveHelper.width(16.w),
+            ),
           ),
-          SizedBox(width: 8.w),
-          CustomText(text: title, fontWeight: FontWeight.w600, fontSize: 18),
+          SizedBox(width: ResponsiveHelper.width(8)),
+          CustomText(
+            text: title,
+            fontWeight: FontWeight.w600,
+            fontSize: ResponsiveHelper.fontSize(18),
+          ),
         ],
       ),
     );

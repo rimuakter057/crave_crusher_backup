@@ -1,5 +1,6 @@
 // ignore_for_file: deprecated_member_use, unused_local_variable
 
+import 'package:crave_crusher/helper/responsive_helper/responsive_helper.dart';
 import 'package:crave_crusher/utils/app_colors/app_colors.dart';
 import 'package:crave_crusher/utils/app_icons/app_icons.dart';
 import 'package:crave_crusher/view/components/custom_image/custom_image.dart';
@@ -62,10 +63,10 @@ class ActiveBattleCard extends StatelessWidget {
 
     return Container(
       width: double.infinity,
-      padding: EdgeInsets.all(12.w),
+      padding: EdgeInsets.all(ResponsiveHelper.padding(12)),
       decoration: BoxDecoration(
         color: AppColors.white,
-        borderRadius: BorderRadius.circular(12),
+        borderRadius: BorderRadius.circular(ResponsiveHelper.borderRadius(12)),
         boxShadow: [
           BoxShadow(
             color: AppColors.black.withOpacity(0.05),
@@ -85,30 +86,35 @@ class ActiveBattleCard extends StatelessWidget {
               Row(
                 children: [
                   Container(
-                    height: 28.h,
-                    width: 28.w,
+                    height: ResponsiveHelper.height(28), // 28.h,
+                    width: ResponsiveHelper.width(28), // 28.w,
                     alignment: Alignment.center,
                     decoration: BoxDecoration(
                       color: AppColors.subPrimary.withOpacity(.3),
                       border: Border.all(color: AppColors.primary),
-                      borderRadius: BorderRadius.circular(3),
+                      borderRadius: BorderRadius.circular(
+                        ResponsiveHelper.borderRadius(4),
+                      ),
                     ),
                     child: CustomImage(
                       imageSrc: getIcon(detoxType),
-                      height: 22.h,
-                      width: 22.w,
+                      height: ResponsiveHelper.height(22), // 22.h,
+                      width: ResponsiveHelper.width(22), // 22.w,
                     ),
                   ),
-                  SizedBox(width: 6.w),
+                  SizedBox(width: ResponsiveHelper.width(6)),
                   SizedBox(
-                    width: width < 390 ? 160.w : 200.w,
+                    width:
+                        width < 390
+                            ? ResponsiveHelper.width(160)
+                            : ResponsiveHelper.width(200), // 200.w,
                     child: CustomText(
                       textAlign: TextAlign.left,
                       overflow: TextOverflow.ellipsis,
                       maxLines: 1,
                       text: title,
                       fontWeight: FontWeight.w600,
-                      fontSize: 14.w,
+                      fontSize: ResponsiveHelper.fontSize(14), //  14.w,
                       color: AppColors.appTitle,
                       bottom: 0,
                       top: 0,
@@ -119,16 +125,21 @@ class ActiveBattleCard extends StatelessWidget {
 
               // Status Badge
               Container(
-                width: width < 390 ? 72.w : 80.w,
+                width:
+                    width < 390
+                        ? ResponsiveHelper.width(72)
+                        : ResponsiveHelper.width(80), // 80.w,
                 padding: EdgeInsets.symmetric(horizontal: 4.w, vertical: 2.h),
                 decoration: BoxDecoration(
                   color: getStatusColor(status).withOpacity(0.2),
-                  borderRadius: BorderRadius.circular(5),
+                  borderRadius: BorderRadius.circular(
+                    ResponsiveHelper.borderRadius(5),
+                  ),
                   border: Border.all(color: getStatusColor(status)),
                 ),
                 child: CustomText(
                   text: "*$status",
-                  fontSize: 12.w,
+                  fontSize: ResponsiveHelper.fontSize(12), // 12.w,
                   fontWeight: FontWeight.w500,
                   color: getStatusColor(status),
                   bottom: 0,
@@ -138,7 +149,7 @@ class ActiveBattleCard extends StatelessWidget {
             ],
           ),
 
-          SizedBox(height: 10.h),
+          SizedBox(height: ResponsiveHelper.height(10)),
 
           // Progress Text
           Row(
@@ -147,7 +158,7 @@ class ActiveBattleCard extends StatelessWidget {
               CustomText(
                 text: percentText,
                 // text: "${(progress * 100).toInt()}% to complete",
-                fontSize: 14.w,
+                fontSize: ResponsiveHelper.fontSize(14), // 14.w,
                 fontWeight: FontWeight.w500,
                 color: AppColors.black,
                 bottom: 0,
@@ -155,7 +166,7 @@ class ActiveBattleCard extends StatelessWidget {
               ),
               CustomText(
                 text: dayCount,
-                fontSize: 12.sp,
+                fontSize: ResponsiveHelper.fontSize(12), // 12.sp,
                 fontWeight: FontWeight.w400,
                 color: AppColors.softWhite,
                 bottom: 0,
@@ -164,19 +175,21 @@ class ActiveBattleCard extends StatelessWidget {
             ],
           ),
 
-          SizedBox(height: 8.h),
-
+          SizedBox(height: ResponsiveHelper.height(8)), // 8.h),
           // Progress Bar
-          DottedProgressBar(progress: progress, height: 8.h, borderRadius: 4.r),
+          DottedProgressBar(
+            progress: progress,
+            height: ResponsiveHelper.height(8), // 8.h,
+            borderRadius: ResponsiveHelper.borderRadius(4), // 4.r,
+          ),
 
-          SizedBox(height: 12.h),
-
+          SizedBox(height: ResponsiveHelper.height(12)), // 12.h),
           // Open Battle Button
           GestureDetector(
             onTap: onBattlePressed,
             child: Container(
-              height: 36.h,
-              width: 125.w,
+              height: ResponsiveHelper.height(36), // 36.h,
+              width: ResponsiveHelper.width(125), // 125.w,
               decoration: BoxDecoration(
                 color: AppColors.subPrimary,
                 borderRadius: BorderRadius.circular(8.r),
@@ -188,7 +201,7 @@ class ActiveBattleCard extends StatelessWidget {
                   CustomImage(imageSrc: AppIcons.battlePrimaryColor),
                   CustomText(
                     text: "Open Battle",
-                    fontSize: 12.w,
+                    fontSize: ResponsiveHelper.fontSize(12), // 12.w,
                     fontWeight: FontWeight.w600,
                     color: AppColors.primary,
                     bottom: 0,

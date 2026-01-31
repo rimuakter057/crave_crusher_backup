@@ -1,3 +1,4 @@
+import 'package:crave_crusher/helper/responsive_helper/responsive_helper.dart';
 import 'package:crave_crusher/utils/app_icons/app_icons.dart';
 import 'package:crave_crusher/view/components/custom_image/custom_image.dart';
 import 'package:crave_crusher/view/components/custom_text/custom_text.dart';
@@ -16,17 +17,17 @@ class EmptyWidget extends StatelessWidget {
         children: [
           CustomImage(
             imageSrc: AppIcons.emptyHome,
-            height: 41.h,
+            height: ResponsiveHelper.height(42), // 41.h,
             width: 64.w,
             boxFit: BoxFit.cover,
           ),
-          SizedBox(height: 24.h),
+          SizedBox(height: ResponsiveHelper.height(24)),
           SizedBox(
-            width: 272.w,
+            width: ResponsiveHelper.width(272), // 272.w,
             child: CustomText(
               text: title,
               maxLines: 2,
-              fontSize: 16.sp,
+              fontSize: ResponsiveHelper.fontSize(16), // 16.sp,
               fontWeight: FontWeight.w400,
             ),
           ),
