@@ -1,5 +1,6 @@
 // ignore_for_file: deprecated_member_use
 
+import 'package:crave_crusher/helper/responsive_helper/responsive_helper.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
@@ -35,23 +36,23 @@ class _CustomSliderState extends State<CustomSlider> {
       children: [
         Container(
           width: widget.currentWidth ?? MediaQuery.sizeOf(context).width / 3,
-          height: widget.height ?? 7.w,
+          height: widget.height ?? ResponsiveHelper.height(7),
           decoration: BoxDecoration(
             color: AppColors.primary,
-            borderRadius: BorderRadius.circular(10),
+            borderRadius: BorderRadius.circular(ResponsiveHelper.borderRadius(10),),
           ),
         ),
         Container(
-          height: widget.height ?? 7.w,
+          height: widget.height ?? ResponsiveHelper.height(7),
           width: width,
           decoration: BoxDecoration(
             color:
                 widget.currentValue == null || widget.currentValue == 0
                     ? AppColors.primary
                     : AppColors.subPrimary,
-            borderRadius: const BorderRadius.only(
-              bottomLeft: Radius.circular(10),
-              topLeft: Radius.circular(10),
+            borderRadius:  BorderRadius.only(
+              bottomLeft: Radius.circular(ResponsiveHelper.borderRadius(10),),
+              topLeft: Radius.circular(ResponsiveHelper.borderRadius(10),),
             ),
           ),
         ),

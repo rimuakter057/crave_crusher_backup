@@ -1,6 +1,7 @@
 // ignore_for_file: file_names, deprecated_member_use
 
 import 'package:crave_crusher/helper/images_handler/image_handler.dart';
+import 'package:crave_crusher/helper/responsive_helper/responsive_helper.dart';
 import 'package:crave_crusher/utils/app_colors/app_colors.dart';
 import 'package:crave_crusher/utils/app_icons/app_icons.dart';
 import 'package:crave_crusher/view/components/common_profile/common_profile_widget.dart';
@@ -56,10 +57,10 @@ class _CommonCommunityWidgetState extends State<CommonCommunityWidget> {
   Widget build(BuildContext context) {
     return Container(
       padding: EdgeInsets.only(
-        left: 16.w,
-        right: 16.w,
-        top: 10.h,
-        bottom: 24.h,
+        left: ResponsiveHelper.width(16),
+        right: ResponsiveHelper.width(16),
+        top: ResponsiveHelper.height(10),
+        bottom: ResponsiveHelper.height(24),
       ),
       width: double.infinity,
       alignment: Alignment.center,
@@ -86,8 +87,8 @@ class _CommonCommunityWidgetState extends State<CommonCommunityWidget> {
                 GestureDetector(
                   onTap: widget.onTapUpdate,
                   child: Container(
-                    width: 35.w,
-                    height: 35.h,
+                    width: ResponsiveHelper.width(35),
+                    height: ResponsiveHelper.height(35),
                     alignment: Alignment.center,
                     decoration: BoxDecoration(
                       color: AppColors.subPrimary.withOpacity(.3),
@@ -123,11 +124,11 @@ class _CommonCommunityWidgetState extends State<CommonCommunityWidget> {
             lessStyle: TextStyle(color: AppColors.primary),
             moreStyle: TextStyle(
               color: AppColors.primary,
-              fontSize: 16.sp,
+              fontSize: ResponsiveHelper.fontSize(16),
               fontWeight: FontWeight.bold,
             ),
             style: TextStyle(
-              fontSize: 13.sp,
+              fontSize: ResponsiveHelper.fontSize(13),
               color: Color(0xFF1E293B),
               fontWeight: FontWeight.w500,
             ),
@@ -144,13 +145,17 @@ class _CommonCommunityWidgetState extends State<CommonCommunityWidget> {
             children: [
               widget.favouriteWidget,
 
-              Container(height: 20.h, width: 1.5.w, color: Color(0xFFCBD5E1)),
+              Container(
+                height: ResponsiveHelper.height(20),
+                width: ResponsiveHelper.width(1.5),
+                color: Color(0xFFCBD5E1),
+              ),
               GestureDetector(
                 onTap: widget.onTapComment,
                 child: Row(
                   children: [
                     CustomSvgIcon(icon: AppIcons.comment),
-                    Gap(4.w),
+                    Gap(ResponsiveHelper.width(4)),
                     CustomText(text: widget.commentsText),
                   ],
                 ),
@@ -175,8 +180,11 @@ class _CommonCommunityWidgetState extends State<CommonCommunityWidget> {
         ClipRRect(
           borderRadius: BorderRadius.circular(6),
           child: CustomNetworkImage(
-            height: 180.h,
-            width: screenWidth <= 360 ? 260.w : 280.w,
+            height: ResponsiveHelper.height(180),
+            width:
+                screenWidth <= 360
+                    ? ResponsiveHelper.width(260)
+                    : ResponsiveHelper.width(280),
 
             // height: 180.h,
             // width: 160.w,
@@ -190,18 +198,20 @@ class _CommonCommunityWidgetState extends State<CommonCommunityWidget> {
           borderRadius: BorderRadius.circular(6),
           child: CustomNetworkImage(
             imageUrl: ImageHandler.imagesHandle(images[0]),
-            height: 180.h,
-            width: 130.w,
+            height: ResponsiveHelper.height(180),
+            width: ResponsiveHelper.width(130),
           ),
         ),
-        Gap(8.w),
+        Gap(ResponsiveHelper.width(8)),
         Column(
           children: [
             CustomNetworkImage(
               imageUrl: ImageHandler.imagesHandle(images[1]),
-              height: 180.h,
-              width: 130.w,
-              borderRadius: BorderRadius.circular(6),
+              height: ResponsiveHelper.height(180),
+              width: ResponsiveHelper.width(130),
+              borderRadius: BorderRadius.circular(
+                ResponsiveHelper.borderRadius(6),
+              ),
             ),
           ],
         ),
@@ -212,8 +222,8 @@ class _CommonCommunityWidgetState extends State<CommonCommunityWidget> {
           borderRadius: BorderRadius.circular(6),
           child: CustomNetworkImage(
             imageUrl: ImageHandler.imagesHandle(images[0]),
-            height: 180.h,
-            width: 130.w,
+            height: ResponsiveHelper.height(180),
+            width: ResponsiveHelper.width(130),
           ),
         ),
         Gap(8.w),
@@ -221,16 +231,20 @@ class _CommonCommunityWidgetState extends State<CommonCommunityWidget> {
           children: [
             CustomNetworkImage(
               imageUrl: ImageHandler.imagesHandle(images[1]),
-              height: 90.h,
-              width: 100.w,
-              borderRadius: BorderRadius.circular(6),
+              height: ResponsiveHelper.height(90),
+              width: ResponsiveHelper.width(100),
+              borderRadius: BorderRadius.circular(
+                ResponsiveHelper.borderRadius(6),
+              ),
             ),
             Gap(8.h),
             CustomNetworkImage(
               imageUrl: ImageHandler.imagesHandle(images[2]),
-              height: 90.h,
-              width: 100.w,
-              borderRadius: BorderRadius.circular(6),
+              height: ResponsiveHelper.height(90),
+              width: ResponsiveHelper.width(100),
+              borderRadius: BorderRadius.circular(
+                ResponsiveHelper.borderRadius(6),
+              ),
             ),
           ],
         ),
@@ -239,44 +253,50 @@ class _CommonCommunityWidgetState extends State<CommonCommunityWidget> {
       // Multiple images
       return [
         ClipRRect(
-          borderRadius: BorderRadius.circular(6),
+          borderRadius: BorderRadius.circular(ResponsiveHelper.borderRadius(6)),
           child: CustomNetworkImage(
             imageUrl: ImageHandler.imagesHandle(images[0]),
-            height: 180.h,
-            width: 160.w,
+            height: ResponsiveHelper.height(180),
+            width: ResponsiveHelper.width(160),
           ),
         ),
-        Gap(8.w),
+        Gap(ResponsiveHelper.width(8)),
         Column(
           children: [
             CustomNetworkImage(
               imageUrl: ImageHandler.imagesHandle(images[1]),
-              height: 90.h,
-              width: 85.w,
-              borderRadius: BorderRadius.circular(6),
+              height: ResponsiveHelper.height(90),
+              width: ResponsiveHelper.width(85),
+              borderRadius: BorderRadius.circular(
+                ResponsiveHelper.borderRadius(6),
+              ),
             ),
 
             if (images.length > 3) ...[
               Gap(8.h),
               CustomNetworkImage(
                 imageUrl: ImageHandler.imagesHandle(images[2]),
-                height: 90.h,
-                width: 100.w,
-                borderRadius: BorderRadius.circular(6),
+                height: ResponsiveHelper.height(90),
+                width: ResponsiveHelper.width(100),
+                borderRadius: BorderRadius.circular(
+                  ResponsiveHelper.borderRadius(6),
+                ),
                 child:
                     images.length > 3
                         ? Center(
                           child: Container(
-                            height: 90.h,
-                            width: 100.w,
+                            height: ResponsiveHelper.height(90),
+                            width: ResponsiveHelper.width(100),
                             alignment: Alignment.center,
                             decoration: BoxDecoration(
                               color: AppColors.white.withAlpha(99),
-                              borderRadius: BorderRadius.circular(6),
+                              borderRadius: BorderRadius.circular(
+                                ResponsiveHelper.borderRadius(6),
+                              ),
                             ),
                             child: CustomText(
                               text: '+${images.length - 3}',
-                              fontSize: 24.sp,
+                              fontSize: ResponsiveHelper.fontSize(24),
                             ),
                           ),
                         )

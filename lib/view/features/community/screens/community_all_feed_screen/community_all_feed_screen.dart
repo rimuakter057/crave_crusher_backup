@@ -1,3 +1,4 @@
+import 'package:crave_crusher/helper/responsive_helper/responsive_helper.dart';
 import 'package:crave_crusher/utils/app_colors/app_colors.dart';
 import 'package:crave_crusher/utils/app_const/app_const.dart';
 import 'package:crave_crusher/view/components/common_empty/common_empty_widget.dart';
@@ -86,13 +87,13 @@ class _CommunityAllFeedScreenState extends State<CommunityAllFeedScreen> {
         },
         child: SingleChildScrollView(
           child: Padding(
-            padding: EdgeInsets.all(16.w),
+            padding: EdgeInsets.all(ResponsiveHelper.width(16)),
             child: Obx(() {
               final currentTab = communityController.communityTabIndex.value;
 
               return Column(
                 children: [
-                  SizedBox(height: 16.h),
+                  SizedBox(height: ResponsiveHelper.height(16)),
                   CommunityTabSelector(),
                   Gap(24.h),
 
@@ -144,15 +145,17 @@ class _CommunityAllFeedScreenState extends State<CommunityAllFeedScreen> {
                                                   .favorite // filled heart svg
                                               : AppIcons
                                                   .favoriteOutline, // outline heart svg
-                                          width: 18.w,
-                                          height: 18.w,
+                                          width: ResponsiveHelper.width(18),
+                                          height: ResponsiveHelper.height(18),
                                           colorFilter: ColorFilter.mode(
                                             AppColors.red,
                                             BlendMode.srcIn,
                                           ),
                                         ),
                                       ),
-                                      SizedBox(width: 4.w),
+                                      SizedBox(
+                                        width: ResponsiveHelper.width(4),
+                                      ),
                                       CustomText(
                                         text: "${post.totalVotes.value}",
                                       ),
@@ -186,7 +189,7 @@ class _CommunityAllFeedScreenState extends State<CommunityAllFeedScreen> {
                                   index: index,
                                 );
                               }),
-                              SizedBox(height: 8.h),
+                              SizedBox(height: ResponsiveHelper.height(8)),
                             ],
                           );
                         },
@@ -245,15 +248,17 @@ class _CommunityAllFeedScreenState extends State<CommunityAllFeedScreen> {
                                                   .favorite // filled heart svg
                                               : AppIcons
                                                   .favoriteOutline, // outline heart svg
-                                          width: 18.w,
-                                          height: 18.w,
+                                          width: ResponsiveHelper.width(18),
+                                          height: ResponsiveHelper.height(18),
                                           colorFilter: ColorFilter.mode(
                                             AppColors.red,
                                             BlendMode.srcIn,
                                           ),
                                         ),
                                       ),
-                                      SizedBox(width: 4.w),
+                                      SizedBox(
+                                        width: ResponsiveHelper.width(4),
+                                      ),
                                       CustomText(
                                         text: "${myPost.totalVotes.value}",
                                       ),
@@ -297,13 +302,14 @@ class _CommunityAllFeedScreenState extends State<CommunityAllFeedScreen> {
                                         userId: myPost.author?.id ?? '',
                                         profileName:
                                             "${myPost.author?.fullName}",
-                                        profileImage: myPost.author?.profileImage,
+                                        profileImage:
+                                            myPost.author?.profileImage,
                                       ),
                                     );
                                   },
                                 );
                               }),
-                              SizedBox(height: 8.h),
+                              SizedBox(height: ResponsiveHelper.height(8)),
                             ],
                           );
                         },

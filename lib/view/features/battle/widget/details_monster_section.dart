@@ -1,6 +1,7 @@
 // ignore_for_file: deprecated_member_use
 
 import 'package:crave_crusher/helper/images_handler/image_handler.dart';
+import 'package:crave_crusher/helper/responsive_helper/responsive_helper.dart';
 import 'package:crave_crusher/utils/app_colors/app_colors.dart';
 import 'package:crave_crusher/utils/app_icons/app_icons.dart';
 import 'package:crave_crusher/view/components/custom_image/custom_image.dart';
@@ -58,11 +59,13 @@ class DetailsMonsterSection extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Padding(
-          padding: EdgeInsets.only(bottom: 16.h),
+          padding: EdgeInsets.only(bottom: ResponsiveHelper.height(12)),
           child: Container(
             decoration: BoxDecoration(
               color: AppColors.white,
-              borderRadius: BorderRadius.circular(12),
+              borderRadius: BorderRadius.circular(
+                ResponsiveHelper.borderRadius(12),
+              ),
             ),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -72,23 +75,25 @@ class DetailsMonsterSection extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Container(
-                      height: 40.h,
-                      width: 40.w,
+                      height: ResponsiveHelper.height(40),
+                      width: ResponsiveHelper.width(40),
                       alignment: Alignment.center,
                       decoration: BoxDecoration(
                         color: AppColors.subPrimary.withOpacity(.3),
-                        borderRadius: BorderRadius.circular(3.r),
+                        borderRadius: BorderRadius.circular(
+                          ResponsiveHelper.borderRadius(3),
+                        ),
                         border: Border.all(color: AppColors.subPrimary),
                       ),
                       child: CustomImage(
                         imageSrc: getIcon(detoxType), // Small monster avatar
-                        height: 36.h,
-                        width: 36.w,
+                        height: ResponsiveHelper.height(36),
+                        width: ResponsiveHelper.width(36),
                       ),
                     ),
-                    SizedBox(width: 8.w),
+                    SizedBox(width: ResponsiveHelper.width(8)),
                     SizedBox(
-                      width: 150.w,
+                      width: ResponsiveHelper.width(150),
 
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
@@ -99,7 +104,7 @@ class DetailsMonsterSection extends StatelessWidget {
                             textAlign: TextAlign.start,
                             text: battleTitle,
                             fontWeight: FontWeight.w600,
-                            fontSize: 14.sp,
+                            fontSize: ResponsiveHelper.fontSize(14),
                             color: AppColors.appTitle,
                             bottom: 0,
                             top: 0,
@@ -109,7 +114,7 @@ class DetailsMonsterSection extends StatelessWidget {
                             textAlign: TextAlign.start,
                             text: battleDescription,
                             fontWeight: FontWeight.w400,
-                            fontSize: 12.sp,
+                            fontSize: ResponsiveHelper.fontSize(12),
                             color: AppColors.softWhite,
                             maxLines: 4,
                             overflow: TextOverflow.ellipsis,
@@ -121,16 +126,21 @@ class DetailsMonsterSection extends StatelessWidget {
                 ),
                 // Status Badge
                 Container(
-                  padding: EdgeInsets.symmetric(horizontal: 2.w, vertical: 2.h),
+                  padding: EdgeInsets.symmetric(
+                    horizontal: ResponsiveHelper.width(2),
+                    vertical: ResponsiveHelper.height(2),
+                  ),
                   decoration: BoxDecoration(
                     color: bgColor,
                     // Using subPrimary as a placeholder color
-                    borderRadius: BorderRadius.circular(5),
+                    borderRadius: BorderRadius.circular(
+                      ResponsiveHelper.borderRadius(5),
+                    ),
                     border: Border.all(color: boarderColor),
                   ),
                   child: CustomText(
                     text: "• $status",
-                    fontSize: 11.w,
+                    fontSize: ResponsiveHelper.fontSize(11),
                     fontWeight: FontWeight.w500,
                     color: textColor,
                     bottom: 0,
@@ -146,27 +156,29 @@ class DetailsMonsterSection extends StatelessWidget {
         Center(
           child: CustomNetworkImage(
             imageUrl: ImageHandler.imagesHandle(monster),
-            height: 250.h,
-            width: 250.w,
+            height: ResponsiveHelper.height(250),
+            width: ResponsiveHelper.width(250),
           ),
         ),
-        SizedBox(height: 24.h),
+        SizedBox(height: ResponsiveHelper.height(24)),
 
         // Monster Status Container
         Container(
-          height: 52.h,
+          height: ResponsiveHelper.height(52),
           width: double.maxFinite,
           alignment: Alignment.center,
-          padding: EdgeInsets.symmetric(horizontal: 16.w),
+          padding: EdgeInsets.symmetric(horizontal: ResponsiveHelper.width(16)),
           decoration: BoxDecoration(
             color: AppColors.softGreen, // Light Green
-            borderRadius: BorderRadius.circular(8),
+            borderRadius: BorderRadius.circular(
+              ResponsiveHelper.borderRadius(8),
+            ),
             border: Border.all(color: AppColors.green),
           ),
           child: CustomText(
             text: monsterStatusMessage,
             fontWeight: FontWeight.w600,
-            fontSize: 14.sp,
+            fontSize: ResponsiveHelper.fontSize(14),
             color: AppColors.green,
             maxLines: 2,
             textAlign: TextAlign.center,

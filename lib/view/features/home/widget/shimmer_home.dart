@@ -1,3 +1,4 @@
+import 'package:crave_crusher/helper/responsive_helper/responsive_helper.dart';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:shimmer/shimmer.dart';
@@ -15,7 +16,7 @@ class HomeShimmerLoader extends StatelessWidget {
       itemCount: 5,
       itemBuilder: (context, index) {
         return Padding(
-          padding: EdgeInsets.symmetric(vertical: 8.h),
+          padding: EdgeInsets.symmetric(vertical: ResponsiveHelper.fontSize(14)),
           child: Shimmer.fromColors(
             baseColor: Colors.grey[300]!,
             highlightColor: Colors.grey[100]!,
@@ -23,18 +24,18 @@ class HomeShimmerLoader extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 // first Row
-                _buildSkeleton(80.w, 10.h),
-                Gap(12.h),
+                _buildSkeleton(ResponsiveHelper.width(80), ResponsiveHelper.height(10)),
+                Gap(ResponsiveHelper.height(12)),
 
                 // 2nd Row
-                _buildSkeleton(80.w, 10.h),
-                Gap(8.h),
+                _buildSkeleton(ResponsiveHelper.width(80), ResponsiveHelper.height(10)),
+                Gap(ResponsiveHelper.height(8)),
 
                 // line
-                _buildSkeleton(double.infinity, 14.h),
+                _buildSkeleton(double.infinity, ResponsiveHelper.height(14)),
 
-                Gap(8.h),
-                _buildSkeleton(200.w, 14.h),
+                Gap(ResponsiveHelper.height(8)),
+                _buildSkeleton(ResponsiveHelper.width(200), ResponsiveHelper.height(14)),
               ],
             ),
           ),

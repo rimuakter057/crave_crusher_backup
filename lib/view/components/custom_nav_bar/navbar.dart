@@ -1,5 +1,6 @@
 // ignore_for_file: deprecated_member_use
 
+import 'package:crave_crusher/helper/responsive_helper/responsive_helper.dart';
 import 'package:crave_crusher/utils/app_colors/app_colors.dart';
 import 'package:crave_crusher/utils/app_icons/app_icons.dart';
 import 'package:crave_crusher/view/components/custom_image/custom_image.dart';
@@ -58,18 +59,22 @@ class _NavBarState extends State<NavBar> {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: EdgeInsets.only(left: 16.0.w, right: 16.w, bottom: 20.h),
+      padding: EdgeInsets.only(
+          left: ResponsiveHelper.padding(16),
+          right: ResponsiveHelper.padding(16),
+          bottom: ResponsiveHelper.height(20),
+      ),
       child: Container(
-        height: 92.h,
+        height: ResponsiveHelper.height(92),
         alignment: Alignment.center,
         decoration: BoxDecoration(
           color: Colors.transparent, // AppColors.naveWhite.withOpacity(.6),
-          border: Border.all(width: 2, color: AppColors.naveBordar),
-          borderRadius: BorderRadius.circular(100.r),
+          border: Border.all(width: ResponsiveHelper.width(2), color: AppColors.naveBordar),
+          borderRadius: BorderRadius.circular(ResponsiveHelper.borderRadius(100),),
           // borderRadius: BorderRadius.only(topLeft: Radius.circular(15),topRight: Radius.circular(15))
         ),
         width: MediaQuery.of(context).size.width,
-        padding: EdgeInsets.symmetric(horizontal: 10.w, vertical: 0.h),
+        padding: EdgeInsets.symmetric(horizontal: ResponsiveHelper.width(10), vertical: 0.h),
         // alignment: Alignment.center,
         child: Row(
           crossAxisAlignment: CrossAxisAlignment.center,
@@ -79,8 +84,8 @@ class _NavBarState extends State<NavBar> {
             (index) => GestureDetector(
               onTap: () => onTap(index),
               child: Container(
-                height: 56.h,
-                width: 56.w,
+                height: ResponsiveHelper.height(56),
+                width: ResponsiveHelper.width(56),
                 alignment: Alignment.center,
                 decoration: BoxDecoration(
                   shape: BoxShape.circle,
@@ -94,8 +99,8 @@ class _NavBarState extends State<NavBar> {
                       index == bottomNavIndex
                           ? selectedIcon[index]
                           : unselectedIcon[index],
-                  height: 20.h,
-                  width: 20.w,
+                  height: ResponsiveHelper.iconSize(20),
+                  width: ResponsiveHelper.iconSize(20),
                   imageColor:
                       index == bottomNavIndex
                           ? AppColors.primary

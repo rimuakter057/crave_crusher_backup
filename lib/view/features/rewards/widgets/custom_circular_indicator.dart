@@ -1,3 +1,4 @@
+import 'package:crave_crusher/helper/responsive_helper/responsive_helper.dart';
 import 'package:crave_crusher/utils/app_colors/app_colors.dart';
 import 'package:crave_crusher/view/components/custom_text/custom_text.dart';
 import 'package:flutter/material.dart';
@@ -17,13 +18,13 @@ class CustomCircularIndicator extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return CircularPercentIndicator(
-      radius: 55,
-      lineWidth: 12,
+      radius: ResponsiveHelper.borderRadius(55),
+      lineWidth:  ResponsiveHelper.width(12),
       percent: percent, //  percentage
       center: CustomText(
         text: percentText,
         color: AppColors.primary,
-        fontSize: 18.sp,
+        fontSize: ResponsiveHelper.fontSize(18),
         fontWeight: FontWeight.w700,
       ),
 

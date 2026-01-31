@@ -1,3 +1,4 @@
+import 'package:crave_crusher/helper/responsive_helper/responsive_helper.dart';
 import 'package:crave_crusher/utils/app_colors/app_colors.dart';
 import 'package:crave_crusher/utils/app_icons/app_icons.dart';
 import 'package:crave_crusher/view/components/common_empty/common_empty_widget.dart';
@@ -53,7 +54,9 @@ class _RewardsScreenState extends State<RewardsScreen> {
 
       body: SingleChildScrollView(
         child: Padding(
-          padding: EdgeInsets.symmetric(horizontal: 16.w),
+          padding: EdgeInsets.symmetric(
+            horizontal: ResponsiveHelper.padding(16),
+          ),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
@@ -61,7 +64,10 @@ class _RewardsScreenState extends State<RewardsScreen> {
               Center(
                 child: Obx(() {
                   if (controller.isLoadingProgress.value) {
-                    return SizedBox(height: 100.h, child: CustomLoader());
+                    return SizedBox(
+                      height: ResponsiveHelper.height(100),
+                      child: CustomLoader(),
+                    );
                   }
 
                   return CustomCircularIndicator(
@@ -99,7 +105,7 @@ class _RewardsScreenState extends State<RewardsScreen> {
                 return CustomContainer(
                   borderColor: AppColors.subPrimary,
                   width: double.infinity,
-                  padding: 12,
+                  padding: ResponsiveHelper.padding(12),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
@@ -107,29 +113,33 @@ class _RewardsScreenState extends State<RewardsScreen> {
                       Row(
                         children: [
                           Container(
-                            padding: EdgeInsets.all(4.w),
-                            height: 30.h,
-                            width: 30.w,
+                            padding: EdgeInsets.all(
+                              ResponsiveHelper.padding(4),
+                            ),
+                            height: ResponsiveHelper.height(30),
+                            width: ResponsiveHelper.width(30),
                             alignment: Alignment.center,
                             decoration: BoxDecoration(
                               color: getBadgeBgColor(badgeName),
                               border: Border.all(
                                 color: getBadgeBorderColor(badgeName),
                               ),
-                              borderRadius: BorderRadius.circular(3),
+                              borderRadius: BorderRadius.circular(
+                                ResponsiveHelper.borderRadius(3),
+                              ),
                             ),
                             child: CustomNetworkImage(
                               imageUrl: badgeImageUrl,
-                              height: 30.h,
-                              width: 30.w,
+                              height: ResponsiveHelper.height(30),
+                              width: ResponsiveHelper.width(30),
                             ),
                           ),
 
-                          Gap(8.w),
+                          Gap(ResponsiveHelper.width(8)),
                           CustomText(
                             text: badgeName,
                             fontWeight: FontWeight.w500,
-                            fontSize: 14.sp,
+                            fontSize: ResponsiveHelper.fontSize(14),
                           ),
                         ],
                       ),
@@ -139,14 +149,14 @@ class _RewardsScreenState extends State<RewardsScreen> {
                         children: [
                           CustomImage(
                             imageSrc: AppIcons.alarm,
-                            height: 12.h,
-                            width: 12.w,
+                            height: ResponsiveHelper.iconSize(12),
+                            width: ResponsiveHelper.iconSize(12),
                           ),
-                          Gap(8.w),
+                          Gap(ResponsiveHelper.width(8)),
                           CustomText(
                             text: "Day $craveCount of $orderNumber",
                             fontWeight: FontWeight.w500,
-                            fontSize: 14.sp,
+                            fontSize: ResponsiveHelper.fontSize(14),
                           ),
                         ],
                       ),
@@ -154,9 +164,6 @@ class _RewardsScreenState extends State<RewardsScreen> {
                   ),
                 );
               }),
-
-
-
 
               // _buildGainedBadgeText(title: "Achieve Badges"),
               //
@@ -284,13 +291,6 @@ class _RewardsScreenState extends State<RewardsScreen> {
               //
               //
               //
-
-
-
-
-
-
-
 
               ///gain badge category section
               _buildGainedBadgeText(title: "Gained Badges"),

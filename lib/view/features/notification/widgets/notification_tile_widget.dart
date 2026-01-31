@@ -1,3 +1,4 @@
+import 'package:crave_crusher/helper/responsive_helper/responsive_helper.dart';
 import 'package:crave_crusher/utils/app_colors/app_colors.dart';
 import 'package:crave_crusher/view/components/custom_text/custom_text.dart';
 import 'package:flutter/material.dart';
@@ -26,7 +27,7 @@ class NotificationTileWidget extends StatelessWidget {
           textAlign: TextAlign.start,
           text: title,
           fontWeight: FontWeight.w500,
-          fontSize: 14,
+          fontSize: ResponsiveHelper.fontSize(14),
           color: AppColors.black,
         ),
 
@@ -35,7 +36,7 @@ class NotificationTileWidget extends StatelessWidget {
           textAlign: TextAlign.start,
           text: subtitle,
           fontWeight: FontWeight.w400,
-          fontSize: 10,
+          fontSize: ResponsiveHelper.fontSize(10),
           color: Color(0xFFA1A1AA),
         ),
 

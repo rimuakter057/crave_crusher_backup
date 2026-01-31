@@ -1,5 +1,6 @@
 // ignore_for_file: deprecated_member_use
 
+import 'package:crave_crusher/helper/responsive_helper/responsive_helper.dart';
 import 'package:crave_crusher/utils/app_colors/app_colors.dart';
 import 'package:crave_crusher/utils/app_icons/app_icons.dart';
 import 'package:crave_crusher/view/components/custom_app_bar/custom_app_bar.dart';
@@ -8,7 +9,6 @@ import 'package:crave_crusher/view/components/custom_svg_icon/custom_svg_icon.da
 import 'package:crave_crusher/view/components/custom_text/custom_text.dart';
 import 'package:crave_crusher/view/features/battle/controller/battle_controller.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import '../../../components/custom_loader/custom_loader.dart';
@@ -29,7 +29,10 @@ class _StartNewBattleScreenState extends State<CreateBattleScreen> {
       backgroundColor: AppColors.backgroundColor,
       appBar: CustomAppBar(title: 'Start a New Battle', actions: []),
       body: SingleChildScrollView(
-        padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 16.h),
+        padding: EdgeInsets.symmetric(
+          horizontal: ResponsiveHelper.width(20),
+          vertical: ResponsiveHelper.height(16),
+        ),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -55,8 +58,8 @@ class _StartNewBattleScreenState extends State<CreateBattleScreen> {
             CustomText(
               text: "How Many Days Will This Battle Last?",
               fontWeight: FontWeight.w600,
-              fontSize: 16,
-              bottom: 8.h,
+              fontSize: ResponsiveHelper.fontSize(16),
+              bottom: ResponsiveHelper.height(8),
             ),
 
             ///day selected================================================================
@@ -67,30 +70,39 @@ class _StartNewBattleScreenState extends State<CreateBattleScreen> {
                 hintText: "Enter number of days (e.g., 7, 14, 30)",
                 hintStyle: GoogleFonts.syne(
                   color: AppColors.softWhite,
-                  fontSize: 14.sp,
+                  fontSize: ResponsiveHelper.fontSize(14),
                 ),
                 contentPadding: EdgeInsets.symmetric(
-                  horizontal: 16.w,
-                  vertical: 12.h,
+                  horizontal: ResponsiveHelper.width(16),
+                  vertical: ResponsiveHelper.height(12),
                 ),
                 filled: true,
                 fillColor: AppColors.subPrimary.withOpacity(0.4),
                 border: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(10.r),
+                  borderRadius: BorderRadius.circular(
+                    ResponsiveHelper.borderRadius(10),
+                  ),
                   borderSide: BorderSide.none,
                 ),
                 enabledBorder: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(10.r),
+                  borderRadius: BorderRadius.circular(
+                    ResponsiveHelper.borderRadius(10),
+                  ),
                   borderSide: BorderSide.none,
                 ),
                 focusedBorder: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(10.r),
-                  borderSide: BorderSide(color: AppColors.primary, width: 2.w),
+                  borderRadius: BorderRadius.circular(
+                    ResponsiveHelper.borderRadius(10),
+                  ),
+                  borderSide: BorderSide(
+                    color: AppColors.primary,
+                    width: ResponsiveHelper.width(2),
+                  ),
                 ),
               ),
             ),
 
-            SizedBox(height: 24.h),
+            SizedBox(height: ResponsiveHelper.height(24)),
 
             /// 4. Send Reminder Radio Group
             Obx(() {
@@ -104,8 +116,8 @@ class _StartNewBattleScreenState extends State<CreateBattleScreen> {
             CustomText(
               text: "Why Are You Starting This Battle?",
               fontWeight: FontWeight.w600,
-              fontSize: 16,
-              bottom: 8.h,
+              fontSize: ResponsiveHelper.fontSize(16),
+              bottom: ResponsiveHelper.height(8),
             ),
             TextField(
               controller: controller.reasonController,
@@ -113,26 +125,35 @@ class _StartNewBattleScreenState extends State<CreateBattleScreen> {
                 hintText: "I want to feel healthier and more focused.",
                 hintStyle: GoogleFonts.syne(
                   color: AppColors.softWhite,
-                  fontSize: 14.sp,
+                  fontSize: ResponsiveHelper.fontSize(14),
                 ),
-                contentPadding: EdgeInsets.all(16.w),
+                contentPadding: EdgeInsets.all(ResponsiveHelper.width(16)),
                 filled: true,
                 fillColor: AppColors.subPrimary.withOpacity(0.4),
                 border: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(10.r),
+                  borderRadius: BorderRadius.circular(
+                    ResponsiveHelper.borderRadius(10),
+                  ),
                   borderSide: BorderSide.none,
                 ),
                 enabledBorder: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(10.r),
+                  borderRadius: BorderRadius.circular(
+                    ResponsiveHelper.borderRadius(10),
+                  ),
                   borderSide: BorderSide.none,
                 ),
                 focusedBorder: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(10.r),
-                  borderSide: BorderSide(color: AppColors.primary, width: 2.w),
+                  borderRadius: BorderRadius.circular(
+                    ResponsiveHelper.borderRadius(10),
+                  ),
+                  borderSide: BorderSide(
+                    color: AppColors.primary,
+                    width: ResponsiveHelper.width(2),
+                  ),
                 ),
               ),
             ),
-            SizedBox(height: 40.h),
+            SizedBox(height: ResponsiveHelper.height(40)),
 
             ///button section======================================
             Obx(() {
@@ -152,11 +173,13 @@ class _StartNewBattleScreenState extends State<CreateBattleScreen> {
                     controller.isLoading.value
                         ? CustomLoader()
                         : Container(
-                          height: 40.h,
-                          width: 140.w,
+                          height: ResponsiveHelper.height(40),
+                          width: ResponsiveHelper.width(140),
                           decoration: BoxDecoration(
                             color: AppColors.primary,
-                            borderRadius: BorderRadius.circular(8.r),
+                            borderRadius: BorderRadius.circular(
+                              ResponsiveHelper.borderRadius(8),
+                            ),
                           ),
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -169,7 +192,7 @@ class _StartNewBattleScreenState extends State<CreateBattleScreen> {
 
                               CustomText(
                                 text: "Start Battle",
-                                fontSize: 12.w,
+                                fontSize: ResponsiveHelper.fontSize(12),
                                 fontWeight: FontWeight.w600,
                                 color: AppColors.white,
                                 bottom: 0,
@@ -181,7 +204,7 @@ class _StartNewBattleScreenState extends State<CreateBattleScreen> {
               );
             }),
 
-            SizedBox(height: 20.h),
+            SizedBox(height:ResponsiveHelper.height(20)),
           ],
         ),
       ),
@@ -213,32 +236,44 @@ class _CustomDropdownField extends StatelessWidget {
         CustomText(
           text: label,
           fontWeight: FontWeight.w600,
-          fontSize: 16,
-          bottom: 8.h,
+          fontSize: ResponsiveHelper.fontSize(16),
+          bottom: ResponsiveHelper.height(8),
         ),
         DropdownButtonFormField<String>(
           initialValue: selectedValue,
           decoration: InputDecoration(
             hintText: hint,
-            hintStyle: TextStyle(color: AppColors.softWhite, fontSize: 14.sp),
+            hintStyle: TextStyle(
+              color: AppColors.softWhite,
+              fontSize: ResponsiveHelper.fontSize(14),
+            ),
             contentPadding: EdgeInsets.symmetric(
-              horizontal: 16.w,
-              vertical: 12.h,
+              horizontal: ResponsiveHelper.width(16),
+              vertical: ResponsiveHelper.height(12),
             ),
             filled: true,
             fillColor: AppColors.subPrimary.withOpacity(0.4),
             // fillColor: AppColors.red,
             border: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(10.r),
+              borderRadius: BorderRadius.circular(
+                ResponsiveHelper.borderRadius(10),
+              ),
               borderSide: BorderSide.none,
             ),
             enabledBorder: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(10.r),
+              borderRadius: BorderRadius.circular(
+                ResponsiveHelper.borderRadius(1016),
+              ),
               borderSide: BorderSide.none,
             ),
             focusedBorder: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(10.r),
-              borderSide: BorderSide(color: AppColors.primary, width: 2.w),
+              borderRadius: BorderRadius.circular(
+                ResponsiveHelper.borderRadius(10),
+              ),
+              borderSide: BorderSide(
+                color: AppColors.primary,
+                width: ResponsiveHelper.width(2),
+              ),
             ),
           ),
           isExpanded: true,
@@ -251,7 +286,7 @@ class _CustomDropdownField extends StatelessWidget {
                   value: value,
                   child: CustomText(
                     text: value,
-                    fontSize: 15,
+                    fontSize: ResponsiveHelper.width(15),
                     fontWeight: FontWeight.w500,
                     color: AppColors.appTitle,
                     bottom: 0,
@@ -262,7 +297,7 @@ class _CustomDropdownField extends StatelessWidget {
 
           onChanged: onChanged,
         ),
-        SizedBox(height: 24.h),
+        SizedBox(height: ResponsiveHelper.height(24)),
       ],
     );
   }
@@ -283,14 +318,16 @@ class _ReminderRadioGroup extends StatelessWidget {
       child: GestureDetector(
         onTap: () => onChanged(value),
         child: Container(
-          height: 50.h,
+          height: ResponsiveHelper.height(50),
           alignment: Alignment.center,
           decoration: BoxDecoration(
             color:
                 isSelected
                     ? AppColors.subPrimary
                     : AppColors.subPrimary.withOpacity(0.4),
-            borderRadius: BorderRadius.circular(10.r),
+            borderRadius: BorderRadius.circular(
+              ResponsiveHelper.borderRadius(10),
+            ),
           ),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.center,
@@ -307,7 +344,7 @@ class _ReminderRadioGroup extends StatelessWidget {
               CustomText(
                 text: text,
                 fontWeight: isSelected ? FontWeight.w600 : FontWeight.w500,
-                fontSize: 16,
+                fontSize: ResponsiveHelper.fontSize(16),
                 color: AppColors.appTitle,
                 bottom: 0,
                 top: 0,
@@ -327,17 +364,17 @@ class _ReminderRadioGroup extends StatelessWidget {
         CustomText(
           text: "Send Reminder For Battle",
           fontWeight: FontWeight.w600,
-          fontSize: 16,
-          bottom: 12.h,
+          fontSize: ResponsiveHelper.fontSize(16),
+          bottom: ResponsiveHelper.height(12),
         ),
         Row(
           children: [
             _buildRadioOption(context, true, "Yes"),
-            SizedBox(width: 16.w),
+            SizedBox(width: ResponsiveHelper.width(16)),
             _buildRadioOption(context, false, "No"),
           ],
         ),
-        SizedBox(height: 24.h),
+        SizedBox(height: ResponsiveHelper.height(24)),
       ],
     );
   }

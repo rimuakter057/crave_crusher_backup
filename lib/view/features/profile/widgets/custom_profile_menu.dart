@@ -1,3 +1,4 @@
+import 'package:crave_crusher/helper/responsive_helper/responsive_helper.dart';
 import 'package:crave_crusher/utils/app_colors/app_colors.dart';
 import 'package:crave_crusher/utils/app_icons/app_icons.dart';
 import 'package:crave_crusher/view/components/custom_svg_icon/custom_svg_icon.dart';
@@ -27,10 +28,10 @@ class CustomProfileMenu extends StatelessWidget {
     return GestureDetector(
       onTap: onTap,
       child: Container(
-        padding: EdgeInsets.all(12.w),
+        padding: EdgeInsets.all( ResponsiveHelper.padding(12),),
         decoration: BoxDecoration(
           border: Border.all(color: Colors.grey.shade200), // Grey border
-          borderRadius: BorderRadius.circular(8), // Rounded corners (optional)
+          borderRadius: BorderRadius.circular( ResponsiveHelper.borderRadius(8),  ), // Rounded corners (optional)
         ),
 
         child: Row(
@@ -41,7 +42,7 @@ class CustomProfileMenu extends StatelessWidget {
               children: [
                 IconTheme(
                   data: IconThemeData(
-                    size: 24, // auto size for any icon
+                    size:  ResponsiveHelper.iconSize(24), // auto size for any icon
                     color: iconColor ?? AppColors.primary, // auto color
                   ),
                   child: CustomSvgIcon(icon: icon),

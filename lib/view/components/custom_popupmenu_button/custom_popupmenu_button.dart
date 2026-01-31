@@ -1,3 +1,4 @@
+import 'package:crave_crusher/helper/responsive_helper/responsive_helper.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../../../utils/app_colors/app_colors.dart';
@@ -23,7 +24,7 @@ class CustomPopupmenuButton extends StatelessWidget {
       icon: Icon(
         icons ?? Icons.arrow_drop_down,
         color: AppColors.primary,
-        size: 40,
+        size: ResponsiveHelper.iconSize(40),
       ),
       itemBuilder:
           (context) => List.generate(items.length, (index) {
@@ -33,7 +34,7 @@ class CustomPopupmenuButton extends StatelessWidget {
                 textAlign: TextAlign.center,
                 text: items[index],
                 color: AppColors.black,
-                fontSize: 14.w,
+                fontSize:ResponsiveHelper.fontSize(14),
                 fontWeight: FontWeight.w300,
               ),
             );

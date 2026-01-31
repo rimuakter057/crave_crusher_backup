@@ -1,4 +1,5 @@
 import 'package:crave_crusher/core/routes/app_routes.dart';
+import 'package:crave_crusher/helper/responsive_helper/responsive_helper.dart';
 import 'package:crave_crusher/view/components/common_empty/common_empty_widget.dart';
 import 'package:crave_crusher/view/components/custom_app_bar/custom_app_bar.dart';
 import 'package:crave_crusher/view/components/custom_nav_bar/navbar.dart';
@@ -63,14 +64,14 @@ class _BattleScreenState extends State<BattleScreen> {
       ),
 
       body: Padding(
-        padding: EdgeInsets.symmetric(horizontal: 16.0.w),
+        padding: EdgeInsets.symmetric(horizontal: ResponsiveHelper.width(16)),
         child: Obx(() {
           return Column(
             children: [
-              SizedBox(height: 16.h),
+              SizedBox(height: ResponsiveHelper.height(16)),
               BattleTabSelector(),
 
-              SizedBox(height: 10.h),
+              SizedBox(height: ResponsiveHelper.height(10)),
 
               if (controller.battleTabIndex.value == 0) ...[
                 Expanded(
@@ -117,7 +118,9 @@ class _BattleScreenState extends State<BattleScreen> {
                                         );
                                       },
                                     ),
-                                    SizedBox(height: 4.h),
+                                    SizedBox(
+                                      height: ResponsiveHelper.height(4),
+                                    ),
                                   ],
                                 );
                               },
@@ -170,7 +173,9 @@ class _BattleScreenState extends State<BattleScreen> {
                                         );
                                       },
                                     ),
-                                    SizedBox(height: 4.h),
+                                    SizedBox(
+                                      height: ResponsiveHelper.height(4),
+                                    ),
                                   ],
                                 );
                               },
@@ -223,7 +228,9 @@ class _BattleScreenState extends State<BattleScreen> {
                                         );
                                       },
                                     ),
-                                    SizedBox(height: 4.h),
+                                    SizedBox(
+                                      height: ResponsiveHelper.height(4),
+                                    ),
                                   ],
                                 );
                               },

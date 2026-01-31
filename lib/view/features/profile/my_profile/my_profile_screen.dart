@@ -1,4 +1,5 @@
 import 'package:crave_crusher/helper/images_handler/image_handler.dart';
+import 'package:crave_crusher/helper/responsive_helper/responsive_helper.dart';
 import 'package:crave_crusher/utils/app_colors/app_colors.dart';
 import 'package:crave_crusher/view/components/common_profile/avatar_widget.dart';
 import 'package:crave_crusher/view/components/custom_container/custom_container.dart';
@@ -39,7 +40,7 @@ class MyProfileScreen extends StatelessWidget {
             return Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Gap(8.h),
+                Gap(ResponsiveHelper.height(8)),
                 Center(
                   child: ProfileAvatarWidget(
                     imagePath: ImageHandler.imagesHandle(
@@ -70,9 +71,9 @@ class MyProfileScreen extends StatelessWidget {
                   },
                   child: CustomContainer(
                     backgroundColor: AppColors.primary,
-                    padding: 4,
-                    height: 36.h,
-                    width: 140.w,
+                    padding:ResponsiveHelper.padding(4),
+                    height:ResponsiveHelper.height(36),
+                    width: ResponsiveHelper.width(140),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [

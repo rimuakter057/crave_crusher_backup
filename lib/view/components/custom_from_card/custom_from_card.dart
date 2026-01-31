@@ -1,3 +1,4 @@
+import 'package:crave_crusher/helper/responsive_helper/responsive_helper.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -53,8 +54,8 @@ class CustomFormCard extends StatelessWidget {
           text: title,
           color: titleColor ?? AppColors.black,
           fontWeight: FontWeight.w600,
-          fontSize: fontSize ?? 16.w,
-          bottom: 12.h,
+          fontSize: fontSize ?? ResponsiveHelper.fontSize(16),
+          bottom: ResponsiveHelper.height(12),
           maxLines: 2,
         ),
         CustomTextField(
@@ -66,7 +67,7 @@ class CustomFormCard extends StatelessWidget {
           hintText: hintText,
           hintStyle: GoogleFonts.poppins(
             fontWeight: FontWeight.w400,
-            fontSize: 18,
+            fontSize:ResponsiveHelper.fontSize(18),
             // ignore: deprecated_member_use
             color: AppColors.primary,
           ),
@@ -86,9 +87,9 @@ class CustomFormCard extends StatelessWidget {
               (isPassword ? TextInputType.visiblePassword : TextInputType.text),
           onTap: onTap,
           maxLines: isPassword ? 1 : maxLine,
-          fieldBorderRadius: 8,
+          fieldBorderRadius: ResponsiveHelper.borderRadius(8),
         ),
-        SizedBox(height: 15.h),
+        SizedBox(height: ResponsiveHelper.height(15),),
       ],
     );
   }

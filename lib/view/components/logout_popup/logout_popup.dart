@@ -1,3 +1,4 @@
+import 'package:crave_crusher/helper/responsive_helper/responsive_helper.dart';
 import 'package:crave_crusher/utils/app_colors/app_colors.dart';
 import 'package:crave_crusher/view/components/custom_text/custom_text.dart';
 import 'package:flutter/material.dart';
@@ -16,8 +17,8 @@ class LogoutDialog extends StatelessWidget {
         duration: const Duration(milliseconds: 300),
         curve: Curves.easeOutBack,
         child: Container(
-          width: 300,
-          padding: const EdgeInsets.all(24),
+          width: ResponsiveHelper.width(300),
+          padding:  EdgeInsets.all(ResponsiveHelper.padding(24),),
           decoration: BoxDecoration(
             color: AppColors.naveWhite,
             borderRadius: BorderRadius.circular(16),

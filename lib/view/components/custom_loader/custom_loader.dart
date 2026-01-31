@@ -1,3 +1,4 @@
+import 'package:crave_crusher/helper/responsive_helper/responsive_helper.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
@@ -9,6 +10,6 @@ class CustomLoader extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SpinKitCircle(color: AppColors.primary, size: 60.h);
+    return SpinKitCircle(color: AppColors.primary, size:ResponsiveHelper.iconSize(60),);
   }
 }

@@ -1,6 +1,7 @@
 // ignore_for_file: deprecated_member_use
 
 import 'package:crave_crusher/helper/images_handler/image_handler.dart';
+import 'package:crave_crusher/helper/responsive_helper/responsive_helper.dart';
 import 'package:crave_crusher/utils/app_colors/app_colors.dart';
 import 'package:crave_crusher/utils/app_icons/app_icons.dart';
 import 'package:crave_crusher/view/components/common_profile/avatar_widget.dart';
@@ -50,8 +51,8 @@ class _CommentScreenState extends State<CommentScreen> {
         backgroundColor: AppColors.backgroundColor,
         leading: Center(
           child: Container(
-            width: 50.w,
-            height: 50.h,
+            width: ResponsiveHelper.width(50),
+            height: ResponsiveHelper.height(50),
             alignment: Alignment.center,
             decoration: BoxDecoration(
               color: AppColors.subPrimary.withOpacity(.3),
@@ -69,7 +70,7 @@ class _CommentScreenState extends State<CommentScreen> {
         centerTitle: true,
         title: CustomText(
           text: "Comments",
-          fontSize: 18.sp,
+          fontSize: ResponsiveHelper.fontSize(18),
           fontWeight: FontWeight.w500,
         ),
       ),
@@ -89,7 +90,7 @@ class _CommentScreenState extends State<CommentScreen> {
               if (index == 0) {
                 // Input field + Send button
                 return Padding(
-                  padding: EdgeInsets.all(16.w),
+                  padding: EdgeInsets.all(ResponsiveHelper.width(16)),
                   child: Obx(
                     () => CustomContainer(
                       width: double.infinity,
@@ -104,13 +105,13 @@ class _CommentScreenState extends State<CommentScreen> {
                           Obx(() {
                             final profile = profileController.myProfile.value;
                             return SizedBox(
-                              height: 38.h,
+                              height: ResponsiveHelper.height(38),
                               child: Row(
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
                                   ProfileAvatarWidget(
-                                    heightA: 35.h,
-                                    widthA: 35.w,
+                                    heightA: ResponsiveHelper.height(35),
+                                    widthA: ResponsiveHelper.width(35),
                                     imagePath: ImageHandler.imagesHandle(
                                       profile?.profileImage,
                                       isProfile: true,
@@ -119,7 +120,7 @@ class _CommentScreenState extends State<CommentScreen> {
                                   Gap(4.w),
                                   CustomText(
                                     text: "@${profile?.fullName}",
-                                    fontSize: 18,
+                                    fontSize: ResponsiveHelper.fontSize(18),
                                   ),
                                 ],
                               ),
@@ -135,8 +136,8 @@ class _CommentScreenState extends State<CommentScreen> {
                                     commentController.commentText.value = val,
                             decoration: InputDecoration(
                               contentPadding: EdgeInsets.symmetric(
-                                horizontal: 8.w,
-                                vertical: 8.h,
+                                horizontal: ResponsiveHelper.width(8),
+                                vertical: ResponsiveHelper.height(8),
                               ),
                               border: OutlineInputBorder(
                                 borderSide: BorderSide.none,
@@ -178,15 +179,17 @@ class _CommentScreenState extends State<CommentScreen> {
                                     ? CustomLoader()
                                     : CustomContainer(
                                       backgroundColor: AppColors.primary,
-                                      padding: 2,
-                                      height: 32.h,
-                                      width: 81.w,
+                                      padding: ResponsiveHelper.width(2),
+                                      height: ResponsiveHelper.height(32),
+                                      width: ResponsiveHelper.width(81),
                                       child: Row(
                                         mainAxisAlignment:
                                             MainAxisAlignment.center,
                                         children: [
                                           CustomImage(imageSrc: AppIcons.send),
-                                          SizedBox(width: 2.w),
+                                          SizedBox(
+                                            width: ResponsiveHelper.width(2),
+                                          ),
                                           CustomText(
                                             text: "Send",
                                             color: AppColors.white,

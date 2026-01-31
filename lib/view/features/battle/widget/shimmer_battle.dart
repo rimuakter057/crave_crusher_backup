@@ -1,3 +1,4 @@
+import 'package:crave_crusher/helper/responsive_helper/responsive_helper.dart';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:shimmer/shimmer.dart';
@@ -15,7 +16,7 @@ class BattleShimmerLoader extends StatelessWidget {
       itemCount: 5,
       itemBuilder: (context, index) {
         return Padding(
-          padding: EdgeInsets.symmetric(vertical: 8.h),
+          padding: EdgeInsets.symmetric(vertical: ResponsiveHelper.height(8)),
           child: Shimmer.fromColors(
             baseColor: Colors.grey[300]!,
             highlightColor: Colors.grey[100]!,
@@ -28,33 +29,51 @@ class BattleShimmerLoader extends StatelessWidget {
                   children: [
                     Row(
                       children: [
-                        _buildSkeleton(25.w, 25.h),
-                        SizedBox(width: 8.w),
-                        _buildSkeleton(150.w, 10.h),
+                        _buildSkeleton(
+                          ResponsiveHelper.width(25),
+                          ResponsiveHelper.height(25),
+                        ),
+                        SizedBox(width: ResponsiveHelper.width(8)),
+                        _buildSkeleton(
+                          ResponsiveHelper.width(150),
+                          ResponsiveHelper.height(10),
+                        ),
                       ],
                     ),
-                    SizedBox(width: 8.w),
-                    _buildSkeleton(60.w, 20.h),
+                    SizedBox(width: ResponsiveHelper.width(8)),
+                    _buildSkeleton(
+                      ResponsiveHelper.width(60),
+                      ResponsiveHelper.height(20),
+                    ),
                   ],
                 ),
-                Gap(12.h),
+                Gap(ResponsiveHelper.height(12)),
 
                 // 2nd Row
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    _buildSkeleton(80.w, 10.h),
-                    SizedBox(width: 8.w),
-                    _buildSkeleton(80.w, 10.h),
+                    _buildSkeleton(
+                      ResponsiveHelper.width(80),
+                      ResponsiveHelper.height(10),
+                    ),
+                    SizedBox(width: ResponsiveHelper.width(8)),
+                    _buildSkeleton(
+                      ResponsiveHelper.width(80),
+                      ResponsiveHelper.height(10),
+                    ),
                   ],
                 ),
-                Gap(8.h),
+                Gap(ResponsiveHelper.height(8)),
 
                 // line
-                _buildSkeleton(double.infinity, 14.h),
+                _buildSkeleton(double.infinity, ResponsiveHelper.height(14)),
 
                 Gap(8.h),
-                _buildSkeleton(200.w, 14.h),
+                _buildSkeleton(
+                  ResponsiveHelper.width(200),
+                  ResponsiveHelper.height(14),
+                ),
               ],
             ),
           ),
@@ -68,7 +87,7 @@ class BattleShimmerLoader extends StatelessWidget {
       width: width,
       height: height,
       decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(6.r),
+        borderRadius: BorderRadius.circular(ResponsiveHelper.borderRadius(6)),
         color: Colors.white,
         shape: isCircle ? BoxShape.circle : BoxShape.rectangle,
       ),

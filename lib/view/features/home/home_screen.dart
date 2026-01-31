@@ -117,7 +117,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 );
               }),
 
-              SizedBox(height: 24.h),
+              SizedBox(height: ResponsiveHelper.height(24),),
 
               // _buildTitle(AppIcons.smallMonster, "Your Monster Today"),
               Obx(() {
@@ -131,7 +131,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   return Center(
                     child: Column(
                       children: [
-                        SizedBox(height: 24),
+                        SizedBox(height:ResponsiveHelper.height(24),),
                         EmptyWidget(
                           title:
                               "Add your first battle to summon your Monster.",
@@ -149,7 +149,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 }
               }),
 
-              SizedBox(height: 24.h),
+              SizedBox(height:ResponsiveHelper.height(24),),
 
               // Active Battle Section Title
               _buildTitle(AppIcons.battlePng, "Active Battle"),
@@ -161,7 +161,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   return Center(
                     child: Column(
                       children: [
-                        SizedBox(height: 48),
+                        SizedBox(height:ResponsiveHelper.height(48) ),
                         EmptyWidget(
                           title: "Add your first battle to get started.",
                         ),
@@ -197,7 +197,7 @@ class _HomeScreenState extends State<HomeScreen> {
                               );
                             },
                           ),
-                          SizedBox(height: 4.h),
+                          SizedBox(height: ResponsiveHelper.height(4)),
                         ],
                       );
                     },
@@ -215,7 +215,7 @@ class _HomeScreenState extends State<HomeScreen> {
 
   Padding _buildTitle(String iconSrc, String title) {
     return Padding(
-      padding: EdgeInsets.only(bottom: 12.h),
+      padding: EdgeInsets.only(bottom:ResponsiveHelper.height(12) ),
       child: Row(
         children: [
           Container(

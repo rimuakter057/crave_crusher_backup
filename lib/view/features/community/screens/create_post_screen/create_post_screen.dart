@@ -1,6 +1,7 @@
 // ignore_for_file: deprecated_member_use
 
 import 'dart:io';
+import 'package:crave_crusher/helper/responsive_helper/responsive_helper.dart';
 import 'package:crave_crusher/helper/time_converter/date_converter.dart';
 import 'package:crave_crusher/utils/app_colors/app_colors.dart';
 import 'package:crave_crusher/utils/app_icons/app_icons.dart';
@@ -27,14 +28,15 @@ class CreatePostScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final Widget gap = Gap(ResponsiveHelper.height(24));
     return Scaffold(
       appBar: AppBar(
         surfaceTintColor: AppColors.backgroundColor,
         backgroundColor: AppColors.backgroundColor,
         leading: Center(
           child: Container(
-            width: 50.w,
-            height: 50.h,
+            width: ResponsiveHelper.width(50),
+            height: ResponsiveHelper.height(50),
             alignment: Alignment.center,
             decoration: BoxDecoration(
               color: AppColors.subPrimary.withOpacity(.3),
@@ -52,29 +54,29 @@ class CreatePostScreen extends StatelessWidget {
         centerTitle: true,
         title: CustomText(
           text: "Create Post",
-          fontSize: 18.sp,
+          fontSize: ResponsiveHelper.fontSize(18),
           fontWeight: FontWeight.w500,
         ),
       ),
       body: Obx(
         () => SingleChildScrollView(
           child: Padding(
-            padding: EdgeInsets.symmetric(horizontal: 16.w),
+            padding: EdgeInsets.symmetric(horizontal: ResponsiveHelper.width(16)),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 CustomText(
                   text: "What’s on your mind today?",
-                  fontSize: 14.sp,
+                  fontSize: ResponsiveHelper.fontSize(14),
                   fontWeight: FontWeight.w500,
                 ),
-                Gap(8.h),
+                Gap(ResponsiveHelper.height(8)),
                 CustomContainer(
                   width: double.infinity,
-                  height: 120.h,
+                  height: ResponsiveHelper.height(120),
                   backgroundColor: AppColors.subPrimary.withOpacity(.5),
                   child: SizedBox(
-                    height: 90.h,
+                    height: ResponsiveHelper.height(90),
                     child: TextField(
                       maxLines: 4,
                       controller: textController,
@@ -84,54 +86,54 @@ class CreatePostScreen extends StatelessWidget {
                             "Share your progress, thoughts, or a victory moment…",
                         hintStyle: TextStyle(
                           color: AppColors.black.withOpacity(0.5),
-                          fontSize: 14.sp,
+                          fontSize: ResponsiveHelper.fontSize(14),
                         ),
                         contentPadding: EdgeInsets.symmetric(
-                          horizontal: 8.w,
-                          vertical: 8.h,
+                          horizontal:ResponsiveHelper.width(8),
+                          vertical:ResponsiveHelper.height(8),
                         ),
                         border: OutlineInputBorder(borderSide: BorderSide.none),
                       ),
                     ),
                   ),
                 ),
-                Gap(24.h),
+                gap,
                 CustomText(
                   text: "Add a photo or moment (optional)",
-                  fontSize: 14.sp,
+                  fontSize:ResponsiveHelper.fontSize(14),
                   fontWeight: FontWeight.w500,
                 ),
-                Gap(12.h),
+                Gap(ResponsiveHelper.height(12)),
 
                 /// Image List
                 if (controller.imagePaths.isNotEmpty)
                   SizedBox(
-                    height: 120.h,
+                    height: ResponsiveHelper.height(120),
                     child: ListView.separated(
                       scrollDirection: Axis.horizontal,
                       itemCount: controller.imagePaths.length,
-                      separatorBuilder: (_, __) => SizedBox(width: 10),
+                      separatorBuilder: (_, __) => SizedBox(width: ResponsiveHelper.width(10)),
                       itemBuilder: (context, index) {
                         final path = controller.imagePaths[index];
                         return Stack(
                           children: [
                             ClipRRect(
-                              borderRadius: BorderRadius.circular(12),
+                              borderRadius: BorderRadius.circular(ResponsiveHelper.borderRadius(12)),
                               child: Image.file(
                                 File(path),
-                                width: 120.w,
-                                height: 120.h,
+                                width: ResponsiveHelper.width(120),
+                                height: ResponsiveHelper.height(120),
                                 fit: BoxFit.cover,
                               ),
                             ),
                             Positioned(
-                              right: 5,
-                              top: 5,
+                              right: ResponsiveHelper.width(5),
+                              top:ResponsiveHelper.height(5),
                               child: GestureDetector(
                                 onTap: () => controller.removeImage(path),
                                 child: Container(
-                                  width: 24.w,
-                                  height: 24.h,
+                                  width: ResponsiveHelper.width(24),
+                                  height: ResponsiveHelper.height(24),
                                   decoration: BoxDecoration(
                                     color: AppColors.white,
                                     shape: BoxShape.circle,
@@ -146,19 +148,19 @@ class CreatePostScreen extends StatelessWidget {
                     ),
                   ),
 
-                Gap(24.h),
+                gap,
                 GestureDetector(
                   onTap: () => controller.pickImages(),
                   child: CustomContainer(
                     width: double.infinity,
-                    height: 120.h,
+                    height: ResponsiveHelper.height(120),
                     backgroundColor: AppColors.subPrimary.withOpacity(.5),
                     child: Center(
                       child: CustomImage(imageSrc: AppIcons.addImage),
                     ),
                   ),
                 ),
-                Gap(24.h),
+               gap,
 
                 /// post Button section
                 GestureDetector(
@@ -197,9 +199,9 @@ class CreatePostScreen extends StatelessWidget {
                           ? CustomLoader()
                           : CustomContainer(
                             backgroundColor: AppColors.primary,
-                            padding: 4,
-                            height: 36.h,
-                            width: 100.w,
+                            padding: ResponsiveHelper.width(4),
+                            height: ResponsiveHelper.height(36),
+                            width: ResponsiveHelper.width(100),
                             child: Center(
                               child: CustomText(
                                 text: "Post Now",

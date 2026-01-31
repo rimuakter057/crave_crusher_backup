@@ -32,7 +32,7 @@ Future<void> main() async {
   final auth = getx.Get.find<AuthController>();
   await auth.getUserData();
   runApp(
-    DevicePreview(enabled: false, builder: (context) => const CraveCrusher()),
+    DevicePreview(enabled: true, builder: (context) => const CraveCrusher()),
   );
 }
 

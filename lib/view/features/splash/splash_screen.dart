@@ -1,4 +1,5 @@
 import 'package:crave_crusher/core/routes/app_routes.dart';
+import 'package:crave_crusher/helper/responsive_helper/responsive_helper.dart';
 import 'package:crave_crusher/utils/app_colors/app_colors.dart';
 import 'package:crave_crusher/utils/app_images/app_images.dart';
 import 'package:crave_crusher/view/components/custom_image/custom_image.dart';
@@ -48,7 +49,7 @@ class _SplashScreenState extends State<SplashScreen> {
             Gap(16.h),
             CustomText(
               text: "Crave Crusher",
-              fontSize: 32.sp,
+              fontSize: ResponsiveHelper.fontSize(32),
               color: AppColors.primary,
             ),
           ],

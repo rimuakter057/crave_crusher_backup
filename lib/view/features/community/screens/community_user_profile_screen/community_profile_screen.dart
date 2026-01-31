@@ -1,6 +1,7 @@
 // ignore_for_file: deprecated_member_use
 
 import 'package:crave_crusher/helper/images_handler/image_handler.dart';
+import 'package:crave_crusher/helper/responsive_helper/responsive_helper.dart';
 import 'package:crave_crusher/helper/time_converter/date_converter.dart';
 import 'package:crave_crusher/utils/app_colors/app_colors.dart';
 import 'package:crave_crusher/utils/app_const/app_const.dart';
@@ -66,8 +67,8 @@ class _CommunityProfileScreenState extends State<CommunityProfileScreen> {
         backgroundColor: AppColors.backgroundColor,
         leading: Center(
           child: Container(
-            width: 50.w,
-            height: 50.h,
+            width: ResponsiveHelper.width(50),
+            height: ResponsiveHelper.height(50),
             alignment: Alignment.center,
             decoration: BoxDecoration(
               color: AppColors.subPrimary.withOpacity(.3),
@@ -85,14 +86,14 @@ class _CommunityProfileScreenState extends State<CommunityProfileScreen> {
         centerTitle: true,
         title: CustomText(
           text: "Community",
-          fontSize: 18.sp,
+          fontSize: ResponsiveHelper.fontSize(18),
           fontWeight: FontWeight.w500,
         ),
       ),
 
       body: SingleChildScrollView(
         child: Padding(
-          padding: EdgeInsets.symmetric(horizontal: 16.w),
+          padding: EdgeInsets.symmetric(horizontal: ResponsiveHelper.width(16)),
           child: Column(
             children: [
               ///profile image
@@ -109,11 +110,11 @@ class _CommunityProfileScreenState extends State<CommunityProfileScreen> {
                       ),
                     ),
 
-                    Gap(16.h),
+                    Gap(ResponsiveHelper.height(16)),
                     CustomText(
                       text: widget.profileName,
                       fontWeight: FontWeight.w600,
-                      fontSize: 18.sp,
+                      fontSize: ResponsiveHelper.fontSize(18),
                     ),
                   ],
                 );
@@ -192,15 +193,15 @@ class _CommunityProfileScreenState extends State<CommunityProfileScreen> {
                                             .favorite // filled heart svg
                                         : AppIcons
                                             .favoriteOutline, // outline heart svg
-                                    width: 18.w,
-                                    height: 18.w,
+                                    width: ResponsiveHelper.width(18),
+                                    height: ResponsiveHelper.height(18),
                                     colorFilter: ColorFilter.mode(
                                       AppColors.red,
                                       BlendMode.srcIn,
                                     ),
                                   ),
                                 ),
-                                SizedBox(width: 4.w),
+                                SizedBox(width: ResponsiveHelper.width(4)),
                                 CustomText(text: "${myPost.totalVotes.value}"),
                               ],
                             ),
@@ -238,7 +239,7 @@ class _CommunityProfileScreenState extends State<CommunityProfileScreen> {
                             onTapProfile: () {},
                           ),
 
-                          SizedBox(height: 8.h),
+                          SizedBox(height: ResponsiveHelper.height(8)),
                         ],
                       );
                     },
