@@ -1,4 +1,5 @@
 import 'package:crave_crusher/helper/responsive_helper/responsive_helper.dart';
+import 'package:crave_crusher/utils/app_colors/app_colors.dart';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:shimmer/shimmer.dart';
@@ -50,7 +51,7 @@ class HomeShimmerLoader extends StatelessWidget {
       height: height,
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(6.r),
-        color: Colors.white,
+        color: AppColors.white,
         shape: isCircle ? BoxShape.circle : BoxShape.rectangle,
       ),
     );

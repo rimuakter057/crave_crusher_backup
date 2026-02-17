@@ -6,6 +6,8 @@ import 'package:crave_crusher/view/features/battle/models/battle_details_model.d
 import 'package:get/get.dart';
 import 'package:flutter/material.dart';
 import 'package:logger/logger.dart';
+import 'package:lottie/lottie.dart';
+import '../../../../utils/app_icons/app_icons.dart';
 import '../models/battle_model.dart';
 
 class BattleController extends GetxController {
@@ -171,7 +173,7 @@ class BattleController extends GetxController {
 
   var battleDetails = BattleDetailsModel().obs;
   var isLoadingSingleBattle = false.obs;
-
+  var isUpdatingData = false.obs;
   Future<void> fetchSingleBattle(String battleId) async {
     isLoadingSingleBattle.value = true;
 
@@ -192,7 +194,7 @@ class BattleController extends GetxController {
 
   Future<bool> completeBattleDay(String battleId, final String status) async {
     isLoadingCompleteBattle.value = true;
-   // Get.back();
+
     final body = {
       "status": status, // or whatever backend expects
     };
@@ -205,11 +207,42 @@ class BattleController extends GetxController {
     isLoadingCompleteBattle.value = false;
 
     if (response.statusCode == 200 || response.statusCode == 201) {
-      //Get.snackbar("Success", "Status updated to Caved");
-      //Get.back();
+
       return true;
     }
     ApiChecker.checkApi(response);
     return false;
   }
+
+
+  RxBool showMonsterImage = true.obs;
+
+ showMonsterDialog({required String image})async{
+
+   showMonsterImage(false);
+   Get.dialog(
+     Center(
+       child: Lottie.asset(
+        image,
+         repeat: false,
+         onLoaded: (composition) async {
+           await Future.delayed(
+             composition.duration,
+           );
+           Get.back();
+          Future.delayed(Duration(milliseconds: 200), () {
+           showMonsterImage(true);
+         });
+         },
+       ),
+     ),
+     barrierDismissible: false,
+   );
+
+
+
+ }
+
+
+
 }
