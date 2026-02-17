@@ -1,22 +1,26 @@
 // ignore_for_file: must_be_immutable, deprecated_member_use
 
+import 'package:crave_crusher/helper/images_handler/image_handler.dart';
 import 'package:crave_crusher/helper/responsive_helper/responsive_helper.dart';
 import 'package:crave_crusher/utils/app_colors/app_colors.dart';
 import 'package:crave_crusher/utils/app_icons/app_icons.dart';
 import 'package:crave_crusher/utils/app_strings/app_strings.dart';
 import 'package:crave_crusher/view/components/common_empty/common_empty_widget.dart';
 import 'package:crave_crusher/view/components/custom_button/custom_button.dart';
+import 'package:crave_crusher/view/components/custom_network_image/custom_network_image.dart';
 
 import 'package:crave_crusher/view/components/custom_svg_icon/custom_svg_icon.dart';
 import 'package:crave_crusher/view/components/custom_text/custom_text.dart';
 import 'package:crave_crusher/view/features/battle/battle_screen.dart';
 import 'package:crave_crusher/view/features/battle/controller/battle_controller.dart';
 import 'package:crave_crusher/view/features/battle/inner_screen/battle_log_screen.dart';
+import 'package:crave_crusher/view/features/battle/widget/battle_details_shimmer.dart';
 import 'package:crave_crusher/view/features/battle/widget/details_monster_section.dart';
 import 'package:crave_crusher/view/features/battle/widget/progress_and_action_section.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:lottie/lottie.dart';
+import '../../../../utils/app_icons/app_icons.dart';
 import '../../../components/custom_loader/custom_loader.dart';
 import '../widget/detox_type.dart';
 
@@ -36,6 +40,8 @@ class BattleDetailsScreen extends StatefulWidget {
 
 class _BattleDetailsScreenState extends State<BattleDetailsScreen> {
   final BattleController controller = Get.find<BattleController>();
+
+  bool showAnimation = false; // ✅ Animation on/off handle
 
   @override
   void initState() {
@@ -58,9 +64,17 @@ class _BattleDetailsScreenState extends State<BattleDetailsScreen> {
           vertical: ResponsiveHelper.height(12),
         ),
         child: Obx(() {
-          if (controller.isLoadingSingleBattle.value) {
-            return CustomLoader();
+         if (controller.isLoadingSingleBattle.value)
+          {
+            return BattleDetailsShimmerLoader();
           }
+
+
+
+
+
+
+
 
           final battle = controller.battleDetails.value.battle;
 
@@ -80,6 +94,7 @@ class _BattleDetailsScreenState extends State<BattleDetailsScreen> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   DetailsMonsterSection(
+                    showMonstarImage: controller.showMonsterImage.value,
                     detoxType: checkDetoxType(battle.addictionType ?? ''),
                     battleTitle: battle.addictionType ?? '',
                     battleDescription: battle.battleReason ?? '',
@@ -159,9 +174,12 @@ class _BattleDetailsScreenState extends State<BattleDetailsScreen> {
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        ///if caved status button============================================================================
+
+
+
+
                         _buildCountButton(
-                          count: battle.todayCavedCount ?? 0,
+                          count: battle.todayCravedCount ?? 0,
                           label: 'Caved',
                           onTap: () async {
                             if (controller.isLoadingCompleteBattle.value) {
@@ -173,25 +191,17 @@ class _BattleDetailsScreenState extends State<BattleDetailsScreen> {
                             );
                             if (success) {
                               debugPrint("caved==================success");
-                              Get.dialog(
-                                Center(
-                                  child: Lottie.asset(
-                                    AppIcons.cavedAnimation,
-                                    repeat: false,
-                                    onLoaded: (composition) async {
-                                      await Future.delayed(
-                                        composition.duration,
-                                      );
-                                      Get.back();
-                                    },
-                                  ),
-                                ),
-                                barrierDismissible: false,
-                              );
 
-                              await controller.fetchSingleBattle(
-                                widget.battleId,
+                              controller.showMonsterDialog(
+                                  image:  AppIcons.cavedAnimation
                               );
+                              await Future.delayed(Duration(seconds: 0), ()async{
+                                await controller.fetchSingleBattle(
+                                  widget.battleId,
+                                );
+                              });
+
+
                             } else {
                               Get.snackbar(
                                 "Error",
@@ -201,68 +211,33 @@ class _BattleDetailsScreenState extends State<BattleDetailsScreen> {
                             }
                           },
                         ),
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
                         ///if craved status button============================================================================
 
-                        // _buildCountButton(
-                        //   count: battle.todayCravedCount ?? 0,
-                        //   label: 'Craved',
-                        //   onTap: () async {
-                        //     if (controller.isLoadingCompleteBattle.value) {
-                        //       return;
-                        //     }
-                        //
-                        //     final success = await controller.completeBattleDay(
-                        //       widget.battleId,
-                        //       "craved",
-                        //     );
-                        //
-                        //     if (success) {
-                        //       // Prothom animation
-                        //       Get.dialog(
-                        //         Center(
-                        //           child: Lottie.asset(
-                        //             AppIcons.lottieBattle,
-                        //             repeat: false,
-                        //             onLoaded: (composition) async {
-                        //               await Future.delayed(composition.duration);
-                        //               Get.back();
-                        //               // New animation start
-                        //               Get.dialog(
-                        //                 Center(
-                        //                   child: Lottie.asset(
-                        //                     AppIcons.jailedMonster, // new animation
-                        //                     repeat: false,
-                        //                     onLoaded: (composition2) async {
-                        //                       await Future.delayed(composition2.duration);
-                        //                       Get.back(); // 2nd animation close
-                        //                     },
-                        //                   ),
-                        //                 ),
-                        //                 barrierDismissible: false,
-                        //               );
-                        //
-                        //
-                        //             },
-                        //           ),
-                        //         ),
-                        //         barrierDismissible: false,
-                        //       );
-                        //
-                        //       // API call
-                        //       await controller.fetchSingleBattle(widget.battleId);
-                        //
-                        //     }
-                        //
-                        //     else {
-                        //       Get.snackbar(
-                        //         "Error",
-                        //         "Status update failed",
-                        //         backgroundColor: AppColors.red100,
-                        //       );
-                        //     }
-                        //
-                        //   },
-                        // ),
+
 
 
 
@@ -280,25 +255,17 @@ class _BattleDetailsScreenState extends State<BattleDetailsScreen> {
                             );
                             if (success) {
                               debugPrint("craved==================success");
-                              Get.dialog(
-                                Center(
-                                  child: Lottie.asset(
-                                    AppIcons.jailedMonster,
-                                    repeat: false,
-                                    onLoaded: (composition) async {
-                                      await Future.delayed(
-                                        composition.duration,
-                                      );
-                                      Get.back();
-                                    },
-                                  ),
-                                ),
-                                barrierDismissible: false,
-                              );
 
-                              await controller.fetchSingleBattle(
-                                widget.battleId,
-                              );
+                            controller.showMonsterDialog(
+                              image:  AppIcons.jailedMonster
+                            );
+                              await Future.delayed(Duration(seconds: 0), ()async{
+                                await controller.fetchSingleBattle(
+                                  widget.battleId,
+                                );
+                              });
+
+
                             } else {
                               Get.snackbar(
                                 "Error",
