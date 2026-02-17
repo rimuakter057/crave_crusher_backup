@@ -176,7 +176,7 @@ class _BattleDetailsScreenState extends State<BattleDetailsScreen> {
                               Get.dialog(
                                 Center(
                                   child: Lottie.asset(
-                                    AppIcons.lottieBattle,
+                                    AppIcons.cavedAnimation,
                                     repeat: false,
                                     onLoaded: (composition) async {
                                       await Future.delayed(
@@ -203,6 +203,70 @@ class _BattleDetailsScreenState extends State<BattleDetailsScreen> {
                         ),
                         ///if craved status button============================================================================
 
+                        // _buildCountButton(
+                        //   count: battle.todayCravedCount ?? 0,
+                        //   label: 'Craved',
+                        //   onTap: () async {
+                        //     if (controller.isLoadingCompleteBattle.value) {
+                        //       return;
+                        //     }
+                        //
+                        //     final success = await controller.completeBattleDay(
+                        //       widget.battleId,
+                        //       "craved",
+                        //     );
+                        //
+                        //     if (success) {
+                        //       // Prothom animation
+                        //       Get.dialog(
+                        //         Center(
+                        //           child: Lottie.asset(
+                        //             AppIcons.lottieBattle,
+                        //             repeat: false,
+                        //             onLoaded: (composition) async {
+                        //               await Future.delayed(composition.duration);
+                        //               Get.back();
+                        //               // New animation start
+                        //               Get.dialog(
+                        //                 Center(
+                        //                   child: Lottie.asset(
+                        //                     AppIcons.jailedMonster, // new animation
+                        //                     repeat: false,
+                        //                     onLoaded: (composition2) async {
+                        //                       await Future.delayed(composition2.duration);
+                        //                       Get.back(); // 2nd animation close
+                        //                     },
+                        //                   ),
+                        //                 ),
+                        //                 barrierDismissible: false,
+                        //               );
+                        //
+                        //
+                        //             },
+                        //           ),
+                        //         ),
+                        //         barrierDismissible: false,
+                        //       );
+                        //
+                        //       // API call
+                        //       await controller.fetchSingleBattle(widget.battleId);
+                        //
+                        //     }
+                        //
+                        //     else {
+                        //       Get.snackbar(
+                        //         "Error",
+                        //         "Status update failed",
+                        //         backgroundColor: AppColors.red100,
+                        //       );
+                        //     }
+                        //
+                        //   },
+                        // ),
+
+
+
+
                         _buildCountButton(
                           count: battle.todayCravedCount ?? 0,
                           label: 'Craved',
@@ -210,59 +274,45 @@ class _BattleDetailsScreenState extends State<BattleDetailsScreen> {
                             if (controller.isLoadingCompleteBattle.value) {
                               return;
                             }
-
                             final success = await controller.completeBattleDay(
                               widget.battleId,
                               "craved",
                             );
-
                             if (success) {
-                              // Prothom animation
+                              debugPrint("craved==================success");
                               Get.dialog(
                                 Center(
                                   child: Lottie.asset(
-                                    AppIcons.lottieBattle,
+                                    AppIcons.jailedMonster,
                                     repeat: false,
                                     onLoaded: (composition) async {
-                                      await Future.delayed(composition.duration);
-                                      Get.back();
-                                      // New animation start
-                                      Get.dialog(
-                                        Center(
-                                          child: Lottie.asset(
-                                            AppIcons.jailedMonster, // new animation
-                                            repeat: false,
-                                            onLoaded: (composition2) async {
-                                              await Future.delayed(composition2.duration);
-                                              Get.back(); // 2nd animation close
-                                            },
-                                          ),
-                                        ),
-                                        barrierDismissible: false,
+                                      await Future.delayed(
+                                        composition.duration,
                                       );
-
-
+                                      Get.back();
                                     },
                                   ),
                                 ),
                                 barrierDismissible: false,
                               );
 
-                              // API call
-                              await controller.fetchSingleBattle(widget.battleId);
-
-                            }
-
-                            else {
+                              await controller.fetchSingleBattle(
+                                widget.battleId,
+                              );
+                            } else {
                               Get.snackbar(
                                 "Error",
                                 "Status update failed",
                                 backgroundColor: AppColors.red100,
                               );
                             }
-
                           },
                         ),
+
+
+
+
+
 
                       ],
                     ),
