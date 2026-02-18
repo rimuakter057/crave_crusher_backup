@@ -1,9 +1,5 @@
 import 'package:crave_crusher/helper/responsive_helper/responsive_helper.dart';
-import 'package:crave_crusher/utils/app_colors/app_colors.dart';
 import 'package:flutter/material.dart';
-import 'package:gap/gap.dart';
-import 'package:shimmer/shimmer.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class BattleDetailsShimmerLoader extends StatelessWidget {
   const BattleDetailsShimmerLoader({super.key});
@@ -11,16 +7,13 @@ class BattleDetailsShimmerLoader extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Column(
-
       children: [
-
         Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Padding(
               padding: EdgeInsets.only(bottom: ResponsiveHelper.height(12)),
               child: Container(
-
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
@@ -29,8 +22,8 @@ class BattleDetailsShimmerLoader extends StatelessWidget {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         _buildSkeleton(
-                            height: ResponsiveHelper.iconSize(30),
-                            width: ResponsiveHelper.iconSize(30)
+                          height: ResponsiveHelper.iconSize(30),
+                          width: ResponsiveHelper.iconSize(30),
                         ),
                         SizedBox(width: ResponsiveHelper.width(8)),
                         SizedBox(
@@ -40,13 +33,13 @@ class BattleDetailsShimmerLoader extends StatelessWidget {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               _buildSkeleton(
-                                  height: ResponsiveHelper.height(10),
-                                  width: ResponsiveHelper.width(205)
+                                height: ResponsiveHelper.height(10),
+                                width: ResponsiveHelper.width(205),
                               ),
-                              SizedBox(height: ResponsiveHelper.height(2),),
+                              SizedBox(height: ResponsiveHelper.height(2)),
                               _buildSkeleton(
-                                  height: ResponsiveHelper.height(10),
-                                  width: ResponsiveHelper.width(100)
+                                height: ResponsiveHelper.height(10),
+                                width: ResponsiveHelper.width(100),
                               ),
                             ],
                           ),
@@ -55,8 +48,8 @@ class BattleDetailsShimmerLoader extends StatelessWidget {
                     ),
                     // Status Badge
                     _buildSkeleton(
-                        height: ResponsiveHelper.height(25),
-                        width: ResponsiveHelper.width(100)
+                      height: ResponsiveHelper.height(25),
+                      width: ResponsiveHelper.width(100),
                     ),
                   ],
                 ),
@@ -66,8 +59,8 @@ class BattleDetailsShimmerLoader extends StatelessWidget {
             // Monster Image
             Center(
               child: _buildSkeleton(
-                  height: ResponsiveHelper.height(250),
-                  width: ResponsiveHelper.width(250)
+                height: ResponsiveHelper.height(250),
+                width: ResponsiveHelper.width(250),
               ),
             ),
             SizedBox(height: ResponsiveHelper.spacing(32)),
@@ -86,24 +79,21 @@ class BattleDetailsShimmerLoader extends StatelessWidget {
           height: ResponsiveHelper.height(200),
           width: double.infinity,
         ),
-
-
-
-
       ],
-
-
-
     );
   }
 
-  Widget _buildSkeleton({required double width,required double height, bool isCircle = false}) {
+  Widget _buildSkeleton({
+    required double width,
+    required double height,
+    bool isCircle = false,
+  }) {
     return Container(
       width: width,
       height: height,
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(ResponsiveHelper.borderRadius(6)),
-        color:Colors.grey.shade300,
+        color: Colors.grey.shade300,
         shape: isCircle ? BoxShape.circle : BoxShape.rectangle,
       ),
     );
