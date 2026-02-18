@@ -161,7 +161,7 @@ class _BattleDetailsScreenState extends State<BattleDetailsScreen> {
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         _buildCountButton(
-                          count: battle.todayCravedCount ?? 0,
+                          count: battle.todayCavedCount ?? 0,
                           label: 'Caved',
                           onTap: () async {
                             if (controller.isLoadingCompleteBattle.value) {
