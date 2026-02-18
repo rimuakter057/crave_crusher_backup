@@ -1,13 +1,11 @@
 // ignore_for_file: must_be_immutable, deprecated_member_use
 
-import 'package:crave_crusher/helper/images_handler/image_handler.dart';
 import 'package:crave_crusher/helper/responsive_helper/responsive_helper.dart';
 import 'package:crave_crusher/utils/app_colors/app_colors.dart';
 import 'package:crave_crusher/utils/app_icons/app_icons.dart';
 import 'package:crave_crusher/utils/app_strings/app_strings.dart';
 import 'package:crave_crusher/view/components/common_empty/common_empty_widget.dart';
 import 'package:crave_crusher/view/components/custom_button/custom_button.dart';
-import 'package:crave_crusher/view/components/custom_network_image/custom_network_image.dart';
 
 import 'package:crave_crusher/view/components/custom_svg_icon/custom_svg_icon.dart';
 import 'package:crave_crusher/view/components/custom_text/custom_text.dart';
@@ -19,9 +17,6 @@ import 'package:crave_crusher/view/features/battle/widget/details_monster_sectio
 import 'package:crave_crusher/view/features/battle/widget/progress_and_action_section.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:lottie/lottie.dart';
-import '../../../../utils/app_icons/app_icons.dart';
-import '../../../components/custom_loader/custom_loader.dart';
 import '../widget/detox_type.dart';
 
 class BattleDetailsScreen extends StatefulWidget {

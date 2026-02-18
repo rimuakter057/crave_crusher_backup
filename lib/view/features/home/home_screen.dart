@@ -12,7 +12,6 @@ import 'package:crave_crusher/view/features/battle/widget/active_battle_card.dar
 import 'package:crave_crusher/view/features/battle/widget/detox_type.dart';
 import 'package:crave_crusher/view/features/battle/widget/shimmer_battle.dart';
 import 'package:crave_crusher/view/features/home/controller/home_controller.dart';
-import 'package:crave_crusher/view/features/home/testing_screen.dart';
 import 'package:crave_crusher/view/features/home/widget/home_appbar.dart';
 import 'package:crave_crusher/view/features/home/widget/home_monster_shimmer.dart';
 import 'package:crave_crusher/view/features/home/widget/monster_section.dart';
