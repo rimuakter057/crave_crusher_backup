@@ -2,7 +2,6 @@ import 'package:crave_crusher/helper/responsive_helper/responsive_helper.dart';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:shimmer/shimmer.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class PostShimmerLoader extends StatelessWidget {
   const PostShimmerLoader({super.key});
@@ -16,7 +15,7 @@ class PostShimmerLoader extends StatelessWidget {
       itemCount: 5,
       itemBuilder: (context, index) {
         return Padding(
-          padding: EdgeInsets.symmetric(vertical:ResponsiveHelper.height(8)),
+          padding: EdgeInsets.symmetric(vertical: ResponsiveHelper.height(8)),
           child: Shimmer.fromColors(
             baseColor: Colors.grey[300]!,
             highlightColor: Colors.grey[100]!,
@@ -26,14 +25,24 @@ class PostShimmerLoader extends StatelessWidget {
                 // Profile Row
                 Row(
                   children: [
-                    _buildSkeleton(ResponsiveHelper.width(50), ResponsiveHelper.height(50), isCircle: true), // Avatar
+                    _buildSkeleton(
+                      ResponsiveHelper.width(50),
+                      ResponsiveHelper.height(50),
+                      isCircle: true,
+                    ), // Avatar
                     SizedBox(width: ResponsiveHelper.width(12)),
                     Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        _buildSkeleton(ResponsiveHelper.width(120), ResponsiveHelper.height(14)), // Name
+                        _buildSkeleton(
+                          ResponsiveHelper.width(120),
+                          ResponsiveHelper.height(14),
+                        ), // Name
                         Gap(ResponsiveHelper.height(6)),
-                        _buildSkeleton(ResponsiveHelper.width(80), ResponsiveHelper.height(12)), // Post time
+                        _buildSkeleton(
+                          ResponsiveHelper.width(80),
+                          ResponsiveHelper.height(12),
+                        ), // Post time
                       ],
                     ),
                   ],
@@ -47,19 +56,34 @@ class PostShimmerLoader extends StatelessWidget {
                 // Post Text Placeholder (2 lines)
                 _buildSkeleton(double.infinity, ResponsiveHelper.height(14)),
                 Gap(ResponsiveHelper.height(6)),
-                _buildSkeleton(ResponsiveHelper.width(200), ResponsiveHelper.height(14)),
+                _buildSkeleton(
+                  ResponsiveHelper.width(200),
+                  ResponsiveHelper.height(14),
+                ),
                 Gap(ResponsiveHelper.height(8)),
 
                 // Footer Row (Like & Comment)
                 Row(
                   children: [
-                    _buildSkeleton(ResponsiveHelper.width(20), ResponsiveHelper.height(20)),
+                    _buildSkeleton(
+                      ResponsiveHelper.width(20),
+                      ResponsiveHelper.height(20),
+                    ),
                     SizedBox(width: ResponsiveHelper.width(6)),
-                    _buildSkeleton(ResponsiveHelper.width(30), ResponsiveHelper.height(14)),
+                    _buildSkeleton(
+                      ResponsiveHelper.width(30),
+                      ResponsiveHelper.height(14),
+                    ),
                     SizedBox(width: ResponsiveHelper.width(20)),
-                    _buildSkeleton(ResponsiveHelper.width(20), ResponsiveHelper.height(20)),
+                    _buildSkeleton(
+                      ResponsiveHelper.width(20),
+                      ResponsiveHelper.height(20),
+                    ),
                     SizedBox(width: ResponsiveHelper.width(6)),
-                    _buildSkeleton(ResponsiveHelper.width(30), ResponsiveHelper.height(14)),
+                    _buildSkeleton(
+                      ResponsiveHelper.width(30),
+                      ResponsiveHelper.height(14),
+                    ),
                   ],
                 ),
                 SizedBox(height: ResponsiveHelper.height(12)),

@@ -2,7 +2,6 @@ import 'package:crave_crusher/helper/responsive_helper/responsive_helper.dart';
 import 'package:crave_crusher/utils/app_colors/app_colors.dart';
 import 'package:crave_crusher/view/components/custom_text/custom_text.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class CustomProfileInputField extends StatelessWidget {
   const CustomProfileInputField({
@@ -19,10 +18,15 @@ class CustomProfileInputField extends StatelessWidget {
     return Container(
       width: double.infinity,
       height: ResponsiveHelper.height(82),
-      padding: EdgeInsets.symmetric(horizontal:ResponsiveHelper.padding(12), vertical: ResponsiveHelper.padding(8)),
+      padding: EdgeInsets.symmetric(
+        horizontal: ResponsiveHelper.padding(12),
+        vertical: ResponsiveHelper.padding(8),
+      ),
       decoration: BoxDecoration(
         border: Border.all(color: Colors.grey.shade200), // Grey border
-        borderRadius: BorderRadius.circular(ResponsiveHelper.borderRadius(8)), // Rounded corners
+        borderRadius: BorderRadius.circular(
+          ResponsiveHelper.borderRadius(8),
+        ), // Rounded corners
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,

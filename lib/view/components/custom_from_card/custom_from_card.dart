@@ -1,6 +1,5 @@
 import 'package:crave_crusher/helper/responsive_helper/responsive_helper.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 import '../../../utils/app_colors/app_colors.dart';
@@ -67,7 +66,7 @@ class CustomFormCard extends StatelessWidget {
           hintText: hintText,
           hintStyle: GoogleFonts.poppins(
             fontWeight: FontWeight.w400,
-            fontSize:ResponsiveHelper.fontSize(18),
+            fontSize: ResponsiveHelper.fontSize(18),
             // ignore: deprecated_member_use
             color: AppColors.primary,
           ),
@@ -89,7 +88,7 @@ class CustomFormCard extends StatelessWidget {
           maxLines: isPassword ? 1 : maxLine,
           fieldBorderRadius: ResponsiveHelper.borderRadius(8),
         ),
-        SizedBox(height: ResponsiveHelper.height(15),),
+        SizedBox(height: ResponsiveHelper.height(15)),
       ],
     );
   }

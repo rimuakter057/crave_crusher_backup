@@ -11,7 +11,6 @@ import 'package:crave_crusher/view/features/battle/widget/active_battle_card.dar
 import 'package:crave_crusher/view/features/battle/widget/detox_type.dart';
 import 'package:crave_crusher/view/features/battle/widget/shimmer_battle.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 
 class BattleScreen extends StatefulWidget {

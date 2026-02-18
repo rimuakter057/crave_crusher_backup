@@ -2,7 +2,6 @@
 
 import 'package:crave_crusher/helper/responsive_helper/responsive_helper.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../../utils/app_colors/app_colors.dart';
 import 'custom_text/custom_text.dart';
 import 'leading_back/custom_leading_back_icon.dart';
@@ -29,7 +28,7 @@ class CustomLeadingTitleAppbar extends StatelessWidget
       leading: Center(
         child: Container(
           width: ResponsiveHelper.width(50),
-          height:ResponsiveHelper.height(50),
+          height: ResponsiveHelper.height(50),
           alignment: Alignment.center,
           decoration: BoxDecoration(
             color: AppColors.subPrimary.withOpacity(.3),
@@ -50,5 +49,5 @@ class CustomLeadingTitleAppbar extends StatelessWidget
   }
 
   @override
-  Size get preferredSize => Size.fromHeight(ResponsiveHelper.height(60),);
+  Size get preferredSize => Size.fromHeight(ResponsiveHelper.height(60));
 }

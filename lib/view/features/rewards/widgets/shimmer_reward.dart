@@ -3,7 +3,6 @@
 import 'package:crave_crusher/helper/responsive_helper/responsive_helper.dart';
 import 'package:flutter/material.dart';
 import 'package:shimmer/shimmer.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class RewardShimmerLoader extends StatelessWidget {
   const RewardShimmerLoader({super.key});
@@ -17,7 +16,7 @@ class RewardShimmerLoader extends StatelessWidget {
       itemCount: 5,
       itemBuilder: (context, index) {
         return Padding(
-          padding: EdgeInsets.symmetric(vertical:ResponsiveHelper.padding(8),),
+          padding: EdgeInsets.symmetric(vertical: ResponsiveHelper.padding(8)),
           child: Shimmer.fromColors(
             baseColor: Colors.grey[300]!,
             highlightColor: Colors.grey[100]!,
@@ -25,7 +24,9 @@ class RewardShimmerLoader extends StatelessWidget {
               width: double.infinity,
               height: ResponsiveHelper.height(40),
               decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(ResponsiveHelper.borderRadius(6),),
+                borderRadius: BorderRadius.circular(
+                  ResponsiveHelper.borderRadius(6),
+                ),
                 color: Colors.white,
               ),
             ),
@@ -40,7 +41,7 @@ class RewardShimmerLoader extends StatelessWidget {
       width: width,
       height: height,
       decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(ResponsiveHelper.borderRadius(6),),
+        borderRadius: BorderRadius.circular(ResponsiveHelper.borderRadius(6)),
         color: Colors.white,
         shape: isCircle ? BoxShape.circle : BoxShape.rectangle,
       ),

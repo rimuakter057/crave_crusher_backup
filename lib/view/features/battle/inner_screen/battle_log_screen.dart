@@ -7,7 +7,6 @@ import 'package:crave_crusher/view/components/custom_app_bar/custom_app_bar.dart
 import 'package:crave_crusher/view/features/battle/controller/battle_controller.dart';
 import 'package:crave_crusher/view/features/battle/widget/log_item.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 
 class BattleLogScreen extends StatelessWidget {
