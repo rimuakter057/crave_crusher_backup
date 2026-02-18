@@ -69,6 +69,10 @@ class AppIcons {
   static const String missed = "$basePath/missed.png";
 
   static const String lottieBattle = "$basePath/lottie_battle.json";
+  static const String monsterBattle = "$basePath/monster_battle.json";
+  static const String jailedMonster = "$basePath/jailed_monster.json";
+  static const String cavedAnimation = "$basePath/caved_animation.json";
+
 
   static const String backButton = "$basePath/back_button.svg";
   static const String comment = "$basePath/comment.svg";

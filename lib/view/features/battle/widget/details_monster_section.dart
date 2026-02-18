@@ -21,6 +21,7 @@ class DetailsMonsterSection extends StatelessWidget {
   final Color bgColor;
   final Color textColor;
   final Color boarderColor;
+  final bool? showMonstarImage;
 
   const DetailsMonsterSection({
     super.key,
@@ -32,7 +33,7 @@ class DetailsMonsterSection extends StatelessWidget {
     required this.monster,
     required this.bgColor,
     required this.textColor,
-    required this.boarderColor,
+    required this.boarderColor, this.showMonstarImage = true,
   });
 
   String getIcon(DetoxType detoxType) {
@@ -153,11 +154,12 @@ class DetailsMonsterSection extends StatelessWidget {
 
         // Monster Image
         Center(
-          child: CustomNetworkImage(
+          child: showMonstarImage! ? CustomNetworkImage(
             imageUrl: ImageHandler.imagesHandle(monster),
             height: ResponsiveHelper.height(250),
             width: ResponsiveHelper.width(250),
-          ),
+          ) : SizedBox( height: ResponsiveHelper.height(250),
+            width: ResponsiveHelper.width(250),),
         ),
         SizedBox(height: ResponsiveHelper.height(24)),
 
