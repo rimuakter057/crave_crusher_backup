@@ -7,7 +7,6 @@ import 'package:crave_crusher/view/components/custom_network_image/custom_networ
 import 'package:crave_crusher/view/components/custom_text/custom_text.dart';
 
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class MonsterSection extends StatelessWidget {
   final String monster;
@@ -38,7 +37,9 @@ class MonsterSection extends StatelessWidget {
           alignment: Alignment.center,
           decoration: BoxDecoration(
             color: AppColors.softGreen,
-            borderRadius: BorderRadius.circular(ResponsiveHelper.borderRadius(8)),
+            borderRadius: BorderRadius.circular(
+              ResponsiveHelper.borderRadius(8),
+            ),
             border: Border.all(color: AppColors.green),
           ),
           child: CustomText(

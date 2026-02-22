@@ -6,7 +6,6 @@ import 'package:crave_crusher/view/components/custom_svg_icon/custom_svg_icon.da
 import 'package:crave_crusher/view/components/custom_text/custom_text.dart';
 import 'package:crave_crusher/view/features/battle/widget/active_battle_card.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class ProgressAndActionSection extends StatelessWidget {
   final double progress;

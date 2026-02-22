@@ -12,7 +12,6 @@ import 'package:crave_crusher/view/features/battle/widget/active_battle_card.dar
 import 'package:crave_crusher/view/features/battle/widget/detox_type.dart';
 import 'package:crave_crusher/view/features/battle/widget/shimmer_battle.dart';
 import 'package:crave_crusher/view/features/home/controller/home_controller.dart';
-import 'package:crave_crusher/view/features/home/testing_screen.dart';
 import 'package:crave_crusher/view/features/home/widget/home_appbar.dart';
 import 'package:crave_crusher/view/features/home/widget/home_monster_shimmer.dart';
 import 'package:crave_crusher/view/features/home/widget/monster_section.dart';
@@ -105,30 +104,33 @@ class _HomeScreenState extends State<HomeScreen> {
                   );
                 }
 
-                return CustomImage(
-                  fit: BoxFit.contain,
-                  height: ResponsiveHelper.height(110),
-                  width: double.infinity,
-                  imageSrc: AppIcons.tipsBackground,
-                  child: Padding(
-                    padding: EdgeInsets.symmetric(
-                      horizontal: ResponsiveHelper.width(16),
-                    ),
-                    child: CustomText(
-                      text:
-                          homeController.dailyTip.value.isNotEmpty
-                              ? homeController.dailyTip.value
-                              : '“ Each craving lasts only a few minutes — take slow, deep breaths and remind yourself why you started. ”',
-                      maxLines: 5,
-                      fontSize: ResponsiveHelper.fontSize(14),
-                      textAlign: TextAlign.center,
-                      color: AppColors.primary,
+                return Center(
+                  child: CustomImage(
+                    fit: BoxFit.contain,
+                    height: ResponsiveHelper.height(110),
+                    width: ResponsiveHelper.width(343),
+                    imageSrc: AppIcons.tipsBackground,
+                    scale: 4,
+                    child: Padding(
+                      padding: EdgeInsets.symmetric(
+                        horizontal: ResponsiveHelper.width(16),
+                      ),
+                      child: CustomText(
+                        text:
+                            homeController.dailyTip.value.isNotEmpty
+                                ? homeController.dailyTip.value
+                                : '“ Each craving lasts only a few minutes — take slow, deep breaths and remind yourself why you started. ”',
+                        maxLines: 5,
+                        fontSize: ResponsiveHelper.fontSize(14),
+                        textAlign: TextAlign.center,
+                        color: AppColors.primary,
+                      ),
                     ),
                   ),
                 );
               }),
 
-              SizedBox(height: ResponsiveHelper.height(24),),
+              SizedBox(height: ResponsiveHelper.height(24)),
 
               // _buildTitle(AppIcons.smallMonster, "Your Monster Today"),
               Obx(() {
@@ -142,7 +144,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   return Center(
                     child: Column(
                       children: [
-                        SizedBox(height:ResponsiveHelper.height(24),),
+                        SizedBox(height: ResponsiveHelper.height(24)),
                         EmptyWidget(
                           title:
                               "Add your first battle to summon your Monster.",
@@ -160,7 +162,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 }
               }),
 
-              SizedBox(height:ResponsiveHelper.height(24),),
+              SizedBox(height: ResponsiveHelper.height(24)),
 
               // Active Battle Section Title
               _buildTitle(AppIcons.battlePng, "Active Battle"),
@@ -172,7 +174,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   return Center(
                     child: Column(
                       children: [
-                        SizedBox(height:ResponsiveHelper.height(48) ),
+                        SizedBox(height: ResponsiveHelper.height(48)),
                         EmptyWidget(
                           title: "Add your first battle to get started.",
                         ),
@@ -226,7 +228,7 @@ class _HomeScreenState extends State<HomeScreen> {
 
   Padding _buildTitle(String iconSrc, String title) {
     return Padding(
-      padding: EdgeInsets.only(bottom:ResponsiveHelper.height(12) ),
+      padding: EdgeInsets.only(bottom: ResponsiveHelper.height(12)),
       child: Row(
         children: [
           Container(

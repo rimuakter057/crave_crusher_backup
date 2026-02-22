@@ -7,7 +7,6 @@ import 'package:get/get.dart';
 import 'package:flutter/material.dart';
 import 'package:logger/logger.dart';
 import 'package:lottie/lottie.dart';
-import '../../../../utils/app_icons/app_icons.dart';
 import '../models/battle_model.dart';
 
 class BattleController extends GetxController {
@@ -207,42 +206,32 @@ class BattleController extends GetxController {
     isLoadingCompleteBattle.value = false;
 
     if (response.statusCode == 200 || response.statusCode == 201) {
-
       return true;
     }
     ApiChecker.checkApi(response);
     return false;
   }
 
-///=====================
+
   RxBool showMonsterImage = true.obs;
 
- showMonsterDialog({required String image})async{
-
-   showMonsterImage(false);
-   Get.dialog(
-     Center(
-       child: Lottie.asset(
-        image,
-         repeat: false,
-         onLoaded: (composition) async {
-           await Future.delayed(
-             composition.duration,
-           );
-           Get.back();
-          Future.delayed(Duration(milliseconds: 200), () {
-           showMonsterImage(true);
-         });
-         },
-       ),
-     ),
-     barrierDismissible: false,
-   );
-
-
-
- }
-
-
-
+  showMonsterDialog({required String image}) async {
+    showMonsterImage(false);
+    Get.dialog(
+      Center(
+        child: Lottie.asset(
+          image,
+          repeat: false,
+          onLoaded: (composition) async {
+            await Future.delayed(composition.duration);
+            Get.back();
+            Future.delayed(Duration(milliseconds: 200), () {
+              showMonsterImage(true);
+            });
+          },
+        ),
+      ),
+      barrierDismissible: false,
+    );
+  }
 }

@@ -15,7 +15,6 @@ import 'package:crave_crusher/view/features/community/controllers/post_controlle
 import 'package:crave_crusher/view/features/community/screens/community_all_feed_screen/community_all_feed_screen.dart';
 import 'package:get/get.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:gap/gap.dart';
 
 class CreatePostScreen extends StatelessWidget {
@@ -61,7 +60,9 @@ class CreatePostScreen extends StatelessWidget {
       body: Obx(
         () => SingleChildScrollView(
           child: Padding(
-            padding: EdgeInsets.symmetric(horizontal: ResponsiveHelper.width(16)),
+            padding: EdgeInsets.symmetric(
+              horizontal: ResponsiveHelper.width(16),
+            ),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
@@ -89,8 +90,8 @@ class CreatePostScreen extends StatelessWidget {
                           fontSize: ResponsiveHelper.fontSize(14),
                         ),
                         contentPadding: EdgeInsets.symmetric(
-                          horizontal:ResponsiveHelper.width(8),
-                          vertical:ResponsiveHelper.height(8),
+                          horizontal: ResponsiveHelper.width(8),
+                          vertical: ResponsiveHelper.height(8),
                         ),
                         border: OutlineInputBorder(borderSide: BorderSide.none),
                       ),
@@ -100,7 +101,7 @@ class CreatePostScreen extends StatelessWidget {
                 gap,
                 CustomText(
                   text: "Add a photo or moment (optional)",
-                  fontSize:ResponsiveHelper.fontSize(14),
+                  fontSize: ResponsiveHelper.fontSize(14),
                   fontWeight: FontWeight.w500,
                 ),
                 Gap(ResponsiveHelper.height(12)),
@@ -112,13 +113,17 @@ class CreatePostScreen extends StatelessWidget {
                     child: ListView.separated(
                       scrollDirection: Axis.horizontal,
                       itemCount: controller.imagePaths.length,
-                      separatorBuilder: (_, __) => SizedBox(width: ResponsiveHelper.width(10)),
+                      separatorBuilder:
+                          (_, __) =>
+                              SizedBox(width: ResponsiveHelper.width(10)),
                       itemBuilder: (context, index) {
                         final path = controller.imagePaths[index];
                         return Stack(
                           children: [
                             ClipRRect(
-                              borderRadius: BorderRadius.circular(ResponsiveHelper.borderRadius(12)),
+                              borderRadius: BorderRadius.circular(
+                                ResponsiveHelper.borderRadius(12),
+                              ),
                               child: Image.file(
                                 File(path),
                                 width: ResponsiveHelper.width(120),
@@ -128,7 +133,7 @@ class CreatePostScreen extends StatelessWidget {
                             ),
                             Positioned(
                               right: ResponsiveHelper.width(5),
-                              top:ResponsiveHelper.height(5),
+                              top: ResponsiveHelper.height(5),
                               child: GestureDetector(
                                 onTap: () => controller.removeImage(path),
                                 child: Container(
@@ -160,7 +165,7 @@ class CreatePostScreen extends StatelessWidget {
                     ),
                   ),
                 ),
-               gap,
+                gap,
 
                 /// post Button section
                 GestureDetector(
