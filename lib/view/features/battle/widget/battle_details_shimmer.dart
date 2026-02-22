@@ -1,6 +1,7 @@
 import 'package:crave_crusher/helper/responsive_helper/responsive_helper.dart';
 import 'package:flutter/material.dart';
 
+
 class BattleDetailsShimmerLoader extends StatelessWidget {
   const BattleDetailsShimmerLoader({super.key});
 

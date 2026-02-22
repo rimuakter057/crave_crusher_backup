@@ -212,6 +212,7 @@ class BattleController extends GetxController {
     return false;
   }
 
+
   RxBool showMonsterImage = true.obs;
 
   showMonsterDialog({required String image}) async {
