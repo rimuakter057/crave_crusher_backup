@@ -115,13 +115,14 @@ class ApiClient extends GetxService {
     }
   }
 
-  //============================= PATCH REQUEST ================================
+  ///============================= PATCH REQUEST ================================
   static Future<Response> patchData(
     String uri,
     dynamic body, {
     Map<String, String>? headers,
     bool isJson = true,
-  }) async {
+  }) async
+  {
     if (!await _checkConnection()) {
       return const Response(
         statusCode: 0,
