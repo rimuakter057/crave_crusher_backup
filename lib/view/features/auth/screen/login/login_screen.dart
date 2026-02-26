@@ -12,6 +12,7 @@ import 'package:crave_crusher/view/features/auth/controllers/auth_controller.dar
 import 'package:crave_crusher/view/features/auth/controllers/forget_password_controller.dart';
 import 'package:crave_crusher/view/features/auth/controllers/login_controller.dart';
 import 'package:crave_crusher/view/features/auth/models/login_model.dart';
+import 'package:crave_crusher/view/features/auth/screen/forgot_screen/forgot_screen.dart';
 import 'package:crave_crusher/view/features/auth/screen/sign_up/sign_up_screen.dart';
 import 'package:crave_crusher/view/features/auth/screen/verify_account/verify_account_screen.dart';
 import 'package:crave_crusher/view/features/auth/screen/verify_identity/verify_identity_screen.dart';
@@ -122,7 +123,7 @@ class _LoginScreenState extends State<LoginScreen> {
 
                         SizedBox(height: verticalSpacing1),
 
-                        ///input field
+                        /// email input field
                         InputFieldWithTitleWidget(
                           title: "Email Address",
                           hintText: "Enter your email",
@@ -165,23 +166,46 @@ class _LoginScreenState extends State<LoginScreen> {
                               _rememberMe = newValue ?? false;
                             });
                           },
-                          child: GetBuilder<ForgetPasswordController>(
-                            builder: (controller) {
-                              return Visibility(
-                                visible: controller.inProgress == false,
-                                replacement: const CustomLoader(),
-                                child: TextButton(
-                                  onPressed: _forgetButtonTap,
-                                  child: CustomText(
-                                    text: "Forget Password?",
-                                    fontWeight: FontWeight.w600,
-                                    fontSize: isTablet ? 14.0 : 12.0,
-                                    color: AppColors.primary,
-                                  ),
+
+                       child:    TextButton(
+                            onPressed: (){
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) =>  ForgotPasswordScreen(),
                                 ),
                               );
                             },
+                            child: CustomText(
+                              text: "Forget Password?",
+                              fontWeight: FontWeight.w600,
+                              fontSize: isTablet ? 14.0 : 12.0,
+                              color: AppColors.primary,
+                            ),
                           ),
+
+
+
+                          // child: GetBuilder<ForgetPasswordController>(
+                          //   builder: (controller) {
+                          //     return Visibility(
+                          //       visible: controller.inProgress == false,
+                          //       replacement: const CustomLoader(),
+                          //       child: TextButton(
+                          //         onPressed: _forgetButtonTap,
+                          //         child: CustomText(
+                          //           text: "Forget Password?",
+                          //           fontWeight: FontWeight.w600,
+                          //           fontSize: isTablet ? 14.0 : 12.0,
+                          //           color: AppColors.primary,
+                          //         ),
+                          //       ),
+                          //     );
+                          //   },
+                          // ),
+
+
+
                         ),
 
                         const OrDivider(),
@@ -278,15 +302,21 @@ class _LoginScreenState extends State<LoginScreen> {
 
   ///forget button
   Future<void> _forgetButtonTap() async {
+    if(_emailController.text.isEmpty){
+      Get.snackbar("Error", "Please Enter Your Email");
+      return;
+    }
+
     final bool isSuccess = await forgetPasswordController.forgetPassword(
       _emailController.text,
     );
 
-    if (isSuccess && _emailController.text.isNotEmpty) {
+
+if (isSuccess && _emailController.text.isNotEmpty) {
       Get.to(() => VerifyIdentityScreen(email: _emailController.text));
-    } else {
-      Get.snackbar("Error", "Please Enter Your Email");
     }
+
+
   }
 
   @override

@@ -247,7 +247,7 @@ class _BattleDetailsScreenState extends State<BattleDetailsScreen> {
     return PreferredSize(
       preferredSize: Size.fromHeight(kToolbarHeight),
       child: Padding(
-        padding: EdgeInsets.symmetric(horizontal: ResponsiveHelper.width(16)),
+        padding: EdgeInsets.symmetric(horizontal: ResponsiveHelper.padding(16)),
         child: AppBar(
           surfaceTintColor: AppColors.backgroundColor,
           backgroundColor: AppColors.backgroundColor,

@@ -1,3 +1,4 @@
+import 'package:crave_crusher/helper/responsive_helper/responsive_helper.dart';
 import 'package:crave_crusher/utils/app_colors/app_colors.dart';
 import 'package:crave_crusher/utils/app_icons/app_icons.dart';
 import 'package:crave_crusher/view/components/custom_button/custom_button.dart';
@@ -21,7 +22,7 @@ class AccountSettingScreen extends StatelessWidget {
       appBar: CustomLeadingTitleAppbar(title: "Account Setting"),
 
       body: Padding(
-        padding: const EdgeInsets.all(16),
+        padding: ResponsiveHelper.all(16),
         child: Column(
           children: [
             CustomProfileMenu(
@@ -53,7 +54,9 @@ class AccountSettingScreen extends StatelessWidget {
                               AlertDialog(
                                 backgroundColor: AppColors.white,
                                 shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(12),
+                                  borderRadius: BorderRadius.circular(
+                                    ResponsiveHelper.borderRadius(12),
+                                  ),
                                 ),
                                 title: Text(
                                   "Confirm",
@@ -74,16 +77,16 @@ class AccountSettingScreen extends StatelessWidget {
                                       Get.back(result: false);
                                     },
                                     title: "No",
-                                    height: 30.h,
-                                    width: 100.w,
+                                    height: ResponsiveHelper.height(30),
+                                    width: ResponsiveHelper.width(100),
                                   ),
                                   CustomButton(
                                     onTap: () {
                                       Get.back(result: true);
                                     },
                                     title: "Yes",
-                                    height: 30.h,
-                                    width: 100.w,
+                                    height: ResponsiveHelper.height(30),
+                                    width: ResponsiveHelper.width(100),
                                   ),
                                 ],
                               ),
