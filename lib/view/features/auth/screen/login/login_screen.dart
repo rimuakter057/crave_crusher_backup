@@ -1,4 +1,4 @@
-// ignore_for_file: use_build_context_synchronously
+// ignore_for_file: use_build_context_synchronously, unused_element
 
 import 'package:crave_crusher/core/routes/app_routes.dart';
 import 'package:crave_crusher/helper/responsive_helper/responsive_helper.dart';
@@ -167,12 +167,12 @@ class _LoginScreenState extends State<LoginScreen> {
                             });
                           },
 
-                       child:    TextButton(
-                            onPressed: (){
+                          child: TextButton(
+                            onPressed: () {
                               Navigator.push(
                                 context,
                                 MaterialPageRoute(
-                                  builder: (context) =>  ForgotPasswordScreen(),
+                                  builder: (context) => ForgotPasswordScreen(),
                                 ),
                               );
                             },
@@ -183,8 +183,6 @@ class _LoginScreenState extends State<LoginScreen> {
                               color: AppColors.primary,
                             ),
                           ),
-
-
 
                           // child: GetBuilder<ForgetPasswordController>(
                           //   builder: (controller) {
@@ -203,9 +201,6 @@ class _LoginScreenState extends State<LoginScreen> {
                           //     );
                           //   },
                           // ),
-
-
-
                         ),
 
                         const OrDivider(),
@@ -215,15 +210,13 @@ class _LoginScreenState extends State<LoginScreen> {
                         ActionPromptWidget(
                           prefixText: "Don't have an account?",
                           actionText: 'Sign Up Now',
-                          onActionTapped: ()async{
-
+                          onActionTapped: () async {
                             // ✅ Age confirmation popup
                             bool is18Plus = await _showAgeConfirmationDialog();
 
                             if (!is18Plus) {
                               return; // stop signup
                             }
-
 
                             Navigator.push(
                               context,
@@ -302,7 +295,7 @@ class _LoginScreenState extends State<LoginScreen> {
 
   ///forget button
   Future<void> _forgetButtonTap() async {
-    if(_emailController.text.isEmpty){
+    if (_emailController.text.isEmpty) {
       Get.snackbar("Error", "Please Enter Your Email");
       return;
     }
@@ -311,12 +304,9 @@ class _LoginScreenState extends State<LoginScreen> {
       _emailController.text,
     );
 
-
-if (isSuccess && _emailController.text.isNotEmpty) {
+    if (isSuccess && _emailController.text.isNotEmpty) {
       Get.to(() => VerifyIdentityScreen(email: _emailController.text));
     }
-
-
   }
 
   @override
@@ -325,19 +315,6 @@ if (isSuccess && _emailController.text.isNotEmpty) {
     _passwordController.dispose();
     super.dispose();
   }
-
-
-
-
-
-
-
-
-
-
-
-
-
 
   Future<bool> _showAgeConfirmationDialog() async {
     bool is18Plus = false;
@@ -348,31 +325,28 @@ if (isSuccess && _emailController.text.isNotEmpty) {
       builder: (context) {
         return AlertDialog(
           backgroundColor: AppColors.white,
-          title:  Text("Age Confirmation",
-            style:GoogleFonts.poppins(
-                color: AppColors.black
+          title: Text(
+            "Age Confirmation",
+            style: GoogleFonts.poppins(color: AppColors.black),
+          ),
+          content: Text(
+            "Are you 18 years or older?",
 
-            ) ,),
-          content:  Text("Are you 18 years or older?",
-
-            style:GoogleFonts.poppins(
-                color: AppColors.black
-
-            ) ,
+            style: GoogleFonts.poppins(color: AppColors.black),
           ),
           actions: [
             TextButton(
               onPressed: () {
                 Navigator.pop(context);
               },
-              child:  Text("No",
+              child: Text(
+                "No",
 
-                style:GoogleFonts.poppins(
-                    color: AppColors.primary,
-                    fontSize: ResponsiveHelper.fontSize(14),
-                    fontWeight: FontWeight.w600
-
-                ) ,
+                style: GoogleFonts.poppins(
+                  color: AppColors.primary,
+                  fontSize: ResponsiveHelper.fontSize(14),
+                  fontWeight: FontWeight.w600,
+                ),
               ),
             ),
             ElevatedButton(
@@ -380,15 +354,14 @@ if (isSuccess && _emailController.text.isNotEmpty) {
                 is18Plus = true;
                 Navigator.pop(context);
               },
-              child:  Text("Yes",
+              child: Text(
+                "Yes",
 
-
-                style:GoogleFonts.poppins(
-                    color: AppColors.primary,
-                    fontSize: ResponsiveHelper.fontSize(14),
-                    fontWeight: FontWeight.w600
-
-                ) ,
+                style: GoogleFonts.poppins(
+                  color: AppColors.primary,
+                  fontSize: ResponsiveHelper.fontSize(14),
+                  fontWeight: FontWeight.w600,
+                ),
               ),
             ),
           ],
@@ -398,6 +371,4 @@ if (isSuccess && _emailController.text.isNotEmpty) {
 
     return is18Plus;
   }
-
 }
-

@@ -1,7 +1,5 @@
 // ignore_for_file: use_build_context_synchronously
 
-import 'package:crave_crusher/helper/responsive_helper/responsive_helper.dart';
-import 'package:crave_crusher/utils/app_colors/app_colors.dart';
 import 'package:crave_crusher/view/components/custom_button/custom_button.dart';
 import 'package:crave_crusher/view/components/custom_loader/custom_loader.dart';
 import 'package:crave_crusher/view/components/custom_text/custom_text.dart';
@@ -15,7 +13,6 @@ import 'package:crave_crusher/view/features/auth/screen/widgets/action_promote_w
 import 'package:crave_crusher/view/features/auth/screen/widgets/or_divider_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:google_fonts/google_fonts.dart';
 
 class SignUpScreen extends StatefulWidget {
   const SignUpScreen({super.key});
@@ -262,10 +259,6 @@ class _SignUpScreenState extends State<SignUpScreen> {
         return;
       }
 
-
-
-
-
       // 🔹 Create user model
       SignUpModel userModel = SignUpModel(
         fullName: _fullNameController.text.trim(),
@@ -299,10 +292,4 @@ class _SignUpScreenState extends State<SignUpScreen> {
     _confirmedPasswordController.dispose();
     super.dispose();
   }
-
-
-
-
 }
-
-
