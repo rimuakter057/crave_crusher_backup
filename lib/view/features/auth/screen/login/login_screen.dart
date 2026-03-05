@@ -246,6 +246,13 @@ class _LoginScreenState extends State<LoginScreen> {
                         ),
 
                         if (isTablet) const SizedBox(height: 40),
+                        //  SizedBox(height: 20),
+                        // WaxiPrimaryButton(
+                        //   title: "Sign Up",
+                        //   onTap: () {s
+                        //     print("Clicked");
+                        //   },
+                        // ),
                       ],
                     ),
                   ),
@@ -370,5 +377,105 @@ class _LoginScreenState extends State<LoginScreen> {
     );
 
     return is18Plus;
+  }
+}
+
+class WaxiPrimaryButton extends StatelessWidget {
+  final String title;
+  final VoidCallback onTap;
+
+  const WaxiPrimaryButton({
+    super.key,
+    required this.title,
+    required this.onTap,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Stack(
+      alignment: Alignment.center,
+      children: [
+        /// 🌟 Bottom Halo Glow
+        Positioned(
+          bottom: -12,
+          child: Container(
+            width: 220,
+            height: 50,
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(50),
+              boxShadow: [
+                BoxShadow(
+                  color: const Color(0xFFB87A4B).withOpacity(0.6),
+                  blurRadius: 40,
+                  spreadRadius: 8,
+                ),
+              ],
+            ),
+          ),
+        ),
+
+        /// 🔥 Main Button
+        GestureDetector(
+          onTap: onTap,
+          child: Container(
+            height: 58,
+            width: double.infinity,
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(32),
+
+              /// 🎨 Gradient Base
+              gradient: const LinearGradient(
+                colors: [Color(0xFFB87A4B), Color(0xFF8A5A35)],
+                begin: Alignment.topLeft,
+                end: Alignment.bottomRight,
+              ),
+
+              /// 🌟 Outer Glow
+              boxShadow: [
+                BoxShadow(
+                  color: const Color(0xFFB87A4B).withOpacity(0.7),
+                  blurRadius: 25,
+                  offset: const Offset(0, 10),
+                ),
+              ],
+            ),
+            child: Stack(
+              alignment: Alignment.center,
+              children: [
+                /// ✨ Top Inner Shine
+                Positioned.fill(
+                  child: ClipRRect(
+                    borderRadius: BorderRadius.circular(32),
+                    child: Container(
+                      decoration: BoxDecoration(
+                        gradient: LinearGradient(
+                          colors: [
+                            Colors.white.withOpacity(0.35),
+                            Colors.transparent,
+                          ],
+                          begin: Alignment.topCenter,
+                          end: Alignment.center,
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
+
+                /// 📝 Text
+                Text(
+                  title,
+                  style: const TextStyle(
+                    color: Colors.white,
+                    fontSize: 18,
+                    fontWeight: FontWeight.w600,
+                    letterSpacing: 0.5,
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ),
+      ],
+    );
   }
 }
