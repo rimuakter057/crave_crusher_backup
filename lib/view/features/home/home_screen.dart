@@ -77,16 +77,7 @@ class _HomeScreenState extends State<HomeScreen> {
             children: [
               /// today tips===============================================================================================
               _buildTitle(AppIcons.i, "Tip for Today"),
-              // SizedBox(height: 40,),
-              // TextButton(onPressed: (){
-              //   Navigator.push(
-              //     context,
-              //     MaterialPageRoute(
-              //       builder: (context) => const TestingScreen(),
-              //     ),
-              //   );
-              // }, child: Text("lottie animation check")),
-              // SizedBox(height: 40,),
+
               Obx(() {
                 if (homeController.isLoadingTip.value) {
                   return Center(
