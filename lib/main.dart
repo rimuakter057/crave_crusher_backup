@@ -15,6 +15,7 @@ import 'package:get/get_core/src/get_main.dart' as getx;
 
 import 'package:firebase_core/firebase_core.dart';
 import 'firebase_options.dart';
+import 'helper/global_snackbar/global_snackbar.dart';
 
 // ...
 
@@ -53,6 +54,7 @@ class CraveCrusher extends StatelessWidget {
           defaultTransition: Transition.fadeIn,
           transitionDuration: const Duration(milliseconds: 200),
           navigatorKey: Get.key,
+          scaffoldMessengerKey: rootScaffoldMessengerKey,
           initialRoute: AppRoutes.splashScreen,
           getPages: AppRoutes.routes,
           useInheritedMediaQuery: true,
