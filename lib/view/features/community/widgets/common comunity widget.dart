@@ -226,7 +226,7 @@ class _CommonCommunityWidgetState extends State<CommonCommunityWidget> {
             width: ResponsiveHelper.width(130),
           ),
         ),
-        Gap(8.w),
+        Gap(ResponsiveHelper.width(8)),
         Column(
           children: [
             CustomNetworkImage(

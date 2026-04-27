@@ -158,9 +158,9 @@ class _UpdatePostScreenState extends State<UpdatePostScreen> {
                 );
               }),
 
-              Gap(16.h),
+              Gap(ResponsiveHelper.height(28)),
 
-              /// post button
+              /// update button
               Obx(() {
                 return InkWell(
                   onTap: () async {
@@ -180,8 +180,8 @@ class _UpdatePostScreenState extends State<UpdatePostScreen> {
                           : CustomContainer(
                             backgroundColor: AppColors.primary,
                             padding: ResponsiveHelper.width(4),
-                            height: ResponsiveHelper.height(45),
-                            width: ResponsiveHelper.width(140),
+                            height: ResponsiveHelper.height(56),
+                           // width: ResponsiveHelper.width(140),
                             child: Center(
                               child: CustomText(
                                 text: "Update Post",

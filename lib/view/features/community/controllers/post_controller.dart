@@ -241,15 +241,23 @@ class PostController extends GetxController {
     isLoadingUpdate(false);
 
     if (response.statusCode == 200 || response.statusCode == 201) {
-      showCustomSnackBar("Post updated successfully", isError: false);
+
+      if (Get.context != null && Get.context!.mounted) {
+        showCustomSnackBar("Post updated successfully", isError: false);
+      }
+
       fetchMyPost();
-      // ✅ navigate AFTER snackbar frame completes
+
       WidgetsBinding.instance.addPostFrameCallback((_) {
         Get.to(() => CommunityAllFeedScreen(initialTabIndex: 0));
       });
+
     } else {
       ApiChecker.checkApi(response);
     }
+
+
+
   }
 
   RxList<PostModel> singleUserProfileList = <PostModel>[].obs;

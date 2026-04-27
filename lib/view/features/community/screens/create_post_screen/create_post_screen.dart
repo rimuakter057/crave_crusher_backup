@@ -167,53 +167,57 @@ class CreatePostScreen extends StatelessWidget {
                 ),
                 gap,
 
+                SizedBox(height: ResponsiveHelper.height(18),),
+
                 /// post Button section
-                GestureDetector(
-                  onTap:
-                      controller.isLoadingCreate.value
-                          ? null
-                          : () async {
-                            var dateTime = DateConverter.dateYearTimeUtc(
-                              DateTime.now().toString(),
-                            );
-
-                            debugPrint(
-                              "dateTime========================= >> $dateTime",
-                            );
-
-                            if (controller.postText.value.trim().isEmpty) {
-                              Get.snackbar(
-                                "Error",
-                                "Post content cannot be empty",
+                Center(
+                  child: GestureDetector(
+                    onTap:
+                        controller.isLoadingCreate.value
+                            ? null
+                            : () async {
+                              var dateTime = DateConverter.dateYearTimeUtc(
+                                DateTime.now().toString(),
                               );
-                              return;
-                            }
 
-                            await controller.createPost();
+                              debugPrint(
+                                "dateTime========================= >> $dateTime",
+                              );
 
-                            Get.off(
-                              () => CommunityAllFeedScreen(initialTabIndex: 0),
-                            );
+                              if (controller.postText.value.trim().isEmpty) {
+                                Get.snackbar(
+                                  "Error",
+                                  "Post content cannot be empty",
+                                );
+                                return;
+                              }
 
-                            textController.clear();
-                            controller.postText.value = '';
-                            controller.imagePaths.clear(); // <-- FIXED
-                          },
-                  child:
-                      controller.isLoadingCreate.value
-                          ? CustomLoader()
-                          : CustomContainer(
-                            backgroundColor: AppColors.primary,
-                            padding: ResponsiveHelper.width(4),
-                            height: ResponsiveHelper.height(36),
-                            width: ResponsiveHelper.width(100),
-                            child: Center(
-                              child: CustomText(
-                                text: "Post Now",
-                                color: AppColors.white,
+                              await controller.createPost();
+
+                              Get.off(
+                                () => CommunityAllFeedScreen(initialTabIndex: 0),
+                              );
+
+                              textController.clear();
+                              controller.postText.value = '';
+                              controller.imagePaths.clear(); // <-- FIXED
+                            },
+                    child:
+                        controller.isLoadingCreate.value
+                            ? CustomLoader()
+                            : CustomContainer(
+                              backgroundColor: AppColors.primary,
+                              padding: ResponsiveHelper.width(4),
+                               height: ResponsiveHelper.height(56),
+                              // width: ResponsiveHelper.width(100),
+                              child: Center(
+                                child: CustomText(
+                                  text: "Post Now",
+                                  color: AppColors.white,
+                                ),
                               ),
                             ),
-                          ),
+                  ),
                 ),
               ],
             ),
