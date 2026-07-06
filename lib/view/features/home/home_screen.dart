@@ -75,6 +75,9 @@ class _HomeScreenState extends State<HomeScreen> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
+              
+              
+
               /// today tips===============================================================================================
               _buildTitle(AppIcons.i, "Tip for Today"),
 

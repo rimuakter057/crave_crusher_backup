@@ -92,6 +92,8 @@ class _CommunityAllFeedScreenState extends State<CommunityAllFeedScreen> {
               final currentTab = communityController.communityTabIndex.value;
 
               return Column(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   SizedBox(height: ResponsiveHelper.height(16)),
                   CommunityTabSelector(),
@@ -201,9 +203,10 @@ class _CommunityAllFeedScreenState extends State<CommunityAllFeedScreen> {
                     if (postController.isLoadingPost.value)
                       const PostShimmerLoader()
                     else if (postController.getMyPostList.isEmpty)
-                      Center(
-                        child: EmptyWidget(title: "No post available yet."),
-                      )
+                      SizedBox(
+
+                          height: MediaQuery.of(context).size.height * 0.5,
+                          child: EmptyWidget(title: "No post available yet."))
                     else
                       ListView.builder(
                         physics: const BouncingScrollPhysics(),

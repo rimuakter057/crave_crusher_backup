@@ -75,25 +75,26 @@ class ProfileAvatarWidget extends StatelessWidget {
             Positioned(
               bottom: 0,
               right: 0,
-              child: SizedBox(
-                height: ResponsiveHelper.height(24),
-                width: ResponsiveHelper.width(24),
-                child: IconButton(
-                  padding: EdgeInsets.zero,
-                  constraints: BoxConstraints(),
-                  onPressed: onEdit,
-                  style: IconButton.styleFrom(
-                    shape: CircleBorder(),
-                    backgroundColor: AppColors.primary,
+              child: GestureDetector(
+                onTap: onEdit,
+                child: Container(
+                  height: 28,
+                  width: 28,
+                  decoration: const BoxDecoration(
+                    color: AppColors.primary,
+
+                    shape: BoxShape.circle,
                   ),
-                  icon: Icon(
-                    Icons.camera_alt_outlined,
-                    color: AppColors.white,
-                    size: ResponsiveHelper.iconSize(15),
+                  child: const Center(
+                    child: Icon(
+                      Icons.camera_alt_rounded,
+                      color: Colors.white,
+                      size: 16,
+                    ),
                   ),
                 ),
               ),
-            ),
+            )
         ],
       ),
     );

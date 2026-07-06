@@ -171,7 +171,11 @@ class _StartNewBattleScreenState extends State<CreateBattleScreen> {
                         },
                 child:
                     controller.isLoading.value
-                        ? CustomLoader()
+                        ? SizedBox(
+                      height: ResponsiveHelper.height(40),
+                      width: ResponsiveHelper.width(140),
+                      child: Center(child: CustomLoader()),
+                    )
                         : Container(
                           height: ResponsiveHelper.height(40),
                           width: ResponsiveHelper.width(140),
