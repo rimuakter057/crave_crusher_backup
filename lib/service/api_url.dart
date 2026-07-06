@@ -17,8 +17,8 @@ class ApiUrl {
 
   ///community section============================================================
   static const String createPost = "/community-post/create-post";
-  static const String getSinglePost =
-      "/community-post/post/6925890de1d7dae96182e1df";
+  // static const String getSinglePost =
+  //     "/community-post/post/6925890de1d7dae96182e1df";
   static const String getAllPost = "/community-post/posts";
   static const String getMyPost = "/community-post/my-posts";
   static String updatePost(String postId) {
