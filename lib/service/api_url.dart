@@ -25,8 +25,8 @@ class ApiUrl {
     return "/community-post/update-post/$postId";
   }
 
-  static const String deletePost =
-      "/community-post/post/6925890de1d7dae96182e1df";
+  // static const String deletePost =
+  //     "/community-post/post/6925890de1d7dae96182e1df";
   static String addVote(String postId) {
     return "/community-vote/vote/$postId";
   }
@@ -39,10 +39,10 @@ class ApiUrl {
     return "/community-comment/comment/$userId";
   }
 
-  static const String editComment =
-      "/community-comment/comment/6925b7bca0423a01b0dcf43b";
-  static const String deleteComment =
-      "/community-comment/comment/6925b7bca0423a01b0dcf43b";
+  // static const String editComment =
+  //     "/community-comment/comment/6925b7bca0423a01b0dcf43b";
+  // static const String deleteComment =
+  //     "/community-comment/comment/6925b7bca0423a01b0dcf43b";
   static String getAllComment(String postId) {
     return "/community-comment/comment/$postId";
   }
