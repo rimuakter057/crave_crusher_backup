@@ -97,28 +97,50 @@ class _CommunityProfileScreenState extends State<CommunityProfileScreen> {
           child: Column(
             children: [
               ///profile image
-              Obx(() {
-                //  final profile = profileController.myProfile.value;
+              // Obx(() {
+              //     final profile = profileController.myProfile.value;
+              //
+              //   return Column(
+              //     crossAxisAlignment: CrossAxisAlignment.center,
+              //     children: [
+              //       ProfileAvatarWidget(
+              //         imagePath: ImageHandler.imagesHandle(
+              //           widget.profileImage,
+              //           isProfile: true,
+              //         ),
+              //       ),
+              //
+              //       Gap(ResponsiveHelper.height(16)),
+              //       CustomText(
+              //         text: widget.profileName,
+              //         fontWeight: FontWeight.w600,
+              //         fontSize: ResponsiveHelper.fontSize(18),
+              //       ),
+              //     ],
+              //   );
+              // }),
 
-                return Column(
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    ProfileAvatarWidget(
-                      imagePath: ImageHandler.imagesHandle(
-                        widget.profileImage,
-                        isProfile: true,
-                      ),
-                    ),
 
-                    Gap(ResponsiveHelper.height(16)),
-                    CustomText(
-                      text: widget.profileName,
-                      fontWeight: FontWeight.w600,
-                      fontSize: ResponsiveHelper.fontSize(18),
+              ///profile image
+              ///profile image
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  ProfileAvatarWidget(
+                    imagePath: ImageHandler.imagesHandle(
+                      widget.profileImage,
+                      isProfile: true,
                     ),
-                  ],
-                );
-              }),
+                  ),
+
+                  Gap(ResponsiveHelper.height(16)),
+                  CustomText(
+                    text: widget.profileName,
+                    fontWeight: FontWeight.w600,
+                    fontSize: ResponsiveHelper.fontSize(18),
+                  ),
+                ],
+              ),
 
               Gap(24.h),
 
